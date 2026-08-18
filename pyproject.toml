@@ -21,4 +21,6 @@ dependencies = [
     "requests>=2.32.5",
     "seaborn>=0.13.2",
     "feature_engine>=1.6.0",
+    "fastapi>=0.141.1",
+    "uvicorn>=0.18.0",
 ]
