@@ -1,0 +1,5502 @@
+WEBVTT
+
+1
+00:05:18.250 --> 00:05:21.950
+PAUL: Yes, guys, hello everyone, am I audible? Please let me know in the chat.
+
+2
+00:05:27.010 --> 00:05:30.719
+PAUL: I think the chats are opened and others can type. Yes.
+
+3
+00:05:33.290 --> 00:05:35.000
+PAUL: Alright…
+
+4
+00:05:38.630 --> 00:05:40.150
+PAUL: It's time for me.
+
+5
+00:05:43.570 --> 00:05:45.010
+PAUL: I'm good, I'm good.
+
+6
+00:05:45.640 --> 00:05:54.149
+PAUL: All right, so I felt that a few people from 3.0 probably have joined as well, so guys don't get confused, your batch will start tomorrow.
+
+7
+00:05:54.310 --> 00:06:03.259
+PAUL: Okay, I think the introduction and the orientation session for Kumar Pro. Let me just, show you in the workshop section quickly.
+
+8
+00:06:04.500 --> 00:06:13.919
+PAUL: Paper, unnamed model from the… Okay, okay, Jaikarikum page.
+
+9
+00:06:14.400 --> 00:06:22.400
+PAUL: People who are in 3.0, simply for them, it's not for 2.0. Okay, 2.0, today we will start with optimizers and Deeplining.
+
+10
+00:06:23.840 --> 00:06:28.429
+PAUL: Last class, no, there was no class on Wednesday, okay? So don't get confused.
+
+11
+00:06:30.980 --> 00:06:31.920
+PAUL: Perfect.
+
+12
+00:06:39.750 --> 00:06:53.720
+PAUL: Alright, so, as you see, okay, so once you check the workshop section, so this is 2.0, and this will be your 3.0. So tomorrow, because the timing from 3.0 is different, it's 8 PM,
+
+13
+00:06:54.110 --> 00:07:06.059
+PAUL: Till 11. The orientation session generally goes for 4-5 hours. Taking it out, that's why it's 1. But, this is the main one. So, people who are coming
+
+14
+00:07:06.100 --> 00:07:16.409
+PAUL: from 3.0, you have the access to 2.0, okay? So, simply for them, just a reminder. So don't get confused, this is 2.0, not 3.0 again.
+
+15
+00:07:17.730 --> 00:07:24.789
+PAUL: Already, how many months have completed, guys, in 2.0? I think it started from January, so close to January, or which month?
+
+16
+00:07:25.440 --> 00:07:28.889
+PAUL: 9 months. 9 months already completed.
+
+17
+00:07:29.990 --> 00:07:32.800
+PAUL: Okay, 11 January started, okay.
+
+18
+00:07:33.170 --> 00:07:36.689
+PAUL: This is… 8s, 9 months is ongoing.
+
+19
+00:07:37.160 --> 00:07:42.010
+PAUL: All right, so I hope for three daughters, guys, Joseph and others, this part is the year.
+
+20
+00:07:44.380 --> 00:07:48.180
+PAUL: Alright, now I will stop sharing, and let's get back to our notes.
+
+21
+00:07:51.790 --> 00:07:56.579
+PAUL: JEET is asking, can we access 2.0 lectures if you have enrolled in 3.0?
+
+22
+00:07:56.720 --> 00:08:12.529
+PAUL: Yes, I think the complementary access is given, because the course is long, and the idea is that if a few students do it parallel, they look into the older lectures, as well as they look into the current ones, because initially you know the speed.
+
+23
+00:08:14.040 --> 00:08:20.580
+PAUL: Because Python and other things, many of them already knew Python, so in that case directly, they can start with stats, or…
+
+24
+00:08:20.690 --> 00:08:22.929
+PAUL: The machine learning model.
+
+25
+00:08:23.250 --> 00:08:24.490
+PAUL: That's sadly.
+
+26
+00:08:25.130 --> 00:08:28.189
+PAUL: Alright, so let's start.
+
+27
+00:08:28.680 --> 00:08:31.059
+PAUL: Let me start sharing my screen.
+
+28
+00:08:31.380 --> 00:08:32.460
+PAUL: Evenly…
+
+29
+00:08:42.820 --> 00:08:44.690
+PAUL: Don't believe that.
+
+30
+00:08:54.500 --> 00:08:57.040
+PAUL: Sometimes it takes a lot of time.
+
+31
+00:09:02.720 --> 00:09:09.710
+PAUL: Just wait. One minor issue with iPad, but I'll be able to just have it checked, or the renewable.
+
+32
+00:09:10.000 --> 00:09:13.029
+PAUL: Alright, so I hope it is visible. Please let me know.
+
+33
+00:09:18.720 --> 00:09:22.849
+PAUL: As you please let me know the notes are visible for everyone. Alright.
+
+34
+00:09:50.510 --> 00:09:52.879
+PAUL: Today, we will start with optimizers.
+
+35
+00:09:53.070 --> 00:09:58.930
+PAUL: Okay, and I think you guys already know one of the most common optimizer
+
+36
+00:10:00.120 --> 00:10:06.660
+PAUL: Which one is that? Please let me know in the chat. A common one that you have learned even in
+
+37
+00:10:07.170 --> 00:10:24.989
+PAUL: Yes, so how many of you know about gradient descent? I think everybody knows, and previously also, a few of the topics for initial understanding, the iterative algorithm of gradient descent is required, the four fundamental. Then only you know that the weights
+
+38
+00:10:25.070 --> 00:10:27.389
+PAUL: And YSLs are being updated.
+
+39
+00:10:27.860 --> 00:10:31.800
+PAUL: Now, what is the main goal of any type of optimizer, if I say?
+
+40
+00:10:33.530 --> 00:10:36.899
+PAUL: What is the main goal? Please… Let me know.
+
+41
+00:10:40.720 --> 00:10:43.040
+PAUL: Always to minimize.
+
+42
+00:10:46.080 --> 00:10:47.380
+PAUL: Talos.
+
+43
+00:10:50.020 --> 00:11:04.019
+PAUL: All right, this is… this will be your main idea. Okay, so loss, I can write, or going forward, we'll be using the term cost function a lot, so that's why I'm mentioning this. Generally, loss is…
+
+44
+00:11:04.190 --> 00:11:13.419
+PAUL: state with respect to one sample, when you are actually working for a complete data set, it's called as cost function. That's the only difference, other than that, it's exactly the same.
+
+45
+00:11:14.880 --> 00:11:15.860
+PAUL: No?
+
+46
+00:11:16.880 --> 00:11:20.840
+PAUL: Based on our, weight update formula.
+
+47
+00:11:47.380 --> 00:11:50.699
+PAUL: Okay… well, the right team.
+
+48
+00:11:52.550 --> 00:11:58.209
+PAUL: Alright, this was our weight update formula. Similarly, you have your bias update formula also, yes or no, guys?
+
+49
+00:12:02.440 --> 00:12:03.360
+PAUL: Yes?
+
+50
+00:12:03.530 --> 00:12:09.810
+PAUL: So, this part should be clear for everyone. Already, we have done the core discussions through this.
+
+51
+00:12:11.120 --> 00:12:19.909
+PAUL: Now, coming to gradient descent, because here, we'll be only changing the types of gradient descent, and the idea is optimize it.
+
+52
+00:12:20.060 --> 00:12:33.019
+PAUL: Okay, because initially, the gradient descent, or the vanilla version, when I say… okay, so initially it refers with respect to the batch version, so let's start with the types.
+
+53
+00:12:46.620 --> 00:12:51.790
+PAUL: The first one that we'll be discussing will be your, hatch gradient descent.
+
+54
+00:12:52.130 --> 00:12:59.860
+PAUL: Okay, because, I feel that this is one of the best ones where you pass your entire dataset in one shot.
+
+55
+00:13:00.810 --> 00:13:04.410
+PAUL: After that, we'll be talking about the stochastic version of that.
+
+56
+00:13:22.850 --> 00:13:23.870
+PAUL: Have a great time.
+
+57
+00:13:27.610 --> 00:13:33.170
+PAUL: And the third one will be the major one, which is actually being used in every, like.
+
+58
+00:13:33.430 --> 00:13:35.100
+PAUL: the mini batch.
+
+59
+00:13:51.960 --> 00:13:52.720
+PAUL: Tony.
+
+60
+00:13:53.700 --> 00:14:05.919
+PAUL: Now, these three will be the major core of discussions, and then we'll be looking into the other optimizers also. So, whenever we are discussing, so let me just take a sample function for now.
+
+61
+00:14:21.020 --> 00:14:23.389
+PAUL: Right now, I have taken two minimas.
+
+62
+00:14:24.180 --> 00:14:24.940
+PAUL: Okay.
+
+63
+00:14:25.110 --> 00:14:29.669
+PAUL: And… let's take the idea that from here.
+
+64
+00:14:29.770 --> 00:14:32.560
+PAUL: This particular route will start place.
+
+65
+00:14:39.840 --> 00:14:45.639
+PAUL: Okay, now this is a rough journey that I'm drawing. Now, tell me, what is the difference between two minimas?
+
+66
+00:14:46.430 --> 00:14:49.120
+PAUL: The left-side one is what minimum?
+
+67
+00:14:49.370 --> 00:14:50.819
+PAUL: That we'll be referring?
+
+68
+00:14:50.980 --> 00:14:58.530
+PAUL: the local version, Okay, because locally you can have, and this will be your global…
+
+69
+00:15:00.700 --> 00:15:02.710
+PAUL: Now, most of the times.
+
+70
+00:15:03.820 --> 00:15:10.669
+PAUL: more than 99% of the time, if you have a function something like this. Okay, so what will happen?
+
+71
+00:15:10.670 --> 00:15:24.209
+PAUL: your loss will always get stuck into the local minima. From there, moving towards the global minima, it totally depends upon, like, how much, the scenario. If the scenario becomes, like, just like it clicks, if you think about.
+
+72
+00:15:24.400 --> 00:15:32.849
+PAUL: at something like this, and then you have this. Then, do you think that it is possible to reach your global minimum? Even, probably.
+
+73
+00:15:33.090 --> 00:15:35.300
+PAUL: At this particular point you have.
+
+74
+00:15:35.420 --> 00:15:39.860
+PAUL: If you start from here, so for sure, you will get stuck. It is not possible.
+
+75
+00:15:41.100 --> 00:15:42.240
+PAUL: No?
+
+76
+00:15:42.510 --> 00:15:45.600
+PAUL: If you change the position from here to here.
+
+77
+00:15:47.530 --> 00:15:56.710
+PAUL: it's completely a flat service. Do you think that there will be any type of changes, yes or no? Just let me know your thoughts on this, because right now, I'm just…
+
+78
+00:15:56.720 --> 00:16:13.160
+PAUL: picking up a starting point, and the idea is reach towards your local minima, let's take that particular example, rather than the global version. So right here, if you have something straight, do you think that it will try to take steps? What is the first step in gradient descent?
+
+79
+00:16:13.390 --> 00:16:22.550
+PAUL: think from a perspective with respect to our health, and then the idea is to reach the lowest point. So you take step by step.
+
+80
+00:16:22.680 --> 00:16:25.089
+PAUL: Now, if you have something of flat region.
+
+81
+00:16:25.480 --> 00:16:28.609
+PAUL: In that case, can I say that it will get stuck, yes or no?
+
+82
+00:16:30.640 --> 00:16:38.410
+PAUL: If it's at least a little bit of curve is there, then it's actually possible to proceed.
+
+83
+00:16:38.940 --> 00:16:50.360
+PAUL: Okay. Otherwise, I know that, yes, my loss function will get stuck at a certain point, and then probably there are certain type of changes that we need to introduce, which we'll be going to discuss in today's session.
+
+84
+00:16:50.810 --> 00:17:07.650
+PAUL: The idea is, let's reach towards the minimum. Okay, or simply, that's why I told the mean goal that you have is minimizing the loss. Okay, and if you're stuck at these type of problems, then there are certain things in every framework called as callbacks that later on we'll be discussing.
+
+85
+00:17:08.460 --> 00:17:14.670
+PAUL: Yes, it… are you saying that it will stuck? Yes, it will stuck. If it's completely flat, do you think…
+
+86
+00:17:14.839 --> 00:17:16.530
+PAUL: It will move anywhere.
+
+87
+00:17:20.780 --> 00:17:22.130
+PAUL: Yes or no?
+
+88
+00:17:22.420 --> 00:17:31.079
+PAUL: Simply, no, but we have to make some changes. The idea is reach towards your global minimum. So that's why these two conditions that I have taken for now.
+
+89
+00:17:34.460 --> 00:17:36.359
+PAUL: Yes, loop will be zero.
+
+90
+00:17:36.710 --> 00:17:38.840
+PAUL: If the surface is totally flat.
+
+91
+00:17:40.070 --> 00:17:49.539
+PAUL: All right. Now, based on this particular condition, so the idea will be always Let's take the rough version.
+
+92
+00:17:54.690 --> 00:17:57.109
+PAUL: Make a little bit of cohail.
+
+93
+00:18:03.180 --> 00:18:14.279
+PAUL: Initially, what will be the idea? Let's take something a bigger step, then with respect to time, make it small. Yes or no? Already I have told. And this, we control it.
+
+94
+00:18:14.700 --> 00:18:20.020
+PAUL: Why are you using the… Which parameter in the weight update formula?
+
+95
+00:18:20.990 --> 00:18:22.910
+PAUL: Please tell me the parameter.
+
+96
+00:18:24.420 --> 00:18:27.789
+PAUL: Already so many times, it is your LR.
+
+97
+00:18:28.710 --> 00:18:31.160
+PAUL: Or simply, the learning unit.
+
+98
+00:18:32.490 --> 00:18:36.709
+PAUL: Because already, most of you know the fundamentals, because
+
+99
+00:18:37.050 --> 00:18:41.509
+PAUL: And, back propagation also. We were using this.
+
+100
+00:18:43.190 --> 00:18:55.950
+PAUL: All right, now let's start with the first version. Now, let's try to understand a few common terminologies. I feel that these are very, very important, and going forward, you will be always remembering that.
+
+101
+00:18:55.990 --> 00:19:05.389
+PAUL: So, first of all, when I say the idea with respect to EPOC, the major terms that we always use are basically the data representation.
+
+102
+00:19:13.840 --> 00:19:14.550
+PAUL: -Oh.
+
+103
+00:19:24.480 --> 00:19:27.160
+PAUL: When I say epoch, what is the meaning of epoch?
+
+104
+00:19:32.650 --> 00:19:42.130
+PAUL: When I say epoch, guys, please let me know. Anybody in the chat already, I've discussed this so many times. That's why the idea is, let's radically look into it.
+
+105
+00:19:44.150 --> 00:19:47.549
+PAUL: So, simple terms, if I say, the idea is that
+
+106
+00:19:48.150 --> 00:19:53.710
+PAUL: The number of times the algorithm runs on the whole training dataset.
+
+107
+00:19:54.650 --> 00:20:14.340
+PAUL: Okay, the idea is that if you try to break the dataset into train, validation, and test, so generally in machine learning, you have learned that, and most of the times during training, we use two datasets, but if you don't use the validation dataset, that is the assumption right now. So based on that, I'm telling, okay? So, simply, the number of times
+
+108
+00:20:33.340 --> 00:20:36.270
+PAUL: If I say one epoch, what is the meaning?
+
+109
+00:20:37.820 --> 00:20:54.350
+PAUL: Only one time the network has seen the dataset. Okay, and right now the dataset, when I say, let's take the training data set. Otherwise, majorly we use both, because we need the validation also. So if I say 10 epochs, it means 10 times.
+
+110
+00:20:58.340 --> 00:21:00.150
+PAUL: 10 times the network S.
+
+111
+00:21:00.550 --> 00:21:05.339
+PAUL: Now, the question comes, what is the perfect number that you will be passing?
+
+112
+00:21:05.790 --> 00:21:10.519
+PAUL: Yes, this can be a very common question to everyone.
+
+113
+00:21:12.700 --> 00:21:14.880
+PAUL: Now, really, we don't.
+
+114
+00:21:15.380 --> 00:21:18.890
+PAUL: Okay, now, based on your experiment, you have to take the decision.
+
+115
+00:21:19.520 --> 00:21:24.739
+PAUL: So, whenever you are looking into the number of epochs, the idea is the loss.
+
+116
+00:21:25.150 --> 00:21:43.639
+PAUL: you always track the loss, and generally, as I have told here, the trail, similarly, we look into the value. Okay, so you will be tracking both the loss values. Initially, it will start with a higher number, but gradually, the idea is it will be reaching closer towards zero.
+
+117
+00:21:43.920 --> 00:21:45.970
+PAUL: I hope everybody remembers that.
+
+118
+00:21:46.610 --> 00:21:47.830
+PAUL: Yes or no?
+
+119
+00:21:49.120 --> 00:21:58.740
+PAUL: The idea is reach towards zero. Okay, so based on that, we always take that particular decision. So, this is completely a hyperparameter.
+
+120
+00:21:58.930 --> 00:22:03.250
+PAUL: That you need to decide it based on your own dataset.
+
+121
+00:22:03.700 --> 00:22:07.759
+PAUL: Whenever you are trying to perform any type of modeling-based operation.
+
+122
+00:22:08.710 --> 00:22:17.070
+PAUL: Okay, yes, now let's try to break it. That particular intuition is also greater moon that you have given. So, if you think about one epoch.
+
+123
+00:22:17.420 --> 00:22:25.710
+PAUL: So, simply, you can think… That one FP, which is your forward propagation, plus one complete backward propagation.
+
+124
+00:22:26.800 --> 00:22:30.279
+PAUL: So, that particular intuition is also exactly that.
+
+125
+00:22:33.530 --> 00:22:47.110
+PAUL: All right, so always remember with respect to the dataset version also, because there you don't use any type of test dataset, which you'll be using later on for evaluation, the test version. So generally, when you say the dataset.
+
+126
+00:22:47.220 --> 00:22:54.590
+PAUL: Two conditions can come. The first one is only the trail set, and the second condition is trail set plus the validation set.
+
+127
+00:22:58.700 --> 00:23:06.650
+PAUL: Now Dhiraj is asking, one impact means updating the weight and bias once. See, generally, That won't be…
+
+128
+00:23:06.820 --> 00:23:11.669
+PAUL: When you say weight and bytes once, because there will be multiple weights and bytes.
+
+129
+00:23:12.190 --> 00:23:15.610
+PAUL: Inside one epoch. So, it's not once.
+
+130
+00:23:15.810 --> 00:23:22.549
+PAUL: Okay, because as you will be having multiple weights and biases, so that particular term won't be the correct inclusion.
+
+131
+00:23:23.040 --> 00:23:28.889
+PAUL: What is a hyperparameter here? Hyperparameter means, simply, you have to decide.
+
+132
+00:23:30.720 --> 00:23:46.570
+PAUL: Okay, what is that? Initially, for sure, it cannot be 0 for sure, we know that. You will start with, like, 1, 2, 3, 4, and generally, at least always go till 10, and then look, then 20, 30, in that way you can keep on increasing. But the most
+
+133
+00:23:47.630 --> 00:23:53.159
+PAUL: Important thing is, please analyze the loss. Based on that, everything happens.
+
+134
+00:23:53.880 --> 00:24:05.949
+PAUL: All right. Now, I think this part is clear for everyone. What are epochs? And going forward every time in PyTorch or in Keras, everywhere. Okay, so that's why generally we call it the full cycle.
+
+135
+00:24:06.240 --> 00:24:10.989
+PAUL: Of the trendset or the validation set, and that will also be represent.
+
+136
+00:24:11.140 --> 00:24:19.150
+PAUL: So whenever I'm telling, one epoch, can I say that the model has seen all the training samples, yes or no?
+
+137
+00:24:21.700 --> 00:24:27.230
+PAUL: That is the other, intuition. So, simply always remember in this particular
+
+138
+00:24:27.950 --> 00:24:35.249
+PAUL: Now, similarly, if you have 100 epochs, how many times forward propagation and how many times your backward propagation will take place?
+
+139
+00:24:36.270 --> 00:24:44.559
+PAUL: Quickly tell me in the chat, 100 plus 100 for both of them. Okay, fine. Now let's move to the next part after the box.
+
+140
+00:24:51.720 --> 00:24:59.599
+PAUL: Then comes samples. I think this already you have learned in machine learning so many times. What will be your sample? A single row of a dataset.
+
+141
+00:24:59.720 --> 00:25:02.740
+PAUL: As simple as that, there is nothing complexity here.
+
+142
+00:25:05.490 --> 00:25:07.360
+PAUL: And why I have written this?
+
+143
+00:25:09.720 --> 00:25:15.540
+PAUL: Because everyone knows, always remember, We use the term, cost.
+
+144
+00:25:16.170 --> 00:25:17.450
+PAUL: function.
+
+145
+00:25:17.730 --> 00:25:19.250
+PAUL: org loss function.
+
+146
+00:25:29.220 --> 00:25:34.070
+PAUL: Cost function is always with respect to… The complete data set.
+
+147
+00:25:38.760 --> 00:25:44.020
+PAUL: And loss function is always with respect to… one sample.
+
+148
+00:25:47.820 --> 00:25:55.930
+PAUL: As simple as that. Because in MSE, if you take the summation and then simply use it on top, I think majorly.
+
+149
+00:25:56.960 --> 00:25:59.740
+PAUL: like, i is equal to 1 to N,
+
+150
+00:26:00.190 --> 00:26:03.119
+PAUL: I hope everybody remembered this particular idea.
+
+151
+00:26:03.880 --> 00:26:08.859
+PAUL: Somewhere, when you try to do it for every sample, then we call it the cost.
+
+152
+00:26:11.100 --> 00:26:23.799
+PAUL: All right. Now, after this, the most important one will be batches. Very, very important, because, going forward, as you will be working with batches of data, so if I say batch.
+
+153
+00:26:33.390 --> 00:26:36.959
+PAUL: Let's take on Bright Patches.
+
+154
+00:26:37.150 --> 00:26:39.729
+PAUL: Let's take baths.
+
+155
+00:26:54.020 --> 00:26:56.159
+PAUL: I have taken 3 values right now.
+
+156
+00:26:56.690 --> 00:27:01.800
+PAUL: Okay, one is your batch, so simply the number of samples, if I say.
+
+157
+00:27:02.260 --> 00:27:17.379
+PAUL: Okay, so batch or batch size, so I've taken both the parameters right now, because academically, in multiple papers, the representations sometimes can be different, but batch and batch size in PyTorch and Keras is exactly represent the same.
+
+158
+00:27:17.670 --> 00:27:19.869
+PAUL: Now, if I say my,
+
+159
+00:27:20.050 --> 00:27:27.020
+PAUL: data set is total 1,000 samples. Okay, so let me just remove this version right now.
+
+160
+00:27:27.910 --> 00:27:30.479
+PAUL: The idea is, don't confuse it.
+
+161
+00:27:31.900 --> 00:27:39.170
+PAUL: And right now, inside a batch is equal to the total… Number of samples.
+
+162
+00:27:41.570 --> 00:27:43.540
+PAUL: Okay, I've given, right?
+
+163
+00:27:47.490 --> 00:27:57.859
+PAUL: So, in total, how many times you need to process it? Please tell me. The total number of rows in the dataset is 1,000, and if I say you have batch
+
+164
+00:27:57.980 --> 00:28:04.009
+PAUL: of 10. It means, in a single time, you can only pass 10 samples.
+
+165
+00:28:04.140 --> 00:28:11.559
+PAUL: That is the maximum limit that I am giving you. 10. In total, how many times? So simply, just make it
+
+166
+00:28:21.260 --> 00:28:22.810
+PAUL: 200 times.
+
+167
+00:28:24.710 --> 00:28:29.450
+PAUL: When I say now, 100 times, now here I prefer the term batch much more.
+
+168
+00:28:29.670 --> 00:28:31.930
+PAUL: In total, how many batch you had?
+
+169
+00:28:34.790 --> 00:28:46.420
+PAUL: 100 batches that you need to process, and the batch size is 10, based on the total dataset size. Is this part clear? So that's why I thought about mentioning batch here. It's better to understand in that way.
+
+170
+00:28:47.520 --> 00:28:53.939
+PAUL: Okay, one batch is equal to one epoch, no, not necessary. Jannard, that is not necessary.
+
+171
+00:28:54.600 --> 00:29:00.829
+PAUL: See, guys, when I say that one epoch, again, let me just try to break it with respect to this one.
+
+172
+00:29:01.770 --> 00:29:09.739
+PAUL: Now, one epoch. So, in this, what will happen? The total number of batches will come. So, here I will say, one batch.
+
+173
+00:29:11.540 --> 00:29:13.050
+PAUL: Plus one batch.
+
+174
+00:29:15.050 --> 00:29:16.580
+PAUL: Plus one batch.
+
+175
+00:29:19.400 --> 00:29:21.539
+PAUL: Dot, dot dot dot, dot dot?
+
+176
+00:29:22.430 --> 00:29:26.259
+PAUL: the last, whatever that number is coming. Is this part clear?
+
+177
+00:29:26.890 --> 00:29:28.840
+PAUL: The last batch was just found.
+
+178
+00:29:33.080 --> 00:29:45.349
+PAUL: Alright, from here, you'll be getting that particular number. So, based on the total number of rows divided by batch size, you'll be getting the total batches which is actually being used. Is this part clear for everyone?
+
+179
+00:29:45.930 --> 00:29:50.540
+PAUL: So don't think that one batch is equal to one epoch, that's totally a wrong interpretation.
+
+180
+00:29:50.820 --> 00:29:53.360
+PAUL: The interpretation will be correct.
+
+181
+00:29:53.860 --> 00:29:59.669
+PAUL: Only when you say that, then the idea is inside your single batch, you have passed the entire dataset.
+
+182
+00:30:00.490 --> 00:30:05.660
+PAUL: then only the intuition will be correct. I hope you get it, because technically you are not wrong.
+
+183
+00:30:05.840 --> 00:30:06.800
+PAUL: But…
+
+184
+00:30:07.290 --> 00:30:13.089
+PAUL: The idea is, practically, when we'll be doing it, we don't pass it in one shot. I hope everybody gets that part.
+
+185
+00:30:14.280 --> 00:30:16.300
+PAUL: What is a lost batch?
+
+186
+00:30:16.620 --> 00:30:18.149
+PAUL: Lost the batch?
+
+187
+00:30:19.250 --> 00:30:20.949
+PAUL: What is the meaning of…
+
+188
+00:30:21.290 --> 00:30:27.050
+PAUL: Here I have written LAST last, last. Okay, don't get confused, it's last, not lost.
+
+189
+00:30:28.730 --> 00:30:30.000
+PAUL: Hold on.
+
+190
+00:30:30.720 --> 00:30:34.100
+PAUL: So, in this particular case, if I remove the…
+
+191
+00:30:35.400 --> 00:30:38.420
+PAUL: Okay, so this last simply means…
+
+192
+00:30:38.630 --> 00:30:42.999
+PAUL: It's the 100th one. Okay, based on this particular example.
+
+193
+00:30:45.440 --> 00:30:55.660
+PAUL: Now, batch is clear, batch size is clear, okay. And, generally, the core concept, this part is clear, already.
+
+194
+00:30:55.870 --> 00:30:57.900
+PAUL: Now, learning rate.
+
+195
+00:30:59.110 --> 00:31:03.069
+PAUL: Okay, now, I hope everybody understands the impact of learning rate.
+
+196
+00:31:09.030 --> 00:31:14.380
+PAUL: Learning rate has a lot of very, very detailed research.
+
+197
+00:31:16.730 --> 00:31:19.440
+PAUL: Now, general idea, till now, what a…
+
+198
+00:31:19.590 --> 00:31:24.409
+PAUL: We have taken. What are… what is the most common learning rate which is being used widely?
+
+199
+00:31:27.660 --> 00:31:35.629
+PAUL: Okay, always remember the most common one that we have seen in the initial, the LR values, so something like this.
+
+200
+00:31:36.060 --> 00:31:39.550
+PAUL: 0.001. And the idea is to
+
+201
+00:31:39.740 --> 00:31:44.379
+PAUL: on this. We will always start with a bigger one.
+
+202
+00:31:44.780 --> 00:31:52.709
+PAUL: But the idea is, slowly, slowly, we need to reduce that. So even, you need to maintain that in the optimizers.
+
+203
+00:31:52.940 --> 00:32:00.680
+PAUL: So, initially, few optimizes, we won't be taking care of that, we'll be keeping it as a constant, but later on, we'll be making it adaptive.
+
+204
+00:32:00.710 --> 00:32:18.770
+PAUL: The idea is, let's change something from static to dynamic. It means that with respect to time, it should change, because if we are reaching towards our local minima or the global minima, then we have to take smaller steps. Initially, the steps can be bigger, but with respect to time, as you are
+
+205
+00:32:19.140 --> 00:32:25.129
+PAUL: Reaching your convergence, it should be small, small, small, and then finally very small.
+
+206
+00:32:25.500 --> 00:32:33.600
+PAUL: So, general choices that I prefer much more. So, like, 01 is actually a very big value.
+
+207
+00:32:33.890 --> 00:32:34.790
+PAUL: Okay.
+
+208
+00:32:35.100 --> 00:32:36.470
+PAUL: Pahu…
+
+209
+00:32:44.200 --> 00:33:01.420
+PAUL: Okay, now these are the common ones that, generally, I do prefer. It totally depends, but in… this is also a hyperparameter. But, based on the initial learning rate definition, so as you will be selecting the optimizer in KRAS,
+
+210
+00:33:02.070 --> 00:33:11.099
+PAUL: in PyTOS, so automatically that will be taken care of. But manually, also, you can always use those values. Okay, so the idea is we'll be moving from static
+
+211
+00:33:11.860 --> 00:33:14.370
+PAUL: Two, making it dynamic.
+
+212
+00:33:16.490 --> 00:33:29.100
+PAUL: When I say static to dynamic, I hope everybody understands this particular value, that I'll be making it dynamic. Why dynamic? First big steps, then small, then very small, as you are reaching towards the ceiling.
+
+213
+00:33:30.970 --> 00:33:36.709
+PAUL: There is nothing called as lost batch, so Nitha, I meant last batch.
+
+214
+00:33:36.990 --> 00:33:41.780
+PAUL: Okay. In production, how can you find, we have stuck
+
+215
+00:33:42.090 --> 00:33:45.599
+PAUL: In the local minima, and not in the global minima.
+
+216
+00:33:46.600 --> 00:33:51.480
+PAUL: in production. So, simply, there won't be any update. It means that it becomes stale.
+
+217
+00:33:52.140 --> 00:34:02.659
+PAUL: the graph will be, so generally, whenever you are looking into, it will be something like this, a cloud one. But suddenly, you see that something like this, a straight line that comes.
+
+218
+00:34:02.840 --> 00:34:04.270
+PAUL: Okay, cool.
+
+219
+00:34:04.730 --> 00:34:08.170
+PAUL: From this particular condition, you will generally understand that.
+
+220
+00:34:08.449 --> 00:34:14.119
+PAUL: It means that… the updates are pretty much negligible. It becomes pretty much flat.
+
+221
+00:34:16.590 --> 00:34:32.679
+PAUL: Yes, in ML, you have pretty much static stuff, but in deep learning, most of the things will be dynamic, because we know that, and it's fundamentally, also, we can understand. During the convergence, as we are trying to reach towards our minimum, we have to take small steps.
+
+222
+00:34:34.159 --> 00:34:37.540
+PAUL: Alright, now let's move to the next part.
+
+223
+00:34:45.710 --> 00:34:56.449
+PAUL: Now, but this behavior, we will get… see, no, no, no, no, no. It's not like that. Always understand, guys, in most of the times, even you might have a global minima.
+
+224
+00:34:56.530 --> 00:35:14.889
+PAUL: In deep learning, simply, it means that you will be stuck toward any local minimum. This is a common thing. It's not something really lean. Always remember that it is not possible. When I say there are thousand curves like this, if you have one global minima, and if you have triple line local minima.
+
+225
+00:35:14.940 --> 00:35:20.030
+PAUL: Okay, in that particular function curve. It is not possible, you might get stuck, that is fine totally.
+
+226
+00:35:20.100 --> 00:35:26.730
+PAUL: The idea is, reach the minimum, at least. It can be global, it can be the local version also.
+
+227
+00:35:32.750 --> 00:35:39.249
+PAUL: So, generally, this is written as L or alpha value also, we call it, so in whichever way that you are doing.
+
+228
+00:35:39.400 --> 00:35:54.480
+PAUL: Cyclic learning rates are a bit different, because if you want much more detail, CLRs are there, DLRs are there, so generally, from here, DLR comes into the picture. These are much more than you have CLRs.
+
+229
+00:35:54.620 --> 00:35:58.090
+PAUL: cyclic… learning rates.
+
+230
+00:35:58.380 --> 00:36:04.380
+PAUL: But again, advanced topics. So, DLR will be discussing not CLR, so much today.
+
+231
+00:36:04.540 --> 00:36:14.900
+PAUL: Any projects, reading material for which classes? Just refer some type of books, like hands-on machine learning, which I could learn that one by August to go. That is a good book.
+
+232
+00:36:15.110 --> 00:36:26.320
+PAUL: All right, now let's move to the next part. Once learning rate is done, loss function, and then finally, the weights and biases. I think everybody knows about this, so I won't need to, tell you about that.
+
+233
+00:36:27.780 --> 00:36:41.929
+PAUL: Okay, now let's try to understand what are these three things that I have written, the types of gradient descent. One is the bashed version, okay, and then you have the statistic and the minivan. Three different versions that you want.
+
+234
+00:36:42.110 --> 00:36:44.790
+PAUL: So, let's try to understand step by step.
+
+235
+00:36:54.480 --> 00:37:06.860
+PAUL: Now, the idea is here, how we'll be passing the data set. That will be the bigger scope, always remember, in this work. So, let's start with the first one, the patch gradient…
+
+236
+00:37:07.380 --> 00:37:08.380
+PAUL: decent.
+
+237
+00:37:14.140 --> 00:37:22.389
+PAUL: The bigger scope is always with respect to the data set. Now, here, the first and the most important rule is parse the entire dataset.
+
+238
+00:37:25.810 --> 00:37:31.170
+PAUL: When I say data set, in your mind, you have to think, The entire trendset.
+
+239
+00:37:31.550 --> 00:37:33.460
+PAUL: Okay? Always think that.
+
+240
+00:37:36.850 --> 00:37:42.750
+PAUL: Another question, sir, when we say billion of parameters, does this refer to the bits and biases? Exactly correct.
+
+241
+00:37:43.310 --> 00:37:46.090
+PAUL: There are other parameters also.
+
+242
+00:37:47.880 --> 00:37:54.950
+PAUL: Now, when I say pass the entire dataset in one shot, so what are the problems?
+
+243
+00:37:55.170 --> 00:37:59.059
+PAUL: what will be the problem? If I say with respect to the cons?
+
+244
+00:37:59.960 --> 00:38:02.280
+PAUL: Just think in the first step.
+
+245
+00:38:02.940 --> 00:38:11.059
+PAUL: Can I say that it will take more time if I try to pass the entire dataset at once, yes or no? It will be slow.
+
+246
+00:38:14.480 --> 00:38:17.480
+PAUL: The more memory requirement will be there.
+
+247
+00:38:22.120 --> 00:38:29.389
+PAUL: I hope everybody understands, because in one shot, if you try to pass directly, that particular information will sit in your RAM.
+
+248
+00:38:29.940 --> 00:38:35.440
+PAUL: Okay, so, yes, for sure, more amount of… this is a memory-intensive task.
+
+249
+00:38:37.730 --> 00:38:40.340
+PAUL: Now, and for this, what you need?
+
+250
+00:38:40.930 --> 00:38:42.829
+PAUL: high computational power.
+
+251
+00:38:46.340 --> 00:38:51.370
+PAUL: high compute, I will just write, but just understand, you need more computational power.
+
+252
+00:38:51.580 --> 00:38:55.350
+PAUL: Now, here, From the batch perspective.
+
+253
+00:38:56.970 --> 00:39:01.449
+PAUL: Okay, so think from the… Let's leave the batch.
+
+254
+00:39:01.770 --> 00:39:04.380
+PAUL: Now, if I say, what are the pros?
+
+255
+00:39:07.640 --> 00:39:13.390
+PAUL: The pros are really, only one pros are there, pretty much accurate updates that you got.
+
+256
+00:39:14.660 --> 00:39:19.870
+PAUL: And when I say updates, always think W and B parameter.
+
+257
+00:39:20.900 --> 00:39:22.709
+PAUL: Alright, though you get…
+
+258
+00:39:23.220 --> 00:39:43.019
+PAUL: accurate updates, the major problem that we do face, it means that we cannot really work it impractically. If you have very small data set, then it makes sense, so none of the recent libraries actually use this particular version of the batch gradient descent. It's just, initially, we started with that.
+
+259
+00:39:43.020 --> 00:40:00.410
+PAUL: And, like, gradient descent is really, really old. Initially, the original research gets back to 1860s, okay, so 1860s was the first time when gradient descent has been mentioned in research. So, yes, initially, back that time, I can say that, fine.
+
+260
+00:40:00.530 --> 00:40:02.880
+PAUL: That was the poor idea behind that.
+
+261
+00:40:03.400 --> 00:40:08.059
+PAUL: Entire data set, means train test plus values, always, that is the idea.
+
+262
+00:40:09.030 --> 00:40:14.919
+PAUL: So here… Always remember, do the name is patch gradient descent.
+
+263
+00:40:15.940 --> 00:40:24.140
+PAUL: But what we are doing here, we are passing the entire dataset just like one batch. Can I say that? This is the assumption that you have?
+
+264
+00:40:26.910 --> 00:40:32.139
+PAUL: Is there anything why there is so much noise in the room? Just wait, let me just…
+
+265
+00:41:12.560 --> 00:41:13.690
+PAUL: Domitus.
+
+266
+00:41:14.560 --> 00:41:26.169
+PAUL: Alrighty, yes, the mic is on, so I think I am audible. Okay. Now, this is the assumption that we'll be taking. It means that inside, so there is… you are passing the entire thing in one shot. It means that one batch only.
+
+267
+00:41:26.420 --> 00:41:28.890
+PAUL: I hope this idea is clear for everyone.
+
+268
+00:41:33.370 --> 00:41:35.670
+PAUL: Alright, yes.
+
+269
+00:41:36.130 --> 00:41:38.710
+PAUL: Now, let's proceed to the next one.
+
+270
+00:41:39.330 --> 00:41:41.390
+PAUL: Let's take a different color of this time.
+
+271
+00:41:44.280 --> 00:41:53.360
+PAUL: So, practical implementation, previously people have been using before 2010. After that, everybody moved to the much more recent versions.
+
+272
+00:41:56.480 --> 00:42:00.649
+PAUL: What I was… the second one was the scotasting.
+
+273
+00:42:01.810 --> 00:42:02.510
+PAUL: Fantastic.
+
+274
+00:42:05.640 --> 00:42:13.869
+PAUL: Now, here, again, the scoop, I told you, it will be always with respect to the data set. Now, here, descent.
+
+275
+00:42:17.290 --> 00:42:21.599
+PAUL: Here, the idea is pass one data point at one time.
+
+276
+00:42:30.750 --> 00:42:34.669
+PAUL: Data point, when I say so, simply sample also you can think about.
+
+277
+00:42:42.620 --> 00:42:45.770
+PAUL: Now, in this particular condition, what will happen?
+
+278
+00:42:50.400 --> 00:42:59.720
+PAUL: The number of updates will be more for sure, yes or no. Because previously, everything has been done, then finally we used to get the update.
+
+279
+00:43:00.110 --> 00:43:08.499
+PAUL: Okay? But here, at every point of time, if you start passing one data point, one update, it means more number of updates will be there.
+
+280
+00:43:09.170 --> 00:43:19.699
+PAUL: For every sample if you try to do it. Okay. Now, this particular procedure also we have tested, but the main problem is fluctuations that we generally get.
+
+281
+00:43:20.030 --> 00:43:23.679
+PAUL: Too much fluctuations, or noisy updates.
+
+282
+00:43:24.000 --> 00:43:28.080
+PAUL: So here, the cons are… noisy.
+
+283
+00:43:28.840 --> 00:43:32.540
+PAUL: Okay… fluctuations…
+
+284
+00:43:36.170 --> 00:43:45.150
+PAUL: updates. Now, let me just show you the core idea. I will just take a screenshot, just to give you a better view of this one.
+
+285
+00:43:56.290 --> 00:43:57.180
+PAUL: Alright.
+
+286
+00:43:57.520 --> 00:44:02.330
+PAUL: So, when I say… Fluctuations, or noisy-based updates.
+
+287
+00:44:02.640 --> 00:44:10.230
+PAUL: Okay. When I say updates, I hope everybody understands. Update, always keep in mind, right now we are talking about race and biases update. Okay.
+
+288
+00:44:10.740 --> 00:44:21.959
+PAUL: So, right now, for every sample, if you try to do it, and really, I can say, this particular graph looks much more noisy. Now, this is really lesser noise version, I can say.
+
+289
+00:44:22.030 --> 00:44:33.349
+PAUL: But, really, I can say more noise. Let me just take another image, I think that will be better. Let me check it from the router version. Where is the router version just yet?
+
+290
+00:44:34.000 --> 00:44:36.110
+PAUL: I'm looking for one image.
+
+291
+00:44:36.900 --> 00:44:38.659
+PAUL: And what have been the ass.
+
+292
+00:44:40.900 --> 00:44:43.710
+PAUL: It's something like this also that you can think.
+
+293
+00:44:43.970 --> 00:44:52.259
+PAUL: Because this is with respect to the curve, but, let me just show you with respect to… now, this is from Wikipedia, the other image that I have.
+
+294
+00:44:59.340 --> 00:45:05.050
+PAUL: Alright, because when I say fluctuation, so in your mind, it should be clear exactly what happens to the loss curve.
+
+295
+00:45:05.280 --> 00:45:11.129
+PAUL: It means a lot of up-downs, up-downs, up-downs, up-downs, so that's why noisy updates are fluctuations.
+
+296
+00:45:12.360 --> 00:45:23.390
+PAUL: Is this part clear in your mind, exactly how things happen? Because one weight update. So, because of that, multiple values will come, and because of that, a fluctuation that comes into the system.
+
+297
+00:45:29.120 --> 00:45:30.170
+PAUL: Mmm…
+
+298
+00:45:30.430 --> 00:45:36.550
+PAUL: What if there is an outlier? Generally, if there is an outlier, the fluctuation will be much more
+
+299
+00:45:37.180 --> 00:45:43.680
+PAUL: Okay? Now, as telling earlier in notes, you have written one row means one sample, but, one sample not necessary.
+
+300
+00:45:43.860 --> 00:45:45.870
+PAUL: Only one raw of data.
+
+301
+00:45:46.350 --> 00:45:47.799
+PAUL: Than what it would be.
+
+302
+00:45:50.840 --> 00:45:53.479
+PAUL: In our context, one room.
+
+303
+00:45:54.100 --> 00:46:00.590
+PAUL: in separate contexts can be different, but right now. How can you say that it's noisy, sir? Can you explain?
+
+304
+00:46:01.200 --> 00:46:06.870
+PAUL: how we can say this is noisy? Can you see, see, the idea is I have written fluctuation.
+
+305
+00:46:07.130 --> 00:46:23.089
+PAUL: Generally, the curve will be much smoother. The idea is that we will be getting… it means that you started with a bigger value, and slowly, slowly, this is… this is the idea. This is actually how a loss function should look like. It should be a very smooth one.
+
+306
+00:46:23.210 --> 00:46:28.549
+PAUL: It should not have a lot of jitter. Right now, there is a lot of jitter in the graph.
+
+307
+00:46:28.690 --> 00:46:32.610
+PAUL: Because of… Too much of frequent updates.
+
+308
+00:46:32.770 --> 00:46:39.510
+PAUL: For every sample that we are doing, I hope everybody understands jitter, noise, the same stuff that I mean.
+
+309
+00:46:40.570 --> 00:46:42.060
+PAUL: Please let me know.
+
+310
+00:46:43.690 --> 00:46:48.550
+PAUL: Because here, that's… our main idea is that our loss function should be much smoother.
+
+311
+00:46:49.060 --> 00:46:51.219
+PAUL: It should have lesser noise.
+
+312
+00:46:51.610 --> 00:47:01.010
+PAUL: Okay, that particular goal that we need to reach. That's why I showed you both the images. This is from the curb perspective, and this is from the actual crop perspective.
+
+313
+00:47:07.770 --> 00:47:09.499
+PAUL: All right, and now…
+
+314
+00:47:11.880 --> 00:47:22.640
+PAUL: All right, now, you are asking, Y-axis is lost? Yes, if you, think about, we started with a wallet number, and this is basically the number of steps which I've mentioned here.
+
+315
+00:47:22.850 --> 00:47:41.920
+PAUL: Okay. Or basically the number of updates, 3,500 of this, based on that, because loss value cannot be such big. You always start, okay? So right now here, don't look into the side version, you have it in negative, but generally, we know that it starts from a bigger number. Let's take from 4, and let's take from 0, okay?
+
+316
+00:47:42.360 --> 00:47:43.210
+PAUL: Perfect.
+
+317
+00:47:43.710 --> 00:47:45.900
+PAUL: Now, the problem?
+
+318
+00:47:47.050 --> 00:47:50.760
+PAUL: What is the problem here? Let's try to understand.
+
+319
+00:47:51.060 --> 00:47:57.110
+PAUL: If you try to pass one at one time, what is the major problem that you will feel?
+
+320
+00:47:58.120 --> 00:47:59.110
+PAUL: Pons.
+
+321
+00:48:01.390 --> 00:48:02.530
+PAUL: Anybody?
+
+322
+00:48:08.110 --> 00:48:12.620
+PAUL: If you try to do any type of… a lot of updates.
+
+323
+00:48:12.790 --> 00:48:15.910
+PAUL: The problem of overshooting can come.
+
+324
+00:48:16.210 --> 00:48:18.730
+PAUL: Okay, possibility of overshooting.
+
+325
+00:48:18.960 --> 00:48:25.219
+PAUL: Okay, if there is too much noise, This is one major problem.
+
+326
+00:48:25.570 --> 00:48:31.170
+PAUL: Okay, so first of all, let's start with… this is also a slew.
+
+327
+00:48:31.440 --> 00:48:33.270
+PAUL: Convergence, I can say.
+
+328
+00:48:36.390 --> 00:48:42.090
+PAUL: After slow convergence, possibility, of overshooting.
+
+329
+00:48:48.080 --> 00:48:50.410
+PAUL: Let me just remove this one.
+
+330
+00:48:56.560 --> 00:49:01.720
+PAUL: Now, is this memory intensive task? Please let me know with yes or no in the chat.
+
+331
+00:49:04.600 --> 00:49:10.020
+PAUL: Pradeep is asking, is overshooting mean… overfitting? No, no, no, no.
+
+332
+00:49:10.190 --> 00:49:12.600
+PAUL: Overshooting means simply, like,
+
+333
+00:49:13.650 --> 00:49:28.360
+PAUL: the core idea behind overshooting simply means… let me take… you started from here, you moved here, then you moved here, then… then suddenly you moved here. Okay, it means that you actually skipped, that's why it overshoot.
+
+334
+00:49:29.460 --> 00:49:31.590
+PAUL: Okay, so that is the meaning of overshoot.
+
+335
+00:49:32.800 --> 00:49:43.029
+PAUL: So here, the possibility of overshooting, that comes, and slow conversion. The only good thing is, this is not a memory-intensive task, so really, it doesn't take up a lot of RAM.
+
+336
+00:49:43.290 --> 00:49:55.140
+PAUL: This is only the added benefit of that. And now, other things, accurate updates. Now, I will say that here you have a bit lesser accurate. Last time, if I say that.
+
+337
+00:49:55.810 --> 00:49:58.449
+PAUL: Accurate, this time a little bit lesser accurate.
+
+338
+00:49:58.550 --> 00:50:03.220
+PAUL: Because of that particular noise, because noise has been introduced.
+
+339
+00:50:03.350 --> 00:50:09.119
+PAUL: So, I will say that somehow it will be toward the lower side. That's the only difference.
+
+340
+00:50:11.360 --> 00:50:12.350
+PAUL: Okay.
+
+341
+00:50:15.160 --> 00:50:16.660
+PAUL: Hmm…
+
+342
+00:50:20.240 --> 00:50:21.450
+PAUL: Novaar.
+
+343
+00:50:28.370 --> 00:50:34.510
+PAUL: Alright, so that's why I've simply taken a slower accurate of this as compared to last one.
+
+344
+00:50:43.060 --> 00:50:45.509
+PAUL: Though, what is the only benefit here?
+
+345
+00:50:47.720 --> 00:50:56.380
+PAUL: Only the memory part, always remember. That's why I'm not going to write it, because I hope everybody can understand it. Okay? Very, very memory efficient.
+
+346
+00:50:56.810 --> 00:51:07.229
+PAUL: But again, practically, not possible. Because, see, generally, most of the time, when we think, the idea is that we think from a CPU perspective.
+
+347
+00:51:07.660 --> 00:51:11.570
+PAUL: But going forward, once the GPU has been introduced.
+
+348
+00:51:11.790 --> 00:51:21.859
+PAUL: Okay, we have to think from the hardware perspective now, going forward. So that's why, what is the next in our sequence, which is the mini-batch gradient descent, which is actually being used.
+
+349
+00:51:25.630 --> 00:51:32.140
+PAUL: the mini… batch… gradient.
+
+350
+00:51:34.690 --> 00:51:35.520
+PAUL: decent.
+
+351
+00:51:42.510 --> 00:51:48.779
+PAUL: Now, simply, the poor idea with respect to the batch that comes, and simply from here.
+
+352
+00:51:49.290 --> 00:52:01.000
+PAUL: So I'm only asking Sussar, in this case, updated, from nth row will be applied to N plus 1, D is the last row, correct? Exactly. So, once all the rows are done.
+
+353
+00:52:01.210 --> 00:52:12.579
+PAUL: Then, the weight update… no, no, no, no, no, no, no. See, weight update, I'm telling, for 1, then weight update. For your next sample, weight update. For next sample, weight update in that.
+
+354
+00:52:12.990 --> 00:52:18.920
+PAUL: Multiple types weight of it will happen. Because of that, the noise is coming, no? Too much changes.
+
+355
+00:52:19.590 --> 00:52:21.040
+PAUL: I hope you get that.
+
+356
+00:52:24.210 --> 00:52:26.090
+PAUL: That's it? All right.
+
+357
+00:52:26.530 --> 00:52:39.409
+PAUL: What is the pros in Schoastic? Alright, right now, I said no. It's only memory efficient. That's the only thing. Little confusion here, if the convergence is slow within SJT, then why possibility of overshooting?
+
+358
+00:52:43.420 --> 00:52:48.190
+PAUL: Again, if the conversion is slow, fee.
+
+359
+00:52:48.530 --> 00:52:51.430
+PAUL: Bharuk the question that you've asked, I think.
+
+360
+00:52:52.670 --> 00:53:00.290
+PAUL: I never set the convergence that I have written here. The speed is slow. I can always increase the speed. You have to understand.
+
+361
+00:53:00.870 --> 00:53:06.239
+PAUL: Slow and speed gets determined by your learning rate parameter.
+
+362
+00:53:07.110 --> 00:53:14.099
+PAUL: Convergence is slow because multiple weights update are taking place. I hope you get that.
+
+363
+00:53:15.870 --> 00:53:20.180
+PAUL: I hope the context you have to understand why I've written slow, okay?
+
+364
+00:53:20.730 --> 00:53:26.189
+PAUL: Slow doesn't mean here I am using a small learning rate. Is this part clear in your mind?
+
+365
+00:53:26.460 --> 00:53:30.179
+PAUL: I'm talking at every point if you want to do the calculation.
+
+366
+00:53:30.370 --> 00:53:36.159
+PAUL: One sample, one calculation, one sample, one calculation. So, so many calculations that you have to do.
+
+367
+00:53:36.550 --> 00:53:40.590
+PAUL: That's why it's slow. I hope you got the context, everybody.
+
+368
+00:53:42.520 --> 00:53:43.560
+PAUL: Perfect.
+
+369
+00:53:45.400 --> 00:53:58.030
+PAUL: Now, coming to the minibash. Now, simply from here, what you can infer. The first one, pass the entire thing, not working. Then the second one, pass one, not working. Now, what…
+
+370
+00:53:58.660 --> 00:54:00.720
+PAUL: Now, what will be the simple idea?
+
+371
+00:54:00.870 --> 00:54:05.149
+PAUL: Let's take something like a batch size, yes or no.
+
+372
+00:54:07.130 --> 00:54:10.319
+PAUL: From here, the core concept of bass size that comes.
+
+373
+00:54:12.610 --> 00:54:24.850
+PAUL: Okay? That you'll be selected. So, generally, based on the hardware selection we try to use… okay, so, simply, going forward in deep learning, always remember the rule of 2 to the power n.
+
+374
+00:54:25.200 --> 00:54:35.499
+PAUL: Okay, because, the GPU is available in that particular, design. Okay, so generally, what will be the numbers if I say? We generally prefer, like.
+
+375
+00:54:36.210 --> 00:54:58.140
+PAUL: Poor… I'm starting with 4 right now, 8, 16… Okay, 32, 64, then comes… 128, 256, 512… 1024-2048… Okay.
+
+376
+00:54:59.610 --> 00:55:05.260
+PAUL: So, this is a simple rule that generally we do follow, so that's why I will just mention it in this
+
+377
+00:55:05.910 --> 00:55:14.400
+PAUL: Okay, we don't pass it 1, 3, something like that. We try to follow this one. And based on that, I know that my GPU will be fully used.
+
+378
+00:55:14.700 --> 00:55:15.510
+PAUL: Okay.
+
+379
+00:55:15.710 --> 00:55:21.739
+PAUL: Alright. Now, this is… I've given you an idea, but again, batch size is a hyperparameter.
+
+380
+00:55:22.710 --> 00:55:26.779
+PAUL: This is also a hyperparameter that needs to be decided by you.
+
+381
+00:55:29.660 --> 00:55:37.469
+PAUL: And the idea is, select it optimally based on the hardware availability.
+
+382
+00:55:37.820 --> 00:55:44.129
+PAUL: Whichever hardware that you are using. For example, if you have the GPU, then think from the GPU perspective.
+
+383
+00:55:44.250 --> 00:56:02.910
+PAUL: I generally… what I do, I always start with a bigger number. If I get an error, I know that I need to go down. And that is the best way. First, get an error, resolve it. Otherwise, if you start with small, then slowly, slowly increase, and really, we don't. So I generally start with a higher number. Probably 256 is a very good starting point.
+
+384
+00:56:03.560 --> 00:56:04.420
+PAUL: Okay.
+
+385
+00:56:05.740 --> 00:56:11.339
+PAUL: Perfect. Now, again, it totally depends upon your hardware, so hardware plays that very crucial role.
+
+386
+00:56:12.470 --> 00:56:30.009
+PAUL: Now, batch size selection, this is the rule of thumb, 2 to the power n. Going forward, please remember that. Now, mini gush gradient descent. So, here, what will be the idea? If I… can I say that I'll be having somewhere in between, I will be having some type of lesser updates?
+
+387
+00:56:30.190 --> 00:56:34.480
+PAUL: As compared to last time, with the stochastic version, yes or no?
+
+388
+00:56:35.380 --> 00:56:37.059
+PAUL: Yes or no, guys? Think.
+
+389
+00:56:37.220 --> 00:56:41.410
+PAUL: Because let me just… Bring the image.
+
+390
+00:56:47.730 --> 00:56:52.770
+PAUL: Sometimes this copy option works, and sometimes it doesn't really strange.
+
+391
+00:56:53.250 --> 00:56:58.490
+PAUL: Just wait, I'm just getting one image, just to show you with respect to lesser updates that take place.
+
+392
+00:57:03.620 --> 00:57:15.229
+PAUL: Yes. Now, this will be the idea. Can you see here that the number of upgrades will be lesser? Because of that, what is the first problem that you are trying to solve?
+
+393
+00:57:15.890 --> 00:57:19.599
+PAUL: Can I say that lesser noise will be there a solo?
+
+394
+00:57:22.420 --> 00:57:35.150
+PAUL: Because this time, as you are passing the data in batches. So, total number of updates, let's take, just like last time only, I'm just taking a dataset of 1,000.
+
+395
+00:57:35.920 --> 00:57:43.160
+PAUL: And let's take a batch size right now. I've written 2 to the power n rule, but let's take 100 for now.
+
+396
+00:57:44.410 --> 00:57:46.359
+PAUL: The total number of batches.
+
+397
+00:57:50.670 --> 00:57:51.990
+PAUL: will be 10.
+
+398
+00:57:56.410 --> 00:57:57.520
+PAUL: Nahua.
+
+399
+00:57:57.680 --> 00:58:04.970
+PAUL: When I say 4 batches, so 1 epoch this time, I will be trying to break it into 10 batches.
+
+400
+00:58:07.720 --> 00:58:13.120
+PAUL: And from here, 10 times your updates that will take place.
+
+401
+00:58:16.930 --> 00:58:18.330
+PAUL: Yes or no?
+
+402
+00:58:21.130 --> 00:58:32.589
+PAUL: Yes or no, because I've tried to break it into step, based on the total number of datasets, so can I say that you will be having lesser updates here as compared to the stochastic version yes or no?
+
+403
+00:58:36.240 --> 00:58:37.710
+PAUL: Yes or no, guys?
+
+404
+00:58:38.650 --> 00:58:49.450
+PAUL: Is this RAM or CPU? Is this RAM? So, generally, the idea is RAM for now. Later on, because in this particular configuration, this is highly optimized for hardwares.
+
+405
+00:58:50.010 --> 00:59:09.610
+PAUL: Little conversion here, alright, this already took Partha is telling. Question for you, what is the question? Is the batch size unique for each batches? No, no, no, for the entire network, it's a single setting. We set it only once. We don't keep on changing the batch size. It doesn't make sense. The idea is that the…
+
+406
+00:59:09.710 --> 00:59:22.769
+PAUL: hardware, the GPU that you have, or the CPU that you have, you should fully utilize it in a single match. So, at least if you have 100%, so generally we set it close to 90%, keep it, but utilize that complete 90%.
+
+407
+00:59:22.860 --> 00:59:35.030
+PAUL: That is the core idea. Because if you use 100%, if something happens, it might crash. So always leave 10% to 15% of the memory, because other operations in your operating system will be running. That is the idea.
+
+408
+00:59:36.110 --> 00:59:43.039
+PAUL: Okay, so what is batch data? Unique for, what is batch data?
+
+409
+00:59:43.250 --> 00:59:50.589
+PAUL: Not type batch size. Okay, you are talking about batch data. Batch data means within a particular batch, you have multiple samples.
+
+410
+00:59:51.200 --> 01:00:07.509
+PAUL: Okay, now, generally, it is not necessary that if you have 1,000, so it will be completely sequential, starting from 1 to 10, 10 to 20, 20 to 30, not necessary. There is a parameter of shuffle in every framework. We generally try to shuffle.
+
+411
+01:00:07.650 --> 01:00:12.310
+PAUL: In that way, at least I know the model won't be overfitting.
+
+412
+01:00:16.800 --> 01:00:19.670
+PAUL: Alright, is this part clear, Bhartha?
+
+413
+01:00:19.680 --> 01:00:26.529
+PAUL: Mohan, it is actually a combination of batch, and yes, if you really think about this, it's actually a combination of batch.
+
+414
+01:00:26.530 --> 01:00:41.489
+PAUL: And the gradient is it. The idea was, here, you had more number of objects because of that, noise was getting introduced, so we have taken a middle path, not the entire dataset, not a single. Let's take that as a hyperparameter, but we'll be passing
+
+415
+01:00:41.780 --> 01:00:46.390
+PAUL: A fixed number of samples, that we are referring as the patch version.
+
+416
+01:00:47.930 --> 01:00:51.070
+PAUL: Alright, is this part clear? Please let me know, for everybody.
+
+417
+01:00:54.350 --> 01:00:59.259
+PAUL: Alright, now, generally, this particular term, we,
+
+418
+01:00:59.440 --> 01:01:15.620
+PAUL: Because initially, the academies, guys, we called it the mini-batch, okay? Because this is actually a mini-batch, if you think about, because the number of samples are towards the lower side. So, it's just the change with respect to the weight update formula that will happen in place.
+
+419
+01:01:15.620 --> 01:01:21.179
+PAUL: Okay, the major con here is the tuning, always understand. Here, if I say the con.
+
+420
+01:01:21.570 --> 01:01:24.020
+PAUL: It means that you have to perform the tuning.
+
+421
+01:01:25.060 --> 01:01:27.639
+PAUL: Because if you give a higher number, it will crash.
+
+422
+01:01:27.860 --> 01:01:30.270
+PAUL: So you need to find that perfect.
+
+423
+01:01:30.390 --> 01:01:41.659
+PAUL: Number. Okay, so tuning of the value that you need to do. Now, because of this, can I say that there will be an impact with respect to your weight update formula also?
+
+424
+01:01:44.060 --> 01:01:46.320
+PAUL: Wait. Update.
+
+425
+01:01:47.960 --> 01:01:50.030
+PAUL: Formula, just a small change.
+
+426
+01:01:56.920 --> 01:01:59.529
+PAUL: Can you help to visualize batches?
+
+427
+01:02:01.770 --> 01:02:20.549
+PAUL: and how updates work. Updates work for one batch. If you know backpropagation, you can simply think about the updates part, Pritha. But the visualization of one epoch, it means that complete the network has seen the data. There is no thing. When you start training the network in practically, but again, visualization right here, it is not possible.
+
+428
+01:02:20.870 --> 01:02:31.089
+PAUL: Is tuning a con? Yes, it means that you have to really take care, no, of that. What is the perfect based on your data set size? The little bit of tuning that needs to be required.
+
+429
+01:02:31.390 --> 01:02:38.319
+PAUL: Otherwise, you can say that, okay, Paul, I will just use a batch of 10, or a batch of 12, but it doesn't make sense.
+
+430
+01:02:38.600 --> 01:02:46.269
+PAUL: If you have the ability of the memory in the hardware, then why you will go with a lesser number?
+
+431
+01:02:46.680 --> 01:02:48.049
+PAUL: I hope you get it.
+
+432
+01:02:48.210 --> 01:02:51.479
+PAUL: If you use a lesser number, then what will happen? Can you tell me?
+
+433
+01:02:52.230 --> 01:02:59.090
+PAUL: If you take a very small number, the number, or basically the noisy updates, the jitter.
+
+434
+01:02:59.460 --> 01:03:11.309
+PAUL: will be reflected. It means that you are going back to the same problem if you start using a very small value. That is also a bad practice, so don't use a very small value, like 2, 3, 4, 5, it doesn't make sense.
+
+435
+01:03:11.760 --> 01:03:12.680
+PAUL: Trick it?
+
+436
+01:03:13.910 --> 01:03:24.880
+PAUL: Now, is it random batch? No, nothing is random. So, generally, it is sampled, but if you say, if I want to shuffle it, shuffle operation takes based on that randomness.
+
+437
+01:03:24.920 --> 01:03:38.239
+PAUL: So generally, there, randomly, it will be selected, the top 10. But it's not purely random, because the idea is if one… in one batch, if you have already sent that particular sample, in that next one, you won't be sending it.
+
+438
+01:03:38.580 --> 01:03:40.339
+PAUL: Okay, that is the idea.
+
+439
+01:03:41.740 --> 01:03:45.720
+PAUL: Okay, frequent tuning, is not good. That means…
+
+440
+01:03:46.960 --> 01:03:53.269
+PAUL: Most frequent tuning is not good. Always remember, for your dataset, you only do the tuning once.
+
+441
+01:03:53.380 --> 01:04:01.249
+PAUL: You won't be performing every day, same tuning for the same data set for the same network. Nobody does that, except for you, okay?
+
+442
+01:04:03.180 --> 01:04:08.099
+PAUL: Alright, is it a random? Alright, Deepak pulled your answer. I will agree with you.
+
+443
+01:04:08.410 --> 01:04:14.599
+PAUL: Memory means… not necessary, it has to be. It can be your normal RAM or your VRAM if it is a GPU.
+
+444
+01:04:14.740 --> 01:04:21.159
+PAUL: Right now, memory means it can be ZRAM as well as the normal RAM version. Yes, DDR4, DDR5, that is like that.
+
+445
+01:04:23.170 --> 01:04:24.170
+PAUL: Hot it.
+
+446
+01:04:24.790 --> 01:04:27.659
+PAUL: Now, the update with respect to the…
+
+447
+01:04:29.220 --> 01:04:34.530
+PAUL: Adit is asking for every batch. Can a number repeat? Can a number repeat?
+
+448
+01:04:34.720 --> 01:04:39.500
+PAUL: In a batch, you have data for where you have the number, which number that you are telling.
+
+449
+01:04:40.240 --> 01:04:44.529
+PAUL: Can the data repeat? No. Generally, we perform a shuffling-based operation.
+
+450
+01:04:44.670 --> 01:04:54.180
+PAUL: And there, the reputation doesn't happen. Because, see, if you try to show the same sample in every… then the chances of overfitting is high.
+
+451
+01:04:54.560 --> 01:04:58.199
+PAUL: These are simple intuitions, always get that part, okay?
+
+452
+01:05:01.880 --> 01:05:14.470
+PAUL: Because if you try to show the same sample again and again at every… Simply understand that. In machine learning also, the same thing that happens. How do you calculate how much GPU needed?
+
+453
+01:05:16.030 --> 01:05:17.390
+PAUL: Generally.
+
+454
+01:05:17.510 --> 01:05:36.879
+PAUL: The idea is, we try to perform the experiment, and then we try to look into the VRAM usage. So, probably, I will use a simple for loop, and based on the data, I will select, like, let's start with 8, let's start with 16, let's start with 13, and then based on that, we look into the usage. Okay? Hemang, is this part clear?
+
+455
+01:05:37.960 --> 01:05:40.279
+PAUL: Similarly, on CPU also, you can do it.
+
+456
+01:05:42.270 --> 01:05:48.159
+PAUL: Alright, guys, now let's come to the… a simple update with respect to the weight update formula.
+
+457
+01:05:48.340 --> 01:05:59.240
+PAUL: your WN, WOLD, only, the representation, I will change it. Other than that, rest, everything is same. Here, I'm writing N, or alpha is also fine, I have no issue.
+
+458
+01:06:02.480 --> 01:06:05.840
+PAUL: Here, I've introduced a new term, M, for now.
+
+459
+01:06:10.650 --> 01:06:11.550
+PAUL: Alright.
+
+460
+01:06:12.020 --> 01:06:19.920
+PAUL: Now, this particular M that I'm telling, okay, so let's take M ethical to your mini batch.
+
+461
+01:06:24.390 --> 01:06:27.309
+PAUL: So what is M here? The mini match.
+
+462
+01:06:30.020 --> 01:06:34.809
+PAUL: I've written delta W right now, L with respect to W.
+
+463
+01:06:35.080 --> 01:06:42.400
+PAUL: I hope everybody understands this. Rather than writing tell-el, by Del.
+
+464
+01:06:42.730 --> 01:06:49.259
+PAUL: W, rather than I'm just saying the representation. That's the only difference, other than that is exactly the same.
+
+465
+01:06:50.920 --> 01:06:55.120
+PAUL: Okay, so here, based on the total number of batches.
+
+466
+01:06:55.580 --> 01:07:01.399
+PAUL: Okay, so here M is equal to the mini batch size that you were actually selecting.
+
+467
+01:07:02.310 --> 01:07:03.230
+PAUL: Well, Rick?
+
+468
+01:07:09.410 --> 01:07:13.869
+PAUL: I… right now, when I say mini patch size, guys, please tell me
+
+469
+01:07:13.980 --> 01:07:18.659
+PAUL: Whether this aim is the total number of samples or the total number of batches.
+
+470
+01:07:18.980 --> 01:07:27.329
+PAUL: I want to make this part clear. When I say that I am talking with respect to batches, or am I talking with respect to samples?
+
+471
+01:07:31.420 --> 01:07:38.779
+PAUL: A means here, the total batches, so there is no samples here. Don't get confused with respect to samples, so that's why I will remove this.
+
+472
+01:07:38.940 --> 01:07:48.800
+PAUL: Right? Well, simply means the total number of batches. Total number of batches, already I've shown you, this one. So, just remember this particular calculation. In our case, it will be 10.
+
+473
+01:07:51.070 --> 01:07:57.839
+PAUL: Alright, just a small update, and the representation with respect to the weight update formula. Other than that, exactly, it's the same thing.
+
+474
+01:08:01.520 --> 01:08:11.519
+PAUL: Alright, keep it consistent, please, not… see, guys, you have to understand, if you read different blogs, papers, Hemangshu, the representation everywhere, it will be different.
+
+475
+01:08:11.970 --> 01:08:28.790
+PAUL: Generally, for gradient reason, most of the… in academic papers, they will be writing J theta format. That is the most widely used one. So, it's… you have to understand. We mean the actual representation, but don't get confused. That's why the idea is, let's use different.
+
+476
+01:08:29.880 --> 01:08:39.700
+PAUL: Alright, now, this is the only change with respect to the formula. Now, this is somehow in between our older two techniques, so this is actually being used.
+
+477
+01:08:40.380 --> 01:08:50.119
+PAUL: Okay, so the range size that I generally told… okay, so this is based on your hardware rule, 2 to the power n, that you'll be selecting this one.
+
+478
+01:08:50.420 --> 01:09:08.350
+PAUL: And finally, once the weight update is done, so at least from this, I know that there will be lesser amount of noise, and at least the smoothness will be better as compared to last time. Lesser noise, lesser jitter, I know that the resultant that I'll be getting, it will be a smoother car.
+
+479
+01:09:08.390 --> 01:09:14.509
+PAUL: As compared to that fluctuated curve, just like last time I have shown you, too many fluctuations.
+
+480
+01:09:16.250 --> 01:09:24.470
+PAUL: And this is actually what we'll be using in Keras. So, by default, always remember, by default, it is always
+
+481
+01:09:25.630 --> 01:09:30.859
+PAUL: The minibatch gradient descent, which is being practically used in every framework.
+
+482
+01:09:31.760 --> 01:09:36.379
+PAUL: Okay? Always remember that. The other two versions, really, practically.
+
+483
+01:09:36.490 --> 01:09:42.089
+PAUL: DRAS, neither PyTorch. And you can make that, so for example, in this particular condition.
+
+484
+01:09:42.450 --> 01:09:53.350
+PAUL: If I make batch size is equal to 1, then what will happen? Please tell me. Already, I've told you, if I say batch size is equal to 1, then which algorithm right now out of 3 that I am telling?
+
+485
+01:09:55.890 --> 01:09:57.350
+PAUL: Stochastic.
+
+486
+01:09:57.480 --> 01:09:58.650
+PAUL: Everybody?
+
+487
+01:10:02.520 --> 01:10:09.909
+PAUL: Why people are telling, okay, second one you are telling, fine, yes, second one, perfect.
+
+488
+01:10:10.540 --> 01:10:24.530
+PAUL: And now, based on the total number of samples, if you pass that entire thing, whatever total number of samples, then it will be called as batch. So, Nay… we own you, so… but practically, you can implement them, but it's a bad choice.
+
+489
+01:10:24.880 --> 01:10:35.590
+PAUL: All right, so the main types that we have already discussed, now we will move to the, next part, which is the idea is let's try to bring velocity into the system.
+
+490
+01:10:36.050 --> 01:10:42.320
+PAUL: Okay, so a little bit of velocity introduction through momentum that we will try to convert.
+
+491
+01:10:43.800 --> 01:10:46.190
+PAUL: Okay, worth the time.
+
+492
+01:10:46.740 --> 01:10:49.470
+PAUL: Alright, we have 15 minutes, we can easily cover that.
+
+493
+01:10:50.080 --> 01:10:56.049
+PAUL: Now, when I'm talking with velocity, I think everybody has learned in physics. Velocity has some…
+
+494
+01:11:01.110 --> 01:11:02.610
+PAUL: Everybody has learned.
+
+495
+01:11:07.550 --> 01:11:08.990
+PAUL: Yes?
+
+496
+01:11:09.140 --> 01:11:15.419
+PAUL: Alright. Now, when I say SGT with momentum, let's try to take those…
+
+497
+01:11:19.320 --> 01:11:21.280
+PAUL: S-G-D.
+
+498
+01:11:37.090 --> 01:11:46.529
+PAUL: The first one, based on the formula, the standard version, if I say, till now, the normal weight formula that you guys have already used.
+
+499
+01:11:46.770 --> 01:11:52.040
+PAUL: Now, whenever you think about momentum, What is the first thing?
+
+500
+01:11:52.560 --> 01:11:54.230
+PAUL: That comes in your mind.
+
+501
+01:11:54.780 --> 01:12:05.129
+PAUL: So, probably when… let's take the example of SGT. So, for example, you are starting, the descent, okay, from the hill.
+
+502
+01:12:05.480 --> 01:12:24.190
+PAUL: And slowly, slowly, if you are actually changing the direction, because at every point of time, you know that loss function can go this side, this side, based on the slope, okay? So whatever that slope calculation, based on that, will be changing the direction to reach towards our minima for now.
+
+503
+01:12:24.260 --> 01:12:31.890
+PAUL: So, probably zigzag. Now, the question comes, it might take longer at any point of time. I can say that.
+
+504
+01:12:33.310 --> 01:12:48.389
+PAUL: I… if you go the normal, the vanilla version, for sure it will be taking longer time to reach. Now, the idea is how I can introduce some type of speed. It means that I need to introduce. So, what is the difference between speed and velocity?
+
+505
+01:12:52.790 --> 01:12:56.200
+PAUL: Speed and velocity, what is the difference? Very simple things.
+
+506
+01:12:56.510 --> 01:13:04.760
+PAUL: That I am asking. Everybody has learned in physics somewhere. One is having a direction, The other is not.
+
+507
+01:13:06.200 --> 01:13:07.100
+PAUL: Yes?
+
+508
+01:13:08.730 --> 01:13:11.800
+PAUL: Velocity, yes, velocity comes with a vector.
+
+509
+01:13:12.860 --> 01:13:24.609
+PAUL: All right, so now here, that's why I won't be using that term speed, but the simple idea is that we want to push it, and at every point of time, when you try to push, it will be having a direction.
+
+510
+01:13:24.860 --> 01:13:33.430
+PAUL: It means that if I'm leaving the ball, the ball starts to roll faster in a particular direction, it's already going.
+
+511
+01:13:33.620 --> 01:13:39.699
+PAUL: Okay, and it does not get distracted by any type of tiny bumps if it comes into the system.
+
+512
+01:13:40.370 --> 01:13:52.390
+PAUL: Alright, so let's take the vanilla version right now. The idea I see, guys, introducing speed into the system using Momentum. In SGD, somehow it is slow till now. Always remember.
+
+513
+01:13:52.610 --> 01:14:06.479
+PAUL: like, whenever, in every research paper, we have been using SGD 2012, 13, 14, 15, really, for a very, very long time. And we know that it's very slow. But again, slow is not bad, you have to understand.
+
+514
+01:14:06.640 --> 01:14:12.150
+PAUL: It means just like a safety net. If you go fast, then what will happen?
+
+515
+01:14:12.570 --> 01:14:16.410
+PAUL: What is the problem? If you go too much fast, what will happen?
+
+516
+01:14:18.520 --> 01:14:20.279
+PAUL: Right now, I told…
+
+517
+01:14:20.710 --> 01:14:28.710
+PAUL: Overshooting. I hope everybody remembers. It means that the possibility you might miss the minimum, and you have arrived at some other location.
+
+518
+01:14:29.140 --> 01:14:41.079
+PAUL: Okay, so going fast also is a very bad thing, but the idea is that if going slow, how to make it little bit faster? Okay, so always take that little bit faster idea.
+
+519
+01:14:42.500 --> 01:14:50.970
+PAUL: All right. Now, from there, let's start with the vanilla version, vanilla version of weight update. Already, you guys know. Okay, so let's take the…
+
+520
+01:14:54.640 --> 01:14:58.380
+PAUL: And, this time, alright, fine.
+
+521
+01:15:01.700 --> 01:15:05.649
+PAUL: I'm taking the delta laws with respect to the bit.
+
+522
+01:15:07.170 --> 01:15:11.339
+PAUL: This is your N now, and this is your W representation data.
+
+523
+01:15:11.600 --> 01:15:15.319
+PAUL: Now, this particular formula… now, in this particular formula.
+
+524
+01:15:16.780 --> 01:15:20.269
+PAUL: Now, let's try to understand velocity representation.
+
+525
+01:15:20.610 --> 01:15:24.420
+PAUL: Because momentum comes with the velocity.
+
+526
+01:15:25.290 --> 01:15:27.879
+PAUL: What is the formula of the velocity?
+
+527
+01:15:30.950 --> 01:15:34.069
+PAUL: anybody, because this is the first time so far, too.
+
+528
+01:15:34.350 --> 01:15:38.469
+PAUL: Might not know, but this is just for your memory representation.
+
+529
+01:15:39.080 --> 01:15:40.450
+PAUL: Momentum.
+
+530
+01:15:42.840 --> 01:15:44.639
+PAUL: into velocity.
+
+531
+01:15:47.590 --> 01:15:51.549
+PAUL: All right, now this particular term that we have added, minus…
+
+532
+01:15:53.130 --> 01:15:57.210
+PAUL: And then you have your del tile L with respect to W.
+
+533
+01:15:59.260 --> 01:16:00.870
+PAUL: what I have done right now.
+
+534
+01:16:02.460 --> 01:16:09.320
+PAUL: I've introduced one new thing, which is the momentum. And generally, this particular value that we have
+
+535
+01:16:09.480 --> 01:16:11.070
+PAUL: Let's take this one.
+
+536
+01:16:13.710 --> 01:16:17.309
+PAUL: Okay. Now, again, the selection of the momentum…
+
+537
+01:16:17.880 --> 01:16:21.839
+PAUL: 0.9. Now, this is a common term that we use it.
+
+538
+01:16:22.290 --> 01:16:25.500
+PAUL: Okay, so here, what is the meaning? When I say that.
+
+539
+01:16:26.170 --> 01:16:34.289
+PAUL: 90% that I'm giving 0.9. So, you have to understand, I am giving… so velocity, it means…
+
+540
+01:16:34.630 --> 01:16:39.990
+PAUL: you have a direction. Now the question comes, how much push I want to give.
+
+541
+01:16:40.640 --> 01:16:43.090
+PAUL: From our previous direction.
+
+542
+01:16:43.770 --> 01:16:50.610
+PAUL: Okay, so here, momentum value is 0.9. So simply, when I add momentum with respect to the velocity.
+
+543
+01:16:51.020 --> 01:16:56.550
+PAUL: I will be seeing this one. Keeping… 90%?
+
+544
+01:16:57.590 --> 01:17:03.900
+PAUL: Off… Da… previous… direction.
+
+545
+01:17:07.210 --> 01:17:26.440
+PAUL: That's why I'm bringing direction also into the system, so that you guys can understand. It means that when I'm, coming from the hillside, okay, step by step, the idea is how to make it. It means that you are remembering the direction. Now the question comes, how much you are remembering? 90% of it.
+
+546
+01:17:27.070 --> 01:17:32.079
+PAUL: So, can I say that the velocity will store the direction that we are ruling in?
+
+547
+01:17:33.420 --> 01:17:35.740
+PAUL: Yes or no? Because little bit you have to think.
+
+548
+01:17:36.570 --> 01:17:43.989
+PAUL: Because now, with the weights, that velocity term will come. Now, this particular velocity, I will say, let's take the weights part.
+
+549
+01:17:53.840 --> 01:17:56.210
+PAUL: Plus velocity data will add, right?
+
+550
+01:17:56.900 --> 01:17:59.240
+PAUL: Just to make things much more clear to her.
+
+551
+01:17:59.740 --> 01:18:04.160
+PAUL: See, guys, don't directly think that this is the intuition.
+
+552
+01:18:04.650 --> 01:18:12.319
+PAUL: Okay, this is not a formula. Again, I am repeating. This is the intuition. This is not a formula. Okay, so…
+
+553
+01:18:12.450 --> 01:18:21.630
+PAUL: Otherwise, you get… may get confused. This is not a formal… This is simply the… A rough intuition.
+
+554
+01:18:25.910 --> 01:18:29.210
+PAUL: So now, why we are doing this? Now the question comes.
+
+555
+01:18:31.790 --> 01:18:34.840
+PAUL: Now, we have introduced the velocity term V,
+
+556
+01:18:34.960 --> 01:18:38.350
+PAUL: Why we have introduced to remember the past direction.
+
+557
+01:18:38.540 --> 01:18:41.610
+PAUL: Okay, now, how much you want to remember?
+
+558
+01:18:41.810 --> 01:18:57.700
+PAUL: That is the momentum. And generally, we take it… 0.9 is a very common value. The idea is always, remember, higher is the better. Nobody uses 70, 60, 50. The idea is, from our last direction, we always try to retain the direction.
+
+559
+01:18:58.170 --> 01:19:11.949
+PAUL: Okay, so that's why 90%, or sometimes even we use 0.99 also. 99%. So the idea is to keep it much more high. The value of the momentum is a hyperparameter which needs to be selected by you.
+
+560
+01:19:15.740 --> 01:19:24.009
+PAUL: Pradeep is asking if, so generally what happens whenever you are working with SJD, there will be a momentum parameter that needs to be decided by you.
+
+561
+01:19:24.570 --> 01:19:34.910
+PAUL: Okay, by default, if you leave it, if you just initialize practically, by default, 0.9 will be initialized. It means that the default version is HGT with momentum.
+
+562
+01:19:35.030 --> 01:19:43.030
+PAUL: So in that way, which is something slow, we try to make it a bit faster. Not super fast, but bit faster, you have to understand.
+
+563
+01:19:49.410 --> 01:20:01.000
+PAUL: All right, the exponential weighted average, I will come to that. Don't worry about that. Okay, but for now, this is the core, or the rough estimated idea that we do have here.
+
+564
+01:20:01.250 --> 01:20:04.270
+PAUL: How velocity and momentum comes into the picture.
+
+565
+01:20:06.280 --> 01:20:22.589
+PAUL: Is this part clear for everyone? Please let me know, because this is where you have to really understand that why momentum, what is the purpose of using momentum, and how velocity… because through velocity, we know the direction, so there we are trying to give it close to 90% ideal.
+
+566
+01:20:24.020 --> 01:20:30.640
+PAUL: Alright? Now, the idea is, at every point of time, can I say that you need to update the velocity, yes or no?
+
+567
+01:20:32.000 --> 01:20:38.020
+PAUL: Whenever I am doing, can I say that this is the velocity, but we need to update the velocity?
+
+568
+01:20:39.340 --> 01:20:43.400
+PAUL: Always remember, velocity will start from zero.
+
+569
+01:20:44.610 --> 01:20:48.150
+PAUL: I hope so. Let me just tell you step-by-step on this one.
+
+570
+01:20:48.350 --> 01:20:50.170
+PAUL: Understood.
+
+571
+01:20:56.330 --> 01:21:08.200
+PAUL: Always remember, the velocity V that I am representing, it always starts with zero. And based on that, the… let me just write the other parameters also.
+
+572
+01:21:10.940 --> 01:21:19.640
+PAUL: Now, the idea is, you have to update this particular momentum. Now, generally, the representation of momentum is done with respect to beta.
+
+573
+01:21:20.560 --> 01:21:21.360
+PAUL: Okay.
+
+574
+01:21:21.470 --> 01:21:34.529
+PAUL: Now, initially, the first time V will start with a 0, then minus, then comes your learning rate into, then comes your delta L with respect to W. Now, this is exactly the same.
+
+575
+01:21:34.990 --> 01:21:39.480
+PAUL: Now, this particular velocity term, if I say, in the first
+
+576
+01:21:39.770 --> 01:21:46.000
+PAUL: Example, what will happen? Can I say that it will be 0 years or no? In the first state, state 1,
+
+577
+01:21:48.290 --> 01:22:00.440
+PAUL: I have tried to introduce that, and right now the representation of beta, this is, okay, I think it will be better. V is equal to velocity, this is equal to momentum, so that things become much more clear.
+
+578
+01:22:01.320 --> 01:22:09.610
+PAUL: Because other things, I know that everybody of you know, n is your learning rate, and then that delta term is the gradient of loss.
+
+579
+01:22:10.530 --> 01:22:11.430
+PAUL: Nope.
+
+580
+01:22:11.590 --> 01:22:15.889
+PAUL: There are two things, let me try to bring the core concept of.
+
+581
+01:22:16.490 --> 01:22:18.310
+PAUL: Expo?
+
+582
+01:22:18.500 --> 01:22:20.160
+PAUL: Nenchil…
+
+583
+01:22:33.260 --> 01:22:35.990
+PAUL: Now the question comes that…
+
+584
+01:22:36.260 --> 01:22:43.650
+PAUL: we are making the influence of 90% of the direction. So exactly how that influence takes
+
+585
+01:22:43.880 --> 01:22:56.489
+PAUL: Okay, because you might say, Paul, okay, initially we started with 0, that 90%, so actually how it impacts the value. And exponential weighted average, anybody has heard about that? Now, this is a really common technique.
+
+586
+01:22:57.140 --> 01:22:59.520
+PAUL: Even used in time series a lot.
+
+587
+01:23:03.940 --> 01:23:09.699
+PAUL: Okay, a few people are telling, most of you are telling, no, no, no, no, no, no, alright.
+
+588
+01:23:09.890 --> 01:23:15.149
+PAUL: Now, let's take the example with respect to T. Okay, so right now.
+
+589
+01:23:17.290 --> 01:23:22.739
+PAUL: The same thing, if I… every time I have been writing in this way, life waits.
+
+590
+01:23:24.790 --> 01:23:35.830
+PAUL: Okay, I have written W, WN, but going forward, I'll be using this particular term, WT… WT-1,
+
+591
+01:23:36.960 --> 01:23:40.169
+PAUL: with respect to time that I have been introducing.
+
+592
+01:23:40.600 --> 01:23:43.399
+PAUL: Similarly, you'll be having WT plus 1.
+
+593
+01:23:45.850 --> 01:23:53.259
+PAUL: Alright, now what I have done here, simply, the intuition that I have changed, it is with respect to time right now.
+
+594
+01:23:53.550 --> 01:23:58.240
+PAUL: Okay, so I'll be writing with respect to timestamp T exactly what will happen.
+
+595
+01:23:58.770 --> 01:24:07.819
+PAUL: Is this part clear? Now… Exponential weighted average, let me just write here EWA for now.
+
+596
+01:24:08.050 --> 01:24:13.069
+PAUL: Now, if I want to calculate for WT, let's take for WT.
+
+597
+01:24:14.390 --> 01:24:17.289
+PAUL: Now, what is the main formula that you have?
+
+598
+01:24:17.470 --> 01:24:21.510
+PAUL: Okay, so, see, generally you can write it beta also.
+
+599
+01:24:22.040 --> 01:24:29.410
+PAUL: Into… The first term that will come, which is your existing weight that you have, or you might…
+
+600
+01:24:30.280 --> 01:24:33.770
+PAUL: So, the wait term that you can keep it.
+
+601
+01:24:37.050 --> 01:24:39.469
+PAUL: Plus 1 minus beta.
+
+602
+01:24:48.770 --> 01:24:53.930
+PAUL: Alright, now, the representation that I have done, let's try to understand.
+
+603
+01:24:54.350 --> 01:25:02.990
+PAUL: Okay? Or, rather than I can write it with respect to a term X also, that will be better, just because,
+
+604
+01:25:03.300 --> 01:25:04.919
+PAUL: Let's take that down.
+
+605
+01:25:05.540 --> 01:25:06.510
+PAUL: X.
+
+606
+01:25:09.260 --> 01:25:11.590
+PAUL: Alright, I have taken SimplyX for now.
+
+607
+01:25:11.750 --> 01:25:24.099
+PAUL: Now, when I say, I have brought this particular term, and generally the value of beta that we take, that beta term, what I told, in movement term, 0.9,
+
+608
+01:25:29.820 --> 01:25:34.739
+PAUL: Let's take this particular value. What will be this term? Point.
+
+609
+01:25:34.920 --> 01:25:39.279
+PAUL: Quickly tell me, 1 minus beta, what it will be. I think everybody knows.
+
+610
+01:25:55.700 --> 01:25:58.310
+PAUL: Alright, minus one, everybody understood, yes.
+
+611
+01:25:58.520 --> 01:26:10.599
+PAUL: Now, when you see that, now, can you tell me which is actually making that particular 90% representation, and this is particular 10% representation here?
+
+612
+01:26:14.060 --> 01:26:21.940
+PAUL: beta with respect to 1 minus beta, whenever I'm doing. So right now, which data point is actually, I can say.
+
+613
+01:26:22.190 --> 01:26:32.760
+PAUL: influential much more. Because, one thing that I can actually change it, because the representation, you might guess, how X is coming. Okay, so…
+
+614
+01:26:33.330 --> 01:26:35.100
+PAUL: Waste on just fruit.
+
+615
+01:26:35.690 --> 01:26:40.670
+PAUL: Rather than using that term, because I feel that you might get confused here.
+
+616
+01:26:40.820 --> 01:26:52.009
+PAUL: I'll be taking EWT, here, let's take EWT, and EWA T-1. X is the current data point for now.
+
+617
+01:26:59.570 --> 01:27:00.450
+PAUL: B.
+
+618
+01:27:01.720 --> 01:27:05.310
+PAUL: You don't… E… B…
+
+619
+01:27:05.740 --> 01:27:13.899
+PAUL: a timestamp. Now, the representation, you have to understand, it can be anything now. Let me just take EWA.
+
+620
+01:27:16.340 --> 01:27:23.130
+PAUL: As I'm talking only with respect to exponential weighted average, so that's why I don't want to bring that gradient right now.
+
+621
+01:27:23.340 --> 01:27:30.300
+PAUL: Now, when I say that, can I say that out of this, which is having more influence and which is having lesser influence?
+
+622
+01:27:30.930 --> 01:27:38.029
+PAUL: You have to understand this one. More influence and lesser influence. Please tell me. Can I say that this is more
+
+623
+01:27:38.740 --> 01:27:41.250
+PAUL: And this is less yes or no.
+
+624
+01:27:41.470 --> 01:27:50.659
+PAUL: The idea with respect to the influence right now, just I'm talking about, and nothing else right now. It means that who is giving more weightage to the recent values?
+
+625
+01:27:54.830 --> 01:28:00.229
+PAUL: How many of you are getting this part? Simply the formula, if I say…
+
+626
+01:28:00.400 --> 01:28:04.370
+PAUL: Generally, with respect to exponential weighted average, let me take this one.
+
+627
+01:28:12.350 --> 01:28:28.360
+PAUL: Okay, so here, let's take at timestamp T minus 1, let's take this at timestamp T that you are calculating, and this is your data point, okay, for now, initially. Whenever you are doing this, the idea is that this should be influencing this one.
+
+628
+01:28:29.970 --> 01:28:32.639
+PAUL: Okay, the main influence should come from here.
+
+629
+01:28:32.960 --> 01:28:35.440
+PAUL: And this is always a bigger value.
+
+630
+01:28:36.020 --> 01:28:40.419
+PAUL: Give the bigger value, because of that, impact will be much more higher.
+
+631
+01:28:41.290 --> 01:28:46.689
+PAUL: If this impact is bigger, then automatically influence comes into the system.
+
+632
+01:28:50.370 --> 01:29:01.199
+PAUL: Alright, so step by step, that's why I'm telling you exactly. So, one data point will try to influence. So, simply, if I say, I have multiple data points, something like this.
+
+633
+01:29:04.600 --> 01:29:05.400
+PAUL: Okay.
+
+634
+01:29:05.610 --> 01:29:07.589
+PAUL: Let's skate like this.
+
+635
+01:29:08.610 --> 01:29:09.580
+PAUL: All right, fine.
+
+636
+01:29:24.840 --> 01:29:29.780
+PAUL: If I ask you how you can make the curve much more smoother.
+
+637
+01:29:32.040 --> 01:29:44.029
+PAUL: Now, the question comes, if this particular data point can actually influence the other one. So, from here, generally, we get the idea. It actually helps in smoothening operation also.
+
+638
+01:29:44.170 --> 01:29:54.459
+PAUL: Okay, so probably from here, if I say that, okay, if I try to influence this particular data point, and if I try to make a little bit closer.
+
+639
+01:29:54.830 --> 01:29:57.349
+PAUL: Can I guess something like this, yes or no?
+
+640
+01:30:01.930 --> 01:30:10.869
+PAUL: That influence that comes. How many of you are getting this? This is a simple understanding, because in time series, that's why we always use exponential weighted average a lot.
+
+641
+01:30:11.060 --> 01:30:19.750
+PAUL: Okay, but here, the core idea. The idea is to influence. So, first, the influence was there. Now, this particular data point will influence this one.
+
+642
+01:30:20.450 --> 01:30:33.089
+PAUL: So somehow, probably, as based on this one, so already this one with respect to now this one. So, probably, rather than going in this direction, little bit of influence if I can bring in this.
+
+643
+01:30:34.510 --> 01:30:40.770
+PAUL: Okay, then again, it's going in the up direction, so probably if this can actually influence this one.
+
+644
+01:30:44.000 --> 01:30:51.049
+PAUL: If I can make it, then probably… I hope everybody is getting the idea. The idea is you are actually doing the manipulation.
+
+645
+01:30:51.510 --> 01:31:02.340
+PAUL: Okay, and how you are doing the manipulation to your original Gov? By actually manipulating the data points. And what you were doing, and always you were trying to look into timestamp minus 1.
+
+646
+01:31:02.780 --> 01:31:06.120
+PAUL: If the influence can be much more high above the site.
+
+647
+01:31:09.970 --> 01:31:13.809
+PAUL: Is this part clear? Please let me know how many of you are getting the idea.
+
+648
+01:31:14.510 --> 01:31:17.799
+PAUL: Because I'm just trying to express the idea right now.
+
+649
+01:31:18.750 --> 01:31:19.730
+PAUL: Yes?
+
+650
+01:31:20.110 --> 01:31:39.450
+PAUL: And then, probably after the break, we will continue exploring this idea. Based on this particular idea, going forward, we will be always talking with respect to timestamp. Timestamp will play a very, very crucial. After the break, we'll continue this part. But this is the core idea, roughly. That one data point will influence the other data point.
+
+651
+01:31:40.130 --> 01:31:48.089
+PAUL: Okay, so how we can make the information? Make… try to attach a bigger value to 1, and automatically the other one gets a smaller one.
+
+652
+01:31:48.930 --> 01:31:54.950
+PAUL: Okay, so let's, explore this idea after the break. So let me just start the timer.
+
+653
+01:31:55.140 --> 01:31:58.590
+PAUL: Guys, have your breakfast, and then please be back soon.
+
+654
+01:32:03.560 --> 01:32:07.450
+PAUL: Various clock, just not. Clock, clock, clock, yes.
+
+655
+01:47:37.920 --> 01:47:41.929
+PAUL: I hope everyone is back. Please let me know in the chats.
+
+656
+01:47:44.860 --> 01:47:50.329
+PAUL: All right, Mohammad mush, at the end, I will be taking your question.
+
+657
+01:47:53.400 --> 01:48:00.030
+PAUL: Alright, now, a few common questions, which are coming, like, what is X? So, let me just, take,
+
+658
+01:48:00.230 --> 01:48:09.140
+PAUL: different approach this time. I will, take the intuition from the time perspective, okay, time and values perspective.
+
+659
+01:48:09.700 --> 01:48:12.110
+PAUL: Let's take a phone.
+
+660
+01:48:12.540 --> 01:48:19.280
+PAUL: AWA… Here, I'm taking, timestamp.
+
+661
+01:48:19.560 --> 01:48:21.170
+PAUL: And values writing.
+
+662
+01:48:22.600 --> 01:48:28.809
+PAUL: Okay, T is equal to time step, and V is equal to value, simply. This is time, and this is value.
+
+663
+01:48:29.830 --> 01:48:39.969
+PAUL: At timestamp T1, the value is A1. At timestamp T2, the value is A2. Timestamp T3, the value is A3.
+
+664
+01:48:47.530 --> 01:48:51.179
+PAUL: Dot, dot dot, dot dot dot, TN.
+
+665
+01:48:53.110 --> 01:49:00.960
+PAUL: All right. Now, previously, the graph that we have drawn, let's try to… Created to know.
+
+666
+01:49:01.330 --> 01:49:02.340
+PAUL: Better me.
+
+667
+01:49:14.730 --> 01:49:26.039
+PAUL: T1, T2, T3, T4, T5… Alright, now from here, I will just change the color a bit.
+
+668
+01:49:26.740 --> 01:49:28.990
+PAUL: The idea is, if…
+
+669
+01:49:48.390 --> 01:50:01.679
+PAUL: All right. Now, this is exactly how the curve looks like. Now, this you can think about. Here's your A1, this is your A2, this is your A3 that I have drawn right now. A3, A4, A5, and that.
+
+670
+01:50:02.280 --> 01:50:03.000
+PAUL: Nope.
+
+671
+01:50:03.110 --> 01:50:11.469
+PAUL: Now, the idea is, whenever we are doing exponential weighted average, now, we call it as the smoothing operation.
+
+672
+01:50:23.630 --> 01:50:26.219
+PAUL: Okay, I might have missed one E, already try.
+
+673
+01:50:26.660 --> 01:50:37.909
+PAUL: The idea is to make it smoother. Now, how I will do it? So, initially, that I have, let's take my, VT1 is equal to A1 that I am taking right now.
+
+674
+01:50:38.070 --> 01:50:39.720
+PAUL: the first one.
+
+675
+01:50:39.910 --> 01:50:46.139
+PAUL: this particular one. VT1 is equal to A1, that right now, I'm taking it.
+
+676
+01:50:46.280 --> 01:50:52.039
+PAUL: Now, based on the formula that I've been discussing, I will just rewrite the formula from T2 perspective.
+
+677
+01:50:52.290 --> 01:51:05.169
+PAUL: Rather than writing T-1 at every point of time, I will write T1 for 1. Here, you have the beta parameter, the momentum parameter. Now, here, the value that will come, so VT-1.
+
+678
+01:51:05.600 --> 01:51:07.580
+PAUL: Okay, so just wait.
+
+679
+01:51:09.240 --> 01:51:11.890
+PAUL: your V… D.
+
+680
+01:51:12.770 --> 01:51:32.729
+PAUL: 1… sorry, the first 1 will come, then in the next place, the last parameter, 1 minus beta, and then you have your next term. What will be the next term? Right now, for VT2, what you will be calculating? The A2 factor, the A2 value that you have already. Let me just take this.
+
+681
+01:51:34.290 --> 01:51:36.660
+PAUL: Okay, now this is the formula.
+
+682
+01:51:36.760 --> 01:51:50.759
+PAUL: Nothing that you can change. The value of the beta parameter that you need to select is between 0 to 1. Now, beta value I'll be changing every time I've been taking, 0.9. Let's take here this value as 0.95.
+
+683
+01:51:51.700 --> 01:51:57.860
+PAUL: Alright, and then comes your VT1, plus this becomes .05,
+
+684
+01:51:58.020 --> 01:52:06.039
+PAUL: With respect to your meeting. In this way, I think the entire representation, that it's easy to understand at any point in time.
+
+685
+01:52:06.610 --> 01:52:12.229
+PAUL: Alright? Similarly, what will happen for VT Kerry, please tell me.
+
+686
+01:52:13.220 --> 01:52:21.010
+PAUL: The next one… For VT3, exactly what will happen. The beta parameter will remain the same.
+
+687
+01:52:21.350 --> 01:52:33.879
+PAUL: Okay, and here I am taking BT1 is equal to A1, so for sure, this particular value that I am taking… okay, so in the next step, let me just take 9…
+
+688
+01:52:34.290 --> 01:52:36.390
+PAUL: into A1.
+
+689
+01:52:36.820 --> 01:52:41.490
+PAUL: loss… 0.05 into A2.
+
+690
+01:52:43.230 --> 01:52:44.369
+PAUL: District 2.
+
+691
+01:52:44.740 --> 01:52:46.070
+PAUL: into catering.
+
+692
+01:52:46.660 --> 01:52:52.560
+PAUL: Correct? Is this part clear? Please tell me in the chats that I have done right now.
+
+693
+01:52:53.630 --> 01:52:56.950
+PAUL: So, what will be for V3?
+
+694
+01:52:58.200 --> 01:53:00.800
+PAUL: Now, this will be your VT2.
+
+695
+01:53:01.290 --> 01:53:05.260
+PAUL: plus… 1 minus beta.
+
+696
+01:53:05.630 --> 01:53:09.139
+PAUL: And then here, what term will come? Your A3 term.
+
+697
+01:53:10.020 --> 01:53:25.939
+PAUL: Now, similarly here, 0.95 into the V2, this complete term, whichever this entire term that came. Alright, so this particular time, I'm not writing it down, but directly, I hope you get it.
+
+698
+01:53:26.880 --> 01:53:32.730
+PAUL: I will just, like, mention it here as VT2 plus 0.05 per my 8th.
+
+699
+01:53:33.310 --> 01:53:39.290
+PAUL: So, guys, from here, as previously that I've been discussing this, now this value is the bigger.
+
+700
+01:53:40.420 --> 01:53:41.310
+PAUL: Looking?
+
+701
+01:53:41.740 --> 01:53:54.459
+PAUL: So, because of this particular value, can I say that it will be having an influence towards the next value? Simply, can I say that, here, A1 will be influencing
+
+702
+01:53:54.460 --> 01:54:02.379
+PAUL: your A2, yes or no. And based on that particular idea, the idea is, can I make this a bit smoother?
+
+703
+01:54:02.440 --> 01:54:06.970
+PAUL: So, probably after, the main transformation.
+
+704
+01:54:07.140 --> 01:54:10.580
+PAUL: Can I make something like this? Something.
+
+705
+01:54:11.730 --> 01:54:12.939
+PAUL: like this.
+
+706
+01:54:13.580 --> 01:54:22.859
+PAUL: which will be the resultant curve. After applying exponential weighted average, you'll be getting A bit smoother line.
+
+707
+01:54:24.060 --> 01:54:31.170
+PAUL: How many of you got this idea? Now, I've just tried to done the representation entirely with respect to the time.
+
+708
+01:54:31.690 --> 01:54:35.010
+PAUL: Yes, others also, please let me know, because,
+
+709
+01:54:35.850 --> 01:54:44.649
+PAUL: last time directly I wrote this, but exactly how X come from, so this time, that's why I've written with respect to A1, A2, so that things become clear in government.
+
+710
+01:54:45.100 --> 01:54:48.910
+PAUL: Everyone, please let me know. Ren's fine, what about others?
+
+711
+01:54:50.100 --> 01:55:05.590
+PAUL: Okay, that's why I told you the impact. So here, majorly, the previous data point is actually playing the crucial role. Okay, so your previous timestamp. So that's why that particular direction information that we initially discussed.
+
+712
+01:55:05.780 --> 01:55:06.660
+PAUL: Okay.
+
+713
+01:55:07.010 --> 01:55:10.040
+PAUL: The direction plays the major pushing.
+
+714
+01:55:10.380 --> 01:55:20.090
+PAUL: Okay, now, if you try to do this particular advance, so this particular operation, so what will be your major advantages?
+
+715
+01:55:20.660 --> 01:55:26.219
+PAUL: Okay, so based on the curve, let's take any sample curves on them.
+
+716
+01:55:27.620 --> 01:55:31.169
+PAUL: Because your conversions will take place, there won't be any impact to that.
+
+717
+01:55:37.190 --> 01:55:40.249
+PAUL: Okay, so let me just drive from here.
+
+718
+01:55:50.090 --> 01:56:09.620
+PAUL: Okay, so probably here I'm taking the minimum for now. Based on that, I've just simply drawn this zigzag, because every time I'm not drawing the smooth line, because you guys got the idea, that, yes, it won't be very, very smooth, because of weight updates, little bit of noise introduction that will take place.
+
+719
+01:56:12.300 --> 01:56:15.659
+PAUL: Now, from here, the main advantages that you have.
+
+720
+01:56:16.150 --> 01:56:18.250
+PAUL: The first one will be what?
+
+721
+01:56:20.870 --> 01:56:23.960
+PAUL: The idea to achieve smoothness.
+
+722
+01:56:25.840 --> 01:56:31.489
+PAUL: Okay, that is the first thing. Smoothness, or simply I can say, reduce noise.
+
+723
+01:56:33.960 --> 01:56:36.929
+PAUL: This is one advantage, yes or no?
+
+724
+01:56:38.010 --> 01:56:47.129
+PAUL: And if you're already… if you are already reducing the noise, so what will happen? Your quick conversions that will take place.
+
+725
+01:56:53.820 --> 01:56:54.760
+PAUL: All right.
+
+726
+01:56:55.480 --> 01:56:59.149
+PAUL: Now, what is the added benefit of this?
+
+727
+01:56:59.980 --> 01:57:06.920
+PAUL: Noise reduction helps you, actually, with respect to quicker, convergence, and let me also just
+
+728
+01:57:07.040 --> 01:57:14.740
+PAUL: Get a visualization, probably somewhere from assets, and then I will stop sharing this screen, and let's get back.
+
+729
+01:57:14.980 --> 01:57:24.910
+PAUL: Somebody created that particular tool just to visualize this particular information, so I'm just opening a GIF file right now.
+
+730
+01:57:28.240 --> 01:57:31.069
+PAUL: And let me just share that.
+
+731
+01:57:36.920 --> 01:57:48.649
+PAUL: All it, screen… Alright, now, just try to analyze. So, this is…
+
+732
+01:57:49.330 --> 01:57:58.550
+PAUL: the blue version that you have, if you look here, this is the gradient descent one, okay, and this one with the momentum. So…
+
+733
+01:57:58.690 --> 01:58:05.719
+PAUL: Right now, what is happening? How many minimas are there in this particular curve that I am showing? Please tell me.
+
+734
+01:58:07.430 --> 01:58:13.010
+PAUL: Kulkith is asking, what is A1, A2? These are the values, that timestamp 1, timestamp 2, timestamp 3.
+
+735
+01:58:14.980 --> 01:58:28.000
+PAUL: Okay, two minimas are there. Can you see here that, initially, gradient descent because of having lower speeds, I can say, okay, it got stuck where? In the
+
+736
+01:58:28.300 --> 01:58:29.560
+PAUL: Local minimum.
+
+737
+01:58:29.680 --> 01:58:33.790
+PAUL: But due to the push, of momentum.
+
+738
+01:58:34.550 --> 01:58:41.670
+PAUL: in the direction that you have. It's actually trying to reach towards your global minimum.
+
+739
+01:58:41.900 --> 01:58:44.900
+PAUL: Now, this is the added benefit here, right?
+
+740
+01:58:45.910 --> 01:58:56.799
+PAUL: Okay, so possibility is there. It is not 100% written anywhere that every time I will reach the global minimum, again, I want to clear this file. But this is the idea or the intention.
+
+741
+01:58:56.870 --> 01:58:59.440
+PAUL: If you have that a bit of speed.
+
+742
+01:58:59.460 --> 01:59:18.039
+PAUL: Okay, and right now you have to think, see guys, this is similarly, if you look into this particular curve, so it's first oral coming here, and then from there, it is going. So probably, if the global minima will be at a different point, so probably, if this curve, if you change it to something
+
+743
+01:59:18.180 --> 01:59:23.119
+PAUL: A bit far, then probably the momentum won't hang.
+
+744
+01:59:23.690 --> 01:59:32.209
+PAUL: But in this particular example, so the main idea was that if you want to surpass that through that extra speed that you have achieved.
+
+745
+01:59:32.500 --> 01:59:34.249
+PAUL: It actually helps.
+
+746
+01:59:34.680 --> 01:59:47.250
+PAUL: Okay, to reach towards your global minimum. But again, this is not the condition always with real-time data. In real-time data, it becomes much more harder if the complexity of the curve is much more hard.
+
+747
+01:59:49.870 --> 01:59:50.910
+PAUL: All right.
+
+748
+01:59:51.460 --> 01:59:59.929
+PAUL: For others, also, that's why I want to make this clear. Leave this part, decay rate on others, as this is a tool, more important, things. So…
+
+749
+02:00:01.110 --> 02:00:14.850
+PAUL: Later on, we will come to decay rate. Weight decay, generally, with respect to time, how much it should gradually degrade, so there we call it. But, this is one tool through that.
+
+750
+02:00:15.390 --> 02:00:17.590
+PAUL: I wanted to show you the GIF.
+
+751
+02:00:18.680 --> 02:00:21.419
+PAUL: Well, right now, let's get back to the discussion.
+
+752
+02:00:28.850 --> 02:00:42.170
+PAUL: Generally, when I'll be discussing callback details, then I will let you know exactly. Few things are there, like LR scheduler is there, weight decorate is there, and a few more callbacks in Keras, as well as in PyTorch, the same thing.
+
+753
+02:00:43.340 --> 02:00:47.519
+PAUL: Alright, now, let's, move to the next part.
+
+754
+02:00:48.840 --> 02:01:00.780
+PAUL: Now, whenever I am applying SGD, okay, so by default, going forward, remembers, nobody uses the SGD. Every time we'll be using SJT+,
+
+755
+02:01:00.780 --> 02:01:11.169
+PAUL: the momentum factor will come. So, generally, the coefficient, that we prefer, the momentum coefficient, 0.9 or 0.999.
+
+756
+02:01:11.870 --> 02:01:20.900
+PAUL: Okay, so simply based on that, the new weight update rule, initially it will start with 0, but slowly, slowly, it will keep on increasing.
+
+757
+02:01:23.460 --> 02:01:24.310
+PAUL: Oh, God.
+
+758
+02:01:25.410 --> 02:01:29.600
+PAUL: Now, based on our last annotation.
+
+759
+02:01:30.010 --> 02:01:32.649
+PAUL: Nuh- we will move towards…
+
+760
+02:01:32.790 --> 02:01:41.230
+PAUL: making and changing the learning rate. Now, from this point, every time we'll be playing with the learning rate a lot.
+
+761
+02:01:41.770 --> 02:01:44.549
+PAUL: So, the next one will be your ad.
+
+762
+02:01:50.540 --> 02:01:56.900
+PAUL: As the name suggests, ADA is there, so ADA means Adaptive Gradient Descent.
+
+763
+02:02:16.770 --> 02:02:22.650
+PAUL: Now, here, based on the formula, I will be just writing, T going forward.
+
+764
+02:02:23.110 --> 02:02:25.839
+PAUL: Can I write something like this, yes or no?
+
+765
+02:02:31.800 --> 02:02:33.130
+PAUL: Can I write it?
+
+766
+02:02:34.210 --> 02:02:46.249
+PAUL: Because this is the first time in the weight update formula, direct, I'm just representing it with respect to T and T-1, okay? Now, till this particular time, I can say that
+
+767
+02:02:47.110 --> 02:02:48.999
+PAUL: This is your LR.
+
+768
+02:02:49.260 --> 02:02:52.220
+PAUL: And the idea is, we have kept it constant.
+
+769
+02:02:54.980 --> 02:02:57.770
+PAUL: Now the question comes how we can make it dynamic.
+
+770
+02:02:58.610 --> 02:03:03.000
+PAUL: By simply changing this particular formula. Other than that, nothing.
+
+771
+02:03:03.250 --> 02:03:04.070
+PAUL: Okay.
+
+772
+02:03:04.450 --> 02:03:19.860
+PAUL: Now, I hope everybody understands why the idea is constant, because once you are reaching towards your convergence, okay, or you are reaching towards your minimum, in that case, the learning rate should change, or it should be a smaller value gradually.
+
+773
+02:03:20.170 --> 02:03:28.980
+PAUL: Now, simply… now, this particular parameter, now I will just change this formula, and I will just update.
+
+774
+02:03:29.420 --> 02:03:34.050
+PAUL: WT is equal to WT minus 1.
+
+775
+02:03:34.630 --> 02:03:37.719
+PAUL: Now, here is one that I have added.
+
+776
+02:03:37.840 --> 02:03:41.409
+PAUL: tel L with respect to del T minus 1.
+
+777
+02:03:42.050 --> 02:03:45.190
+PAUL: Now, here I will say simply, your first…
+
+778
+02:03:47.840 --> 02:03:54.630
+PAUL: Now, this is the new learning rate definition. Whatever the learning rate that you are selecting, it's fine.
+
+779
+02:03:54.910 --> 02:03:56.680
+PAUL: Now, root over…
+
+780
+02:03:59.720 --> 02:04:07.790
+PAUL: the first term that you already, know. So, let me just write here del T plus E.
+
+781
+02:04:08.040 --> 02:04:11.100
+PAUL: E is… this one is an epsilon.
+
+782
+02:04:14.280 --> 02:04:29.789
+PAUL: Okay, and this particular value that I'm telling right now, the delta T for now. Okay, and you already know what is that delta T, so delta T is equal to del L, already the information that you already have.
+
+783
+02:04:31.380 --> 02:04:40.270
+PAUL: del L with respect to del WT, and what will be, taking?
+
+784
+02:04:41.060 --> 02:04:49.120
+PAUL: Just a few changes that I'll be doing. Let me take it from the complete perspective.
+
+785
+02:04:51.940 --> 02:04:54.409
+PAUL: I also want to print right now?
+
+786
+02:04:54.790 --> 02:04:57.120
+PAUL: For all these samples that I have taken.
+
+787
+02:04:57.310 --> 02:04:59.370
+PAUL: Okay. Oh, weird.
+
+788
+02:05:00.900 --> 02:05:07.419
+PAUL: Now, as the T parameter, for every timestamp that I have to do the calculation, I'll be adding the
+
+789
+02:05:07.610 --> 02:05:09.910
+PAUL: term T also here.
+
+790
+02:05:10.190 --> 02:05:17.389
+PAUL: Okay, so for every timestamp that I have taken, let me just make this thing as a square.
+
+791
+02:05:17.750 --> 02:05:23.449
+PAUL: Because there is a square root, because of that, I am taking a square. Here you have a square root. Okay.
+
+792
+02:05:24.210 --> 02:05:28.709
+PAUL: Now, let me just a little bit make this lean.
+
+793
+02:05:29.020 --> 02:05:32.449
+PAUL: won't… This is the T parameter.
+
+794
+02:05:33.290 --> 02:05:33.970
+PAUL: Okay.
+
+795
+02:05:34.200 --> 02:05:50.469
+PAUL: I to T, because, here, as we are taking timestamps, because of that, I have taken for every timestamp that you will be calculating the delta, okay, but the delta value will be in square, and why it will be in square? Because you have a square root.
+
+796
+02:05:50.480 --> 02:06:05.320
+PAUL: Okay, and what is the purpose of using the epsilon? Epsilon will be a very small value. The main purpose of using epsilon is the denominator term doesn't become zero. This is the main purpose of using the epsilon.
+
+797
+02:06:05.680 --> 02:06:10.550
+PAUL: Now, when you are actually dynamically changing, so…
+
+798
+02:06:10.720 --> 02:06:17.909
+PAUL: I have the value. Now, can you tell me, with respect to time, what will happen to the value? So, probably, let's take at T.
+
+799
+02:06:18.230 --> 02:06:21.839
+PAUL: 1. At T2. At T3.
+
+800
+02:06:23.950 --> 02:06:25.420
+PAUL: Please tell me, guys.
+
+801
+02:06:26.800 --> 02:06:33.999
+PAUL: Is this part clear? Because, see, this is nothing that I can do, this is just the formula representation. What is the only thing that you were doing this month?
+
+802
+02:06:34.900 --> 02:06:38.859
+PAUL: this value, rather than… I have given a separate formula to this.
+
+803
+02:06:39.360 --> 02:06:45.910
+PAUL: And in that particular separate formula, what are the terms? This, you already know. The learning rate, your LR.
+
+804
+02:06:46.280 --> 02:06:48.990
+PAUL: Okay, then you have this particular town.
+
+805
+02:06:49.750 --> 02:06:54.829
+PAUL: And then you have the epsilon time. Two new terms, both the terms formula that I've directly written here.
+
+806
+02:06:55.160 --> 02:06:59.310
+PAUL: What is Delta T? Delta T. See, guys, I hope everybody understands
+
+807
+02:06:59.740 --> 02:07:04.400
+PAUL: This delta T representation, already I have written it here. Please let me know.
+
+808
+02:07:07.730 --> 02:07:10.740
+PAUL: This is actually Delil with respect to…
+
+809
+02:07:12.930 --> 02:07:17.689
+PAUL: Your loss with respect to your weight, that is the same thing that we have been writing it here.
+
+810
+02:07:19.680 --> 02:07:23.840
+PAUL: Okay, as I'm doing it for every timestamp, because of that, I have written T.
+
+811
+02:07:24.040 --> 02:07:28.940
+PAUL: I'm not writing T-1, that's why I've written here, starting from 1 to 2.
+
+812
+02:07:29.100 --> 02:07:31.609
+PAUL: For every timestamp, okay?
+
+813
+02:07:32.960 --> 02:07:43.750
+PAUL: All right. Now, based on T1 to T2, can I say that initially, if the value of N, let's take the value of N a bit small.
+
+814
+02:07:45.850 --> 02:07:50.569
+PAUL: Let's start with something like 0.01. In the next step, what will happen?
+
+815
+02:07:51.650 --> 02:07:56.140
+PAUL: Can I say that if this particular term gets bigger.
+
+816
+02:07:56.700 --> 02:08:00.299
+PAUL: Automatically, this value will become smaller, yes or no.
+
+817
+02:08:00.990 --> 02:08:03.269
+PAUL: Yes or no thing.
+
+818
+02:08:03.880 --> 02:08:11.950
+PAUL: If the denominator terms start getting bigger, Will I get my new…
+
+819
+02:08:12.110 --> 02:08:26.639
+PAUL: learning rate n, this particular value will be smaller, yes or no, based on this particular formula. If the denominator is getting bigger, automatically, what will happen to this value? Will it get smaller or bigger?
+
+820
+02:08:29.180 --> 02:08:36.300
+PAUL: Tell me, guys, very simple intuition. There is nothing. Because with respect to time, I know that this will become smaller.
+
+821
+02:08:36.700 --> 02:08:39.320
+PAUL: So, probably in the next step,
+
+822
+02:08:40.760 --> 02:08:55.849
+PAUL: This, right now, rather than writing, these are random numbers.005, it will go. Probably at timestamp 3, this particular value will be much more smaller, so probably this time, let's… don't add a decimal.
+
+823
+02:08:56.120 --> 02:08:59.949
+PAUL: I'm just writing 003 for me. Just a small impact.
+
+824
+02:09:00.320 --> 02:09:01.770
+PAUL: Okay, sweet.
+
+825
+02:09:02.010 --> 02:09:06.570
+PAUL: Initially, if you think about what is adapter, can I say that it's just…
+
+826
+02:09:06.860 --> 02:09:10.239
+PAUL: I have added one more thing in the learning rate.
+
+827
+02:09:12.070 --> 02:09:18.350
+PAUL: We are starting with a learning rate, and then slowly, slowly, with respect to time, I am decreasing it years or more.
+
+828
+02:09:21.580 --> 02:09:25.850
+PAUL: Is this part here? This is only available in Atag. Other than that, there is nothing.
+
+829
+02:09:27.190 --> 02:09:31.450
+PAUL: Okay, Partha, I hope everything is clear, others also.
+
+830
+02:09:31.720 --> 02:09:33.359
+PAUL: Yep. All right.
+
+831
+02:09:33.710 --> 02:09:37.959
+PAUL: Now, as you have seen now, what is the mean problem here?
+
+832
+02:09:40.270 --> 02:09:52.210
+PAUL: The main problem that we do face here… okay, so the only major problem is the denominator one, because the entire game lies on the denominator.
+
+833
+02:09:52.420 --> 02:09:55.760
+PAUL: So, here the… Possibility.
+
+834
+02:10:02.300 --> 02:10:11.110
+PAUL: to become… Very… Small… Value.
+
+835
+02:10:13.720 --> 02:10:15.110
+PAUL: Close to zero.
+
+836
+02:10:17.960 --> 02:10:25.080
+PAUL: Okay? And I think I haven't mentioned the epsilon parameter, so generally the value of epsilon that you take.
+
+837
+02:10:25.230 --> 02:10:31.590
+PAUL: 0.12345678… 90.
+
+838
+02:10:33.570 --> 02:10:37.940
+PAUL: Okay, so a very, very small value. Nitudhar…
+
+839
+02:10:38.370 --> 02:10:54.350
+PAUL: minus 9 that generally we do prefer. But again, here that I have epsilon is a very, very small value. Because of that, I'm telling that the possibility is there that it can become a very, very small value, which is very much close to zero.
+
+840
+02:10:54.780 --> 02:11:05.169
+PAUL: Is this part clear, the value of epsilon? And based on that, this is a possibility, yes or no? And if this is a possibility, then what will be the impact?
+
+841
+02:11:06.290 --> 02:11:09.280
+PAUL: Can anybody tell me what will be the impact?
+
+842
+02:11:09.750 --> 02:11:11.720
+PAUL: Of this particular problem.
+
+843
+02:11:14.550 --> 02:11:22.789
+PAUL: Okay, no learning? Yes, exactly, Amul. That was the word I was looking for. If you really think about, then it is…
+
+844
+02:11:22.950 --> 02:11:26.889
+PAUL: Reaching towards VGD, your vanishing gradient problem.
+
+845
+02:11:28.480 --> 02:11:37.510
+PAUL: Okay. Convergence will delay, probably, Like, in rare scenarios, there won't be conversions. It means that It…
+
+846
+02:11:37.850 --> 02:11:40.659
+PAUL: At this particular point, it might get stuck.
+
+847
+02:11:42.090 --> 02:11:46.259
+PAUL: Okay, the speed will be very, very, very, very, very, very slow.
+
+848
+02:11:46.700 --> 02:11:50.200
+PAUL: And we know that this is how we need to improve.
+
+849
+02:11:52.770 --> 02:12:00.290
+PAUL: Prade? Now… That's why the next optimizer that we'll be discussing, which is a RMS prop.
+
+850
+02:12:02.310 --> 02:12:18.129
+PAUL: So, in this way, things keep on increasing. We know that this is the con, let's try to solve the con. So, always try to understand. So, we always try to identify the problem, and then optimize it, and then one research paper comes. So, that's why you will see a hell lot of papers that came.
+
+851
+02:12:18.410 --> 02:12:24.820
+PAUL: Starting from 2012. Similarly, right now in 2025, 2026, hell a lot of paper that came for illegal.
+
+852
+02:12:25.670 --> 02:12:33.820
+PAUL: Lesser, engineering, so at any point of time, when they… whenever there is a con, they fixed it, and a new paper was published.
+
+853
+02:12:34.530 --> 02:12:38.370
+PAUL: Alright, now let's move to RMS prop.
+
+854
+02:12:42.630 --> 02:12:50.330
+PAUL: RMS, I think somewhere… You have written RMS… you have learned about RMS, please let me know.
+
+855
+02:12:58.530 --> 02:13:06.740
+PAUL: Okay, and, generally a common term which is widely used here, I will just write it, I forgot that, LR shinking.
+
+856
+02:13:12.030 --> 02:13:15.120
+PAUL: So this term is widely used with respect to Ada Grad.
+
+857
+02:13:15.240 --> 02:13:24.509
+PAUL: LR shrinking, because the LR value will become very, very small, because it will reach close to zero. Okay, that was the new column.
+
+858
+02:13:24.650 --> 02:13:31.220
+PAUL: Other than that, now let's start. RMS, what is the full form? Somewhere, I think, in machine learning that you have learned.
+
+859
+02:13:31.560 --> 02:13:34.930
+PAUL: RMS, alright, most of you are telling us.
+
+860
+02:13:37.860 --> 02:13:41.300
+PAUL: Yes, so the same thing, root.
+
+861
+02:13:42.130 --> 02:13:43.220
+PAUL: Mean?
+
+862
+02:13:44.020 --> 02:13:45.060
+PAUL: Square.
+
+863
+02:13:47.030 --> 02:13:48.280
+PAUL: propagation.
+
+864
+02:14:00.740 --> 02:14:07.589
+PAUL: All right. Now, after this, the final one will be your Atom, which is the most, widely used version.
+
+865
+02:14:08.140 --> 02:14:13.870
+PAUL: Now, see, here also, now, the entire game lies on what? The learning.
+
+866
+02:14:14.040 --> 02:14:25.190
+PAUL: Last time, we know that, okay, there is a problem with the learning rate that we have done, and because of that particular possibility of reaching close to zero.
+
+867
+02:14:25.570 --> 02:14:32.270
+PAUL: Okay, and one thing to clarify here, just a very, very simple question that I am asking.
+
+868
+02:14:32.960 --> 02:14:39.779
+PAUL: Will this be exactly zero, yes or no? Our last one, as I was discussing, at a grant.
+
+869
+02:14:40.050 --> 02:14:43.470
+PAUL: Can it be exactly zero?
+
+870
+02:14:50.870 --> 02:14:54.340
+PAUL: Rashana is telling yes. Rashana, how? How?
+
+871
+02:14:57.120 --> 02:15:03.250
+PAUL: This epsilon term is there, no. Because of that epsilon term, it will never become zero.
+
+872
+02:15:03.510 --> 02:15:12.059
+PAUL: it will be a very, very small value which is close towards zero. That's why I want to make this part clear. If it becomes 0, okay.
+
+873
+02:15:12.320 --> 02:15:23.559
+PAUL: then this particular value should have some, I can… importance or something like that. Otherwise, the denominator becomes zero, you know what is the problem.
+
+874
+02:15:24.190 --> 02:15:34.459
+PAUL: Okay, so it cannot be zero, that's why we have added the epsilon, so that it doesn't become zero, with a constant, and this is actually a constant value, guys. Okay?
+
+875
+02:15:36.590 --> 02:15:41.650
+PAUL: It can approach towards zero, that is fine, you can say, correct, but it will never be zero.
+
+876
+02:15:42.370 --> 02:15:49.899
+PAUL: All right. Now, the idea is, we have to update this, it means that the main problem is this one, this particular factor.
+
+877
+02:15:50.520 --> 02:15:53.890
+PAUL: So, somehow, we need to update the formula.
+
+878
+02:15:54.760 --> 02:16:01.269
+PAUL: Now, here, for root means square, I will just directly write that, particular portion.
+
+879
+02:16:02.350 --> 02:16:04.129
+PAUL: Let's use green color only.
+
+880
+02:16:10.330 --> 02:16:15.269
+PAUL: Now, based on our class, because the rest of the formula exactly remains the same.
+
+881
+02:16:19.170 --> 02:16:23.160
+PAUL: So right now, I will be just using the term SD…
+
+882
+02:16:23.270 --> 02:16:26.629
+PAUL: WT, okay, this is another formula.
+
+883
+02:16:27.080 --> 02:16:31.179
+PAUL: Okay, later on I will be breaking this one, so don't get confused.
+
+884
+02:16:35.510 --> 02:16:39.440
+PAUL: Now, the first part, because here.
+
+885
+02:16:40.360 --> 02:16:42.780
+PAUL: two things that I'm trying to introduce.
+
+886
+02:16:43.510 --> 02:16:57.360
+PAUL: just tell me, in the last one that I have learned, was there any integration with respect to the previous integration that I have done, SJD with Momentum? Yes or no? In Adagrad, is there any
+
+887
+02:16:57.490 --> 02:17:01.400
+PAUL: Implementation of EWA with exponential weighted average.
+
+888
+02:17:03.549 --> 02:17:04.759
+PAUL: Yes, fuckin'.
+
+889
+02:17:05.940 --> 02:17:10.119
+PAUL: No. Okay, now we will try to bring that particular idea.
+
+890
+02:17:10.580 --> 02:17:19.629
+PAUL: Because there also, we have figured it out, so the new final complex version will be actually the DWA-based implementation.
+
+891
+02:17:20.129 --> 02:17:21.859
+PAUL: That already you have learned.
+
+892
+02:17:23.129 --> 02:17:30.890
+PAUL: Oh… Got it. The first component here will be just like your beta term.
+
+893
+02:17:35.580 --> 02:17:41.329
+PAUL: Now, the TAM will be from your previous minus 1 that I have taken.
+
+894
+02:17:43.639 --> 02:17:46.010
+PAUL: 1 minus beta.
+
+895
+02:17:47.190 --> 02:17:55.620
+PAUL: is DWT… okay, and finally… the complete square term that I'll be taking.
+
+896
+02:17:56.200 --> 02:18:02.800
+PAUL: Okay, so generally, let me just write it with respect to del better.
+
+897
+02:18:03.639 --> 02:18:04.590
+PAUL: Boom.
+
+898
+02:18:04.900 --> 02:18:11.169
+PAUL: SDWT minus 1, this comes with respect to the complete spot.
+
+899
+02:18:12.450 --> 02:18:32.280
+PAUL: Now, initially, the value of SDWT that I have taken, it will start with 0, because for the first initial state, as I told you, the velocity in momentum, initially, it always starts with zero. Slowly, slowly, there's value. After the first step, it will be getting some direction, then only it can get getting added.
+
+900
+02:18:32.280 --> 02:18:37.820
+PAUL: Till the time you haven't started the traversal from your initial point, it is all wavy.
+
+901
+02:18:38.010 --> 02:18:41.969
+PAUL: Now, here, what I have done, two simple things that I have added.
+
+902
+02:18:42.190 --> 02:18:45.699
+PAUL: The last concept that I have added, dynamic LR,
+
+903
+02:18:47.160 --> 02:18:53.959
+PAUL: Which was from Ada Grab that we have added, and here we have added the smoothening operation.
+
+904
+02:18:57.590 --> 02:19:04.029
+PAUL: two things that got patched together. It means actually a fusion between two
+
+905
+02:19:04.150 --> 02:19:18.430
+PAUL: previous algorithms. And based on that, we are getting this particular formula. Now, you have to remember, nothing that you can do it. The same thing, I'm not writing that WT is equal to WT-1.
+
+906
+02:19:18.540 --> 02:19:20.070
+PAUL: How should I write that?
+
+907
+02:19:20.219 --> 02:19:30.639
+PAUL: Please let me know in the chat, or everybody gets that. We have to only play with the learning rate parameter. Rest formula, again, it will become same. So, your WT…
+
+908
+02:19:31.600 --> 02:19:40.250
+PAUL: WT-1, minus learning rate, del L, del WT minus 1,
+
+909
+02:19:40.639 --> 02:19:44.120
+PAUL: This formula will never change. What is this dash?
+
+910
+02:19:44.240 --> 02:19:48.560
+PAUL: Now, this particular dash, the representation that I have done it here.
+
+911
+02:19:50.020 --> 02:19:53.120
+PAUL: I… oh… You guys get it.
+
+912
+02:19:56.970 --> 02:20:08.620
+PAUL: Alright, HWT, the term H that we are referring is basically the smoothing version, and DWT, the derivative with respect to time t, T minus 1, because of that I have added.
+
+913
+02:20:08.820 --> 02:20:15.660
+PAUL: Okay, in other places, the intuition can be different. Sometimes S is also written as only A.
+
+914
+02:20:16.480 --> 02:20:22.180
+PAUL: But always remember, SDWT that I have written is always starts with 0.
+
+915
+02:20:24.290 --> 02:20:28.620
+PAUL: Why this starts with zero? Because velocity starts with zero.
+
+916
+02:20:30.770 --> 02:20:33.039
+PAUL: Okay, this is the connection.
+
+917
+02:20:33.400 --> 02:20:34.960
+PAUL: Always remember that.
+
+918
+02:20:37.390 --> 02:20:45.970
+PAUL: Alright, now, again, if I say RMS Prov, very good optimizer. We use it everywhere I can say.
+
+919
+02:20:46.190 --> 02:20:50.899
+PAUL: Because I feel that, RMS prop, even I have used a lot.
+
+920
+02:20:51.180 --> 02:20:58.579
+PAUL: As compared to SGD, because SGD, the main problem with SGD that I feel, it's a bit slow.
+
+921
+02:20:58.760 --> 02:21:07.470
+PAUL: Like, slow is good, not bad, because majorly all the research papers have been using it, but again, we don't love so much…
+
+922
+02:21:08.040 --> 02:21:09.580
+PAUL: slow sometimes.
+
+923
+02:21:09.920 --> 02:21:14.370
+PAUL: Okay, so for example, generally you have to understand where it matters.
+
+924
+02:21:14.570 --> 02:21:22.800
+PAUL: A simple idea that I am giving, you know that the idea is loss will start at some point, and then you have to reach towards zero.
+
+925
+02:21:23.000 --> 02:21:27.050
+PAUL: Okay, so just a simple idea that I'm exploring here.
+
+926
+02:21:29.440 --> 02:21:36.079
+PAUL: So, general neural networks, when I say, most of the neural networks, you will see that loss
+
+927
+02:21:36.200 --> 02:21:41.020
+PAUL: They're starting, probably, Let's take somewhere at the higher value here.
+
+928
+02:21:41.230 --> 02:21:44.580
+PAUL: From here, you have to reach close to zero.
+
+929
+02:21:46.180 --> 02:21:47.030
+PAUL: Okay.
+
+930
+02:21:47.480 --> 02:21:51.140
+PAUL: Now the portion comes, what if this loss value is very, very big?
+
+931
+02:21:51.740 --> 02:21:54.510
+PAUL: So, generally, an example with respect to GAN.
+
+932
+02:21:55.730 --> 02:22:04.819
+PAUL: Okay, how many of you have heard about GANs? A very separate type of neural network, which is used for generation of images.
+
+933
+02:22:05.270 --> 02:22:06.140
+PAUL: Okay?
+
+934
+02:22:06.630 --> 02:22:09.139
+PAUL: generative adversial networks.
+
+935
+02:22:09.670 --> 02:22:14.409
+PAUL: I think the paper came around 2014-15, that was the time.
+
+936
+02:22:14.660 --> 02:22:19.999
+PAUL: Okay, so there. So, in those cases, you know how much the law starts from.
+
+937
+02:22:20.930 --> 02:22:23.200
+PAUL: It will start, like, 1 million.
+
+938
+02:22:26.900 --> 02:22:29.679
+PAUL: And then you have to bring close to zero.
+
+939
+02:22:34.580 --> 02:22:45.260
+PAUL: think both the thing, okay? Think about both the networks. Right now, that's why I've taken the example up again. Because right now, as slowly, slowly, we need better speeds, guys.
+
+940
+02:22:45.670 --> 02:22:50.100
+PAUL: I hope you get the idea, because if something is starting from 5, it's fine.
+
+941
+02:22:50.610 --> 02:22:53.210
+PAUL: Ravi 10 epochs, 20 epochs.
+
+942
+02:22:53.500 --> 02:23:12.589
+PAUL: But if some… if something is starting from 1 million that I have taken, and generally in GANs, 1 million, 2 million, 3 million, it can be anything. Because it starts from noise, completely black, generally, for images. It will, first of all, start with a complete black image, and then slowly, slowly, step by step, it tries to generate.
+
+943
+02:23:12.860 --> 02:23:19.270
+PAUL: Okay, so that's why the loss is very, very high in Dubs. Now, in those cases, do you feel that SJD is good?
+
+944
+02:23:20.980 --> 02:23:39.640
+PAUL: SJD is good, I say, but again, you have to understand with what? What is the context there? What type of neural network? Say if I'm talking… because Gan is also a neural network, but again, the simplicity with respect to the network. If you generally see that, okay, loss is starting at 5, then I can say that, yes, SGD is a good choice.
+
+945
+02:23:39.930 --> 02:23:43.209
+PAUL: But in this particular case, do you think that SJD
+
+946
+02:23:43.520 --> 02:23:46.859
+PAUL: Now, in these cases, we need something better.
+
+947
+02:23:49.050 --> 02:24:07.619
+PAUL: Okay, it means that we need much more faster speeds. So that's why the core idea that came about RMS prop. RMS prop was actually not super fast, but actually fast. And slowly, slowly, we will reach towards the idea of super fast.
+
+948
+02:24:07.990 --> 02:24:11.260
+PAUL: Okay, at least how I can make it much more better.
+
+949
+02:24:11.430 --> 02:24:26.699
+PAUL: How many of you got the idea? Because when you start working with different type of neural networks, you have to understand where actually the loss function stands. Nobody can say the exact value based on your data, it will be different. For GANs, we know that it is very, very high, as compared to working with normal data sets.
+
+950
+02:24:27.280 --> 02:24:32.229
+PAUL: In those cases, RMS prop is a good option. Okay.
+
+951
+02:24:33.500 --> 02:24:40.759
+PAUL: And the other one that we prefer, so in every GAN network, ADAM is preferred. Okay, the next topic that I'll be discussing.
+
+952
+02:24:43.520 --> 02:24:44.580
+PAUL: Arun.
+
+953
+02:24:49.660 --> 02:24:54.860
+PAUL: A is there. So… For sure, I can say that.
+
+954
+02:24:55.490 --> 02:24:56.780
+PAUL: adds…
+
+955
+02:24:57.240 --> 02:25:04.780
+PAUL: Adam, full form, anybody can say. A stands for what? Till now, A stands for the same thing here also.
+
+956
+02:25:04.930 --> 02:25:06.230
+PAUL: Adaptive.
+
+957
+02:25:07.610 --> 02:25:12.069
+PAUL: Okay, and then you have the M part, so this is moment estimation.
+
+958
+02:25:16.190 --> 02:25:18.029
+PAUL: What will change here?
+
+959
+02:25:18.600 --> 02:25:23.679
+PAUL: The same formula on top of that, few minor changes that will be doing.
+
+960
+02:25:24.180 --> 02:25:27.519
+PAUL: Yeah, other than that, I feel that it will be exactly the same.
+
+961
+02:25:27.710 --> 02:25:36.569
+PAUL: Now, what were the things? If you try to compare ad, grad, okay, so let's check… where is AD? Yes, here.
+
+962
+02:25:36.900 --> 02:25:40.400
+PAUL: at a grad versus RMS prop, if I try to do.
+
+963
+02:25:45.530 --> 02:25:53.230
+PAUL: What is the first thing? The problem with Ada Grad is, keeps shrinking the learning rate.
+
+964
+02:25:53.360 --> 02:25:55.519
+PAUL: Okay? But here…
+
+965
+02:25:55.620 --> 02:26:04.280
+PAUL: In RMS prop, the alarm will always stay adaptive, okay? So, here also I can… the alarm is always adaptive.
+
+966
+02:26:09.260 --> 02:26:10.490
+PAUL: And,
+
+967
+02:26:11.000 --> 02:26:26.279
+PAUL: In Adagarat, if I am, doing… now I will try to bring the idea of T and T minus 1, that particular idea you have to bring, as we are talking with respect to timestamps. So, with respect to the gradient history.
+
+968
+02:26:26.400 --> 02:26:33.440
+PAUL: Because, this particular parameter, even here, This one.
+
+969
+02:26:33.630 --> 02:26:34.470
+PAUL: Okay.
+
+970
+02:26:34.940 --> 02:26:37.340
+PAUL: And here, also, you have this one.
+
+971
+02:26:38.030 --> 02:26:41.420
+PAUL: Whenever I'm talking about these are gradient history.
+
+972
+02:26:41.860 --> 02:26:58.040
+PAUL: So, this particular term that we have defined right here, this is actually called as weight decay. Later on, I'll be, focusing much more on this particular parameter, but for now, just remember that previously, this was all past squares.
+
+973
+02:26:58.270 --> 02:27:06.470
+PAUL: Okay, so… just… in Ada Grad, we have done, so the idea was, all fast.
+
+974
+02:27:07.100 --> 02:27:08.090
+PAUL: Bless.
+
+975
+02:27:10.010 --> 02:27:12.199
+PAUL: That's why, based on the formula.
+
+976
+02:27:13.460 --> 02:27:22.700
+PAUL: All pass squares. And now, when I'm telling all pass squares, the idea is we are talking with respect to gradients here.
+
+977
+02:27:23.630 --> 02:27:26.290
+PAUL: Gradient or gradient history.
+
+978
+02:27:26.650 --> 02:27:31.579
+PAUL: I'm telling history because you are looking into the previous timestamp because of that.
+
+979
+02:27:32.190 --> 02:27:44.660
+PAUL: And here, what you are doing, you are looking into the… the radiant History?
+
+980
+02:27:59.620 --> 02:28:04.280
+PAUL: Now I'll be using the… Where?
+
+981
+02:28:08.730 --> 02:28:13.289
+PAUL: Because, yes, this term was particularly square. Okay.
+
+982
+02:28:19.810 --> 02:28:24.250
+PAUL: Now, from here, the main concept of DKDAT comes.
+
+983
+02:28:24.410 --> 02:28:34.830
+PAUL: So, this particular term that we do refer as DK, okay? So, the recent squared gradients. Whereas in Agrad, all past squared gradients are DK.
+
+984
+02:28:35.920 --> 02:28:36.870
+PAUL: Perfect.
+
+985
+02:28:37.340 --> 02:28:46.699
+PAUL: Because the concept of EWA was not there in Ada Grad, and here only it came. So, that particular condition, we are referring at as the one.
+
+986
+02:28:46.890 --> 02:28:49.200
+PAUL: Dk1, alright.
+
+987
+02:28:49.330 --> 02:28:56.949
+PAUL: Now, Pulkarth is telling no, so Pulkarth, you have written no for which particular reason, and Partha, can you show the…
+
+988
+02:28:57.060 --> 02:29:01.239
+PAUL: Previous page for, previous mails, which one?
+
+989
+02:29:01.830 --> 02:29:07.310
+PAUL: add a grad or animus prop. Tell me the algorithm name, then I will scroll back.
+
+990
+02:29:22.900 --> 02:29:27.389
+PAUL: Alright, Kulkarth, you say you don't know GANS. Fine, GANS is widely used.
+
+991
+02:29:31.550 --> 02:29:40.650
+PAUL: GANs have been widely used, there are so many types of GANs, and even today, like, but, actually, training a GAN is a very…
+
+992
+02:29:40.840 --> 02:29:47.479
+PAUL: resource-intensive task. It takes a hell of a lot of time. It will generate images.
+
+993
+02:29:50.980 --> 02:30:00.209
+PAUL: I've worked with ESR Ganesh a lot for super resolution, making images 4x, 8x sharper in that.
+
+994
+02:30:00.520 --> 02:30:06.649
+PAUL: Yes, Arun back in 2017, that time. 17, old stuff.
+
+995
+02:30:08.320 --> 02:30:18.679
+PAUL: All right, now let's move to the next part with respect to adaptive. Now, the question comes slowly, slowly. Can I say that we are making things much more complex?
+
+996
+02:30:20.360 --> 02:30:26.740
+PAUL: Yes or no? Because the formula, at any point of time, we are trying to make more complex.
+
+997
+02:30:27.300 --> 02:30:38.710
+PAUL: Other than that, I will say RMS prop is really good, and even today, RMS prop is being used. Whereas, like, Atag, everybody has left, nobody uses Ada Grad, because the concept of smoothening is not there.
+
+998
+02:30:39.490 --> 02:30:41.709
+PAUL: And if smoothening is not there.
+
+999
+02:30:41.920 --> 02:30:53.909
+PAUL: Okay, so simply you can understand, like, what is the impact directly. Now, here, Adam is there. So, now, Adam will try to solve all those things. It means that from your
+
+1000
+02:30:54.140 --> 02:30:58.809
+PAUL: Combination. Let's talk about, the core combinations that we have.
+
+1001
+02:31:07.490 --> 02:31:13.500
+PAUL: Two separate concepts. The first one is, just like last time, HGD with momentum.
+
+1002
+02:31:22.740 --> 02:31:27.040
+PAUL: And that's why, from momentum, the name moment, actually, that thing.
+
+1003
+02:31:27.380 --> 02:31:30.190
+PAUL: And then the next one is your adaptive LR.
+
+1004
+02:31:39.920 --> 02:31:46.520
+PAUL: Okay, so HGT with momentum, adaptive LR, for now, I'm just taking this one.
+
+1005
+02:31:47.340 --> 02:31:59.340
+PAUL: So, if I write Ada Grad here, then, because I will write Ada Grad here, rather than writing RMS prompt directly, because even in RMS prompt, you have HDD with Moment.
+
+1006
+02:32:00.630 --> 02:32:01.850
+PAUL: Both buildings.
+
+1007
+02:32:03.220 --> 02:32:13.610
+PAUL: Now, the first thing, because here you do have a lot of things, okay? Because this is the most complex till now, and then it keeps on going.
+
+1008
+02:32:18.130 --> 02:32:29.630
+PAUL: don't think, rather than, the intuition is Partha, they are not making better models, rather than they are making the training a better way.
+
+1009
+02:32:29.840 --> 02:32:35.169
+PAUL: Because the output of the training is… somehow you'll be getting better rates than biases.
+
+1010
+02:32:35.360 --> 02:32:48.929
+PAUL: If you get better weights and biases, automatically you get the good model. That should be the idea. They are making how we can make the training faster, how we can make the training much more smoother, that is the core intention.
+
+1011
+02:32:49.410 --> 02:32:58.710
+PAUL: Now, the first step here, because a little bit of math part is there, so a lot, a very big formula that will come.
+
+1012
+02:32:59.310 --> 02:33:02.779
+PAUL: Let's take white color this time. First of all, let's start
+
+1013
+02:33:03.370 --> 02:33:09.479
+PAUL: what are the main things that needs to be defined here? So, based on that, all the intuitions.
+
+1014
+02:33:09.680 --> 02:33:12.930
+PAUL: Here, the mass is this long because so many things are there.
+
+1015
+02:33:13.120 --> 02:33:19.759
+PAUL: First of all, the… I will write here GT. Okay, the gradient of timestamp T.
+
+1016
+02:33:21.040 --> 02:33:23.010
+PAUL: Okay? Gradient.
+
+1017
+02:33:24.470 --> 02:33:27.330
+PAUL: So, time stamp T…
+
+1018
+02:33:38.650 --> 02:33:41.600
+PAUL: After GT, you have MT, okay.
+
+1019
+02:33:42.100 --> 02:33:45.039
+PAUL: Too many things. The first moment…
+
+1020
+02:33:48.870 --> 02:33:53.109
+PAUL: After the first moment, in the next step, the Virati, the second moment that you have.
+
+1021
+02:33:53.830 --> 02:33:58.509
+PAUL: Okay. Right now, I'm just doing the notation, then I'll be writing the formula.
+
+1022
+02:34:02.610 --> 02:34:08.289
+PAUL: GTMT, okay, GMV is done. Then you have, Beta 1, Beta 2.
+
+1023
+02:34:14.500 --> 02:34:21.879
+PAUL: So right now, the beta parameter, this particular parameter, beta, we are referring it as the decay.
+
+1024
+02:34:23.270 --> 02:34:27.169
+PAUL: Okay. Because, at every point of time, because…
+
+1025
+02:34:27.350 --> 02:34:35.369
+PAUL: I can say that till now, the normal version of beta, we have been referring it as the momentum. It will be exactly as the momentum.
+
+1026
+02:34:35.600 --> 02:34:40.409
+PAUL: But the… here we'll be mentioning that degradation of M.
+
+1027
+02:34:40.520 --> 02:34:57.889
+PAUL: or momentum that I have taken. And generally, the value will be 0.95. I'm taking a higher value this time. We can take 0.99, even if you want, you can take 0.9 also. In whichever way you are comfortable, the value should be on the higher end.
+
+1028
+02:34:57.970 --> 02:35:00.899
+PAUL: Now, the net decay rate that you have.
+
+1029
+02:35:02.310 --> 02:35:05.590
+PAUL: This will be for your Vitti, the second moment.
+
+1030
+02:35:09.760 --> 02:35:12.659
+PAUL: Here, what will be the value? Here…
+
+1031
+02:35:12.790 --> 02:35:17.579
+PAUL: Let's… this time I'm just changing the ideas to use some type of bigger ones.
+
+1032
+02:35:20.010 --> 02:35:23.939
+PAUL: Dampening, generally, the term with respect to neural networks.
+
+1033
+02:35:24.050 --> 02:35:31.220
+PAUL: the term damping use, the idea is that degradation with respect to values, which are being done using the decay.
+
+1034
+02:35:32.240 --> 02:35:37.870
+PAUL: Dampening term, lesser used, I can say. I've not heard a lot in books and other places.
+
+1035
+02:35:39.370 --> 02:35:52.049
+PAUL: Perfect. Now, GT, MT, VT, Beta 1, Beta 2. Okay, and then finally, you have your LR. Okay, you already knew this particular component. Now, after this, the last one is the
+
+1036
+02:35:52.900 --> 02:35:54.260
+PAUL: Epsilon?
+
+1037
+02:35:58.210 --> 02:36:07.650
+PAUL: So, majorly, all the core components are there. Now, first of all, with respect to the weight updates, let's talk about that.
+
+1038
+02:36:20.740 --> 02:36:26.059
+PAUL: Now, the formula, the first one, you have to compute the moment testing.
+
+1039
+02:36:26.240 --> 02:36:33.370
+PAUL: Okay, so directly you cannot say. So, first of all, we have to compute The moment estimate.
+
+1040
+02:36:35.510 --> 02:36:40.230
+PAUL: That's why the name is only… Adaptive Movement Estimate.
+
+1041
+02:36:42.910 --> 02:36:47.349
+PAUL: So, now, here the first one will be the empty part, if you remember.
+
+1042
+02:36:47.870 --> 02:36:48.980
+PAUL: empty.
+
+1043
+02:36:50.000 --> 02:36:59.309
+PAUL: Alright, now here also I've written the same thing, the first movement calculation that I'm doing. The formula you will be using, beta 1,
+
+1044
+02:36:59.470 --> 02:37:07.519
+PAUL: Alright, then minus… The term that will come, let's say, then you have your 1 minus beta.
+
+1045
+02:37:10.770 --> 02:37:30.009
+PAUL: And then the next term that I will come. So, simply here, if I take… this is empty, I have to take here MT-1, and the first one that we had is the GT version, the gradient at timestamp T, GT… let me take GT here.
+
+1046
+02:37:31.490 --> 02:37:39.890
+PAUL: Got it. Now, as you can see, this is a similar interpretation with respect to exponential weighted average.
+
+1047
+02:37:40.110 --> 02:37:46.720
+PAUL: Okay. Now, for the moment estimate calculation, even you need VT. In VT condition, what will happen?
+
+1048
+02:37:47.810 --> 02:38:00.179
+PAUL: And guys, remember, okay, what is here? I have missed one, sorry. Okay, so 1 minus beta, both the betas has to be exactly the same, otherwise the change won't happen. Here, beta2 dot…
+
+1049
+02:38:00.780 --> 02:38:01.710
+PAUL: No?
+
+1050
+02:38:02.380 --> 02:38:14.430
+PAUL: Initially, the empty-1, you have to understand, again, just like last time, it will always start from the zero version. Did YU to get the second term right? Did YU
+
+1051
+02:38:14.870 --> 02:38:17.640
+PAUL: Okay, did you get a Y, I thought?
+
+1052
+02:38:18.240 --> 02:38:27.460
+PAUL: Now, what will be the next term? Because here, empty is there. What is the next term? Your VT. Alright, let's take VT.
+
+1053
+02:38:27.860 --> 02:38:29.379
+PAUL: minus 1.
+
+1054
+02:38:30.070 --> 02:38:33.890
+PAUL: Plus… 1 minus beta 2.
+
+1055
+02:38:35.680 --> 02:38:42.870
+PAUL: Plus, the same… GT, but here, one small change that I'll be doing.
+
+1056
+02:38:43.880 --> 02:38:50.289
+PAUL: And, in the, BT version, you have to take the square of this.
+
+1057
+02:38:51.320 --> 02:38:59.120
+PAUL: This is the one and the major change I can say. Other than that, this particular information exactly remains the same.
+
+1058
+02:38:59.760 --> 02:39:01.599
+PAUL: All right? No?
+
+1059
+02:39:02.050 --> 02:39:08.980
+PAUL: Once I have done my MT and VT calculation, then we can actually proceed to the next step.
+
+1060
+02:39:10.000 --> 02:39:23.689
+PAUL: Here, one concept of bias correction is also included in the formula. If it is a very, very small value, if the V2 value becomes very, very small, then the bias correction that takes place
+
+1061
+02:39:25.170 --> 02:39:27.829
+PAUL: Generally, it is only applied to…
+
+1062
+02:39:37.520 --> 02:39:44.440
+PAUL: Now, going forward, guys, here what I have done, you have to understand the core idea. Can I say that for our each moment that I have?
+
+1063
+02:39:45.040 --> 02:40:00.920
+PAUL: empty the first moment that I have, and VT the second moment that I have. For both the moments, I am using EWA. Okay, the only thing is, if I write here, what is the main difference? Try to understand. One is the mean of the gradients here.
+
+1064
+02:40:07.780 --> 02:40:09.430
+PAUL: And here, what I have?
+
+1065
+02:40:10.250 --> 02:40:15.860
+PAUL: Nino… Please tell me right now, I've just written the formula.
+
+1066
+02:40:21.280 --> 02:40:23.369
+PAUL: Look into the formula and then tell me.
+
+1067
+02:40:31.460 --> 02:40:37.669
+PAUL: Please, guys. Here, I have done the squaring. How many of you focused on that part? Here, I have added the square.
+
+1068
+02:40:38.140 --> 02:40:40.460
+PAUL: This will be the squared gradients.
+
+1069
+02:40:50.070 --> 02:40:53.500
+PAUL: That's why two different moment estimate that comes here.
+
+1070
+02:40:54.680 --> 02:41:03.980
+PAUL: Alright, I know this formula is going bigger and bigger, but you have to understand that, slowly, slowly, that we have to update in this way.
+
+1071
+02:41:04.390 --> 02:41:12.060
+PAUL: Now, for bias correction, generally for BT and MT DAT, you have two types of moment estimate. So…
+
+1072
+02:41:13.320 --> 02:41:19.950
+PAUL: Generally, the first one, let's do it for, empty, or weighty, let's do it, okay?
+
+1073
+02:41:20.080 --> 02:41:30.750
+PAUL: We'll just add a dash here for the representation, for the bias correction. The actual weight information that you have, you have to simply do it. 1 minus…
+
+1074
+02:41:33.550 --> 02:41:37.430
+PAUL: That beta 2, whatever that,
+
+1075
+02:41:37.540 --> 02:41:40.330
+PAUL: I hope everybody remembers Beta 2.
+
+1076
+02:41:41.750 --> 02:41:43.959
+PAUL: Then, similarly for your empty.
+
+1077
+02:41:44.180 --> 02:41:52.310
+PAUL: The same formula, here we'll be taking our actual empty value, and based on that, 1 minus beta… Fine.
+
+1078
+02:41:53.720 --> 02:42:08.480
+PAUL: All right. Now, what is the main purpose of doing bias correction, you have to understand? So, this actually removes the bias caused by… so, initially, what happens? You initialize M with 0 and V with Z.
+
+1079
+02:42:08.590 --> 02:42:15.930
+PAUL: Just like last time, HDT with momentum, it always starts… you have to start with zero. Because of that.
+
+1080
+02:42:16.350 --> 02:42:22.010
+PAUL: Okay, when T is very small, we try to do this particular task of bias correction.
+
+1081
+02:42:22.970 --> 02:42:27.530
+PAUL: And finally, how the weight update part will look like.
+
+1082
+02:42:28.350 --> 02:42:31.859
+PAUL: Okay, so let's talk about the final weight update.
+
+1083
+02:42:47.030 --> 02:42:55.209
+PAUL: So, based on our WT plus 1 equal to what will be the first? Will there be any change? What will be the next term? Please tell me.
+
+1084
+02:42:55.850 --> 02:43:02.340
+PAUL: Please tell me. So many times I've written the formula, that's why, again, I'm asking. What will be the next term?
+
+1085
+02:43:05.440 --> 02:43:11.460
+PAUL: Guys, what will be the next time? This is the final weight update, so what is the formula of weight update?
+
+1086
+02:43:11.970 --> 02:43:14.550
+PAUL: After WT plus 1, what I have to write?
+
+1087
+02:43:14.910 --> 02:43:16.750
+PAUL: W… T.
+
+1088
+02:43:17.980 --> 02:43:19.440
+PAUL: Your old weight?
+
+1089
+02:43:20.250 --> 02:43:24.950
+PAUL: Then comes this particular parameter on top of which we have added so much.
+
+1090
+02:43:25.390 --> 02:43:26.150
+PAUL: Okay.
+
+1091
+02:43:26.930 --> 02:43:29.730
+PAUL: now comes… the main one.
+
+1092
+02:43:29.970 --> 02:43:36.180
+PAUL: Okay, so here you're… How this happened? First time it happened for me.
+
+1093
+02:43:37.180 --> 02:43:39.430
+PAUL: That, zoom-in version.
+
+1094
+02:43:39.530 --> 02:43:41.380
+PAUL: No vote over.
+
+1095
+02:43:45.220 --> 02:43:52.759
+PAUL: MT will be on the numerator, and here you have your VT plus epsilon.
+
+1096
+02:43:54.710 --> 02:44:00.569
+PAUL: Alright. Now, finally, I can say the formula is done.
+
+1097
+02:44:02.410 --> 02:44:05.740
+PAUL: And, I feel that, this…
+
+1098
+02:44:06.330 --> 02:44:10.810
+PAUL: Is the one that majorly the market has been using?
+
+1099
+02:44:11.420 --> 02:44:17.720
+PAUL: Okay? And, right now, I feel that RMSprop and Adam, very, very close together, I can say.
+
+1100
+02:44:18.160 --> 02:44:24.110
+PAUL: Now, in this particular weight formula, what is the thing? If you look into the momentum, what is happening?
+
+1101
+02:44:26.880 --> 02:44:30.660
+PAUL: How many of you, because what will be the core impact?
+
+1102
+02:44:33.550 --> 02:44:40.159
+PAUL: Rather than only… in HDT, the problem was you were only looking into the last direction.
+
+1103
+02:44:40.480 --> 02:44:50.179
+PAUL: So, 90% from there, you are getting the direction. But here, what will be the major impact that we have done? The major impact is the average that you have taken.
+
+1104
+02:44:53.270 --> 02:44:58.100
+PAUL: Averaging the direction… Puram?
+
+1105
+02:44:59.500 --> 02:45:00.480
+PAUL: fast.
+
+1106
+02:45:03.180 --> 02:45:05.519
+PAUL: And, gradient effect will look at.
+
+1107
+02:45:07.290 --> 02:45:15.890
+PAUL: Rather than only looking into that. So, very specifically, the average operation on top of the past gradients that we have done.
+
+1108
+02:45:20.770 --> 02:45:24.350
+PAUL: And rest of the behaviors are pretty much like RMS Pro.
+
+1109
+02:45:26.900 --> 02:45:34.029
+PAUL: Rashana is asking, can you tell again? So generally, what happens? You always start with M is equal to 0 and V is equal to Z.
+
+1110
+02:45:35.250 --> 02:45:46.340
+PAUL: Okay, so, so the idea is that rather than not initializing it through bias correction, we try to provide some type of value. That is the main idea behind the bias correction.
+
+1111
+02:45:46.460 --> 02:45:53.579
+PAUL: Otherwise, still, in SGT and every other places, you always start with the M and the VANs as zero.
+
+1112
+02:45:53.720 --> 02:45:56.419
+PAUL: Rather than taking at zero, why not pass something?
+
+1113
+02:45:56.660 --> 02:46:00.489
+PAUL: Okay? That was the core idea. The idea is start with something small.
+
+1114
+02:46:02.580 --> 02:46:17.290
+PAUL: Perfect. The core part is done, majorly all the optimizers part. Now, probably loss function. Should I start today loss function, or tomorrow? Please let me know. Because mean square error, logistic, you guys already know.
+
+1115
+02:46:18.200 --> 02:46:21.160
+PAUL: Okay, tomorrow, fine, everybody is telling tomorrow.
+
+1116
+02:46:21.420 --> 02:46:26.470
+PAUL: Alright, I'm sharing this, particular, note in the chat.
+
+1117
+02:46:28.180 --> 02:46:32.999
+PAUL: Okay, quick export PDF, because, again, when they will take time, I don't own.
+
+1118
+02:46:40.510 --> 02:46:48.509
+PAUL: Yes, always self-study, guys, self-study, because, a lot of other things are there. When you try to debug.
+
+1119
+02:46:49.140 --> 02:46:55.159
+PAUL: that depth… Because the research and learning rate is really, really good.
+
+1120
+02:46:56.110 --> 02:46:59.629
+PAUL: Initially, even I was looking into one of the lectures from
+
+1121
+02:46:59.870 --> 02:47:09.140
+PAUL: American Navy, because there they had a professor in the Navy, and learning grades, I was really a tip, so probably…
+
+1122
+02:47:09.290 --> 02:47:12.950
+PAUL: Back at 2020, I spent more than 2 months only on LR.
+
+1123
+02:47:13.310 --> 02:47:15.919
+PAUL: ALAR is a very, very huge concept.
+
+1124
+02:47:17.080 --> 02:47:20.890
+PAUL: These paper of atom is there, you can directly look into the paper of atom.
+
+1125
+02:47:25.360 --> 02:47:28.160
+PAUL: If you want, just wait, let me just show you.
+
+1126
+02:47:31.100 --> 02:47:33.300
+PAUL: Adam, paper, let me search.
+
+1127
+02:47:42.910 --> 02:47:45.570
+PAUL: I have shared the link for the paper.
+
+1128
+02:47:46.010 --> 02:47:47.450
+PAUL: Bhartha having…
+
+1129
+02:47:52.860 --> 02:47:58.970
+PAUL: Alright, now, I'm just attaching the PDF, guys, because… Then I will just…
+
+1130
+02:47:59.650 --> 02:48:02.250
+PAUL: Picked up this one, gold, when you miner.
+
+1131
+02:48:04.010 --> 02:48:13.499
+PAUL: Once this is done, the last is loss function. Loss functions will be much faster. Then we'll move to a little bit of,
+
+1132
+02:48:14.150 --> 02:48:30.739
+PAUL: I will just look into syllabus. I think you will be having weight update rule, which is very, very important. I have uploaded the PDF, it's 3MB, so it's taking a little bit of time. How to remember, you generally see before interviews, it matters much more. Please do revision, twice or thrice, write it by…
+
+1133
+02:48:30.790 --> 02:48:37.820
+PAUL: own. Pen and paper. There is no other solution. Okay, at least write it 3 times before your interview.
+
+1134
+02:48:38.160 --> 02:48:45.440
+PAUL: And generally, nowadays, directly, they won't ask to formula, okay? Very rare scenarios have happened.
+
+1135
+02:48:45.610 --> 02:48:55.120
+PAUL: Rather than we focus on the… but yes, somebody asks you exactly how things happen, explain me the working. In that case, those things are much more in-
+
+1136
+02:48:55.980 --> 02:49:00.160
+PAUL: Yes, I have added the PDF, but I have only shared it to Partha, sorry.
+
+1137
+02:49:00.270 --> 02:49:03.369
+PAUL: Okay, okay. Because I was…
+
+1138
+02:49:03.520 --> 02:49:07.609
+PAUL: Just wait. Yes, yes, just adding it again.
+
+1139
+02:49:07.980 --> 02:49:10.810
+PAUL: I only shared it with, 20 minutes.
+
+1140
+02:49:11.600 --> 02:49:12.510
+PAUL: No doubt.
+
+1141
+02:49:14.970 --> 02:49:17.940
+PAUL: Alright, I think everybody received the PDF, please let me know.
+
+1142
+02:49:24.400 --> 02:49:25.450
+PAUL: Narendra.
+
+1143
+02:49:28.810 --> 02:49:31.980
+PAUL: Alright, I'm sharing one,
+
+1144
+02:49:32.140 --> 02:49:39.820
+PAUL: paper with you. Okay, so if you have time, please pen. Now, this paper came, I think, when it came.
+
+1145
+02:49:40.760 --> 02:49:43.490
+PAUL: Around, 2025.
+
+1146
+02:49:44.080 --> 02:49:46.570
+PAUL: Patra, why the link is so much long?
+
+1147
+02:49:50.060 --> 02:49:51.100
+PAUL: Just hunter.
+
+1148
+02:49:51.210 --> 02:50:03.179
+PAUL: Now, there are other types of optimizers also, so that's why… and the list is really… you have Adam Max, AdamW, Rectified Adam, the list keeps on going. So, I think this will be a nice read.
+
+1149
+02:50:03.730 --> 02:50:07.550
+PAUL: So, I've shared in the chat, guys, just check whether the link is working or not.
+
+1150
+02:50:08.340 --> 02:50:10.299
+PAUL: Everybody, please do have a check.
+
+1151
+02:50:11.570 --> 02:50:13.040
+PAUL: I've shared one link.
+
+1152
+02:50:14.200 --> 02:50:15.789
+PAUL: Is the link working?
+
+1153
+02:50:16.110 --> 02:50:17.599
+PAUL: Okay, well, welcome.
+
+1154
+02:50:18.580 --> 02:50:21.509
+PAUL: So, from here, you will get…
+
+1155
+02:50:21.920 --> 02:50:25.240
+PAUL: But what are the other things in the research which has happened?
+
+1156
+02:50:25.530 --> 02:50:33.740
+PAUL: But, like, look… Then, slowly, slowly… really, a lot of things are there, which is… this is…
+
+1157
+02:50:34.240 --> 02:50:37.330
+PAUL: Collective research in one paper.
+
+1158
+02:50:37.600 --> 02:50:45.159
+PAUL: But everything that we don't need it. Few of the things, if you feel like, if you have time, like Ranger, you have Ranger 21.
+
+1159
+02:50:45.580 --> 02:50:55.909
+PAUL: Okay, so, again, you can skip that part. Look ahead is the Arunj 21. Much more from the newer versions. You can check NAG if you want, Nestorov.
+
+1160
+02:50:56.130 --> 02:50:59.049
+PAUL: Version, that is also… but again, old stuff.
+
+1161
+02:50:59.230 --> 02:51:03.989
+PAUL: Second-order clips, static optimization, so many things are there.
+
+1162
+02:51:04.270 --> 02:51:08.799
+PAUL: But, I feel that this is a very good paper, if you have time.
+
+1163
+02:51:08.900 --> 02:51:13.609
+PAUL: at least, use AI to summarize and just, try to…
+
+1164
+02:51:13.800 --> 02:51:16.139
+PAUL: Because the information is really in-depth.
+
+1165
+02:51:16.730 --> 02:51:28.920
+PAUL: Got it. Now, when you're selling, I understand these critical questions are over. However, in my assumption, Barik, that they will never be expected to play around and change the code unless one is building.
+
+1166
+02:51:29.370 --> 02:51:34.699
+PAUL: Generally, for LLM and SLM, because those are much higher and advancing.
+
+1167
+02:51:34.850 --> 02:51:38.750
+PAUL: There, we don't play with such things. There, we have fixed
+
+1168
+02:51:38.830 --> 02:51:57.449
+PAUL: For example, if I work with AxFotel, most of the configurations are fixed. And generally, the default values… I can change the default values, but again, I know that those default values works much more better. So, generally, once Europe reaches such a level, all those frameworks and everything has been highly optimized.
+
+1169
+02:51:57.630 --> 02:52:09.709
+PAUL: So, not to worry. Only for initial purpose, when you are building simple neural networks with simple, like, two hidden layers, 3 hidden layers, 4 hidden layers, Navin, in those cases, they can actually experiment.
+
+1170
+02:52:09.920 --> 02:52:15.770
+PAUL: Because in such large-scale during the experimentation, is really not worth it.
+
+1171
+02:52:17.460 --> 02:52:19.420
+PAUL: Bhar Mandal, ahor…
+
+1172
+02:52:25.420 --> 02:52:35.759
+PAUL: Alright, Parv is asking, what happens to the data when the last batch, not enough samples, and left to match the batch size? Automatically, zeros will be attached to that.
+
+1173
+02:52:38.880 --> 02:52:41.049
+PAUL: Because you have to think from an array.
+
+1174
+02:52:41.770 --> 02:52:44.400
+PAUL: If you have the numbers, place the numbers.
+
+1175
+02:52:44.760 --> 02:52:47.760
+PAUL: But you'll be always maintaining that particular size.
+
+1176
+02:52:48.050 --> 02:52:52.439
+PAUL: I hope you get that. Automatically, all those values will become Z.
+
+1177
+02:53:00.970 --> 02:53:07.670
+PAUL: In NLP, we use padding tokens, so… but again, for now, just initialize them as series.
+
+1178
+02:53:12.670 --> 02:53:29.059
+PAUL: what use cases require building a neural network? Simple, if you want to build a classification-based model, degradation-based model, for everything that you can use a neural. Everywhere you see is a neural network. Transformers is a neural network. Everywhere, Navin.
+
+1179
+02:53:31.700 --> 02:53:42.120
+PAUL: Generally, with respect to NLP, generally, see, directly, we have started working with transformers, but before transformers, you have, like, RNNLSTMs.
+
+1180
+02:53:42.240 --> 02:53:49.469
+PAUL: There, you can actually use it for classification problem with the listings. Listings were very good also in time series.
+
+1181
+02:53:50.320 --> 02:53:55.819
+PAUL: So, generally, when you plan the network, then only you can understand each component plays a crucial.
+
+1182
+02:53:56.100 --> 02:54:00.129
+PAUL: Otherwise, when you… transformers becomes a very big architecture in one show.
+
+1183
+02:54:00.500 --> 02:54:05.850
+PAUL: Okay, rather than thinking from… because there, if you try to make a small change also.
+
+1184
+02:54:07.070 --> 02:54:21.799
+PAUL: the noticeable impact just because of that change is very hard to visualize that. Whereas using simple neural networks, the change that you make, it is directly visible, and it's much more transparent.
+
+1185
+02:54:23.360 --> 02:54:27.210
+PAUL: Because there are a lot of other things out there, the core impact, I can see.
+
+1186
+02:54:27.870 --> 02:54:28.600
+PAUL: No.
+
+1187
+02:54:29.650 --> 02:54:31.320
+PAUL: That's why I feel that.
+
+1188
+02:54:31.800 --> 02:54:35.829
+PAUL: If you want to do the testing of these two concepts.
+
+1189
+02:54:36.380 --> 02:54:52.040
+PAUL: It's better to test, create a hidden, even we'll be doing the practicals, don't worry. Once we start with Keras, then I will show you about Keras and PyTorch directly, but use small, small networks, don't directly start with transformers, then it won't make sense.
+
+1190
+02:54:55.700 --> 02:54:59.879
+PAUL: saifulla is asking in today's class, not much heard neural.
+
+1191
+02:55:00.380 --> 02:55:04.300
+PAUL: Yes, today's class is much more a component
+
+1192
+02:55:04.900 --> 02:55:11.749
+PAUL: Because this is not the neural network, you have to understand, this is one component of the neural network, and which you have to use.
+
+1193
+02:55:11.870 --> 02:55:18.339
+PAUL: Because the final goal is back propagation. And in that propagation, optimization is it.
+
+1194
+02:55:19.000 --> 02:55:21.559
+PAUL: That's it. I hope so fully get that part.
+
+1195
+02:55:22.440 --> 02:55:35.639
+PAUL: Imam Shaw I want to run a local LLM personal desktop, can you please recommend the machine configuration? See, local LLM, what is the parameters, Imam Shaw? I think there are a few tools, okay, that directly you can execute on top of the machine.
+
+1196
+02:55:36.120 --> 02:55:48.530
+PAUL: I forgot that in CLI, I hired installed it, but, just, well… CLI tool for LLM support.
+
+1197
+02:55:48.670 --> 02:55:50.569
+PAUL: There was one tool I forgot.
+
+1198
+02:55:54.830 --> 02:55:59.970
+PAUL: data set, EZLLM, I think it's EZLLM.
+
+1199
+02:56:15.250 --> 02:56:18.389
+PAUL: One very famous tool that came.
+
+1200
+02:56:19.600 --> 02:56:25.070
+PAUL: I forgot that name, actually. But the idea is something like this that we'll be getting.
+
+1201
+02:56:25.240 --> 02:56:26.860
+PAUL: Okay.
+
+1202
+02:56:31.540 --> 02:56:33.340
+PAUL: I'm just sharing one link.
+
+1203
+02:56:48.680 --> 02:56:50.960
+PAUL: ALM Studio is fine.
+
+1204
+02:56:51.240 --> 02:56:54.279
+PAUL: But there was one tool, actually, Arun…
+
+1205
+02:56:58.940 --> 02:57:03.319
+PAUL: Even I forgot what is the shortcut for that, because I've used it.
+
+1206
+02:57:04.130 --> 02:57:07.020
+PAUL: I think it's, in the room.
+
+1207
+02:57:07.560 --> 02:57:08.860
+PAUL: toward…
+
+1208
+02:57:12.290 --> 02:57:15.799
+PAUL: It's not code. Everything has been a coding agent.
+
+1209
+02:57:16.260 --> 02:57:18.650
+PAUL: Yes. But,
+
+1210
+02:57:18.870 --> 02:57:24.699
+PAUL: I forgot that. In my system also, it installed, but I forgot what is the shortcut for that.
+
+1211
+02:57:25.460 --> 02:57:30.839
+PAUL: So, simply, like, you can install that in your system, and from there, you'll be getting that installation.
+
+1212
+02:57:32.320 --> 02:57:35.480
+PAUL: Let me know tomorrow that I will just find that.
+
+1213
+02:57:35.620 --> 02:57:38.009
+PAUL: It was Revu install LLN.
+
+1214
+02:57:38.120 --> 02:57:39.010
+PAUL: And then…
+
+1215
+02:57:42.740 --> 02:57:47.779
+PAUL: CLI tools… Any other questions, please let me know in the chat.
+
+1216
+02:57:49.390 --> 02:57:57.180
+PAUL: Optimization techniques, there is no end. Our dedicated books are written. 1,000 pages, only on optimization, only thing.
+
+1217
+02:57:57.530 --> 02:58:00.960
+PAUL: Optimizers, there are more than 100 optimizers.
+
+1218
+02:58:05.590 --> 02:58:09.649
+PAUL: We are just talking about the major ones that we will be using in this field.
+
+1219
+02:58:26.240 --> 02:58:37.349
+PAUL: Yes, you can use which LLM. I forgot that. Which LLM is also there? Okay, whoever was asking, I cannot, run Hemangshu, please check which LLM.
+
+1220
+02:58:38.150 --> 02:58:45.749
+PAUL: It will detect your CPU RAM, and based on that, it will suggest what are the best local LLM that you can actually run from again.
+
+1221
+02:58:46.130 --> 02:58:51.409
+PAUL: Okay? So, I think… I forgot that name, actually.
+
+1222
+02:58:53.600 --> 02:58:56.580
+PAUL: I'm sharing the link in the chat, if you want.
+
+1223
+02:58:59.130 --> 02:59:04.330
+PAUL: Please open the link and have a check. Through this, you can actually check.
+
+1224
+02:59:04.530 --> 02:59:06.280
+PAUL: Initially in your system.
+
+1225
+02:59:14.670 --> 02:59:19.199
+PAUL: Alright, so now I will stop sharing the screen, I feel that I wouldn't require that.
+
+1226
+02:59:21.930 --> 02:59:24.690
+PAUL: Any other questions, please let me know.
+
+1227
+02:59:26.210 --> 02:59:30.149
+PAUL: Otherwise, I'll be, simply concluding it.
+
+1228
+02:59:30.780 --> 02:59:35.850
+PAUL: All right, Prince has raised, and your question, I will take at the last. Yes, Prince.
+
+1229
+02:59:35.850 --> 02:59:36.470
+Priince: Hello.
+
+1230
+02:59:36.900 --> 02:59:40.129
+Priince: Hi, sir. I… in a decade, I did…
+
+1231
+02:59:40.130 --> 02:59:44.069
+PAUL: One note I have the change in this is back reading.
+
+1232
+02:59:52.580 --> 02:59:53.810
+PAUL: Just waiting.
+
+1233
+02:59:56.050 --> 02:59:57.969
+PAUL: Alright, yeah. No, I…
+
+1234
+02:59:57.970 --> 03:00:01.139
+Priince: In, in Edigrad and RMS Pro.
+
+1235
+03:00:01.290 --> 03:00:10.389
+Priince: I am not able to understand the gradient history, which you've written all past squares, and looking for recent squared gradients, that I was confused.
+
+1236
+03:00:11.010 --> 03:00:22.240
+PAUL: With the formula that I have written, no. It will start from timestamp 1 to all the timestamps. So because of that, I have written all past squares in the formula.
+
+1237
+03:00:23.030 --> 03:00:23.780
+Priince: Okay.
+
+1238
+03:00:24.300 --> 03:00:34.100
+PAUL: Okay? And here, the other version in the RMS prop, there I have very specifically mentioned only the previous one. That's why, see.
+
+1239
+03:00:35.660 --> 03:00:37.509
+PAUL: Let me just open the file itself.
+
+1240
+03:00:37.510 --> 03:00:44.979
+Priince: Okay, that's the sigma, right? In edigrade, sigma… alpha D is sigma of T, so all the upgrades. Okay, okay, got it.
+
+1241
+03:00:45.320 --> 03:00:54.710
+Priince: And, one more request that, in the between of the pages, if you write, then we are not able to miss, it splits out for us in PDF.
+
+1242
+03:00:56.280 --> 03:00:57.909
+PAUL: All right, all right.
+
+1243
+03:00:57.910 --> 03:01:03.759
+Priince: the pictures and whatever you return in the middle of the pages, they are splitted, it's okay, but next time.
+
+1244
+03:01:03.760 --> 03:01:11.350
+PAUL: Alright, alright, I got the point. Yeah. Sometimes, generally, I go, but Ankit I forgot. Sorry for that.
+
+1245
+03:01:11.720 --> 03:01:13.069
+Priince: Okay, fine. Thank you.
+
+1246
+03:01:14.010 --> 03:01:18.849
+PAUL: Then, I think, Mohammad, you have some question with respect to your career.
+
+1247
+03:01:18.970 --> 03:01:33.570
+PAUL: Others can drop. The session is done. Tomorrow, we will continue with loss functions. If time passes, then we will start with wait update full, or batch, normalization, dropout, those type of things. Now, slowly, slowly, we will pursue the end.
+
+1248
+03:01:34.010 --> 03:01:34.320
+PAUL: Sweet.
+
+1249
+03:01:34.630 --> 03:01:35.290
+mohd mushq: affordable.
+
+1250
+03:01:35.640 --> 03:01:36.410
+PAUL: Yes.
+
+1251
+03:01:36.910 --> 03:01:38.650
+mohd mushq: Hello, sir. I hope you are doing good.
+
+1252
+03:01:38.780 --> 03:01:53.310
+mohd mushq: First, actually, I'm pursuing my best from Jaumia. Since one, I'm a little bit confused which target, which of the job I should target as a finisher. Some of these students are planning to get into the software development role, but,
+
+1253
+03:01:53.310 --> 03:02:02.479
+mohd mushq: I'm so confused and feeling so stagnated, even though I haven't, episcopilled myself that much. So what should be the strategy?
+
+1254
+03:02:02.500 --> 03:02:14.239
+mohd mushq: to get into the role of AI as a fresher, and what should be the skill set, and what should be the specialization that I have to take into it.
+
+1255
+03:02:14.340 --> 03:02:15.360
+mohd mushq: what do you…
+
+1256
+03:02:15.780 --> 03:02:20.069
+PAUL: Well, Pesh, I already shared the PDF in the chat. Everybody got the PDF.
+
+1257
+03:02:20.930 --> 03:02:33.070
+PAUL: Alright, now, based on your question, now, after you're a graduate, so generally see, when you are joining an organization, first of all, like, what are the rules that you are targeting? That matters much more.
+
+1258
+03:02:33.710 --> 03:02:44.130
+PAUL: Because still now, in this course, only partial ML which has been done, but for sure in your graduate degree, are there multiple, I can say, courses that you have taken, or enrolled?
+
+1259
+03:02:45.390 --> 03:02:46.610
+PAUL: Yes. Yes?
+
+1260
+03:02:46.930 --> 03:02:53.299
+mohd mushq: Yes, sir. So, should I have to go for the special agent in the Agent decay and the JNA further after this course?
+
+1261
+03:02:53.300 --> 03:03:00.830
+PAUL: See, right now, the market time, it is much more aligned towards Ragon Agents. Indian market Ragon Agents, as simple as that.
+
+1262
+03:03:01.290 --> 03:03:06.339
+mohd mushq: Okay, so I will get into, these roles, as a pleasure too, so…
+
+1263
+03:03:07.760 --> 03:03:18.169
+PAUL: As a fresher, yes. Generally, generative AI engineer, they hire it as fresher. Generally, see, the profile can be anything. They might call it Associate Data Science.
+
+1264
+03:03:18.170 --> 03:03:29.250
+PAUL: And these types of work that we'll be doing. Mostly in organizations, every organization uses a different term, so I have, like, I myself started with associate, then senior associate, in that way things happen.
+
+1265
+03:03:29.460 --> 03:03:41.490
+PAUL: So, but the main idea is what role you are looking for. Are you looking for ML engineering roles? Are you looking for CVE? Are you looking for… that's why, exactly what is the requirement?
+
+1266
+03:03:41.490 --> 03:03:49.819
+PAUL: Because as a fresher, I don't feel that you'll be highly specializing in one thing, so try to keep it generic, try to be very good in one cloud at least.
+
+1267
+03:03:49.830 --> 03:03:55.900
+PAUL: Because in every organization, everybody is working in cloud. At least one cloud is very, very important, like AWS.
+
+1268
+03:03:55.940 --> 03:04:11.900
+PAUL: or Azure, whichever you feel that you are comfortable in. But as in this particular course, ML has been done, and from your site, because the market is much more wider, open towards RAG and agent. So I will say that they will help you much more, because those are trending tech.
+
+1269
+03:04:12.010 --> 03:04:14.930
+PAUL: And everybody is looking for those type of skills.
+
+1270
+03:04:15.060 --> 03:04:28.020
+PAUL: Whereas pure machine learning jobs, lesser in the market, you have to look for finance domains there, which is being widely used. And even there, if you're looking for finance, then probably you have to learn time series also.
+
+1271
+03:04:28.230 --> 03:04:36.360
+PAUL: So, a lot of other things aren't there. Already, I shared the PDF, whoever is asking. Later on, I will add it to Motion. I shared with everyone in the chat.
+
+1272
+03:04:40.120 --> 03:04:42.280
+PAUL: Okay, so I hope you get the idea.
+
+1273
+03:04:42.470 --> 03:04:43.260
+mohd mushq: Yes, sir.
+
+1274
+03:04:43.260 --> 03:04:49.140
+PAUL: Because getting it, I feel that Rakuten Agent makes much more sense in 2026 to me.
+
+1275
+03:04:49.240 --> 03:04:54.359
+PAUL: Email, the idea is, if you are learning Rakuten agents, before that, you pull an empty.
+
+1276
+03:04:54.660 --> 03:04:55.620
+PAUL: Definitely.
+
+1277
+03:04:56.670 --> 03:05:13.040
+PAUL: It means that the fundamentals of deep learning can also come, because you might say I'm consuming the LLM, so they might ask the question. But as a fresher, the idea is, I won't be asking too much depth, or too much, but at least the core basics part is very, very important, the computation.
+
+1278
+03:05:14.030 --> 03:05:24.739
+mohd mushq: Okay, so I should have the idea of machine learning and deep learning, if we are already learning in this course, and that is more than enough to get into RED or agent.
+
+1279
+03:05:25.310 --> 03:05:26.040
+PAUL: Yes.
+
+1280
+03:05:26.330 --> 03:05:32.530
+PAUL: Because deep learning, so many years it has been, so that's why I feel that it is a must…
+
+1281
+03:05:32.680 --> 03:05:39.589
+PAUL: Like, going forward, like, once I start with NLP, then we'll be discussing transformers, and transformers also meet…
+
+1282
+03:05:40.090 --> 03:05:40.520
+mohd mushq: No, no.
+
+1283
+03:05:40.520 --> 03:05:42.889
+PAUL: In interview, it's a very common question.
+
+1284
+03:05:43.170 --> 03:05:47.170
+PAUL: Around transforms, so that also should… as a fresher.
+
+1285
+03:05:47.310 --> 03:06:06.960
+PAUL: from the application point of side, you should have worked something as you are in a post-graduate degree, okay, rather than the normal graduate, so at least the work that you have done with respect to the research that you have done. Okay, just be sure
+
+1286
+03:06:07.050 --> 03:06:23.149
+PAUL: or, like, whether it's applied version. It means that two different types. One is the research that you do, where you write the thesis, and the other one. So, exactly what is your path based on that. Just be sure that you can justify what you have done in the grant.
+
+1287
+03:06:26.420 --> 03:06:35.749
+PAUL: If you have used AI there, then generally most of the direct benefit is there, if you have done at least some type of research under any type of profession.
+
+1288
+03:06:36.440 --> 03:06:42.690
+PAUL: Because the customization of things through research, the explanation becomes much better.
+
+1289
+03:06:43.600 --> 03:06:48.100
+PAUL: But, from the application point of view, Rakuten Agent says compulsory vetting.
+
+1290
+03:06:48.570 --> 03:06:52.850
+PAUL: Because there, it's much more from the application side of the…
+
+1291
+03:06:53.170 --> 03:06:57.790
+PAUL: Rather than from engineering side. LLM engineering is a bit tough.
+
+1292
+03:06:58.370 --> 03:07:01.060
+PAUL: Whereas it's much more the RAG application side.
+
+1293
+03:07:02.190 --> 03:07:09.759
+PAUL: So, getting a job is much easier in Indian market, but the pay will be much lesser, always remember. Rai and Arjun Rai really.
+
+1294
+03:07:10.300 --> 03:07:14.899
+PAUL: Because, there's the final application also, but it's, you know, faster.
+
+1295
+03:07:15.290 --> 03:07:19.829
+PAUL: Time I can assume. 3 months, 4 months, project deliveries are being done.
+
+1296
+03:07:22.110 --> 03:07:24.419
+PAUL: All right, Navin, I think you are next.
+
+1297
+03:07:24.830 --> 03:07:26.519
+mohd mushq: Thank you, have a day.
+
+1298
+03:07:30.600 --> 03:07:32.100
+Navin K: My target is to…
+
+1299
+03:07:32.320 --> 03:07:40.959
+Navin K: first learn RAGs and agents and the architecture around that. So, in that context, do you think, knowing
+
+1300
+03:07:41.230 --> 03:07:46.080
+Navin K: Calculus and the concepts of statistics, which
+
+1301
+03:07:46.350 --> 03:08:00.529
+Navin K: I guess were discussed today in depth when we… when you were deriving the formulas for the weight updates. Is it necessary to go and learn the concepts of calculus and probability statistics to… to realize.
+
+1302
+03:08:00.530 --> 03:08:06.820
+PAUL: Generally, for a fresher, much more required, if somebody is having experience more than 8 years, 9 years, 10 years.
+
+1303
+03:08:06.950 --> 03:08:09.810
+PAUL: For them, it is not right. Partially.
+
+1304
+03:08:10.040 --> 03:08:13.500
+PAUL: Why you will remember. You have to just understand the poor working.
+
+1305
+03:08:13.980 --> 03:08:14.460
+Navin K: later.
+
+1306
+03:08:14.460 --> 03:08:20.539
+PAUL: on, we know, because things have been standardized. Whole world uses RMS prop or Atom. That's new.
+
+1307
+03:08:21.800 --> 03:08:22.520
+Navin K: Okay.
+
+1308
+03:08:23.230 --> 03:08:31.469
+PAUL: You… nobody really needs to remember. If somebody is having higher experience, then directly you can say. Because higher experience, guys, you have to say it from project perspective.
+
+1309
+03:08:31.910 --> 03:08:37.329
+PAUL: And there, it is a very small thing, because in your project, the portions will be different.
+
+1310
+03:08:37.560 --> 03:08:41.309
+PAUL: Because exactly based on the problem statement that you say in the interview.
+
+1311
+03:08:41.400 --> 03:09:00.919
+PAUL: So, there are the use cases and the other things, whatever, like, whether you have worked on multi-class classification, or integration-based, or some vision-based solution, or something audio-based. So, there, really, these things are there, because they are directly visited, yes, this is the optimizer done, and the main task is weight update.
+
+1312
+03:09:01.380 --> 03:09:02.730
+PAUL: throwback recognition.
+
+1313
+03:09:04.620 --> 03:09:05.340
+Navin K: Okay.
+
+1314
+03:09:05.340 --> 03:09:10.219
+PAUL: But for Fisher's important, they might ask exactly, like, how it works.
+
+1315
+03:09:10.320 --> 03:09:17.650
+PAUL: What are the types? What were the cons? Simply, for a fresher, these things matter much, not for experienced guys.
+
+1316
+03:09:18.490 --> 03:09:27.229
+Navin K: Okay. And, sir, a follow-up question, when do you… when, in the coming months, are we planning to cover RAGs and Agentic AI?
+
+1317
+03:09:27.930 --> 03:09:31.950
+PAUL: After this, no, once this is done, Deep Learning Foundations.
+
+1318
+03:09:32.290 --> 03:09:39.220
+PAUL: Then you have your NLP. We will start with Transformers. I think after Transformers is done, directly registered.
+
+1319
+03:09:40.220 --> 03:09:43.360
+Navin K: Okay, so roughly around October, November, we'll be in…
+
+1320
+03:09:43.360 --> 03:09:56.370
+PAUL: Yes, yes, yes, for sure, in October. See, right now, I'm just telling you, probably last week of October, I won't be here, so probably Dibesh will take the classes, and you will be taking the classes from Rad perspective.
+
+1321
+03:09:56.950 --> 03:10:04.499
+PAUL: That's fine. Three or four classes, that it will take, because I will be away. After that, again, the same discussion that we will continue.
+
+1322
+03:10:05.790 --> 03:10:09.639
+PAUL: You were also part of that batch also, no? I think that advanced one.
+
+1323
+03:10:10.180 --> 03:10:12.759
+Navin K: No, I've moved here completely.
+
+1324
+03:10:12.760 --> 03:10:13.860
+PAUL: care completely, right?
+
+1325
+03:10:13.860 --> 03:10:14.530
+Navin K: Yeah.
+
+1326
+03:10:14.710 --> 03:10:28.009
+PAUL: And then, because they are also the same thing, in between, as I won't be there for one month, I'll be traveling. So, because of that, I will be canceling, so they are also going. So, just remember, it will be around October.
+
+1327
+03:10:28.010 --> 03:10:28.360
+Navin K: Okay.
+
+1328
+03:10:28.360 --> 03:10:41.740
+PAUL: Probably, if something happens, then probably after Dhira. But I feel that as you don't have computer vision in your syllabus in 2.0, so probably automatically 6 to 7 lectures about steps, so it will be much faster.
+
+1329
+03:10:43.910 --> 03:10:44.740
+Navin K: Okay.
+
+1330
+03:10:45.200 --> 03:10:46.369
+Navin K: Thank you.
+
+1331
+03:10:46.370 --> 03:10:47.140
+PAUL: Funding.
+
+1332
+03:10:50.810 --> 03:10:59.030
+PAUL: Alright, no more hand arrays. So, now, Deepak is telling, will this post go till
+
+1333
+03:10:59.430 --> 03:11:14.299
+PAUL: I think one year, January, it can be, but see, last time, the last month, December, see, I can make it much more faster, but again, every Wednesday, if the classes are there, then automatically it will do much more fast.
+
+1334
+03:11:14.660 --> 03:11:18.200
+PAUL: By December only, it will be completed. You really, to only China.
+
+1335
+03:11:18.820 --> 03:11:23.359
+PAUL: But in our cases, as we are skipping, so probably one month extra data.
+
+1336
+03:11:26.810 --> 03:11:34.659
+PAUL: Now, Mohammad is asking, after this course, can we go to… don't go to advanced route. Starting from this course, you just get the very rough.
+
+1337
+03:11:34.810 --> 03:11:39.329
+PAUL: Probably, modern route will be a better approach.
+
+1338
+03:11:39.590 --> 03:11:42.550
+PAUL: Then, from modern route to advanced route is a better.
+
+1339
+03:11:43.240 --> 03:11:44.110
+PAUL: Little bit.
+
+1340
+03:11:44.480 --> 03:11:47.360
+PAUL: Because at least few things you shouldn't.
+
+1341
+03:11:47.710 --> 03:11:52.229
+PAUL: then it makes much more sense to go deeper. Otherwise, directly, if you go deeper.
+
+1342
+03:11:52.500 --> 03:12:03.850
+PAUL: it becomes harder for you to relate things. When you go to advanced level, you have to relate to the old stuff that has happened. Till the time you can't relate, it's better to
+
+1343
+03:12:04.560 --> 03:12:14.780
+PAUL: go through. So I will say, FD, don't take, if you don't have experience, high experience, taking an FD course really doesn't make sense. You have to understand that simple thing.
+
+1344
+03:12:15.290 --> 03:12:18.879
+PAUL: Every… for freshers, nobody can be an FD.
+
+1345
+03:12:19.050 --> 03:12:24.580
+PAUL: clear it even. I feel that you should have more than 8, 9, 10 years of experience, at least.
+
+1346
+03:12:25.190 --> 03:12:34.279
+PAUL: And in AI, at least 5 years of experience, then will it make sense? Otherwise, how we will suggest somebody to adopt AI, if you don't know, personally, AI?
+
+1347
+03:12:37.050 --> 03:12:38.080
+PAUL: Alright.
+
+1348
+03:12:42.610 --> 03:12:45.370
+PAUL: So, guys, bye-bye, everyone. Thanks for joining.
+
+1349
+03:12:45.520 --> 03:12:50.460
+PAUL: Okay, D has raised us, and D… D… Please proceed.
+
+1350
+03:12:55.260 --> 03:12:56.230
+PAUL: D.
+
+1351
+03:13:00.690 --> 03:13:01.760
+PAUL: That is.
+
+1352
+03:13:02.300 --> 03:13:03.790
+PAUL: No audio.
+
+1353
+03:13:03.790 --> 03:13:04.800
+D: Hello?
+
+1354
+03:13:05.000 --> 03:13:05.510
+D: Hello.
+
+1355
+03:13:05.780 --> 03:13:06.900
+PAUL: Yes, yes.
+
+1356
+03:13:08.390 --> 03:13:20.389
+D: Yeah, hi. So, since you mentioned AFT, so I have, like, 10 years of experience, but in other domain, in IT, but in other domain, no IT experience.
+
+1357
+03:13:20.740 --> 03:13:23.409
+D: So, sorry, no AI experience.
+
+1358
+03:13:23.730 --> 03:13:31.969
+D: So, I'm just learning the basics here. So, should I go for FDE or not?
+
+1359
+03:13:34.130 --> 03:13:38.890
+PAUL: Generally, see, you should have at least 5 to 6 years of DEI experience.
+
+1360
+03:13:39.020 --> 03:13:42.770
+PAUL: This means that at least you should have AI-based experience.
+
+1361
+03:13:42.770 --> 03:13:43.150
+D: Okay.
+
+1362
+03:13:43.150 --> 03:13:52.369
+PAUL: Otherwise, you are completely fresher than directly getting an FD role, I don't know. If you can make the interviewer convinced, then only it makes sense, but generally.
+
+1363
+03:13:52.540 --> 03:13:55.129
+PAUL: At some point, you will be getting rejected.
+
+1364
+03:13:56.020 --> 03:14:02.029
+PAUL: Because at least if you have worked in certain components, at least 4 years that you have worked.
+
+1365
+03:14:02.510 --> 03:14:10.919
+PAUL: Because that is a bare minimum. Matarj, how you will deal with clients? That is the main problem, because if you want to suggest somebody, you should have
+
+1366
+03:14:11.280 --> 03:14:13.340
+PAUL: that particular information.
+
+1367
+03:14:13.500 --> 03:14:21.890
+PAUL: Otherwise, at every point of time, you have to do your own research. The entire process takes very lengthy time. At every point of time, if you start doing the research.
+
+1368
+03:14:22.850 --> 03:14:23.230
+D: SC.
+
+1369
+03:14:23.230 --> 03:14:29.300
+PAUL: So, for FD, minimum, that's why I think for the FD course, also, they have mentioned minimum for zero of experience.
+
+1370
+03:14:29.790 --> 03:14:33.309
+PAUL: Okay, and that experience is from AI side much more.
+
+1371
+03:14:33.470 --> 03:14:43.660
+PAUL: Okay, and generally, I pay for ATL, because I will hire at least who is at architect level or principal data scientist, something like, who knows, actually, how to handle platform systems.
+
+1372
+03:14:44.090 --> 03:14:48.449
+PAUL: Then only he can suggest somebody to make the improvements that they need.
+
+1373
+03:14:51.200 --> 03:14:52.720
+D: 100, thank you.
+
+1374
+03:14:52.950 --> 03:14:54.940
+PAUL: It's not okay.
+
+1375
+03:14:58.090 --> 03:15:04.820
+PAUL: All right, guys, so I will conclude the session for today. Let's move tomorrow, and conducting more discussion. By the way, everyone. Thanks for joining.
+
