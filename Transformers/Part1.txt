@@ -1,0 +1,2887 @@
+WEBVTT
+
+1
+00:00:11.099 --> 00:00:20.958
+PAUL: Alright guys, soâ€¦ Today's session, as I can see in the chat, few students have joined from IndiaStream.co.
+
+
+2
+00:00:21.619 --> 00:00:29.249
+PAUL: Alright, because the core partâ€¦ Aush was asking, getting the invite last week, so I missedâ€¦
+
+
+3
+00:00:30.599 --> 00:00:38.669
+PAUL: Should I attend? You can attend. People's studio session, it's a bit different, only it's a 90-minute session, justâ€¦
+
+
+4
+00:00:38.839 --> 00:00:52.098
+PAUL: To inform the UDS 3.2 guys. Okay, and today we'll be just looking into the introduction, because I don't want to go in depth, and even the time is on the SS side. So, we will just explore the intuition today.
+
+
+5
+00:00:52.489 --> 00:01:05.928
+PAUL: And a little bit about that idea that why Transformers, and what was the main problem that we have faced till now in RNN, LSTMs. Okay, so that is the idea. So that's why it's, basically, like.
+
+
+6
+00:01:07.029 --> 00:01:26.269
+PAUL: till backpropagation if you have done, then fine, I wish, I think. Nothing to worry about. Okay, so let me just start sharing my notes. It will be a bit theoretical, okay? But, just bear, because the initial idea, once you start understanding the theory, then we will jump into the actual paper. So, before that.
+
+
+7
+00:01:27.229 --> 00:01:32.098
+PAUL: Let me just start sharing the screen and tell you exactly.
+
+
+8
+00:01:33.299 --> 00:01:36.639
+PAUL: the paper that we won't be discussing, I think, yes.
+
+
+9
+00:01:38.779 --> 00:01:40.299
+PAUL: This next one.
+
+
+10
+00:01:45.899 --> 00:01:51.778
+PAUL: Alright, so now this is the main Transformers paper. The tension is all we need.
+
+
+11
+00:01:51.819 --> 00:02:06.549
+PAUL: Okay. Now, a few things in this paper which has been mentioned at, because we'll be going pretty much a deep dive. This is the main paper on top of which everything which has been built around LLMs, if I say, even VLLMs.
+
+
+12
+00:02:06.809 --> 00:02:18.209
+PAUL: are somehow very, very closely related to this. Okay. So, to understand this entire architecture, block by block, everything that we need to decode.
+
+
+13
+00:02:18.529 --> 00:02:28.419
+PAUL: And, in today's session, the idea is that this particular block, how this is getting created, little bit about that idea that we'll be exploring. Only one block.
+
+
+14
+00:02:28.419 --> 00:02:41.958
+PAUL: Okay, and as you know, few things I feel that, in this particular Transformers architecture, you guys already know. So, for example, if I say a feed-forward, feed-forward means a linear layer, or a fully connected layer.
+
+
+15
+00:02:41.959 --> 00:02:51.049
+PAUL: Okay, so similarly, then you have few skip connections. Now, this is where, like, concepts from computer vision are being related, like.
+
+
+16
+00:02:51.229 --> 00:02:56.828
+PAUL: The ResNet architecture from computer vision, which relate here.
+
+
+17
+00:02:57.078 --> 00:03:07.468
+PAUL: The idea is residual connections or skip connections, okay? So, little bit, as in your batch, there is no vision, but I will let you know those things also exactly how it happens.
+
+
+18
+00:03:09.049 --> 00:03:16.149
+PAUL: Okay, so Deepak was telling, I thought Transformers was older, but the paper suggests it was introduced in 2023. No, no, no.
+
+
+19
+00:03:16.809 --> 00:03:30.198
+PAUL: This is a 2017 paper, don't get confused on this one. Okay, so this is actually 2017. Can you see 31st Conference Nights 2017 MBCA? Okay, so this is 2017.
+
+
+20
+00:03:30.709 --> 00:03:32.789
+PAUL: Okay, so don't get them lost.
+
+
+21
+00:03:34.719 --> 00:03:45.058
+PAUL: Alright, before, going ahead with the paper, okay, so, okay, now there is a older paper.
+
+
+22
+00:03:45.239 --> 00:03:58.388
+PAUL: Now, if you remember, there are different types of RN that we talked about, one-to-one, many-to-one. Now, the idea is we'll be exploring tasks based on many-to-many. Okay, now this is also an interesting read.
+
+
+23
+00:03:58.399 --> 00:04:13.059
+PAUL: Now, very specifically, if I say that in this particular paper, they have done sequence-to-sequence, okay? And when I say sequence-to-sequence, the idea you can think about, the simplest example will be, like, machine translation.
+
+
+24
+00:04:13.149 --> 00:04:17.578
+PAUL: Okay, I think the font is visible for everyone. Please let me know, or should I zoom into much more?
+
+
+25
+00:04:17.819 --> 00:04:29.129
+PAUL: Because my screen is 4K, that's why if you're looking with a smaller display, the font might be a bit smaller, or a few people are telling on the smaller side.
+
+
+26
+00:04:29.489 --> 00:04:37.758
+PAUL: Alright, now, this is 2014 that I am talking about. Okay, and in 2014, like, LSTMs, very widely used.
+
+
+27
+00:04:37.909 --> 00:04:44.939
+PAUL: Now, when I say sequence to sequence, first of all, understand. So, when I say, what is sequence?
+
+
+28
+00:04:45.449 --> 00:04:54.858
+PAUL: The simplest example, please provide me in chat already, I've told you before the starting of R&L. Whenever I see a sequence, what are the things that should come in your mind?
+
+
+29
+00:04:58.289 --> 00:05:02.199
+PAUL: Yes, any examples? Time series exactly correct.
+
+
+30
+00:05:02.519 --> 00:05:06.229
+PAUL: Machine translation, okay, now in this particular paper.
+
+
+31
+00:05:06.669 --> 00:05:15.629
+PAUL: order, NLP, no, not really. NLP, when you directly say it's not. Video is also an example, exactly correct.
+
+
+32
+00:05:16.019 --> 00:05:28.979
+PAUL: Language translation is mentioned in this paper, but it can be any sequence. For example, simple question answering also, if I say. Not necessary, a simple question that you are asked, and based on that, you are getting the response.
+
+
+33
+00:05:29.149 --> 00:05:33.388
+PAUL: That is also a simple, like, sequence-to-sequence task.
+
+
+34
+00:05:33.609 --> 00:05:36.039
+PAUL: Then you have text generation.
+
+
+35
+00:05:36.549 --> 00:05:46.889
+PAUL: Okay. Now, these things are, like, anything with respect to transformers that you can think about. Naturely, a lot of tasks are sequence-to-sequence tasks which are being done.
+
+
+36
+00:05:48.069 --> 00:05:59.339
+PAUL: text summarization also you do have under sequence-to-sequence models. All right, now, let's just quickly go through this particular abstract, okay, because this is 2014 right now.
+
+
+37
+00:05:59.519 --> 00:06:11.069
+PAUL: And exactly a few of the things which you might not know, that we'll be talking about in the Transformers table, because few metrics are there like blue. Till now in this course, we haven't discussed about blue.
+
+
+38
+00:06:11.069 --> 00:06:28.879
+PAUL: But, from this, only the abstract part, just focus. Because other than that, this paperâ€¦ because right now, really, like, as I told you, RNNs are pretty much deprecated, nobody use RNNs, but to a certain extent, LSTMs, they have a good score, but again, the size of the data set should be small.
+
+
+39
+00:06:30.289 --> 00:06:47.299
+PAUL: Now, DNNs, so generally, back in 2014, 13, around that time, so generally, like, DNNs, and majorly, this time was not the time for NLP. You have to understand 2014 was majorly the time for visual computing. All the architectures.
+
+
+40
+00:06:47.299 --> 00:07:01.949
+PAUL: Okay, and the major competitions, if I say ICVLR, okay, so imagination-based competitions that happen. So, majorly, so directly they don't help. So, the idea is that a deep, and when I say deep, it's not very deep, you have to understand.
+
+
+41
+00:07:01.949 --> 00:07:04.309
+PAUL: So generally, in your mind, just takeâ€¦
+
+
+42
+00:07:04.309 --> 00:07:07.889
+PAUL: Simply, like, not more than 10.
+
+
+43
+00:07:07.909 --> 00:07:23.968
+PAUL: Maximum take, 12 or 13, because this was the time of one of the famous architectures, if I say, like, VGG16. Okay, that was the year, first time 16 years based architecture that we saw. Then it had a different variant, like, 19 was another variant.
+
+
+44
+00:07:23.969 --> 00:07:39.729
+PAUL: In that year, from Google, the other paper that came was the Google Net paper. Okay, now there, the architectural changes were there. Now, that's why deep neurons, so don't think 100 layers, 200 layers. Now, this is not the time, this is 2014 that I'm talking about right now.
+
+
+45
+00:07:40.559 --> 00:07:47.618
+PAUL: Deep with respect to layers, yes. There are two concepts. One is deep, one is then increasing the width also.
+
+
+46
+00:07:47.679 --> 00:08:06.519
+PAUL: Okay, so two things. So right now, when I say deep, so just think, like, the vertical connection right now I'm talking about, top to bottom. So that is the meaning of this. Similarly, you have architectures where even the breadth or the width has also been increased. It means that both the things, depth also increased, as well as the width or the breadth.
+
+
+47
+00:08:06.589 --> 00:08:13.889
+PAUL: Okay, so going forward, more and more architectures will come in that way. Because this was a me time of research, and multiple papers were come.
+
+
+48
+00:08:14.079 --> 00:08:20.028
+PAUL: Alright, so DNNs are powerful models that have achieved excellent performance on difficult learning tasks.
+
+
+49
+00:08:20.469 --> 00:08:33.168
+PAUL: Alright, now this is a pretty much simple statement. Although DNNs work well whenever large, labeled training sets are available, they cannot be used to map sequence to sequences.
+
+
+50
+00:08:33.559 --> 00:08:44.498
+PAUL: Okay, now, right now, so simply if you think about any type of task, like classification-based tasks, it's much more easier as working with sequence-to-sequence-based tasks.
+
+
+51
+00:08:44.539 --> 00:08:59.159
+PAUL: So, for example, like, sentiment analysis, for example, template pricing. That was much more easier task, but tasks where you have machine translation, where you have text generation, where you have text summarization, these type of tasks were very, very hard.
+
+
+52
+00:08:59.549 --> 00:09:04.258
+PAUL: And generally, like, people were not using DNS back that time.
+
+
+53
+00:09:04.569 --> 00:09:07.899
+PAUL: Anybody has heard about Markov chains?
+
+
+54
+00:09:08.849 --> 00:09:09.769
+PAUL: Yes?
+
+
+55
+00:09:11.419 --> 00:09:22.278
+PAUL: Mark Work chains, anybody, like, these are older techniques, but even in few things, if you learn about, like, a lot, probabilistic modeling, stochastic-based modeling.
+
+
+56
+00:09:22.279 --> 00:09:36.358
+PAUL: Okay, so pretty much depth and stats when I said. So, there, yes, still the time it has been used, even with respect to, like, if you start learning reinforcement learning, there are certain things from Markov chains which have been derived.
+
+
+57
+00:09:37.109 --> 00:09:47.668
+PAUL: All right, kindly send the link of the paper. Okay, now this is the older version, I have sent the link, or simply you can search in Google sequence-to-sequence paper, archive, and we're good to go.
+
+
+58
+00:09:47.889 --> 00:10:00.578
+PAUL: Now, simply, they are talking about, okay, now this is a tough task. So, they are tellingâ€¦ in this paper, we present a general end-to-end approach to sequence-to-sequence learning that make minimal assumptions on the sequence structure.
+
+
+59
+00:10:00.759 --> 00:10:15.729
+PAUL: Our method uses a multi-layered LSTM to map the input sequences to a vector of fixed dimensionality. All right, fine, so now this is the same case. Now, even if we transform or the dimensionality, we always keep it same only.
+
+
+60
+00:10:16.499 --> 00:10:23.639
+PAUL: and then the other Deep LSTM to decode the other. So right now, two different type of LSTMs which have been used. Okay, nowâ€¦
+
+
+61
+00:10:23.829 --> 00:10:35.798
+PAUL: From here, the idea that arrived. The first idea. Okay, now, two times sequence to sequence. In one place, whatâ€¦ so, very simply, they have written the word decode.
+
+
+62
+00:10:36.449 --> 00:10:42.108
+PAUL: Okay, now that's why we are moving towards an encoder and decoder-based architecture.
+
+
+63
+00:10:42.679 --> 00:11:01.478
+PAUL: Okay, so that's why two separate, so one LSTM, very specifically when the encoding will happen, and there is another LSTM where the decoding will happen. So, from here, the idea of encoders and decoders that arrive. And the same thing in Transformers that we'll be discussing. So that's why I thought about giving you a little bit history about that.
+
+
+64
+00:11:02.379 --> 00:11:07.139
+PAUL: Alright, then another deep LSTM to decode the target sequence.
+
+
+65
+00:11:07.289 --> 00:11:24.789
+PAUL: From the vector, okay, so when I'm talking about the target sequence right now, so simply think about the sequence that you'll be predicting, okay? So, for example, if you're doing a task from English to French, okay, now that French sentence that you'll be predicting, based on the English words that youâ€¦
+
+
+66
+00:11:26.099 --> 00:11:45.048
+PAUL: Now, they are talking about our main result is that on an English to French translation task from the WMT 14 edition dataset. Okay, now this is the 14th edition, I can say. It has multiple editions. There is a 07 edition, 14th edition, so with respect to time, this dataset got increased and increased.
+
+
+67
+00:11:45.219 --> 00:11:58.719
+PAUL: The translation produced by the LSTM achieves a blue score of 34.8, okay? And remember, this score should be always on the higher side, okay? So something closer to 100, much more better.
+
+
+68
+00:11:58.899 --> 00:12:02.298
+PAUL: Later on, we'll be talking about blue, we'll be talking aboutâ€¦
+
+
+69
+00:12:02.479 --> 00:12:16.458
+PAUL: Rogue, okay. Now, a few schools which are very specifically used in NLP. I think in the module of, like, NLP for machine learning, did you learn about any of these metrics? Please let me know in the chat.
+
+
+70
+00:12:16.769 --> 00:12:24.798
+PAUL: Because, really, These are classical NLP metrics. Lou has been there for now more than 20 years.
+
+
+71
+00:12:25.359 --> 00:12:38.318
+PAUL: Okay, you have not learned. Fine. Then we will discuss duringâ€¦ after we discuss the main paper, then we'll be talking, because this is the same metric, even in the Transformers paper, which will be mentioned, okay? So, just to show you.
+
+
+72
+00:12:39.339 --> 00:12:41.068
+PAUL: An important metric.
+
+
+73
+00:12:41.699 --> 00:12:43.698
+PAUL: Okay, there will be one table.
+
+
+74
+00:12:44.049 --> 00:12:48.199
+PAUL: Where the blue scores will be mentioned. Okay, can you see here, there are also blue, K?
+
+
+75
+00:12:48.819 --> 00:12:58.128
+PAUL: Yes, and now this is the score, so probably the version that they have used, it will be a different version of the data set.
+
+
+76
+00:12:58.259 --> 00:13:08.629
+PAUL: Okay, but, this is a rough Transformers base model is performing 27.3, and this is 28.4. All right. Now, in this paper that we're told about.
+
+
+77
+00:13:08.729 --> 00:13:18.049
+PAUL: Alright, on the WMT dataset, translation produced over here, a bigger number, but only on top of the entire test set which has been mentioned.
+
+
+78
+00:13:19.569 --> 00:13:27.678
+PAUL: Perfect. But if you really look into the numbers, later on I'll be talking about why this number got bigger, because there were some dataset-based changes later on.
+
+
+79
+00:13:28.179 --> 00:13:35.838
+PAUL: Now, whether LSTM's blue score was penalized on out of the vocabulary words, what is the meaning of out-of-the-vocabulary?
+
+
+80
+00:13:36.269 --> 00:13:43.399
+PAUL: Anybody? When I say vocabulary, in your vocabulary, there willâ€¦ if I say that, what are the total number of unique words?
+
+
+81
+00:13:43.889 --> 00:13:54.698
+PAUL: Okay, now, if in your vocabulary, out of those unique words, if something that new comes into the system, then we call them out of vocabulary. It means that during training.
+
+
+82
+00:13:54.989 --> 00:14:04.189
+PAUL: Okay, your model has never seen that word, and suddenly during prediction or during testing, you showed that one. So, it becomes a problem.
+
+
+83
+00:14:04.409 --> 00:14:11.159
+PAUL: Okay, because it has never seen any, as you know, even in machine learning, the same thing happens. For unseen data.
+
+
+84
+00:14:11.619 --> 00:14:14.308
+PAUL: Okay, so the model really doesn't work.
+
+
+85
+00:14:16.069 --> 00:14:20.858
+PAUL: Now, additionally, the LSTM did not have the difficulty on long sentences.
+
+
+86
+00:14:20.969 --> 00:14:36.648
+PAUL: So, for sure, we know that this is a better variant of RNN than somehow because of the memory introduction, okay, through the cell state, if you remember, in the last class that we have discussed the theory. So, based on that, yes, long sentences.
+
+
+87
+00:14:36.869 --> 00:14:43.738
+PAUL: it has not really a problem on remembering those, I can say, information.
+
+
+88
+00:14:44.169 --> 00:14:50.209
+PAUL: For comparison of phrase-based SMT systems, okay, achieve a growth score of 30â€¦
+
+
+89
+00:14:50.259 --> 00:15:06.598
+PAUL: All right. Now, this is a different system right now that they are talking about, okay, and now this is not related to the course. So, for now, just think about they achieved, which is state-of-the-art back at that particular time in 2014, which was 34. So, really, the improvements, if you look
+
+
+90
+00:15:06.739 --> 00:15:22.228
+PAUL: I won't say really a very big improvement, so please do the calculation, it will be something like 1.5, as it looks like. Simply try to 34 minus 8. Only 1.5 improvement in the blue scoot, okay? Not really huge.
+
+
+91
+00:15:22.279 --> 00:15:30.479
+PAUL: Now, they are talking about when we use the LSTM to re-rank those 1000 hypotheses produced by the aforementioned
+
+
+92
+00:15:30.499 --> 00:15:50.459
+PAUL: The older system, the SMT system, its blue score increased by 36.5, which is close to the previous best result on this particular task, okay? Now, the state-of-the-art people that they are talking about, it is referencing the older system, the SMT one. Okay, and now SMT totally duplicated nothing of our use.
+
+
+93
+00:15:50.459 --> 00:15:58.629
+PAUL: We have completely moved to Transformers-based system, neither we use RS systems, neither we use RNN. So just for the history, I'm just telling you this part.
+
+
+94
+00:15:58.919 --> 00:16:16.388
+PAUL: The LSTMs also learned sensible phrase and sentence representations that are sensitive to word order. Now, this is very, very important word order. Even in Transformers, when we start with the core fundamentals part, the attention. Order. Okay, order is very, very important.
+
+
+95
+00:16:16.719 --> 00:16:29.659
+PAUL: Because of order, there is a very specific unit in the Transformers architecture, which is referred as the P.E. Okay, so generally, now this is the part, the positional inputting, as you can see.
+
+
+96
+00:16:30.489 --> 00:16:36.478
+PAUL: The idea is to know the exact positions. The idea is you have to learn the positions.
+
+
+97
+00:16:36.639 --> 00:16:39.589
+PAUL: So that's why order has influence.
+
+
+98
+00:16:41.139 --> 00:16:43.648
+PAUL: Now, back hereâ€¦
+
+
+99
+00:16:44.139 --> 00:16:55.579
+PAUL: And, relatively invariant to the active and the passive voice sign. Now, this is with respect to the main language-based task. Finally, we found that reversing the order of the words in all four sentences
+
+
+100
+00:16:55.919 --> 00:16:57.799
+PAUL: four sentences when I say.
+
+
+101
+00:16:57.989 --> 00:17:04.548
+PAUL: So, right now, I mean the English, because right now in this particular dataset, they are taken from English to French.
+
+
+102
+00:17:05.379 --> 00:17:17.129
+PAUL: Improved the LSTM's performance. Okay, so somehow reversing the order of all the words in the source sentences. Now, this was a very specific experiment which was performed for this particular paper.
+
+
+103
+00:17:17.289 --> 00:17:26.938
+PAUL: Because doing so introduces many short-term dependencies between the source and the target centers, which make the optimizer problem much more easy, okay?
+
+
+104
+00:17:27.399 --> 00:17:44.488
+PAUL: At that time, even, you didn't have very good optimizers, you have to understand. Right now, you have better. Like, at least in 2017 and 2018, a lot of new optimizers came. But majorly, back this time, what was the major one which is being used? SGD. Always remember that.
+
+
+105
+00:17:44.999 --> 00:17:46.879
+PAUL: or some variant of HGK.
+
+
+106
+00:17:48.549 --> 00:18:07.369
+PAUL: All right, now this was a just rough idea that I've given you. Okay, later on, if you want, you can actually go through the paper where they have discussed a lot of other things, but right now, this is not our main context. Our main context will be around Transformers that we'll be discussing, but a very good paper, I can say.
+
+
+107
+00:18:07.369 --> 00:18:16.718
+PAUL: From where you can actually start your main Transformers chain. A lot of inspirations which have been taken, and even if you look into the appendix, somewhere in the appendix of
+
+
+108
+00:18:16.799 --> 00:18:20.639
+PAUL: Transformers paper also. Okay, it will be mentioned.
+
+
+109
+00:18:21.979 --> 00:18:31.628
+PAUL: Okay, so somewhere, just, now, layer normalization. I've taught you batch normalization, a very similar implementation which has been done.
+
+
+110
+00:18:31.909 --> 00:18:33.369
+PAUL: Okay, nowâ€¦
+
+
+111
+00:18:33.649 --> 00:18:51.909
+PAUL: Similarly, like, the LSTM paper has also been taken into reference. So, majorly, if you look into a lot of concepts that we have learned has been taken into reference into the Transformers Beast architecture. Now, depth by separable convolutions. Now, this is an idea which was discussed, as I told you, like, in the inception beast architectures.
+
+
+112
+00:18:51.909 --> 00:18:54.989
+PAUL: Again, derived. So, a few things.
+
+
+113
+00:18:55.089 --> 00:18:58.689
+PAUL: from computer vision actually plays crucial role, I can say.
+
+
+114
+00:18:59.619 --> 00:19:02.799
+PAUL: Now, this is the original LSTM paper.
+
+
+115
+00:19:02.999 --> 00:19:06.098
+PAUL: Okay, by the gentleman dies.
+
+
+116
+00:19:06.459 --> 00:19:18.849
+PAUL: Similarly, the other paper also that you'll be getting here. So, pretty much a long list of appendix here. Later on, we'll be talking about this in partnership. All right, now I will stop sharing, and now let's get to the notes.
+
+
+117
+00:19:19.689 --> 00:19:22.348
+PAUL: Let me start sharing my notes here.
+
+
+118
+00:19:22.539 --> 00:19:35.049
+PAUL: And, let me know if the voice breaks. Unexpected words, okay, unseen words and simple terms. I can say out of the vocabulary. Cable, I think cable is not there.
+
+
+119
+00:19:59.619 --> 00:20:11.278
+PAUL: Alright, can you guys see the screen, yes or no? Because really, few of the settings which have really, changed. Okay.
+
+
+120
+00:20:12.099 --> 00:20:20.949
+PAUL: But we don't have a lot of, you knowâ€¦ But, there.
+
+
+121
+00:20:21.129 --> 00:20:25.219
+PAUL: I have updated to the new Mac, okay, yesterday. Because of that.
+
+
+122
+00:20:25.599 --> 00:20:29.819
+PAUL: a lot of Zoom settings that got changed. Okay, fine, but I will do just wait.
+
+
+123
+00:20:31.189 --> 00:20:35.268
+PAUL: Alright, alright, leave that part, I will change the stream part.
+
+
+124
+00:20:37.089 --> 00:20:40.748
+PAUL: Yesterday, I updated, the new Mac 27,
+
+
+125
+00:20:40.919 --> 00:20:45.269
+PAUL: I was testing, but yes, a lot of bugs are there, so for others.
+
+
+126
+00:20:45.699 --> 00:20:53.079
+PAUL: Don't doâ€¦ don't upgrade it now, probably after 1 month toâ€¦ A lot of minor bugs.
+
+
+127
+00:20:53.229 --> 00:20:58.189
+PAUL: Alright, now I think I will just stop sharing, allow meâ€¦ 11.
+
+
+128
+00:20:59.029 --> 00:21:01.989
+PAUL: Shaw 39512.
+
+
+129
+00:21:06.429 --> 00:21:18.868
+PAUL: Okay, now just check, I think this will be better. Please let me know. It is a new iOS? No, no, everything I have updated, iOS, iPad, OS also that I have done, Mac OS also, all three.
+
+
+130
+00:21:39.829 --> 00:21:58.298
+PAUL: All right. Now, before, starting Transformers, the idea is that let's try to only build the intuition. Okay, because directly I don't want to jump, because few concepts that you have learned previously during Optimizers also. How many of you remember the exponential weighted average? Please let me know in the chat.
+
+
+131
+00:21:59.719 --> 00:22:00.589
+PAUL: Yes?
+
+
+132
+00:22:01.239 --> 00:22:04.998
+PAUL: In the optimizers I taught you. How many of you remember that part?
+
+
+133
+00:22:05.819 --> 00:22:07.879
+PAUL: If one thing is becomeâ€¦
+
+
+134
+00:22:08.789 --> 00:22:25.908
+PAUL: bigger, automatically the other one will become smaller, with respect to time that I have taught you. Okay, so a few things from there that I'll be taking the main references. Got it. So, let's start with the pure intuition of what will be the main idea behind.
+
+
+135
+00:22:40.559 --> 00:22:47.298
+PAUL: Okay. Now, I need, some type of noisy data points right now, so because of that, I have taken
+
+
+136
+00:22:47.759 --> 00:22:49.479
+PAUL: Good morning.
+
+
+137
+00:22:49.949 --> 00:22:52.299
+PAUL: Let's take something from here.
+
+
+138
+00:23:21.739 --> 00:23:27.338
+PAUL: Alright, fine. So, now the idea is, I need some type of noisy data.
+
+
+139
+00:23:32.449 --> 00:23:39.669
+PAUL: All right. And, simply if I say, with respect to, timestamp T, here I will be just mentioning
+
+
+140
+00:23:39.999 --> 00:23:57.648
+PAUL: Okay, at multiple timestamps, so when I say here, this is one timestamp, this is one timestamp, this is one timestamp, this is one timestamp, this is one timestamp, okay? So that's why TI rated. And here's some type of values with respect to your X.
+
+
+141
+00:23:57.769 --> 00:24:00.858
+PAUL: That I have taken. Some type of input data, right?
+
+
+142
+00:24:01.339 --> 00:24:12.529
+PAUL: And let's start with X naught, X0 that I have taken, and the last one as XN for now, and something in between, let me just refer as Xi, okay?
+
+
+143
+00:24:13.679 --> 00:24:19.259
+PAUL: As I started from zero, I don't want to take a number, something in between, that is the main idea.
+
+
+144
+00:24:19.429 --> 00:24:22.439
+PAUL: And this is our time series data.
+
+
+145
+00:24:29.149 --> 00:24:39.899
+PAUL: Now, in this particular data, the first thing, if you want to remove noise, okay, so let me just mention even the starting from zero.
+
+
+146
+00:24:41.579 --> 00:24:46.109
+PAUL: Okay, so now this is a noisy data. Now the question comesâ€¦
+
+
+147
+00:24:46.189 --> 00:25:05.508
+PAUL: how you can reduce the noise. I'm not telling 100% elimination, which is not really possible, but how to actually, like, do any type of task through which we can actually reduce the noise to a certainâ€¦ I can say, to a certain part.
+
+
+148
+00:25:06.109 --> 00:25:09.759
+PAUL: Yes. Now, this is the idea that we will be exploring for now.
+
+
+149
+00:25:10.549 --> 00:25:13.659
+PAUL: Now, let me just take a similarâ€¦
+
+
+150
+00:25:15.549 --> 00:25:28.559
+PAUL: Now, as I told you, that exponential weighted average concept that we have already gone through, when we were discussing optimizers. So, very similar strategy. So, for example, a re-wegging scheme.
+
+
+151
+00:25:28.809 --> 00:25:40.428
+PAUL: Okay, now we need somethingâ€¦ okay, it means that when I, let's talk about your exponential weighted average, your EWS team.
+
+
+152
+00:25:40.819 --> 00:25:47.629
+PAUL: Now, the idea is, if I can influence, okay, if this data point can influence this.
+
+
+153
+00:25:48.129 --> 00:25:54.518
+PAUL: Okay? Similarly, if this data point can influence this one, Okay? Similarly.
+
+
+154
+00:25:54.659 --> 00:25:58.309
+PAUL: Now, this data point can influence this data point.
+
+
+155
+00:25:58.719 --> 00:26:03.389
+PAUL: Now, this data point, similarly, can influence this data point. In that way.
+
+
+156
+00:26:03.559 --> 00:26:16.519
+PAUL: The idea is how we can influence or manipulate the data points, and the easiest way of picking something bigger and smaller at any point of time to make control, EWA is one of the easiest algorithms to get started.
+
+
+157
+00:26:16.769 --> 00:26:26.808
+PAUL: Okay, so that's why the exponential weighted average. Now, the idea that we'll be exploring here, simply, that we need some type of re-wegging scheme.
+
+
+158
+00:26:27.379 --> 00:26:30.908
+PAUL: Okay, because every time I won't be using the word EWA,
+
+
+159
+00:26:31.199 --> 00:26:34.658
+PAUL: Some type of re-weighing scheme that is required.
+
+
+160
+00:26:35.169 --> 00:26:40.399
+PAUL: Okay, and after weighing, the idea is that somehow.
+
+
+161
+00:26:41.909 --> 00:26:53.738
+PAUL: the data points willâ€¦ will be having some type of control, but tell now, the noise reduction won't be done, okay? But it means that's some type of control, so let's look into that control part.
+
+
+162
+00:26:53.969 --> 00:26:57.248
+PAUL: Now, let's start with our first data point here.
+
+
+163
+00:26:58.029 --> 00:27:01.749
+PAUL: And according to machine learning that we have learned.
+
+
+164
+00:27:02.039 --> 00:27:05.769
+PAUL: Okay, so a few ideas from machine learning also that I'll be taking.
+
+
+165
+00:27:06.079 --> 00:27:07.299
+PAUL: Home to a bank.
+
+
+166
+00:27:11.169 --> 00:27:12.029
+PAUL: Perfect.
+
+
+167
+00:27:12.139 --> 00:27:16.279
+PAUL: Now this is a simpleâ€¦ the idea is normal distribution, okay?
+
+
+168
+00:27:16.459 --> 00:27:22.399
+PAUL: I will just try to addâ€¦ few data points basedâ€¦
+
+
+169
+00:27:22.929 --> 00:27:25.119
+PAUL: on the last changes that I have done.
+
+
+170
+00:27:32.099 --> 00:27:39.099
+PAUL: All right. And now, based on this, so simply here, back to your original one.
+
+
+171
+00:27:39.229 --> 00:27:49.838
+PAUL: Now, this is the idea that we are exploring right now, okay? The idea is thatâ€¦ so generally, whenever you haveâ€¦ even in machine learning, you try to achieve a normal distribution, yes or no.
+
+
+172
+00:27:50.379 --> 00:27:56.929
+PAUL: do practically every time with real-time data, it is not possible. The idea is at least be closer to that.
+
+
+173
+00:27:57.269 --> 00:28:08.178
+PAUL: In machine learning, I think everybody knows about that. Whenever you have the data, we always assume, or sometimes even the algorithm also assumes that you have normally distributed data, yes or no?
+
+
+174
+00:28:08.779 --> 00:28:10.449
+PAUL: Please let me know in the chat.
+
+
+175
+00:28:12.619 --> 00:28:16.749
+PAUL: Okay? Now, based on this, so nowâ€¦
+
+
+176
+00:28:17.419 --> 00:28:21.469
+PAUL: Let's try to look into the re-wearing scheme, that will be applied.
+
+
+177
+00:28:22.059 --> 00:28:30.289
+PAUL: So, according to our EWAâ€¦ okay, so as I'm writing the re-weighing, so I'm using the word W, the weight comes from.
+
+
+178
+00:28:33.359 --> 00:28:34.159
+PAUL: Weird.
+
+
+179
+00:28:35.489 --> 00:28:39.849
+PAUL: Now, based on the data points that I have, soâ€¦
+
+
+180
+00:28:40.559 --> 00:28:52.969
+PAUL: I have somethingâ€¦ I started from X naught, so based on that, I started with W0. And then sometimeâ€¦ in between, I have a WI, then I have a WN.
+
+
+181
+00:28:53.239 --> 00:28:55.108
+PAUL: Okay, well, this week.
+
+
+182
+00:28:55.619 --> 00:29:01.799
+PAUL: Now, based on this particular width, I will simply explore the idea. Okay, and what will be the idea?
+
+
+183
+00:29:01.969 --> 00:29:07.888
+PAUL: two main conditions that I will try to apply during this particular re-wegging scheme, okay?
+
+
+184
+00:29:08.139 --> 00:29:12.359
+PAUL: The first rule will be filter the data that's far away.
+
+
+185
+00:29:12.909 --> 00:29:16.359
+PAUL: Okay? So simplyâ€¦ filter.
+
+
+186
+00:29:16.739 --> 00:29:23.939
+PAUL: the data That'sâ€¦ Bodily.
+
+
+187
+00:29:27.109 --> 00:29:27.989
+PAUL: Okay.
+
+
+188
+00:29:28.689 --> 00:29:46.868
+PAUL: And according to EW, if something is close by, it will get amplified. Okay, it means that the values that you have, if it goes far away, they will become much more smaller. If the values are close by, they will become much larger. So, I will just write.
+
+
+189
+00:29:47.049 --> 00:29:48.389
+PAUL: amplifies.
+
+
+190
+00:29:50.909 --> 00:29:51.989
+PAUL: data.
+
+
+191
+00:29:54.629 --> 00:29:56.029
+PAUL: Which is closed.
+
+
+192
+00:30:00.959 --> 00:30:01.869
+PAUL: Margaret?
+
+
+193
+00:30:01.909 --> 00:30:19.309
+PAUL: Now, generally, simply, I know that this can be possible directly based on our EWA scheme. So, simply, in EWA also, we used to control one data point, okay? So, the same thing. There also, I hope everybody remembers that, because it plays a very crucial role.
+
+
+194
+00:30:19.329 --> 00:30:22.298
+PAUL: Now, based on this particular rule.
+
+
+195
+00:30:22.419 --> 00:30:30.889
+PAUL: The idea is that I will be performing some type of transformation-based task, okay? And from here, I don't have any image right now.
+
+
+196
+00:30:33.969 --> 00:30:38.479
+PAUL: And from here, the idea is that after we apply.
+
+
+197
+00:30:38.709 --> 00:30:47.069
+PAUL: The first one, so based on this one, let me just takeâ€¦ It should window this side.
+
+
+198
+00:30:48.069 --> 00:30:49.909
+PAUL: Now, this data pointâ€¦
+
+
+199
+00:30:54.089 --> 00:30:56.379
+PAUL: This data, right?
+
+
+200
+00:31:12.609 --> 00:31:15.129
+PAUL: I should have taken only 3 points.
+
+
+201
+00:31:20.819 --> 00:31:25.909
+PAUL: Okay, now, this is the idea. So, if I saveâ€¦
+
+
+202
+00:31:32.569 --> 00:31:33.299
+PAUL: Product.
+
+
+203
+00:31:34.289 --> 00:31:50.488
+PAUL: So, probably, after applying the re-wigging scheme, okay, and those re-wigging schemes, it has two main conditions. So, when I say filter the data that's far away. So, probably, let's take the first one. So, based on this re-wigging scheme, if I say about this data.
+
+
+204
+00:31:50.489 --> 00:31:55.718
+PAUL: Okay? Right now, the top one that I have on top of the bell curve. Now, for sure.
+
+
+205
+00:31:56.309 --> 00:32:04.339
+PAUL: EWA, if I say that, these values will be having much more weightage. If I try to compare this point with this point.
+
+
+206
+00:32:04.579 --> 00:32:16.619
+PAUL: and this point, at any point of time. They are pretty much closed. So I can say that amplification will take place here. So, simply, if I try to compare this point with this point.
+
+
+207
+00:32:16.739 --> 00:32:21.749
+PAUL: then this is far away. If something is far away, then what will happen? The filtration.
+
+
+208
+00:32:21.869 --> 00:32:44.378
+PAUL: part. Okay, theâ€¦ when I say filtration, automatically, the idea is that the values will get smaller and smaller. Filter doesn't mean remove the valve, you have to understand that. Amplification means the existing values will become larger, and filtration right here, the idea is the existing values will become smaller if they are far away from the point. So right now, if I'm taking this
+
+
+209
+00:32:44.379 --> 00:32:46.328
+PAUL: Based on our timestamp T.
+
+
+210
+00:32:46.349 --> 00:32:51.889
+PAUL: Okay, so let's assumeâ€¦ the main point that I have, okay? So, this is theâ€¦
+
+
+211
+00:32:51.999 --> 00:32:54.968
+PAUL: D, okay, I think I have to pick this one yet.
+
+
+212
+00:32:55.379 --> 00:32:58.179
+PAUL: This is your main key data I have taken.
+
+
+213
+00:32:58.349 --> 00:33:02.119
+PAUL: And at this particularâ€¦ Timestamp.
+
+
+214
+00:33:02.509 --> 00:33:17.408
+PAUL: Okay. Now, the idea is, yes, the noise is there, and through the re-wegging scheme, the assumption is that we will try to meet somehow close towards the normal distribution, okay? And after the normal distribution that we have.
+
+
+215
+00:33:17.429 --> 00:33:35.898
+PAUL: We will try to apply the need two rules. One will be your filtration, okay? Or simply, the idea is making the value smaller, which is far away from the main data point. So right now, if I take this particular data point, in our case, to something which is far wide, they will be having lesser values.
+
+
+216
+00:33:35.899 --> 00:33:41.259
+PAUL: And something which is closer, they will be having much more larger wealth.
+
+
+217
+00:33:41.339 --> 00:33:46.248
+PAUL: Okay. Now, based on this particular idea, we know that through this particular
+
+
+218
+00:33:46.549 --> 00:33:56.809
+PAUL: I can say transformation that we have done, we will be reducing some amount of noise, okay? The idea is noise reduction, not complete elimination.
+
+
+219
+00:33:57.199 --> 00:34:00.029
+PAUL: Okay, so based on this particular idea.
+
+
+220
+00:34:00.269 --> 00:34:17.949
+PAUL: We will say. Now, example I have taken with, time series, but nothing to worry about. If you don't know about time series, later on, the actual NLP West idea will come, because of very similar re-wing strategy that we'll be even using with respect to natural language processing also.
+
+
+221
+00:34:19.879 --> 00:34:27.249
+PAUL: Okay, Barter selling, but, we can transform the data to a point to achieve normal, generally,
+
+
+222
+00:34:27.439 --> 00:34:45.049
+PAUL: It's very hard. Practically not possible, every time with real-time data you have to understand. What exactly we are trying to do, reducing the noise, okay? That has been the mean. Noise reduction, that has been the entire game. And the idea is, somehow, this particular data points
+
+
+223
+00:34:45.619 --> 00:34:47.459
+PAUL: The final one.
+
+
+224
+00:34:47.659 --> 00:34:49.818
+PAUL: the data points.
+
+
+225
+00:34:52.899 --> 00:34:57.888
+PAUL: will beâ€¦ More useful to us.
+
+
+226
+00:34:59.949 --> 00:35:05.819
+PAUL: When I say the word useful, it simply means data pointsâ€¦
+
+
+227
+00:35:09.089 --> 00:35:18.668
+PAUL: Providingâ€¦ more context, About each other.
+
+
+228
+00:35:25.649 --> 00:35:29.239
+PAUL: Okay? And now, this is the mean idea that
+
+
+229
+00:35:29.299 --> 00:35:38.969
+PAUL: Similarly, that we'll be exploring, even in the NLP part, with respect to Transformers. The idea is to bring much more context
+
+
+230
+00:35:38.969 --> 00:35:49.429
+PAUL: Okay, and here, through EWA, what happened? Through a single data point, if I say, so let's take the first one, through this particular data point, I'm controlling this data point.
+
+
+231
+00:35:49.519 --> 00:36:02.248
+PAUL: Okay? Similarly, through this data point, I'm trying to control this data point. Through this data point, I'm trying to control this data point. So, this is your main one. Now, after that, we are trying to basically control or manipulate.
+
+
+232
+00:36:02.789 --> 00:36:12.338
+PAUL: And by default, we know through EWA, if I'm taking the main data point, it will be always having the bigger value. Why? Because generally, what is the beta value which is taken?
+
+
+233
+00:36:13.089 --> 00:36:20.018
+PAUL: 0.95 or 0.9. So, by default, we know if I try to take the
+
+
+234
+00:36:20.049 --> 00:36:29.768
+PAUL: Data point with which we are trying to compare, and if I try to assign it a bigger value at any point of time. So, for sure, it will be manipulating the other data point.
+
+
+235
+00:36:29.799 --> 00:36:43.709
+PAUL: Because automatically, the other one will be having lesser value. Okay, so the dominance always exists with the current one. So this is how we try to manipulate the data points, and that is the easiest way, one of the easiest way, I can say.
+
+
+236
+00:36:44.749 --> 00:37:03.888
+PAUL: All right, now, let's, look into the context with respect to NLP. So, exactly in NLP, what happens? So, when I, like, the first thing, with respect to the first example, so tell now, according to classical NLP that you have learned, so let's takeâ€¦
+
+
+237
+00:37:04.029 --> 00:37:07.209
+PAUL: Now I will bring the core idea of NLP here.
+
+
+238
+00:37:08.889 --> 00:37:15.149
+PAUL: In LLP, you have a sentence. Let's take the simplest one, okay? So, likeâ€¦ Vic.
+
+
+239
+00:37:16.929 --> 00:37:21.919
+PAUL: I have taken Jerry, Okay, now let's take KN Bâ€¦
+
+
+240
+00:37:22.099 --> 00:37:29.999
+PAUL: annoying. The idea is I could take M1 AND word, To make to bigger context, Butâ€¦
+
+
+241
+00:37:35.279 --> 00:37:40.278
+PAUL: Very generally, catsâ€¦ I will change the name to something else.
+
+
+242
+00:37:42.389 --> 00:37:44.539
+PAUL: Any cat names that you prefer?
+
+
+243
+00:37:52.069 --> 00:38:02.968
+PAUL: Alright, now I've taken a simple one right now, okay? So, like, Joel can be annoying, but she's a great cat. Now the question comes, so tell now the things that you have learned.
+
+
+244
+00:38:03.149 --> 00:38:09.318
+PAUL: The idea is to provide context-ing. If you remember, the main highlighted word that we had.
+
+
+245
+00:38:09.869 --> 00:38:11.659
+PAUL: Debra got stuck.
+
+
+246
+00:38:14.449 --> 00:38:16.978
+PAUL: No, I cannot crawl it, just withâ€¦
+
+
+247
+00:38:19.519 --> 00:38:23.459
+PAUL: But now it's better, yes. Now, there was one word.
+
+
+248
+00:38:23.659 --> 00:38:25.899
+PAUL: That we tried to play down.
+
+
+249
+00:38:26.009 --> 00:38:29.108
+PAUL: And going forward, remember this particular one.
+
+
+250
+00:38:31.089 --> 00:38:34.499
+PAUL: Even in 2026, this word is very, very famous.
+
+
+251
+00:38:34.719 --> 00:38:35.619
+PAUL: Yes?
+
+
+252
+00:38:36.069 --> 00:38:43.708
+PAUL: Whenever you select a LLM, what is the first thing that you ask? What is the Context window.
+
+
+253
+00:38:44.169 --> 00:38:46.578
+PAUL: Okay, so that's, like, the ideas.
+
+
+254
+00:38:46.889 --> 00:39:00.199
+PAUL: to giveâ€¦ to make better context. Okay, so simply, this context I get at even here. So right now, if I take the base word, so let's try to compare one of the base words. Let's take annoying for now.
+
+
+255
+00:39:01.309 --> 00:39:08.179
+PAUL: Okay, so generally, in classical, NLP-based approaches, what we have done?
+
+
+256
+00:39:09.479 --> 00:39:15.368
+PAUL: So, let's try to look what is the word before, and what is the word after.
+
+
+257
+00:39:16.279 --> 00:39:22.349
+PAUL: Okay, so simply right now, I'm looking into, Simple Plus One, this site.
+
+
+258
+00:39:22.549 --> 00:39:39.508
+PAUL: Okay, and a minus one this side. What is the word after, and what is the word before? In that way, we can get better context. Now, after that, these guys came into the system, like the Stanford Globe guys. They told us, why not, let's increase it, so let's take
+
+
+259
+00:39:40.499 --> 00:39:44.989
+PAUL: One more word, okay, and one more word.
+
+
+260
+00:39:47.439 --> 00:39:48.399
+PAUL: All right.
+
+
+261
+00:39:49.599 --> 00:40:03.218
+PAUL: Simply, the idea is look into more words to actually understand the context here. Now, the distance increased, I can say, you're looking towards this time, so simply here, I can say, plus 2, minus 2.
+
+
+262
+00:40:03.749 --> 00:40:13.819
+PAUL: Now the question comes, how much more you can look into? Now, let's take a different one, blues. Okay, now let's go into the third one.
+
+
+263
+00:40:16.039 --> 00:40:20.318
+PAUL: Alright, so here I'm writing plus 3 right now. Sorry, minus 3.
+
+
+264
+00:40:22.209 --> 00:40:24.378
+PAUL: And from here, I am going in.
+
+
+265
+00:40:27.269 --> 00:40:28.159
+PAUL: Alright.
+
+
+266
+00:40:29.319 --> 00:40:34.589
+PAUL: Okay, I've not written that part, I thought I've writtenâ€¦ Pist.
+
+
+267
+00:40:38.999 --> 00:40:39.859
+PAUL: All right.
+
+
+268
+00:40:40.299 --> 00:40:48.129
+PAUL: Now, these have been the main approaches. Look one word before after, look two words before after, look three words. Okay.
+
+
+269
+00:40:48.289 --> 00:40:53.049
+PAUL: Now, even if I look into the sentence, do you think that we will reach towards CAD?
+
+
+270
+00:40:53.459 --> 00:40:55.709
+PAUL: Then I have to go, how much more?
+
+
+271
+00:40:56.029 --> 00:40:58.549
+PAUL: One site is pretty much blank, we are done.
+
+
+272
+00:40:58.719 --> 00:41:02.709
+PAUL: Now, from this base word of anoin, so if I ask whoâ€¦
+
+
+273
+00:41:02.819 --> 00:41:05.658
+PAUL: First of all, who? What will be?
+
+
+274
+00:41:07.249 --> 00:41:09.448
+PAUL: the first response, please let me know.
+
+
+275
+00:41:13.139 --> 00:41:17.599
+PAUL: Who right now? So, simply, Joel can be annoying the first answer.
+
+
+276
+00:41:18.759 --> 00:41:19.679
+PAUL: Okay?
+
+
+277
+00:41:20.289 --> 00:41:22.829
+PAUL: Now the question comes, Joel, is what?
+
+
+278
+00:41:24.259 --> 00:41:27.259
+PAUL: Prasan dog, allâ€¦
+
+
+279
+00:41:27.489 --> 00:41:35.089
+PAUL: Elephant, anything it can be. Okay, so right now, we really don't know, right now, the nature of the noun.
+
+
+280
+00:41:35.429 --> 00:41:41.859
+PAUL: Joel, if I say, right now, is this a noun, yes or no? Let's talk a little bit with respect to the grammars right now.
+
+
+281
+00:41:42.119 --> 00:41:43.569
+PAUL: This is a noun.
+
+
+282
+00:41:43.679 --> 00:41:45.119
+PAUL: A proper noun?
+
+
+283
+00:41:45.679 --> 00:41:47.128
+PAUL: Very simple now.
+
+
+284
+00:41:49.609 --> 00:41:50.998
+PAUL: Yes or no?
+
+
+285
+00:41:52.939 --> 00:41:54.109
+PAUL: Proper?
+
+
+286
+00:41:55.179 --> 00:41:59.098
+PAUL: Very less people, okay, few people are telling PP. PP is fine, yeah.
+
+
+287
+00:41:59.779 --> 00:42:15.169
+PAUL: a proper noun, because names are generally referred to as nouns, so simply let's take, in our case. Okay? Now, based on this particular example, till now, we don't have enough context. It means that we don't have really enough context to reach towards that.
+
+
+288
+00:42:15.209 --> 00:42:27.129
+PAUL: And this is why all the classical NLP-based approaches were actually failing, because they have always used, for example, the easiest algorithm. How many of you know about, like, engrams?
+
+
+289
+00:42:29.199 --> 00:42:31.049
+PAUL: After that came bigrams.
+
+
+290
+00:42:32.089 --> 00:42:34.638
+PAUL: After that came trigrams.
+
+
+291
+00:42:36.759 --> 00:42:37.609
+PAUL: Okay.
+
+
+292
+00:42:40.089 --> 00:42:49.838
+PAUL: Simply, I've written, right now, if n is 1, so it becomes an unigram. Okay, so that's why I will just drop the word unigram here also.
+
+
+293
+00:42:50.199 --> 00:42:50.999
+PAUL: Okay.
+
+
+294
+00:42:51.189 --> 00:42:56.638
+PAUL: But after that, simply, Then it becomes engram, starting from 4, 5, 6.
+
+
+295
+00:42:56.649 --> 00:43:11.978
+PAUL: Now, generally, back at that point of time, we didn't have enough compute also. Okay, so generally, everybody thought about, why not, let's look into 2N2, and 2N2, this particular, a lot of people that have arrived. You can look into the main inspiration from
+
+
+296
+00:43:11.979 --> 00:43:19.389
+PAUL: like, Christopher Manning from Stanford, okay? His main intuition was also built on top of this.
+
+
+297
+00:43:19.449 --> 00:43:31.098
+PAUL: Okay, so that's why, based on this, we saw that. But the main problem, once we start working with huge and huge amount of data, how we will be reaching, like, this one?
+
+
+298
+00:43:31.939 --> 00:43:33.179
+PAUL: Till this point.
+
+
+299
+00:43:33.779 --> 00:43:39.528
+PAUL: I need to capture this information, and this is where Transformers actually exit.
+
+
+300
+00:43:40.469 --> 00:43:50.178
+PAUL: Alright, now I've already taken this particular sentence, and based on that, we know that we cannot capture the context, okay? So, simply, can I say that the easiest term here
+
+
+301
+00:43:50.679 --> 00:43:52.858
+PAUL: We cannot blindly
+
+
+302
+00:44:01.869 --> 00:44:02.889
+PAUL: Trust.
+
+
+303
+00:44:04.419 --> 00:44:05.699
+PAUL: proximity.
+
+
+304
+00:44:08.869 --> 00:44:19.849
+PAUL: In simple terms, if I say distance, right now, because from this word to this word, if I'm talking about? Okay, so really, I don't know. Right now, I cannot blindly
+
+
+305
+00:44:20.229 --> 00:44:30.898
+PAUL: Trust the proximity, whichever the annoying. Probably plus 2, minus 2. But can you blindly trust it? Not possible. Because we really don't know that, whether we have the context or not.
+
+
+306
+00:44:31.379 --> 00:44:49.369
+PAUL: Because if the context is a bit far away, then we'll probably lose the information, and the result will be totally wrong, which will be predicted. So really, weâ€¦ now the idea is how to solve this particular problem, okay? And this is where we'll be moving into the first concept, which is attention.
+
+
+307
+00:44:49.829 --> 00:45:02.618
+PAUL: Are you getting the core idea? Why? The main problem? Because the entire game has been based on proximity for a very, very long time, and the idea is to remove that proximity or distance-based algorithm. Okay?
+
+
+308
+00:45:04.379 --> 00:45:06.029
+PAUL: Perfect. Nowâ€¦
+
+
+309
+00:45:06.419 --> 00:45:14.348
+PAUL: Now, the same example, now let's talk about a simple workflow that you have learned already where in machine learning.
+
+
+310
+00:45:14.629 --> 00:45:23.299
+PAUL: Alright, so I think in NLP form machine learning, this, same statement I will take, Shul, okay, can beâ€¦
+
+
+311
+00:45:25.429 --> 00:45:26.569
+PAUL: Annoying.
+
+
+312
+00:45:28.829 --> 00:45:35.899
+PAUL: Butâ€¦ Sheâ€¦ Isâ€¦ Great.
+
+
+313
+00:45:36.109 --> 00:45:40.659
+PAUL: That same example that I have taken. Now, what is the first thing that you do?
+
+
+314
+00:45:40.799 --> 00:45:46.618
+PAUL: Whenever you are starting working with NLP, and if you want to apply any type of algorithm, what is the first step?
+
+
+315
+00:45:47.249 --> 00:45:49.308
+PAUL: Please let me know that first date.
+
+
+316
+00:45:53.869 --> 00:45:55.968
+PAUL: In the chat, anybody can let me know.
+
+
+317
+00:46:07.339 --> 00:46:10.219
+PAUL: Oof, I should have taken a smaller sentence.
+
+
+318
+00:46:11.709 --> 00:46:20.278
+PAUL: Alright, what is the first thing? Okay, An Opt old, tokenization, yes, exactly. Text normalization, no.
+
+
+319
+00:46:20.319 --> 00:46:30.619
+PAUL: Parts of which, no count of the tokens. First, you will perform tokenization, then only that will come, no? Tokenization is always the first part.
+
+
+320
+00:46:30.619 --> 00:46:47.799
+PAUL: break things, okay? So let's try to break into words. So right now, let's token as simple words. Later on, more things will come, okay? Because there are special tokens, there are punctuations, a lot of other things. But for now, let's take simply that this became T1, this became T2,
+
+
+321
+00:46:47.799 --> 00:46:58.438
+PAUL: This becomes T3, this becomes T4, this becomes T5, this becomes T6, T7, T8, T9, and finally T10.
+
+
+322
+00:46:58.709 --> 00:47:00.949
+PAUL: Basically, 10 words that I have taken.
+
+
+323
+00:47:07.829 --> 00:47:08.439
+PAUL: Mmmâ€¦
+
+
+324
+00:47:12.889 --> 00:47:19.558
+PAUL: Really, likeâ€¦ Too much lag was just coming around.
+
+
+325
+00:47:26.829 --> 00:47:27.699
+PAUL: Perfect.
+
+
+326
+00:47:27.979 --> 00:47:32.079
+PAUL: Now, after tokenization, what is the next step, generally, which is followed?
+
+
+327
+00:47:34.799 --> 00:47:35.739
+PAUL: Yes?
+
+
+328
+00:47:36.129 --> 00:47:39.889
+PAUL: Or should I, write any type of such sequence at least once?
+
+
+329
+00:47:40.379 --> 00:47:52.099
+PAUL: So, generally, the flow, with any sequence that you are doing. Always remember, because this is the first time, so I'm telling you, whatever the sequence that you have, the first thing is stupid.
+
+
+330
+00:47:52.989 --> 00:47:56.369
+PAUL: After token, it needs to be converted into a vector.
+
+
+331
+00:47:59.459 --> 00:48:00.399
+PAUL: All right.
+
+
+332
+00:48:00.779 --> 00:48:05.019
+PAUL: And generally, this particular process, that vectorization is also called as
+
+
+333
+00:48:05.399 --> 00:48:16.119
+PAUL: embedding. I think vectorization, embeddingâ€¦ yes, encoding also the term that you can use. Okay, so multiple terms. So here you might say encoding.
+
+
+334
+00:48:17.599 --> 00:48:22.729
+PAUL: Here, you might say embedding also, because embedding is one type of inputting.
+
+
+335
+00:48:23.779 --> 00:48:32.938
+PAUL: Multiple words areâ€¦ Once you have them, okay, so from this final process, that you will be getting your
+
+
+336
+00:48:33.649 --> 00:48:34.939
+PAUL: numeric.
+
+
+337
+00:48:35.379 --> 00:48:36.969
+PAUL: the representations.
+
+
+338
+00:48:40.729 --> 00:48:51.558
+PAUL: I hope this part is clear, because we cannot work directly with text. We need to convert them into numbers, and that's the main purpose of doing vectorization, encoding, or embedding. So after this step, what will come?
+
+
+339
+00:48:54.829 --> 00:48:56.298
+PAUL: Please let me know.
+
+
+340
+00:48:58.359 --> 00:48:59.989
+PAUL: My app too, actually.
+
+
+341
+00:49:02.089 --> 00:49:04.249
+PAUL: There'll be a lot of arrows are there.
+
+
+342
+00:49:04.999 --> 00:49:07.259
+PAUL: Yes. What will be the next step?
+
+
+343
+00:49:09.979 --> 00:49:25.569
+PAUL: Ikedi Jakes is telling, won't you do normalization, lemmatization before vectorization? Not necessary. As we are talking with respect to, right now, transformers, I'm not talking with respect to your, like, ML-based, okay? So that's all.
+
+
+344
+00:49:26.179 --> 00:49:28.289
+PAUL: So, right now, tokensâ€¦
+
+
+345
+00:49:28.769 --> 00:49:46.048
+PAUL: Because if you do any type of such tasks, like lematization, and first of all, lematization, or staining-based operations, okay? Lemmatization, staining, so generally, some amount of information lost that will be having.
+
+
+346
+00:49:46.139 --> 00:49:51.128
+PAUL: The idea is lesser informational, so right now, I don't want to remove anything from you.
+
+
+347
+00:49:51.389 --> 00:49:59.018
+PAUL: So, the first thing, V1, V2, V3, V4, V5, V6.
+
+
+348
+00:49:59.239 --> 00:50:00.649
+PAUL: V7?
+
+
+349
+00:50:01.039 --> 00:50:04.348
+PAUL: Okay, V8, V9, V10.
+
+
+350
+00:50:06.409 --> 00:50:09.798
+PAUL: Alright, now this will be the idea. Now, after this.
+
+
+351
+00:50:10.149 --> 00:50:22.889
+PAUL: Till now, we have the vectors. Now the question comes the thing, that we have explored, okay? Or the main idea that we have looked into, okay? So, if you remember, thisâ€¦
+
+
+352
+00:50:23.019 --> 00:50:25.449
+PAUL: particular idea that we have with Slope.
+
+
+353
+00:50:28.339 --> 00:50:30.409
+PAUL: The re-wearing scheme.
+
+
+354
+00:50:33.079 --> 00:50:37.028
+PAUL: A very similar strategy that we will try to bring it here.
+
+
+355
+00:50:38.879 --> 00:50:48.988
+PAUL: Now, the question comes, if I want to introduceâ€¦ because till now, I cannot do any type of changes within the main one. So, let me just bring some type of weight into the system.
+
+
+356
+00:51:03.689 --> 00:51:18.508
+PAUL: Alright? Because, as we discussed, we need, or basically, right now, we are looking for some type of re-wegging method, or a re-wegging scheme. And because of this re-wegging, right now, I've just done the initialization with respect to weight.
+
+
+357
+00:51:18.679 --> 00:51:28.079
+PAUL: And, later on, the core context that we are looking for. So this one, I'll be talking about with respect to the re-wegian scheme.
+
+
+358
+00:51:28.709 --> 00:51:30.319
+PAUL: So, this oneâ€¦
+
+
+359
+00:51:34.519 --> 00:51:36.289
+PAUL: Weirdly, ugly with you.
+
+
+360
+00:51:38.799 --> 00:51:40.669
+PAUL: Alright, yes.
+
+
+361
+00:51:42.009 --> 00:51:53.088
+PAUL: Now, the idea is, if I try to perform any type of vector transformation, so right now, simply based on V1, W1, that particular information here.
+
+
+362
+00:51:53.419 --> 00:51:58.898
+PAUL: Now, based on our previous idea, the same thing. From here, I'll be getting mine.
+
+
+363
+00:51:59.159 --> 00:52:01.188
+PAUL: output, which is Y2.
+
+
+364
+00:52:01.709 --> 00:52:03.029
+PAUL: Y3?
+
+
+365
+00:52:03.519 --> 00:52:04.939
+PAUL: white food.
+
+
+366
+00:52:06.269 --> 00:52:13.099
+PAUL: Wi-Fiâ€¦ Right, 6â€¦ Y7?
+
+
+367
+00:52:15.169 --> 00:52:22.358
+PAUL: Mile 8â€¦ Okay, 9â€¦ And finally, your vitamin.
+
+
+368
+00:52:23.019 --> 00:52:37.829
+PAUL: Okay? Now, these are my final vectors, and just like last time, we'll be taking the same idea, that here we have the data points X, as we were talking about, data point, providing more context to each other. This time, what will happen?
+
+
+369
+00:52:38.509 --> 00:52:45.989
+PAUL: These are the final transformed vectors, and these vectors will be having more context. The same idea
+
+
+370
+00:52:46.269 --> 00:52:48.678
+PAUL: Just like last time, that we have with you.
+
+
+371
+00:52:51.659 --> 00:52:56.398
+PAUL: Okay? Your final whys that you have, they will be much more contextual.
+
+
+372
+00:52:56.699 --> 00:53:14.949
+PAUL: The idea is that this Y, somehow, if I talk about this Y, this Y will be having some information about your Y2. Now, this Y2 will be having some information about your Y3. Okay, probably this will be having information about this, this, this, this, this.
+
+
+373
+00:53:14.949 --> 00:53:25.429
+PAUL: this, this, and this, till you're whitehead. This is the main idea. So, similarly, if I pick something from here, my idea is that it should have an idea about this.
+
+
+374
+00:53:25.429 --> 00:53:36.918
+PAUL: this, this, so similarly here also, here also. Okay, now this will be the idea. It means that if I pick one vector, that vector should have at least some type of context about the other vectors also.
+
+
+375
+00:53:37.229 --> 00:53:44.529
+PAUL: Okay, is this part clear exactly? What is the main intuition? Only intuition I am talking about. Till now, I'm not teaching you anything.
+
+
+376
+00:53:44.579 --> 00:53:59.899
+PAUL: What is Y? This is Y is your final output that I have taken. You can take anything. Oâ€¦ okay, O1, O2, 3, that is also fine. Y is our final output, that's all. So generally, we have, majorly discussed, no, so, like, Y minus, Y hat.
+
+
+377
+00:53:59.899 --> 00:54:05.779
+PAUL: Okay, so based on that, why only I have taken. The idea is these vectors will have more and more context.
+
+
+378
+00:54:05.869 --> 00:54:06.779
+PAUL: Okay?
+
+
+379
+00:54:07.299 --> 00:54:13.568
+PAUL: I hope everyâ€¦ how many of you got the intuition? A rough intuition for now? Because till now, we have not started.
+
+
+380
+00:54:14.039 --> 00:54:15.959
+PAUL: Your main Transformers part.
+
+
+381
+00:54:17.909 --> 00:54:20.269
+PAUL: So please, let me know about this.
+
+
+382
+00:54:21.069 --> 00:54:30.419
+PAUL: a rough intuition. Initially, you won't need to capture, because once I start with the actual operation, then you will get a better context. But right now, I'm just building the idea.
+
+
+383
+00:54:31.499 --> 00:54:32.289
+PAUL: Fine.
+
+
+384
+00:54:32.519 --> 00:54:35.058
+PAUL: Now, let's talk about a single vector.
+
+
+385
+00:54:35.469 --> 00:54:41.619
+PAUL: Till now the things that you have done. So let's take two vectors, VK, and vacuum.
+
+
+386
+00:54:42.029 --> 00:54:44.019
+PAUL: Okay, andâ€¦
+
+
+387
+00:55:14.059 --> 00:55:29.729
+PAUL: Okay? So, in this particular example, what I have done is simply VK and VQ, like, one for King, one for Queen. Okay, and a little bit that idea that we will be exploring. Now, if I ask you, just tell me, what are the
+
+
+388
+00:55:29.899 --> 00:55:39.239
+PAUL: common attributes, or the common features between thin and cool. Just let me know in the chat, you can tell anything, because there are so many things, soâ€¦ simply.
+
+
+389
+00:55:43.939 --> 00:55:47.359
+PAUL: Okay, royalty, somebody told, yes, exactly correct.
+
+
+390
+00:55:52.229 --> 00:55:57.329
+PAUL: Okay, so this I'm taking this color. Let's take a royalty phone now.
+
+
+391
+00:56:00.389 --> 00:56:02.769
+PAUL: Okay, let's move to the next feature.
+
+
+392
+00:56:04.359 --> 00:56:08.818
+PAUL: Repeat the question, please tell me the common features or the attributes of King and Queen.
+
+
+393
+00:56:09.039 --> 00:56:14.139
+PAUL: Human being, alright. Okay, so yes, human being is also correct.
+
+
+394
+00:56:14.989 --> 00:56:16.649
+PAUL: Taking this address?
+
+
+395
+00:56:17.679 --> 00:56:18.419
+PAUL: Cheers.
+
+
+396
+00:56:19.469 --> 00:56:22.598
+PAUL: Human being. Somebody is telling kingdom.
+
+
+397
+00:56:23.329 --> 00:56:26.209
+PAUL: Okay, so, yes, Kingdom is also correct.
+
+
+398
+00:56:33.429 --> 00:56:40.318
+PAUL: Alright, then comes, with respect to chess, you have taken years, that can also come.
+
+
+399
+00:56:40.479 --> 00:56:43.989
+PAUL: Then comes power. Let's take power into account.
+
+
+400
+00:56:51.749 --> 00:56:52.819
+PAUL: Alright.
+
+
+401
+00:56:53.639 --> 00:56:58.009
+PAUL: army, for sure. King and Queen will have some type of army.
+
+
+402
+00:56:58.309 --> 00:56:59.769
+PAUL: North State, okay.
+
+
+403
+00:57:07.549 --> 00:57:25.509
+PAUL: All right, leadership, money, influence, yes, a lot of other things are there, okay? So right now, as weâ€¦ I have taken limited cross. Okay, now, why I have taken this limited cross? Because later on, King can be represented into a vector, transformation, okay? So, once you apply.
+
+
+404
+00:57:25.519 --> 00:57:29.558
+PAUL: The vector, there will be multiple numbers, not only a single number.
+
+
+405
+00:57:29.779 --> 00:57:45.158
+PAUL: So, simply, the idea is it's not only a single number representation. I hope everybody understands that whenever I talk with respect to a vectorization or embedding operation, there are different types of embedding models where the size is totally different. King can be represented in
+
+
+406
+00:57:45.159 --> 00:57:59.989
+PAUL: 1024 dimensions also, as well as N256 dimensions also, as well as in 512 dimensions also. That is only the representation part. So, I have taken just bare minimum for now. So, let's talk about the, common words here.
+
+
+407
+00:57:59.989 --> 00:58:02.429
+PAUL: Okay, so something let's take from theâ€¦
+
+
+408
+00:58:02.789 --> 00:58:08.818
+PAUL: Common ones, few other things that you told, influence, for sure, influence will be there.
+
+
+409
+00:58:09.199 --> 00:58:12.708
+PAUL: Okay. Few more common words, wealth will be there.
+
+
+410
+00:58:13.239 --> 00:58:16.099
+PAUL: Bloodline, for sure. Okay.
+
+
+411
+00:58:18.579 --> 00:58:25.609
+PAUL: To add the line. Okay, really. But how the differentiate king and queen? Right now, I'm not talking about the differentiation, maybe?
+
+
+412
+00:58:26.159 --> 00:58:32.349
+PAUL: I'm only talking about the common things. Responsibility will be there, enemy will be there, okay?
+
+
+413
+00:58:32.579 --> 00:58:33.559
+PAUL: My name is.
+
+
+414
+00:58:33.999 --> 00:58:35.789
+PAUL: Naman will be there.
+
+
+415
+00:58:36.029 --> 00:58:43.478
+PAUL: Okay, now these. Now, let's talk about totally, like, the other words which are not related to king and queen.
+
+
+416
+00:58:44.339 --> 00:58:46.478
+PAUL: Let's talk about those words also.
+
+
+417
+00:58:46.879 --> 00:58:48.818
+PAUL: unrelated, I will write here.
+
+
+418
+00:58:53.569 --> 00:58:55.109
+PAUL: Any type of words?
+
+
+419
+00:58:55.919 --> 00:58:59.419
+PAUL: If I say dog, catâ€¦
+
+
+420
+00:59:00.229 --> 00:59:10.778
+PAUL: Okay, but directly gonna relate a dog with the king. Probably the king might have a dog, but again, a direct relation, I cannot make it. Okay, so let's take nurseâ€¦
+
+
+421
+00:59:12.339 --> 00:59:15.749
+PAUL: Okay, let's take aviation.
+
+
+422
+00:59:17.649 --> 00:59:18.539
+PAUL: Maggie?
+
+
+423
+00:59:18.929 --> 00:59:21.308
+PAUL: Any other word, let's take computer.
+
+
+424
+00:59:22.539 --> 00:59:25.718
+PAUL: Somebody is telling mobile logs were fine.
+
+
+425
+00:59:28.589 --> 00:59:33.668
+PAUL: Okay. So, yes, now, these things directly don't relate.
+
+
+426
+00:59:33.869 --> 00:59:37.039
+PAUL: So, if I say that, these wordsâ€¦
+
+
+427
+00:59:37.189 --> 00:59:44.729
+PAUL: Okay, so when I say about the common words, these wordsâ€¦ shareâ€¦ Meaningâ€¦
+
+
+428
+00:59:49.269 --> 00:59:53.148
+PAUL: With respect to the king or queen that you have.
+
+
+429
+00:59:53.269 --> 01:00:03.078
+PAUL: So, probably the king and queen will have some type of land, will be having some type of country, army, their own things. But if you look into the unrelated ones.
+
+
+430
+01:00:06.209 --> 01:00:08.609
+PAUL: Then, simply, this is totallyâ€¦
+
+
+431
+01:00:08.819 --> 01:00:20.979
+PAUL: out of context, OOC that we call it. So, simply, OOC, out of context. Like, really, nobody can directly make a relation, probably an indirect relation, if it exists out there.
+
+
+432
+01:00:21.299 --> 01:00:28.578
+PAUL: Now the question comes, This idea, the rewigging scheme or the re-weigging plan that we have been exploring.
+
+
+433
+01:00:28.919 --> 01:00:33.158
+PAUL: Now, the question comes, how we can actually implement it.
+
+
+434
+01:00:35.239 --> 01:00:41.128
+PAUL: Right now, I'm not talking with respect to the differences between the vectors.
+
+
+435
+01:00:41.249 --> 01:00:49.089
+PAUL: Probably, there will be a difference for sure, with respect to the genders. Okay, but right now, I'm talking about how to bring those features much more.
+
+
+436
+01:00:49.859 --> 01:00:53.989
+PAUL: Okay, so let's focus on this scheme.
+
+
+437
+01:00:54.109 --> 01:01:01.509
+PAUL: The first oneâ€¦ the reâ€¦ Veggie?
+
+
+438
+01:01:06.949 --> 01:01:08.848
+PAUL: Plan that we have.
+
+
+439
+01:01:10.589 --> 01:01:11.339
+PAUL: Okay.
+
+
+440
+01:01:11.899 --> 01:01:18.069
+PAUL: And the idea is very, very simple, okay? So, previously, I have written W, if you remember W,
+
+
+441
+01:01:18.389 --> 01:01:23.258
+PAUL: Yes, here I have written this reviewing. I've just done the representation.
+
+
+442
+01:01:23.629 --> 01:01:32.579
+PAUL: But what aboutâ€¦ this particular Wâ€¦ Kâ€¦
+
+
+443
+01:01:32.749 --> 01:01:38.028
+PAUL: Q equal to V, Q, and to V, Q.
+
+
+444
+01:01:39.809 --> 01:01:42.489
+PAUL: No, very, very simple idea.
+
+
+445
+01:01:42.749 --> 01:01:48.769
+PAUL: If I want to bring the widths into the system, why not multiply the vector of thing with respect to the vector of queen?
+
+
+446
+01:01:49.249 --> 01:01:56.209
+PAUL: As simple as that. Now, based on this particular idea that you have, we will be proceeding ahead.
+
+
+447
+01:01:58.659 --> 01:02:02.579
+PAUL: Because you already have the vectors, and here what we are doing.
+
+
+448
+01:02:02.879 --> 01:02:06.759
+PAUL: Simply vector to vector? Multiplication, yes or no.
+
+
+449
+01:02:07.489 --> 01:02:11.099
+PAUL: Yes or no? And this task is possible mathematically.
+
+
+450
+01:02:11.219 --> 01:02:22.249
+PAUL: Simply, if I have two vectors, can I multiply them? Yes or no? Yes, it is totally possible. Now, this particular idea that we need to focus on. Okay, so this is the idea.
+
+
+451
+01:02:27.489 --> 01:02:31.359
+PAUL: we will explode.
+
+
+452
+01:02:37.189 --> 01:02:48.538
+PAUL: All right, we have, 1010. Fine. Now, based on this particular idea, what is the first thing that I want to replace? Okay, so now, because, probably.
+
+
+453
+01:02:48.539 --> 01:02:57.929
+PAUL: if I start with the self-attention part, so probably I think it will be better for sag. But let's take a small sentence, I won't be taking a big sentence this time.
+
+
+454
+01:02:57.928 --> 01:03:00.458
+PAUL: Let's start with the long bluish color.
+
+
+455
+01:03:02.209 --> 01:03:04.609
+PAUL: bank, Oof.
+
+
+456
+01:03:05.479 --> 01:03:07.178
+PAUL: Here, the river.
+
+
+457
+01:03:08.308 --> 01:03:11.498
+PAUL: Okay, so right now, I have taken a bank.
+
+
+458
+01:03:11.968 --> 01:03:25.348
+PAUL: Okay, pretty much ambiguous word, directly if you look into that. Bank offer revert that I have written, so somehow you know that bank and reverse, so probably we are talking about that particular bank, and not a financial institution.
+
+
+459
+01:03:25.879 --> 01:03:39.318
+PAUL: So, probably now, what is the first thing that you will do? Just like last time, we'll be exploring the idea V1, this will be converted into V2, now this will be converted into V3, this will be converted into your V4.
+
+
+460
+01:03:39.579 --> 01:03:43.389
+PAUL: Now, from your V4, let me just add a simple block.
+
+
+461
+01:03:56.109 --> 01:03:58.479
+PAUL: And here, simply, I will just write the name.
+
+
+462
+01:03:58.579 --> 01:03:59.669
+PAUL: Eddie?
+
+
+463
+01:04:00.369 --> 01:04:01.479
+PAUL: Wait.
+
+
+464
+01:04:01.779 --> 01:04:02.508
+PAUL: Okay.
+
+
+465
+01:04:05.949 --> 01:04:15.698
+PAUL: Okay? The re-weighing scheme, that's simply that I have written. Let's add a simple star. Now, from here, the idea is, whatever the output that I'll be getting from here.
+
+
+466
+01:04:18.169 --> 01:04:24.189
+PAUL: Right now, only 4 words I have, so it becomes easier for me. I'll be getting my what? Y1?
+
+
+467
+01:04:25.369 --> 01:04:26.639
+PAUL: Y2?
+
+
+468
+01:04:26.999 --> 01:04:30.029
+PAUL: Y3â€¦ Y4?
+
+
+469
+01:04:30.409 --> 01:04:32.928
+PAUL: And these wives will be having what?
+
+
+470
+01:04:35.849 --> 01:04:38.148
+PAUL: More and better context.
+
+
+471
+01:04:55.579 --> 01:05:07.658
+PAUL: That's why I'm writing about each other. It means that Y will be having information about Y2? Y2 will be having information about Y3, and Y3 will be having information about Y4, okay? Soâ€¦
+
+
+472
+01:05:07.969 --> 01:05:22.649
+PAUL: Because, again, if I try to do every vector calculation, let's do it on Saturday. We will keep it till this point. Because I feel that then, again, in between the topic, I have to end the session. But I hope everybody got the rough idea, exactly what we have planned to do.
+
+
+473
+01:05:22.919 --> 01:05:29.719
+PAUL: Okay, and just to give you an idea, initially, our idea will be, whatever that V1 that I have?
+
+
+474
+01:05:29.869 --> 01:05:38.168
+PAUL: Okay, soâ€¦ this is next Saturday only we'll discuss, don't worry, because today not possible for me also to complete.
+
+
+475
+01:05:38.299 --> 01:05:45.648
+PAUL: So, let's stick with our V1, V2, V3, V, 4.
+
+
+476
+01:05:49.409 --> 01:06:07.218
+PAUL: Okay? The V1, V2. Now, the question comes, if I want to explore this idea, VK with, simply, the VK with VQ. Based on that idea, I have to pick up something as a base one. Okay, so in our case, let's start with the first one that I have. So let's take V1,
+
+
+477
+01:06:07.359 --> 01:06:08.699
+PAUL: V1.
+
+
+478
+01:06:08.829 --> 01:06:11.439
+PAUL: V1, and V1.
+
+
+479
+01:06:12.059 --> 01:06:15.448
+PAUL: Can I say that if I do this particular task.
+
+
+480
+01:06:15.729 --> 01:06:23.078
+PAUL: Then only it is possible that the ideas V1 should have the information about V1 itself, V2, V3, V4.
+
+
+481
+01:06:23.559 --> 01:06:33.868
+PAUL: I hope everybody is getting that idea, because this is the same idea that we'll be exploring. And from here, through some type of operation, I'll be getting my final weights.
+
+
+482
+01:06:33.979 --> 01:06:43.028
+PAUL: Okay, so probably this will become your W11, this will become your W12, this will become your W13, this will become your W13.
+
+
+483
+01:06:43.279 --> 01:06:48.939
+PAUL: Okay? But this ideaâ€¦ a next class that we'll be discussing. That's all.
+
+
+484
+01:06:51.909 --> 01:06:55.759
+PAUL: I hope everybody got the fundamental idea that we have.
+
+
+485
+01:06:56.599 --> 01:07:08.709
+PAUL: Okay, so because this is vector to vector 4, vector 4 into 4, 16, so pretty much a one calculation. Now, this is from where we'll be exploring the idea of self-attention. Okay, so next class.
+
+
+486
+01:07:09.149 --> 01:07:12.918
+PAUL: We will be starting with self-attention.
+
+
+487
+01:07:15.099 --> 01:07:19.579
+PAUL: And this is the most fundamental idea from the paper.
+
+
+488
+01:07:24.829 --> 01:07:34.259
+PAUL: Line can be deleted, yes. So, will they be converted into tokens or vectors? Always first token. So, I have not written token here, so don't get confused.
+
+
+489
+01:07:34.369 --> 01:07:43.118
+PAUL: that directly vector came into the system, because we know that, this is token, a single, single, but that's why I'm not written to you, okay? So, don't get confused.
+
+
+490
+01:07:44.349 --> 01:07:56.398
+PAUL: All right, fine. So, I think I'll be concluding the session. Okay. Otherwise, the next session, because once I say in production, once I start with self-attention, it is the actual core fundamental block.
+
+
+491
+01:07:56.769 --> 01:08:08.778
+PAUL: First, we'll be looking into, and this is where, actually, the idea is, so this particular idea that we have, this re-wearing scheme. Now, I'll be giving a rough name to this.
+
+
+492
+01:08:08.989 --> 01:08:11.288
+PAUL: So, what name should I give them?
+
+
+493
+01:08:11.699 --> 01:08:17.728
+PAUL: Okay? So, this idea will beâ€¦ We are moving towards.
+
+
+494
+01:08:19.739 --> 01:08:21.749
+PAUL: Their actual attention.
+
+
+495
+01:08:23.979 --> 01:08:27.388
+PAUL: Okay, so the first attention.
+
+
+496
+01:08:29.329 --> 01:08:30.809
+PAUL: mechanisms.
+
+
+497
+01:08:34.279 --> 01:08:50.339
+PAUL: So, this is the idea behind this one. Because slowly, slowly, we are trying to bring that attention. Because as I told you, next class, you have self-attention. Now, it's a complete form, but I'm only talking about the core part. So, this is the idea for the next class, let's keep it.
+
+
+498
+01:08:51.659 --> 01:09:02.239
+PAUL: Can you summarize what we have learned today? So, we have taken the first example with the time series, where we have taken noisy data, then the idea was to reduce the noise. How we have reduced the noise?
+
+
+499
+01:09:02.289 --> 01:09:13.059
+PAUL: by applying some type of re-wagging scheme, and the idea is that after the re-wagging scheme, the final transform data that I'll be having, it will be having much more context.
+
+
+500
+01:09:13.059 --> 01:09:24.499
+PAUL: Okay, so that isâ€¦ and in this particular example, I talked about EWA, but again, EWA is not related right now in NIP terms. It is only with respect to the, time series data. It is relatable.
+
+
+501
+01:09:24.659 --> 01:09:37.488
+PAUL: Now, finally, NLP, because till now, majorly all the classical algorithms have been working, like, based on plus 1, minus 1, plus 2, minus 2. You look what is before, what is after, and then you actually take the decision.
+
+
+502
+01:09:37.669 --> 01:09:49.909
+PAUL: Okay? Now, in our case, from this, the major problem that we have received is the problem of proximity, or simply the distance. We cannot directly trust the proximity, and based on that, we cannot take the decision.
+
+
+503
+01:09:50.279 --> 01:09:51.119
+PAUL: All right.
+
+
+504
+01:09:54.729 --> 01:10:05.739
+PAUL: Now, Mohan is asking, W2, what does re-weighing do? Re-weighing means there will be some type of transformation, or some type of changes that I will bring into the system.
+
+
+505
+01:10:06.719 --> 01:10:07.589
+PAUL: Okay.
+
+
+506
+01:10:07.829 --> 01:10:22.699
+PAUL: All right. Now, from here, simply based on our older techniques that cannot be applied, so proximity, you cannot trust it, and now this is the rough sequence, this is pretty muchâ€¦ Now, after the vectorization, the idea is, let's bring some weight into the system.
+
+
+507
+01:10:23.019 --> 01:10:35.059
+PAUL: Okay, as we are working with neural networks, the idea is to bring some type, but again, these weights are not learnable, going for what I will tell you. But for now, I'm introducing some type of weights.
+
+
+508
+01:10:35.499 --> 01:10:44.009
+PAUL: Later on, after bringing those weights into the system, the idea is that the output that I'll be getting, it will be having much more context.
+
+
+509
+01:10:44.209 --> 01:10:45.209
+PAUL: No?
+
+
+510
+01:10:45.529 --> 01:11:00.528
+PAUL: The idea is only to look into two vectors or two words, and then just focus on the different type of features that you have here. Once you have looked into the features, the idea, the simple idea, why not perform a simple dot product between those two vectors?
+
+
+511
+01:11:01.359 --> 01:11:02.139
+PAUL: Okay.
+
+
+512
+01:11:03.089 --> 01:11:06.629
+PAUL: Now, based on this, now, when I say, guys, dot product.
+
+
+513
+01:11:07.089 --> 01:11:09.438
+PAUL: Will it have direction, yes or no?
+
+
+514
+01:11:11.099 --> 01:11:15.358
+PAUL: We already have direction, yes or no? A simple term that I have asked.
+
+
+515
+01:11:17.379 --> 01:11:19.718
+PAUL: Deepak is telling, yes, yes, yes.
+
+
+516
+01:11:27.439 --> 01:11:30.289
+PAUL: Alright, just go through the basics.
+
+
+517
+01:11:30.519 --> 01:11:33.929
+PAUL: The other name of dot product is Scalar.
+
+
+518
+01:11:34.059 --> 01:11:42.759
+PAUL: product. That's why I have just given you an idea from here. Scalar and vector, you know. So generally, when you perform, the other name of that product is also our scalar product.
+
+
+519
+01:11:43.919 --> 01:11:51.348
+PAUL: Alright, now, from here, the idea is simply that, from the dot product, the final Ritac we'll be having
+
+
+520
+01:11:51.399 --> 01:12:07.068
+PAUL: we'll be having more and better context. Now, based on that, the same thing that I've previously done. Now, this is the block that I'm referring as the re-variant scheme. Going forward, the idea is we'll be referring to them as the main attention part, from where the main ideaâ€¦ attention simply means
+
+
+521
+01:12:07.069 --> 01:12:20.439
+PAUL: The idea is look here and there. Put focus here, put focus there, put focus somewhere far away. The idea is we need some type of information. If we have the information, somehow I can say that, yes, we have better context.
+
+
+522
+01:12:20.779 --> 01:12:30.948
+PAUL: Okay, and based on this particular idea, the same dot product idea, that we'll be exploring in the next class, which will be the self-attention one. What isâ€¦ why? Why is there output?
+
+
+523
+01:12:31.319 --> 01:12:32.819
+PAUL: This is output.
+
+
+524
+01:12:34.259 --> 01:12:36.589
+PAUL: So, for now, output vector, you can say.
+
+
+525
+01:12:36.749 --> 01:12:39.449
+PAUL: This is Y1, Y2, these are the output vectors.
+
+
+526
+01:12:41.499 --> 01:12:42.379
+PAUL: Okay?
+
+
+527
+01:12:43.139 --> 01:12:53.098
+PAUL: Is this part clear? So, similarly here also, Y1, Y2, these are the output. Similarly here also, the data point that had. Now, this is the final output, the transformed version.
+
+
+528
+01:12:53.849 --> 01:12:56.088
+PAUL: You know, everywhere, this is a final output.
+
+
+529
+01:12:57.289 --> 01:13:02.768
+PAUL: I hope everybody got a rough idea exactly what will be our next plan of action.
+
+
+530
+01:13:02.899 --> 01:13:06.129
+PAUL: Does this Arachamun paper have the connection with GAN loan?
+
+
+531
+01:13:06.479 --> 01:13:07.249
+PAUL: No.
+
+
+532
+01:13:08.089 --> 01:13:11.918
+PAUL: Not a commission. GAN is a totally different architecture. Discriminator.
+
+
+533
+01:13:12.049 --> 01:13:15.089
+PAUL: It is architectures, okay? So, that is totally different.
+
+
+534
+01:13:15.239 --> 01:13:21.188
+PAUL: Alright, so I'm just sharing these notes right now. Let me just click export it.
+
+
+535
+01:13:21.389 --> 01:13:26.858
+PAUL: Because once I share it with the ops team, okay, it will take some time.
+
+
+536
+01:13:27.429 --> 01:13:35.059
+PAUL: So, before that. So that's why I told a little bit of theory, but this is the rough estimated idea on top of which will be explained.
+
+
+537
+01:13:35.899 --> 01:13:43.469
+PAUL: All right, your computerâ€¦ let me just takeâ€¦ I think this is the Note 7-1. Yes.
+
+
+538
+01:13:48.909 --> 01:13:52.378
+PAUL: Okay, I've shared it in the chat, it will take a few amounts of time.
+
+
+539
+01:13:53.119 --> 01:13:56.038
+PAUL: Okay, let me just close the cam for one minute, yes.
+
+
+540
+01:13:56.709 --> 01:13:59.968
+PAUL: Can you attach the notes here, please? I've already shared the notes.
+
+
+541
+01:14:00.259 --> 01:14:04.269
+PAUL: Is Y a vector? ES4 now the output vector that you can think about.
+
+
+542
+01:14:06.709 --> 01:14:08.519
+PAUL: Yes, very good.
+
+
+543
+01:14:09.029 --> 01:14:15.628
+PAUL: Because we will be performing some type of vector transformation based on the dot product idea, so for sure it will be some type of vector.
+
+
+544
+01:14:15.979 --> 01:14:17.799
+PAUL: Deepak, I hope you get that part.
+
+
+545
+01:14:19.249 --> 01:14:32.739
+PAUL: Pradeep is telling, this NLP part is for transâ€¦ this is deep learning NLP that we are starting. Previously, I think Mohammad has discussed the ML for NLP, but this is deep learning NLP. We will bring weights and biases into the system.
+
+
+546
+01:14:33.859 --> 01:14:39.748
+PAUL: I'm only asking, sir, why shouldn't there be single Y as an output per sentence? No, no.
+
+
+547
+01:14:40.389 --> 01:14:41.729
+PAUL: Not a single one.
+
+
+548
+01:14:42.719 --> 01:14:46.379
+PAUL: There has to be multiple. The idea is to look into.
+
+
+549
+01:14:46.509 --> 01:14:54.829
+PAUL: Just think about if I have 10 words, okay? Now, those 10 words, if I try to represent them as a single number, that is not a correct thing number.
+
+
+550
+01:14:56.339 --> 01:14:59.829
+PAUL: I mean, they're selling so Saturday onwards, shall we continue? Yes.
+
+
+551
+01:15:00.039 --> 01:15:19.498
+PAUL: From sRA to the actual Transformers, because first, I will, tell you that idea, then I have to show the paper. After cell potential will come multi-attention. After multi-attention, it comes cross-attention. After cross-attention will come the masked attention. So, really, a lot of attention is here there, okay? So, because,
+
+
+552
+01:15:19.569 --> 01:15:23.789
+PAUL: This is, like, from interview perspective, very, very important task.
+
+
+553
+01:15:23.919 --> 01:15:31.168
+PAUL: But, very easy, it's not like superhum. So yeah, super easy, but you have to understand always the context, what has happened.
+
+
+554
+01:15:31.959 --> 01:15:37.618
+PAUL: Pulse from where do I get the notes of theâ€¦ Yeah, please check Notion, guys.
+
+
+555
+01:15:37.769 --> 01:15:42.198
+PAUL: Okay, Motion is our main place for every classes that we have taken.
+
+
+556
+01:15:43.219 --> 01:15:50.779
+PAUL: Okay, somebody's asking, I think UDS3. guys have lesser context about exactly. Just wait, I will just,
+
+
+557
+01:15:51.099 --> 01:15:54.648
+PAUL: start sharing my screen, and from here, let me show.
+
+
+558
+01:15:55.109 --> 01:16:04.019
+PAUL: screen, I think this is the start of the tool. And notion, I think this will beâ€¦ worst rate.
+
+
+559
+01:16:08.569 --> 01:16:09.769
+PAUL: Balajiyi.
+
+
+560
+01:16:10.839 --> 01:16:11.669
+PAUL: Jeez.
+
+
+561
+01:16:12.409 --> 01:16:13.989
+PAUL: Yes, do not remove.
+
+
+562
+01:16:14.309 --> 01:16:33.838
+PAUL: Yes, from here, you'll be getting everything. Whatever the classes that I have taken. Before that, I think I don't have the link for monol's one, but, I think somebodyâ€¦ you ask it in the course group, simply. In the forum, ask it, somebody will share it to you. For UDS3.
+
+
+563
+01:16:35.169 --> 01:16:38.779
+PAUL: Why you are sharing your mail Ram? I don't need your email address.
+
+
+564
+01:16:40.369 --> 01:16:45.289
+PAUL: So, never share your email with me, because I'm not the guy who does that.
+
+
+565
+01:16:46.319 --> 01:16:58.318
+PAUL: to get the Notion link, then why I've just pasted it in the chat, just click on that and bookmark it, okay? Everybody please bookmark. UBS 3.0 as well as 2.0, I've already told them, but 3.0, guys.
+
+
+566
+01:16:58.909 --> 01:17:03.388
+PAUL: Okay, soâ€¦ Now, next class, we will start, with the main part.
+
+
+567
+01:17:03.689 --> 01:17:12.268
+PAUL: So probably two classes with theory, guys. After that, we'll actually start working with architectures, like DistelBot and Digital GPT.
+
+
+568
+01:17:12.729 --> 01:17:15.499
+PAUL: Naikib Barik was telling about two filters.
+
+
+569
+01:17:16.209 --> 01:17:24.528
+PAUL: At started, you mentioned when you use that. Above two filters. No, that is only with respect to, time series. Okay, Pradeep?
+
+
+570
+01:17:24.849 --> 01:17:37.769
+PAUL: Because that is the fundamental idea behind exponential weighted average. If something is close wide, please amplify the value of that. If something is far away, please make the value much more lower, okay? That is the idea.
+
+
+571
+01:17:40.069 --> 01:17:46.158
+PAUL: Alrighty, I've shared it. So, Saturday, I hope, so we will start with the self-attention one.
+
+
+572
+01:17:47.299 --> 01:17:51.968
+PAUL: All right, guys, if anybody has any questions, they can let Moho, otherwise you guys can drop.
+
+
+573
+01:17:55.759 --> 01:18:03.948
+PAUL: Okay, so nobody has raised their hand, so I'll be concluding the session for today. Okay, so just be sure, guys, don't miss this Saturdays and Sundays class.
+
+
+574
+01:18:04.359 --> 01:18:08.069
+PAUL: Okay, now the things that I'll be telling a lot of,
+
+
+575
+01:18:08.319 --> 01:18:25.609
+PAUL: things are there which are important, so from an interview perspective, very, very important. So, don't miss it. Because in today's time, if you go for an interview with a generative AI Free, this paper is the main paper. Okay, and you have to remember that this paper, even before your interview, should
+
+
+576
+01:18:25.989 --> 01:18:43.148
+PAUL: At least, revise it, and make your own custom notes, okay? At least use ChatGPT, handwritten something, but at least make sure that notes you are going to use for the next 2 to 3 years. So keep those notes and such able, because now, from here, questions will come directly.
+
+
+577
+01:18:44.129 --> 01:18:48.288
+PAUL: All right, guys, so bye-bye everyone, thanks for joining. See you guys on Saturday.
+
+

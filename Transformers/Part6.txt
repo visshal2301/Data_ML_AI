@@ -1,0 +1,6002 @@
+WEBVTT
+
+1
+00:00:10.783 --> 00:00:13.992
+PAUL: Yeah, hello everyone, am I audible? Please let me know in the chats.
+
+
+2
+00:00:14.343 --> 00:00:16.893
+PAUL: And just check the charts are opened or not.
+
+
+3
+00:00:21.783 --> 00:00:27.473
+PAUL: Alright, good morning, everyone. Soâ€¦ We will be starting today.
+
+
+4
+00:00:28.373 --> 00:00:36.242
+PAUL: The other fine tuning in last class we have gone through encoder specific and decoder specific today's.
+
+
+5
+00:00:36.593 --> 00:00:43.193
+PAUL: We'll be talking with respect to Transformers-based models or sequence-to-sequence-based models.
+
+
+6
+00:00:44.223 --> 00:00:50.652
+PAUL: So the first part, so I've already updated the links, and let me start sharing my screen.
+
+
+7
+00:01:00.283 --> 00:01:02.822
+PAUL: Okay, and I will beâ€¦
+
+
+8
+00:01:07.513 --> 00:01:12.423
+PAUL: Sharing the notebook with you guys in the chat. Please do open it.
+
+
+9
+00:01:37.643 --> 00:01:40.033
+PAUL: Provide the handling.
+
+
+10
+00:01:40.553 --> 00:01:42.942
+PAUL: Just hold better stage.
+
+
+11
+00:01:55.193 --> 00:01:58.243
+PAUL: Alright, guys, so I think everybody can open.
+
+
+12
+00:01:58.373 --> 00:02:05.983
+PAUL: Okay, and in the meantimeâ€¦ We'll be talking about the installation. Soâ€¦
+
+
+13
+00:02:06.203 --> 00:02:09.473
+PAUL: Last class, we have gone through birth, tweet.
+
+
+14
+00:02:09.663 --> 00:02:17.052
+PAUL: Sentiment classification, then we worked on the fine-tuning on top of a news classification dataset.
+
+
+15
+00:02:17.363 --> 00:02:21.783
+PAUL: And what was that data set which you have used in GBT? Anybody remembers the name?
+
+
+16
+00:02:25.023 --> 00:02:27.292
+PAUL: Yes, please let me know in the chat.
+
+
+17
+00:02:27.613 --> 00:02:45.143
+PAUL: the last notebooks that we have discussed. Because today's notebooks, the training time will be much higher, because the number of parameters we'll be working in this notebook is really, really high. Like, in the encoder, in BERT, Distil BERT, the number of parameters were close to 66 million.
+
+
+18
+00:02:45.713 --> 00:03:04.903
+PAUL: In the distal GPT, it was close to 82 million, but today's, it will be 780 million, so close to 10x more params. So, when I say with respect to params, so simply it means that more number of parameters, the idea is that you will be training for a longer time.
+
+
+19
+00:03:05.583 --> 00:03:08.813
+PAUL: As you need to update the weights and biases of the model.
+
+
+20
+00:03:12.093 --> 00:03:23.733
+PAUL: Alright, so the first part, let's start with the installation, and there are a lot of new things here, like, we'll be talking with respect to the metrics which are widely being used.
+
+
+21
+00:03:23.793 --> 00:03:38.862
+PAUL: But, before that, let's start with the first part. What are the different type of sequence-to-sequence models which are available? Now, I have taken a very specific one, which is the FLAN T5 from Google, which comes, but there are some other models also.
+
+
+22
+00:03:39.983 --> 00:03:43.672
+PAUL: So, let me just, open the notebook.
+
+
+23
+00:03:51.353 --> 00:03:56.393
+PAUL: Just wait, I'mâ€¦ Connection.
+
+
+24
+00:04:05.503 --> 00:04:08.712
+PAUL: Now let me start sharing the notes.
+
+
+25
+00:04:09.043 --> 00:04:16.192
+PAUL: And let me give you an idea. With respect to sequence-to-sequence models, what are the options that you do have?
+
+
+26
+00:04:26.193 --> 00:04:28.922
+PAUL: Alright, I hope my screen is visible to everyone.
+
+
+27
+00:04:29.683 --> 00:04:32.113
+PAUL: Please provide a confirmation in the chat.
+
+
+28
+00:05:04.503 --> 00:05:09.022
+PAUL: So till now we have been discussing models initially but.
+
+
+29
+00:05:11.103 --> 00:05:14.162
+PAUL: But is an encoder based model.
+
+
+30
+00:05:16.173 --> 00:05:21.392
+PAUL: We did the practical with a lighter version of bird, which was the distilled bird.
+
+
+31
+00:05:24.313 --> 00:05:31.152
+PAUL: Then we move to GPT-based model. Now, this is decoder-specific.
+
+
+32
+00:05:32.663 --> 00:05:39.753
+PAUL: And we use a lighter version, which is the Distil GPT 2 in our practicals.
+
+
+33
+00:05:40.503 --> 00:05:55.313
+PAUL: Okay? Now, we'll be talking with respect to sequence-to-sequence. So, what is new? In sequence-to-sequence, now, this is much more relatable towards your attention-is-all-you-need paper. Because sequence-to-sequence means I'm talking about encoder.
+
+
+34
+00:05:55.783 --> 00:05:57.473
+PAUL: Decoder models.
+
+
+35
+00:06:01.613 --> 00:06:05.553
+PAUL: Encoder decoder model means you have both the components.
+
+
+36
+00:06:06.513 --> 00:06:23.133
+PAUL: And generally, what are the type of tasks which are being done using encoder-decoder models? So here, the input is also a sequence, the output is also a sequence. So according to the original paper of attention is all you need, the example was with respect to machine translation, if you remember.
+
+
+37
+00:06:28.693 --> 00:06:32.873
+PAUL: In the original paper, they use the WMT data set.
+
+
+38
+00:06:41.533 --> 00:06:48.463
+PAUL: And, the different type of task, like, you have German to English.
+
+
+39
+00:06:48.743 --> 00:06:51.872
+PAUL: Then it can be English to French.
+
+
+40
+00:06:56.303 --> 00:07:01.912
+PAUL: Now, the other type of task which comes under sequence of sequences.
+
+
+41
+00:07:02.103 --> 00:07:03.883
+PAUL: Text summarization.
+
+
+42
+00:07:13.453 --> 00:07:19.232
+PAUL: So for machine translation task, the easiest example with respect to a use case.
+
+
+43
+00:07:19.393 --> 00:07:26.533
+PAUL: It can be like translate-based applications, like you have Apple Translate, you have Google Translate.
+
+
+44
+00:07:27.203 --> 00:07:31.572
+PAUL: Whereas in text summarization, there are two types of text summarizations.
+
+
+45
+00:07:33.473 --> 00:07:38.183
+PAUL: The first one that we call it is known as the extractive one.
+
+
+46
+00:07:40.743 --> 00:07:44.382
+PAUL: And the other one that we have, which is the abstractive one.
+
+
+47
+00:07:48.353 --> 00:07:54.983
+PAUL: Now, what is the difference between extractive and abstractive? So here, the result that you will be getting
+
+
+48
+00:07:57.183 --> 00:08:00.403
+PAUL: Result will always be from the input.
+
+
+49
+00:08:01.953 --> 00:08:06.833
+PAUL: So, for example, in the input, you might have 10 sentences.
+
+
+50
+00:08:09.513 --> 00:08:10.973
+PAUL: So probably.
+
+
+51
+00:08:12.113 --> 00:08:27.672
+PAUL: in the output also, out of those 10 sentences in the output, exactly what is available in the input. The same sentences that you will be getting in the output. So, probably after the summarization, there are 3 sentences.
+
+
+52
+00:08:31.553 --> 00:08:34.823
+PAUL: Okay, so this is our assumption right now.
+
+
+53
+00:08:35.793 --> 00:08:42.653
+PAUL: It means that it always fetch the output will be having the original information.
+
+
+54
+00:08:51.133 --> 00:08:54.983
+PAUL: And then you have the abstractive. Now, abstractive.
+
+
+55
+00:08:55.133 --> 00:08:58.482
+PAUL: Now, this is the rephrased version.
+
+
+56
+00:09:01.733 --> 00:09:04.283
+PAUL: rephased output.
+
+
+57
+00:09:06.243 --> 00:09:18.012
+PAUL: It means that here, it is not necessary that exactly what has been passed in the input, we'll be getting same sentences. Probably the sentences will be rephrased.
+
+
+58
+00:09:18.103 --> 00:09:35.033
+PAUL: That is the idea. So this is a complete, I can say, rephrased output, but for sure it will be shorter. So, 3 sentences if I am taking, but those 3 sentences in the output will be completely rephrased. So here, it retains the actual original sentences.
+
+
+59
+00:09:35.433 --> 00:09:40.163
+PAUL: From the original input in extractive, whereas in the abstractive, what do you have?
+
+
+60
+00:09:40.283 --> 00:09:44.493
+PAUL: the rephrased versions. Is this part clear? Please let me know.
+
+
+61
+00:09:46.193 --> 00:09:51.542
+PAUL: What is the main difference between two types of summarization? The extractive.
+
+
+62
+00:09:51.743 --> 00:10:00.273
+PAUL: Now, the simplest example, with respect to abstractive, like, the news apps that you have.
+
+
+63
+00:10:00.453 --> 00:10:04.162
+PAUL: In short, in short, users text summarization.
+
+
+64
+00:10:04.673 --> 00:10:10.882
+PAUL: Yes, any other example that you can let me know in the chat with respect to? Tech summarization, please let me know.
+
+
+65
+00:10:11.093 --> 00:10:16.473
+PAUL: Any applications that you have used where text summarization is being used?
+
+
+66
+00:10:20.453 --> 00:10:24.143
+PAUL: Wikipedia text summarization.
+
+
+67
+00:10:24.693 --> 00:10:32.102
+PAUL: Hmm, all right, if you really think about, few things are available in Wikipedia in shorter format.
+
+
+68
+00:10:32.623 --> 00:10:36.693
+PAUL: Google Lens? No, Google Lens is not a correct one.
+
+
+69
+00:10:37.383 --> 00:10:42.663
+PAUL: Google Notebook. So, are you referring to Notebook, LM?
+
+
+70
+00:10:43.223 --> 00:10:45.833
+PAUL: Somebody is telling notebook LLM.
+
+
+71
+00:10:46.483 --> 00:11:00.212
+PAUL: Google Transâ€¦ no, no, Google Translator, whenever I'm telling, it isâ€¦ it comes under machine translation-based task, guys. Tech summarization is a different task. The simplest example I think everybody has used, in short.
+
+
+72
+00:11:04.443 --> 00:11:08.003
+PAUL: Similarly, there are other multiple news-based apps.
+
+
+73
+00:11:08.133 --> 00:11:16.283
+PAUL: Stock financial news, yes, exactly. For example, like money control, and there also you have a lot of shorter versions of that.
+
+
+74
+00:11:17.083 --> 00:11:36.913
+PAUL: So, always remember, we have two main type of text summarization, the extractive and the abstractive. Now, whichever that we will be using in our case, we will try to use an abstractive version in our example, because the model that we'll be working with, FLANTI5, so you can perform an extractive-based operation as well as
+
+
+75
+00:11:36.913 --> 00:11:41.903
+PAUL: But more robust operations are referred as, so this is much more robust.
+
+
+76
+00:11:43.023 --> 00:11:49.783
+PAUL: Because the idea is, whenever we have some type of input text, then we should always refreeze it.
+
+
+77
+00:11:50.473 --> 00:11:54.953
+PAUL: Because if you try to pick up the exact sentences.
+
+
+78
+00:11:55.303 --> 00:12:01.712
+PAUL: Sometime I can say that the size of the summarization can be a bit bigger.
+
+
+79
+00:12:02.093 --> 00:12:13.862
+PAUL: So, generally, the results with respect to abstracted, because these are the exact sentences from the input. So, to explain the context, probably you need more amount of characters.
+
+
+80
+00:12:13.863 --> 00:12:22.152
+PAUL: Whereas in the abstractive version, it can be done with lesser amount of characters. So that's why I prefer much more with respect to abstractive.
+
+
+81
+00:12:22.393 --> 00:12:26.542
+PAUL: And here also, simply the idea with respect
+
+
+82
+00:12:26.873 --> 00:12:31.833
+PAUL: what we call that. So, if you have the original info.
+
+
+83
+00:12:38.853 --> 00:12:39.743
+PAUL: Very good.
+
+
+84
+00:12:40.063 --> 00:12:44.793
+PAUL: If you are doing this, so probably the chances Of the results.
+
+
+85
+00:12:45.113 --> 00:13:02.153
+PAUL: Okay, it can be plagiarized, because if there are certain requirements in the output that it should not be a plagiarized version, then in that case, this really works much more better, whereas the extractive part will fail. Because in plagiarism, exactly word by word, which has been taken during the summarization.
+
+
+86
+00:13:02.223 --> 00:13:20.903
+PAUL: So, that's why not, most of the modern text summarization applications, they will be working on abstractive. Okay, and not on extractive. Extractive is the older one. We always started with extractive, then starting from 2018 and 19, we have moved towards abstractive text summarization.
+
+
+87
+00:13:24.633 --> 00:13:26.412
+PAUL: All right, fine.
+
+
+88
+00:13:26.593 --> 00:13:31.712
+PAUL: Now, let's, a little bit talk about the scores also.
+
+
+89
+00:13:32.833 --> 00:13:38.432
+PAUL: Now, evaluation metrics which are being used, because right now, as you'll be working with sequences.
+
+
+90
+00:13:38.543 --> 00:13:43.672
+PAUL: So, generally, for machine translation-based tasks, the most common
+
+
+91
+00:13:43.793 --> 00:13:51.552
+PAUL: Score which is widely being used is referred as the blue. Sorry, I have written blue, it's but is blue.
+
+
+92
+00:13:51.683 --> 00:13:53.183
+PAUL: Let me just remove.
+
+
+93
+00:13:53.363 --> 00:13:54.753
+PAUL: It's blue.
+
+
+94
+00:13:55.243 --> 00:14:03.752
+PAUL: Okay? And for your, text summarization-based task, the metric which is being used, it is referred as row.
+
+
+95
+00:14:07.053 --> 00:14:21.852
+PAUL: Alright, so these are the two different types of metrics. So we'll be talking with respect to the metrics also, and exactly in the metrics, how it works, because these are comparison-based metrics. We always need to compare with the input.
+
+
+96
+00:14:22.233 --> 00:14:28.602
+PAUL: So, right here, If I talk about the GT, okay, soâ€¦
+
+
+97
+00:14:29.003 --> 00:14:32.773
+PAUL: I hope everybody knows about, this is your actual
+
+
+98
+00:14:36.183 --> 00:14:39.822
+PAUL: G R O U N D, ground truth.
+
+
+99
+00:14:41.703 --> 00:14:47.753
+PAUL: Now, this particular term with respect to sequence-to-sequence-based tasks, we'll be using the term references.
+
+
+100
+00:14:50.253 --> 00:15:05.132
+PAUL: Okay, so the term will change, but the meaning is exactly the same. So ground truth means your original information. So whenever you are doing any type of translation, okay, so ground truth means the original human translated version.
+
+
+101
+00:15:19.293 --> 00:15:21.802
+PAUL: And the same thing for references also.
+
+
+102
+00:15:22.293 --> 00:15:23.283
+PAUL: Now.
+
+
+103
+00:15:23.423 --> 00:15:28.853
+PAUL: The output that we'll be getting Mmm.
+
+
+104
+00:15:34.613 --> 00:15:37.252
+PAUL: I always writeâ€¦ yes.
+
+
+105
+00:15:52.813 --> 00:15:55.313
+PAUL: This is the machine translated one.
+
+
+106
+00:15:59.213 --> 00:16:01.753
+PAUL: Now, the idea is, we have to
+
+
+107
+00:16:03.013 --> 00:16:07.193
+PAUL: Do the comparison word by word.
+
+
+108
+00:16:09.513 --> 00:16:11.133
+PAUL: Comparison.
+
+
+109
+00:16:12.023 --> 00:16:17.602
+PAUL: Word by word, or I can write, TYT, token by token.
+
+
+110
+00:16:26.653 --> 00:16:27.333
+PAUL: Yes.
+
+
+111
+00:16:27.703 --> 00:16:29.703
+PAUL: Human translated?
+
+
+112
+00:16:32.753 --> 00:16:35.633
+PAUL: With the machine translated.
+
+
+113
+00:16:45.303 --> 00:16:58.913
+PAUL: The idea is, if youâ€¦ if the overlap between the words, if the words are exactly the same. then the score will be higher, and theâ€¦ if the words are different, the score will be lower. So, word overlapping.
+
+
+114
+00:17:06.213 --> 00:17:11.993
+PAUL: If it is high, Then automatically, the blue score will also be high.
+
+
+115
+00:17:17.333 --> 00:17:23.492
+PAUL: Okay? And if the word overlapping will be less, automatically the blue score will also be less.
+
+
+116
+00:17:27.373 --> 00:17:28.193
+PAUL: Okay.
+
+
+117
+00:17:28.313 --> 00:17:41.323
+PAUL: Now, this is the high-level idea with respect to blue scores. Now, whenever I'm talking with respect to blue scores, in your mind, automatically it should come that we are talking with respect to machine translation.
+
+
+118
+00:17:48.993 --> 00:17:58.543
+PAUL: Now, a little bit, let's talk with respect to what is the full form of blue, and exactly how it works with respect to a simple comparison.
+
+
+119
+00:17:58.593 --> 00:18:10.322
+PAUL: So the first part, now it's referred the full form of BLEU stands for Bilingual Evaluation Under Study. Okay, so let's talk a little bit about that.
+
+
+120
+00:18:10.593 --> 00:18:12.213
+PAUL: They referred us.
+
+
+121
+00:18:12.333 --> 00:18:16.092
+PAUL: Bilingual, as we are working with two different languages.
+
+
+122
+00:18:21.763 --> 00:18:24.192
+PAUL: Then, the evaluation.
+
+
+123
+00:18:25.193 --> 00:18:30.283
+PAUL: Okay, and finally, and for you, it comes with respect to the understudy word.
+
+
+124
+00:18:32.333 --> 00:18:34.913
+PAUL: Now, this metric is not new.
+
+
+125
+00:18:35.083 --> 00:18:41.592
+PAUL: It has been used even in classical NLP. So classical NLP has been using blue scores for a very long time.
+
+
+126
+00:18:42.083 --> 00:18:53.683
+PAUL: Then the same thing has been adopted for your deep learning NLP also. As we are talking with respect to deep learning NLP, Transformers-based architectures, so simply the same code that we'll be using here.
+
+
+127
+00:18:53.843 --> 00:19:02.833
+PAUL: What should be the desired, a higher or a lower, the idea is that we are looking, so this is the desired one, the idea is this should be high.
+
+
+128
+00:19:04.973 --> 00:19:22.312
+PAUL: We are looking for always high glue scores. It means that the word overlapping between the, my humanâ€¦ original human translated with the machine translated, most of the words should match.
+
+
+129
+00:19:22.373 --> 00:19:31.943
+PAUL: Okay? So simply, in simple terms, if I say, so, word overlapping, but much more if Iâ€¦ like, how many words in the sequences
+
+
+130
+00:19:32.283 --> 00:19:44.173
+PAUL: are matching with respect to the machine translated version and the human translated version. Okay, so howâ€¦ manyâ€¦ wordsâ€¦
+
+
+131
+00:19:46.613 --> 00:19:48.113
+PAUL: matching
+
+
+132
+00:19:51.373 --> 00:19:57.103
+PAUL: in the Machine translated?
+
+
+133
+00:20:04.893 --> 00:20:12.302
+PAUL: comparedâ€¦ Withâ€¦ The human translated one.
+
+
+134
+00:20:19.063 --> 00:20:28.283
+PAUL: Okay, more words are matching means the blue score will be high, less it is matching, so simply I can say that the blue score will be low.
+
+
+135
+00:20:28.873 --> 00:20:32.193
+PAUL: Okay, so simply if I say blue.
+
+
+136
+00:20:32.393 --> 00:20:35.462
+PAUL: Checks matching word sequences.
+
+
+137
+00:20:35.783 --> 00:20:40.243
+PAUL: Okay, so word by word. So for example, let's take a simple sentence for now.
+
+
+138
+00:20:43.743 --> 00:20:48.982
+PAUL: Like, the cat is sitting on the mat. Let's start with our example.
+
+
+139
+00:21:01.313 --> 00:21:06.083
+PAUL: Alright? Now, this one that I am telling, this is the reference.
+
+
+140
+00:21:06.243 --> 00:21:08.942
+PAUL: When I say reference, what is the meaning of reference?
+
+
+141
+00:21:11.613 --> 00:21:15.083
+PAUL: Please tell me in the chat, what is the meaning of reference here?
+
+
+142
+00:21:18.413 --> 00:21:26.662
+PAUL: Partha is asking, what if the meaning is same, but the words do not match? If the words do not match, automatically the blue score will be on the lower end.
+
+
+143
+00:21:27.443 --> 00:21:28.793
+PAUL: Okay, Partha?
+
+
+144
+00:21:29.653 --> 00:21:36.803
+PAUL: So this is the GT. Now just think about our machine translated version is telling that cat.
+
+
+145
+00:21:36.913 --> 00:21:42.213
+PAUL: isâ€¦ onâ€¦ Like, the mat.
+
+
+146
+00:21:45.173 --> 00:22:02.892
+PAUL: Now, here, word-to-word-based comparison, because this is, like, if I say this is my sequence 1, and this is my sequence 2, as we are working with sequence-to-sequence model, I have the two sequences, and the idea is basically you have to match the word sequences. Now, whenever you are doing the checking.
+
+
+147
+00:22:02.893 --> 00:22:11.272
+PAUL: So now let's start with how we'll be doing the check. So for example, check, let's check word by word. So step one.
+
+
+148
+00:22:13.183 --> 00:22:15.273
+PAUL: is individual words.
+
+
+149
+00:22:21.173 --> 00:22:27.492
+PAUL: Okay, and generally, the term that we use here is 1 gram.
+
+
+150
+00:22:29.713 --> 00:22:32.393
+PAUL: I hope everybody remember n grams.
+
+
+151
+00:22:32.523 --> 00:22:47.602
+PAUL: So here one gram or an unigram that you can say. Now in word to word based match for these two sentences, like what are the words matching? So let's quickly. Okay, one, two, three.
+
+
+152
+00:22:47.713 --> 00:22:51.333
+PAUL: Then you have 4, 5, and 6.
+
+
+153
+00:22:52.573 --> 00:22:59.343
+PAUL: Alright, so 1 gram precision, because all 6 machine words are appearing in the references, I can say.
+
+
+154
+00:22:59.453 --> 00:23:05.663
+PAUL: In this particular example, 6 words are exactly the matching, so generally, like, thenâ€¦
+
+
+155
+00:23:19.923 --> 00:23:37.822
+PAUL: Finally, the number 6x6, which comes to 1. This is the 1 gram, precision. Now, generally, the idea is you can check for 1 word, you can check for 2 words also. Now, if you are checking and doing it for 2 words, let's talk about our next step 2.
+
+
+156
+00:23:39.523 --> 00:23:41.762
+PAUL: This time, I'll be taking 2 grams.
+
+
+157
+00:23:44.293 --> 00:23:48.992
+PAUL: So when I'm talking about 2 grams, it means that I have to check 2 2 words.
+
+
+158
+00:23:49.323 --> 00:23:58.233
+PAUL: So probably in our case, the cat, this will become one pair. Okay, so let's take the machine version.
+
+
+159
+00:23:58.953 --> 00:24:01.753
+PAUL: Okay, and let's take the human one.
+
+
+160
+00:24:02.793 --> 00:24:07.353
+PAUL: So the first pair, what will happen? So the cat.
+
+
+161
+00:24:07.763 --> 00:24:10.513
+PAUL: After cat, cat is.
+
+
+162
+00:24:13.273 --> 00:24:17.733
+PAUL: Then, after isâ€¦ Setting.
+
+
+163
+00:24:18.803 --> 00:24:26.242
+PAUL: I think, okay, the cat is on the mat, so after is on.
+
+
+164
+00:24:33.073 --> 00:24:37.302
+PAUL: Can you see how we have created the pairs with respect to the machine one?
+
+
+165
+00:24:37.413 --> 00:24:47.923
+PAUL: So here the cat cat is is on on the the mat. Okay. Now in the references similarly based on the input that we had, let's check the.
+
+
+166
+00:24:48.193 --> 00:24:49.103
+PAUL: Cat.
+
+
+167
+00:24:49.723 --> 00:24:52.743
+PAUL: And then the cat is.
+
+
+168
+00:24:53.023 --> 00:24:57.172
+PAUL: Then I think the setting, what is there is setting.
+
+
+169
+00:24:58.383 --> 00:25:02.793
+PAUL: Now, sittingâ€¦ On.
+
+
+170
+00:25:03.123 --> 00:25:05.463
+PAUL: Then on the.
+
+
+171
+00:25:05.773 --> 00:25:08.053
+PAUL: and the mat.
+
+
+172
+00:25:10.193 --> 00:25:26.962
+PAUL: Alright, now you are doing the comparison, so what are the things which have worked here? Can I say that this is and this is exactly the same? This is exactly the same? Then is on. Now, this part is missing, so simply now, let's look where it is. On theâ€¦
+
+
+173
+00:25:27.363 --> 00:25:31.853
+PAUL: This is matching on the four matches.
+
+
+174
+00:25:32.083 --> 00:25:35.063
+PAUL: Other than that, we don't have anything.
+
+
+175
+00:25:35.213 --> 00:25:42.933
+PAUL: Soâ€¦ This time in the references, the total number of 2 grams that you had, which is 5.
+
+
+176
+00:25:43.153 --> 00:25:50.953
+PAUL: Because here in total you have total 5 sequences or basically 5 pairs. So 4 pairs matched.
+
+
+177
+00:25:53.733 --> 00:26:03.753
+PAUL: So here, the 2 gram Precision will beâ€¦ 4 out of 5.
+
+
+178
+00:26:05.503 --> 00:26:10.513
+PAUL: Okay, and finally from there, like, 0.8 is the rough number that we'll be getting.
+
+
+179
+00:26:10.653 --> 00:26:19.252
+PAUL: All right, now the question comes, can I say that if I am increasing the number of grams, automatically the result will be lower, yes or no?
+
+
+180
+00:26:20.813 --> 00:26:24.873
+PAUL: Yes or no? Because if you try to compare three three words.
+
+
+181
+00:26:25.023 --> 00:26:29.692
+PAUL: Because the next step that we'll be doing after this is basically, like, with respect to step
+
+
+182
+00:26:29.803 --> 00:26:36.953
+PAUL: 3. Now, this time, we'll be taking 3 words. I hope everybody understands now 3-3 words. Like, the cat isâ€¦
+
+
+183
+00:26:39.463 --> 00:26:43.202
+PAUL: This time, the cat isâ€¦ and after that.
+
+
+184
+00:26:43.543 --> 00:26:47.203
+PAUL: It will start from cat is on.
+
+
+185
+00:26:52.243 --> 00:26:59.703
+PAUL: This is the machine translated version, then is on the And finally, on the mat.
+
+
+186
+00:27:04.463 --> 00:27:18.082
+PAUL: Alright, so this is the, machine translation one, M. Similarly, for the human translated one, the CAT isâ€¦ so there will be matches, so just to, show you this as we start increasing, so this isâ€¦
+
+
+187
+00:27:18.233 --> 00:27:20.952
+PAUL: 3 grams, right now, we are talking about.
+
+
+188
+00:27:21.893 --> 00:27:27.703
+PAUL: The cat isâ€¦ And then the cat.
+
+
+189
+00:27:28.693 --> 00:27:29.743
+PAUL: Is.
+
+
+190
+00:27:29.903 --> 00:27:31.113
+PAUL: Sitting.
+
+
+191
+00:27:33.113 --> 00:27:36.783
+PAUL: isâ€¦ sittingâ€¦ On?
+
+
+192
+00:27:40.503 --> 00:27:46.873
+PAUL: sitting on theâ€¦ On the mat.
+
+
+193
+00:27:47.333 --> 00:27:49.333
+PAUL: And the sequence has completed.
+
+
+194
+00:27:50.133 --> 00:27:57.962
+PAUL: Yes or no? Here 4 and here 5. Now, what are the things which is matching? Please quickly tell me what will be 3 gram precision this time.
+
+
+195
+00:28:00.353 --> 00:28:03.512
+PAUL: I think you guys are smart enough to do the calculation.
+
+
+196
+00:28:06.173 --> 00:28:09.443
+PAUL: It will be 0.5, exactly correct.
+
+
+197
+00:28:10.563 --> 00:28:26.142
+PAUL: No, don't take it 2 divided by 5. See, first of all, count the total number of pairs in the machine translated. I won't be telling pairs, because it's not 2, there are 3 grams. So, total 4. So, the idea is, what are the things which are matching? Theâ€¦
+
+
+198
+00:28:26.173 --> 00:28:33.273
+PAUL: Theâ€¦ okay, on the mat, on the mat. Other than that, nothing is matching. So, in total, here you have 4.
+
+
+199
+00:28:33.533 --> 00:28:39.473
+PAUL: And the matches are 4, so 2 divided by 4, and you get it as 0.5.
+
+
+200
+00:28:42.223 --> 00:28:53.472
+PAUL: Is this part clear? So here also the same thing, the total number. Here it was 5, so 4 matches, 4 divided by 5. So always remember, if you start increasing the number of grams.
+
+
+201
+00:28:53.733 --> 00:28:57.843
+PAUL: So, automatically, what will happen?
+
+
+202
+00:28:58.063 --> 00:29:05.162
+PAUL: You willâ€¦ you have to understand that more grams, if you are taking, automatically the blue score will be on the lower end.
+
+
+203
+00:29:05.163 --> 00:29:18.702
+PAUL: The 3 gram precision will be lower as compared to the 2 gram precision. It has to be, because you are trying to compare 3-3 words in parallel. So the chances of getting exact matches always gets lower.
+
+
+204
+00:29:23.463 --> 00:29:30.582
+PAUL: Now Partha is telling why is the percentage not taken based on the reference? Why is the percentage not taken?
+
+
+205
+00:29:31.983 --> 00:29:35.023
+PAUL: Why the percentage? Which percentage are you talking about?
+
+
+206
+00:29:36.313 --> 00:29:39.333
+PAUL: Now, Swamide, can you please explain once more how 4 matches?
+
+
+207
+00:29:41.093 --> 00:29:45.703
+PAUL: How 4 matches? Simply from here you can understand there are 4 matches.
+
+
+208
+00:29:47.663 --> 00:29:50.883
+PAUL: Please look into the machine version and the human version.
+
+
+209
+00:29:53.823 --> 00:29:56.863
+PAUL: I hope everybody understands there are 4 matches here.
+
+
+210
+00:29:57.893 --> 00:29:59.933
+PAUL: With respect to the 2 grams.
+
+
+211
+00:30:01.793 --> 00:30:05.422
+PAUL: Your word by word, the consecutive word matches which are coming.
+
+
+212
+00:30:11.943 --> 00:30:26.072
+PAUL: I hope Swamita got that part, how 4 is matching, because exactly these are the same ones. Arthashali, I mean, blue is equal to 4 matches. In the machine, with respect to 6 matches in human.
+
+
+213
+00:30:28.483 --> 00:30:31.523
+PAUL: 6 matches? Where are you getting 6 matches?
+
+
+214
+00:30:34.733 --> 00:30:47.252
+PAUL: There are no 6 matches, first of all, for your clarity. Don't take a wrong assumption. Only 4 matches are there, out of total 5. There are only 4 matches, how you are telling 6 matches are there?
+
+
+215
+00:30:48.063 --> 00:30:49.653
+PAUL: Please.
+
+
+216
+00:30:50.173 --> 00:30:58.703
+PAUL: Because word by word, everybody can understand, you are simply trying to match two words, four are only there, how you are claiming six matches are there?
+
+
+217
+00:31:00.733 --> 00:31:05.603
+PAUL: All right, fine. Now let's move to the next part.
+
+
+218
+00:31:05.973 --> 00:31:22.812
+PAUL: Now, remember the idea is, if you start increasing the grams precision, so generally, these are referred as. Now, what by what probability that you are doing? 2 gram as a group, exactly correct, always. In 2 gram, I have taken 2 word as a group, 3 gram means 3 word as a group.
+
+
+219
+00:31:22.913 --> 00:31:28.633
+PAUL: And three consecutive words. That is also important. Always use the term consecutive.
+
+
+220
+00:31:30.153 --> 00:31:43.582
+PAUL: Now, here I have done, so let's take, so let's start with P1, then you have P2, then you have P3. As I'm talking with respect to multiple gram precisions, so oneâ€¦
+
+
+221
+00:31:43.693 --> 00:31:46.113
+PAUL: Gram Precision.
+
+
+222
+00:31:52.433 --> 00:31:54.943
+PAUL: Then you have 2 gram precision.
+
+
+223
+00:32:07.923 --> 00:32:17.932
+PAUL: Alright, so P1, P2, P3, and then, similarly, like, if you want to add more, the representation can be based on 4 gram also.
+
+
+224
+00:32:22.113 --> 00:32:31.752
+PAUL: Now, can anybody do the calculation for 4 gram and tell me, what is the, 4 gram precision? Please do it from your end and then tell me.
+
+
+225
+00:32:34.793 --> 00:32:50.762
+PAUL: Please do it from your end, and then tell me. Take the same input which I have taken here, the cat is sitting on the mat, this is the reference, and this is the machine translated, and then tell me how many exact matches you are getting. This time, please take 4 gram position.
+
+
+226
+00:33:05.803 --> 00:33:12.683
+PAUL: Yes, Ziraj, the idea is that, see, evenâ€¦ please do the calculation for 4 gram position, it will be clearer.
+
+
+227
+00:33:13.493 --> 00:33:28.602
+PAUL: Most of the times, because exact word-to-word match is pretty much hard. Now, think about if everything overlaps, automatically the blue score will be high, but the chances are very, very low. So, generally, even if you look into the blue scores.
+
+
+228
+00:33:28.693 --> 00:33:42.533
+PAUL: That you do have in the original papers. You will see the scores are around 30, 40. Okay, so really getting a 90% blue score even today, it's really, really tough.
+
+
+229
+00:33:42.953 --> 00:34:01.003
+PAUL: 95%, so generally the blue scores, the official benchmarks, if you look into the actual data sets, you will see that 50%, 60%, 70%. But the idea is that little bit, because this particular score actually doesn't understand the context. How many of you can understand this?
+
+
+230
+00:34:01.743 --> 00:34:06.243
+PAUL: Whenever I'm talking with respect to this particular score, there is
+
+
+231
+00:34:06.383 --> 00:34:14.163
+PAUL: no context it is trying to capture, it's just looking word by word. Even if you change the word, if you are using some type of synonyms.
+
+
+232
+00:34:14.353 --> 00:34:23.593
+PAUL: similar type of words. Then also, I can say that semantically, the meaning is same, but blue will never capture that. Yes or no?
+
+
+233
+00:34:25.633 --> 00:34:42.032
+PAUL: I hope you get that part. So this score is actuallyâ€¦ because you might have the same context, okay, but with a different word. But it will never capture that, so automatically it comes penalized. Alright, so everybody is telling that it's 000.
+
+
+234
+00:34:42.113 --> 00:34:48.503
+PAUL: So, guys, if it's zero, please tell me, because I've not done the calculation, so simply I'm asking you that part.
+
+
+235
+00:34:51.643 --> 00:35:02.282
+PAUL: It's 0. So that's why I'm telling, automatically, if 3 grams are there, then finally 4 grams that you have done. Always remember the precision score will keep on dropping.
+
+
+236
+00:35:04.263 --> 00:35:05.173
+PAUL: Okay.
+
+
+237
+00:35:05.463 --> 00:35:12.862
+PAUL: It will always keep on dropping if you try to always compare more and more words. Similarly, if you try to take, like, 5 grams also.
+
+
+238
+00:35:12.923 --> 00:35:30.652
+PAUL: In that case, also, simply. So, in our case, let's take the one that we have taken. It is also 0. So, now let's try to look into this one. So, P1, P2, P3, P4, as we are trying to build that particular formula for blue.
+
+
+239
+00:35:34.753 --> 00:35:38.313
+PAUL: Every time I write you first, New Year.
+
+
+240
+00:35:39.133 --> 00:35:39.943
+PAUL: Yes.
+
+
+241
+00:35:40.083 --> 00:35:43.282
+PAUL: The first part that comes here, there is aâ€¦
+
+
+242
+00:35:44.413 --> 00:35:50.983
+PAUL: Parameter referred as BP. Okay, so BP stands for brevity penalty.
+
+
+243
+00:36:04.373 --> 00:36:10.512
+PAUL: Now, the question comesâ€¦ now, this is an added penalty from our end.
+
+
+244
+00:36:13.413 --> 00:36:26.502
+PAUL: Now, the question comes, like, why we are adding this penalty? So, generally, what happens whenever we are applying, or we are trying to compare two words? So, in our case, let's take the cat.
+
+
+245
+00:36:26.503 --> 00:36:36.792
+PAUL: and the cat. Okay, so we have the starting two sequences, yes. The cat and the cat. So, two words are there. Now, these words are perfectly correct.
+
+
+246
+00:36:36.883 --> 00:36:40.232
+PAUL: But that translation is incomplete, yes or no?
+
+
+247
+00:36:40.863 --> 00:36:47.573
+PAUL: Because till now, the full translation, if you just try to look into these two words, when it is doing the actual translation.
+
+
+248
+00:36:48.573 --> 00:36:58.833
+PAUL: It means that right now it is doing the generation for machine translation. And when you try to compare the cat with respect to the cat.
+
+
+249
+00:36:59.083 --> 00:37:11.433
+PAUL: So I can say that yes, the two words are perfectly correct, but the translation is incomplete because till now we have not really looked into what are the other sequences or what are the other words in the sequences.
+
+
+250
+00:37:12.123 --> 00:37:12.983
+PAUL: Okay.
+
+
+251
+00:37:13.093 --> 00:37:19.363
+PAUL: So what happens without a penalty, the blue score could give unfairly high scores.
+
+
+252
+00:37:20.163 --> 00:37:39.663
+PAUL: Okay, the idea is that because of that, if it is taking a match without the translation getting completed, because what we try to do, we try to always compare word-to-word generation. We already have the GT, and when the word starts getting generated instantly, we try to do the comparison.
+
+
+253
+00:37:39.803 --> 00:37:46.752
+PAUL: So, little bit of penalty that we try to add it from our end. It's a small value that we try to bring it.
+
+
+254
+00:37:49.033 --> 00:37:52.832
+PAUL: Now, as a practice, how many grams precision is usually checked?
+
+
+255
+00:37:52.973 --> 00:38:09.933
+PAUL: It is checked with 1, it is checked with 2, it is checked with 3, it is checked with 4. Okay, so as we are trying to build that, the first component, that is the brevity penalty, now this is a constant value that we'll be adding. And generally, the idea is lesser than 1, the value should be.
+
+
+256
+00:38:10.623 --> 00:38:21.392
+PAUL: The idea is it should penalize, because most of the times, if the words are matching, the score will be higher. The idea is, why not little bit penalization if you try to perform?
+
+
+257
+00:38:21.943 --> 00:38:28.293
+PAUL: Now, then we'll be trying to bring all the P's that we have taken. So, in our case, let's take P1.
+
+
+258
+00:38:30.743 --> 00:38:32.792
+PAUL: Then let's take P2.
+
+
+259
+00:38:32.933 --> 00:38:42.343
+PAUL: Now, this acts like a geometric mean also, I can say. So, all the probabilities that I have taken with respect to 1 by 4.
+
+
+260
+00:38:43.313 --> 00:38:58.762
+PAUL: Now, this is exactly the main formula, but, really, right now, exactly, you have to calculate always minimum 4. Now, it is not necessary, guys. If you calculate P5 also, let's take the example with respect to P5.
+
+
+261
+00:38:59.053 --> 00:39:08.282
+PAUL: You can change the formula always, so then it becomes 1 divided by 5. Similarly, if you take P6, P7, P8, in that way, you can always change the formula.
+
+
+262
+00:39:08.573 --> 00:39:14.692
+PAUL: Okay? The idea is that it is actually using a geometric mean in simple terms.
+
+
+263
+00:39:15.513 --> 00:39:20.563
+PAUL: Okay, it is not using a normal average, the idea is it's using a geometric mean.
+
+
+264
+00:39:21.343 --> 00:39:25.923
+PAUL: Always remember this is a representation with respect to geometric mean.
+
+
+265
+00:39:26.763 --> 00:39:31.723
+PAUL: Rather than a normal average operation or a normal mean-based operation.
+
+
+266
+00:39:32.813 --> 00:39:36.422
+PAUL: Okay, and this is a small value which is being used.
+
+
+267
+00:39:41.663 --> 00:39:55.253
+PAUL: This visa calculation is something that is calculated for vector indexing, not vectors. See, once you have done vectors, Lalit, it means that vectors means numbers. Numbers to numbers comparison, you won't be doing that.
+
+
+268
+00:39:55.473 --> 00:39:58.513
+PAUL: Okay, it has to be word-to-word comparison, again.
+
+
+269
+00:40:01.313 --> 00:40:10.812
+PAUL: Nalit for your clarity. So why the brevity penalty? Without the brevity penalty, if the words are exactly getting matched, the score will be really, really high.
+
+
+270
+00:40:10.963 --> 00:40:15.702
+PAUL: Sometimes it can be unfairly high score also, so we always add the penalty.
+
+
+271
+00:40:15.973 --> 00:40:17.882
+PAUL: Okay, that is the main purpose.
+
+
+272
+00:40:18.163 --> 00:40:25.673
+PAUL: So this is the penalization factor we do use it. The idea is not getting unfairly high scores.
+
+
+273
+00:40:32.623 --> 00:40:33.463
+PAUL: Okay.
+
+
+274
+00:40:33.653 --> 00:40:35.923
+PAUL: To avoid this particular problem.
+
+
+275
+00:40:37.163 --> 00:40:47.833
+PAUL: Tamil is telling. So I know for understanding, having taken in English, but in Rian's translation, English to Hindi, the sequence of words in Hindi will differ.
+
+
+276
+00:40:48.293 --> 00:40:49.773
+PAUL: But.
+
+
+277
+00:40:52.293 --> 00:40:53.493
+PAUL: a writing app.
+
+
+278
+00:41:04.493 --> 00:41:20.643
+PAUL: All right, now, in your particular example, whatever that you have told, so when you are taking, okay, Amul's question is good, but in real translation, say English to Hindi that you are doing. The sequence of words in Hindi will be different.
+
+
+279
+00:41:20.953 --> 00:41:22.403
+PAUL: Okay, but.
+
+
+280
+00:41:22.633 --> 00:41:24.903
+PAUL: If you are doing English to Hindi.
+
+
+281
+00:41:30.733 --> 00:41:34.893
+PAUL: Now, this is your output language. Now, from Hindi.
+
+
+282
+00:41:36.213 --> 00:41:39.923
+PAUL: You will be having the original references.
+
+
+283
+00:41:41.163 --> 00:41:47.662
+PAUL: And you need to compare from Hindi with the machine translated one.
+
+
+284
+00:41:47.883 --> 00:41:51.922
+PAUL: So this part I cannot really understand why you are telling that it is different.
+
+
+285
+00:41:53.673 --> 00:41:57.533
+PAUL: Now, in that case, you need to compare both the languages as simple as that.
+
+
+286
+00:41:59.573 --> 00:42:02.503
+PAUL: So, simply, word by word, there also you'll be checking.
+
+
+287
+00:42:02.623 --> 00:42:05.823
+PAUL: For the Hindi language. I hope this part is clear, Amol.
+
+
+288
+00:42:08.863 --> 00:42:09.973
+PAUL: Okay.
+
+
+289
+00:42:10.143 --> 00:42:16.832
+PAUL: All right. Now, Dhiraj is asking, is BP similar to L2? Yes, the idea isâ€¦
+
+
+290
+00:42:17.053 --> 00:42:22.023
+PAUL: Here, we don't do regularization, but that is basically the penalty factor which is being used.
+
+
+291
+00:42:22.613 --> 00:42:27.162
+PAUL: Now, Gumika is telling if there is a spell check.
+
+
+292
+00:42:27.913 --> 00:42:40.902
+PAUL: etc, error in the original, but fixed in the machine translation. Okay, then also, it will be impacting your precision. The idea is exact word-to-word check, even if you change the form of the word.
+
+
+293
+00:42:40.903 --> 00:42:48.993
+PAUL: Probably a past tense that you have added or a present perfect you have added. Then also the impact to the precision because this is word by word check.
+
+
+294
+00:42:49.013 --> 00:42:51.172
+PAUL: Really doesn't look for context.
+
+
+295
+00:42:53.533 --> 00:42:58.193
+PAUL: Okay, Bhumika, now coming to Swamidas.
+
+
+296
+00:42:58.573 --> 00:43:13.753
+PAUL: Other than avoiding a highly fair scores in other way represent lesser similarity, anything else? No, no. The idea is to avoid. That is the main. Lesser similarity. See, if you are telling lesser similarity, Swamitha, it means what? There is no match.
+
+
+297
+00:43:13.873 --> 00:43:24.602
+PAUL: Then in that case, there is no purpose of the penalty. The idea is that not getting a high score just because of the problem of exact matches.
+
+
+298
+00:43:25.303 --> 00:43:40.672
+PAUL: Okay, so that's why, because of the brevity penalty, you will see that the blue scores value is always on the lower end. If you check that, attention is all you need paper. There, also, the blue scores on top of the WMT dataset is close to, like, 30-40.
+
+
+299
+00:43:40.693 --> 00:43:46.302
+PAUL: Okay, sometimes even 28, if you remember. How many of you remember the values, or should I show you?
+
+
+300
+00:43:46.383 --> 00:43:49.433
+PAUL: In the research paper, what were the actual scores?
+
+
+301
+00:43:52.103 --> 00:43:54.862
+PAUL: Please let me know. Do I need to show you?
+
+
+302
+00:43:56.723 --> 00:43:59.742
+PAUL: Now, always remember that
+
+
+303
+00:43:59.973 --> 00:44:11.233
+PAUL: Higher scores are better, but generally, when I'm talking about in the blue scores that you get, so rough estimated blue score in interpretation, let's take it.
+
+
+304
+00:44:11.643 --> 00:44:13.823
+PAUL: You blue school.
+
+
+305
+00:44:13.953 --> 00:44:24.443
+PAUL: Now, if youâ€¦ if your blue score is between 0, okay, like, 0 toâ€¦ between 0 to 10, this is a very poor task that you have done.
+
+
+306
+00:44:25.183 --> 00:44:31.502
+PAUL: Always remember, 0 to 10, really, really poor. Then you have that, 20 to 30.
+
+
+307
+00:44:32.233 --> 00:44:37.333
+PAUL: This is okay, okay. So, like, we call it generally reasonable categories.
+
+
+308
+00:44:37.453 --> 00:44:39.493
+PAUL: Means just.
+
+
+309
+00:44:39.813 --> 00:44:44.353
+PAUL: Okay stuff, acceptable, but not really good, somehow.
+
+
+310
+00:44:44.463 --> 00:44:46.073
+PAUL: 30 to 40?
+
+
+311
+00:44:46.843 --> 00:44:50.003
+PAUL: Now, this is somewhere acceptable.
+
+
+312
+00:44:51.833 --> 00:44:54.512
+PAUL: It means I can say that good.
+
+
+313
+00:44:56.903 --> 00:45:03.282
+PAUL: And then finally you have 30 to 40. This is like very, very good. Okay. Very good. I can see.
+
+
+314
+00:45:05.713 --> 00:45:10.992
+PAUL: And if you have something more than 50 plus, this is excellent stuff.
+
+
+315
+00:45:11.263 --> 00:45:13.483
+PAUL: Right? Excellent.
+
+
+316
+00:45:13.653 --> 00:45:24.983
+PAUL: So generally, we don't take high scores, like 70, 80, 90. On top of a big data set, when you try to compare each sample by sample automatically, the chances will be on the lower end.
+
+
+317
+00:45:27.703 --> 00:45:37.753
+PAUL: Now, in the original paper, please show, alright, most of you are telling, please show. I will just stop sharing, and let's go into the attention is all you need paper ones.
+
+
+318
+00:45:39.863 --> 00:45:42.782
+PAUL: Screens, and then desktop.
+
+
+319
+00:45:44.733 --> 00:45:45.433
+PAUL: 3.
+
+
+320
+00:45:57.503 --> 00:46:03.043
+PAUL: 30 something, like, it was to be good.
+
+
+321
+00:46:03.163 --> 00:46:09.273
+PAUL: Back in 2017, 30 was really good, but right now it has increased, like, 50 plus.
+
+
+322
+00:46:09.553 --> 00:46:20.743
+PAUL: Alright, so in the paper abstract, if you really look, here, our model achieves 28.4 blue on WMT2014 English to German.
+
+
+323
+00:46:21.843 --> 00:46:32.293
+PAUL: Alright, this is for English to German that they have achieved, and this is values 28.4. Now, they are talking about blue score 41.8.
+
+
+324
+00:46:33.453 --> 00:46:49.553
+PAUL: Okay, now the other blue score that they have achieved, now you can see that, really, the values are not, like, if you try to compare with a classification-based task where you get, like, 90, 95, okay, those values are really high, but you cannot compare what to buy, what comparison.
+
+
+325
+00:46:50.053 --> 00:46:57.093
+PAUL: So that's why this is, now going back to the, table. There is one dedicated table where you have the scores.
+
+
+326
+00:46:58.153 --> 00:47:16.683
+PAUL: Okay, and from there also, if you try to look into other architectures, like ByteNet, with deep attention, with positional unknown, GNMTRL, convolution, S2S, MOEs, deep attention, position unknown, so multiple models which are actually doing the same task for machine translation.
+
+
+327
+00:47:16.753 --> 00:47:32.023
+PAUL: But then also you will see that the values which you are getting for English to German, 23.75, there is improvement with Transformers, 28.4, for sure, but you can think that, again, these values are not so much high. So that's why I told you.
+
+
+328
+00:47:32.023 --> 00:47:38.042
+PAUL: That whenever you are working with respect to a blue score, anything above 50 is really, really good that we call it.
+
+
+329
+00:47:38.153 --> 00:47:44.653
+PAUL: No, 40 to 30, good stuff. Again, above 30, I say that you come in the good category.
+
+
+330
+00:47:45.063 --> 00:47:50.072
+PAUL: But something less than 10, totally not acceptable, very poor performance.
+
+
+331
+00:47:53.503 --> 00:47:54.743
+PAUL: All right.
+
+
+332
+00:48:00.703 --> 00:48:05.422
+PAUL: By default, it is 1234. Okay, Amit, but you can change it toâ€¦
+
+
+333
+00:48:05.553 --> 00:48:09.643
+PAUL: 4, 5, 6, based on your requirement, you can add more of that.
+
+
+334
+00:48:16.113 --> 00:48:26.613
+PAUL: No, actually, that won't be the case. That is a total separate scenario. Plagiarism is a totally different work, it is not related directly to Blue School.
+
+
+335
+00:48:27.533 --> 00:48:30.952
+PAUL: Blue score is only relatable with machine translation.
+
+
+336
+00:48:32.873 --> 00:48:46.572
+PAUL: Alright, now, this part that we have done. Now, a very similar strategy that we do use, our next metric we will start, which is based on our practical, which is required right now.
+
+
+337
+00:48:47.783 --> 00:49:01.753
+PAUL: Now, as we are working with translationâ€¦ sorry, summarization-based tasks, so we'll be changing the score. As I told you, for machine translation task, you have your, blue.
+
+
+338
+00:49:01.753 --> 00:49:16.972
+PAUL: And for tech summarization, you have your rogue. Now let's little bit talk about rogue. So similarly, like rogue has also multiple variants, I can say rogue one, rogue two, rogue end, rogue L. Okay, so many different variants, but we'll be talking about the core one.
+
+
+339
+00:49:17.773 --> 00:49:30.822
+PAUL: These metrics are not defined properly, because you have to understand that in actual word, if you change, or if you use synonyms, this type of Metrics really don't work.
+
+
+340
+00:49:31.113 --> 00:49:43.002
+PAUL: In modern AI systems, they actually do a lot of rephrasing. Whenever you are working with autoregressive models, in that case, that generation text can also be longer.
+
+
+341
+00:49:43.193 --> 00:49:48.223
+PAUL: So really these metrics, so these are older metrics which have been used for a very, very long time.
+
+
+342
+00:49:49.553 --> 00:49:53.033
+PAUL: Perfect. Now, Hannu, I was not sharing any screen.
+
+
+343
+00:49:53.293 --> 00:49:55.103
+PAUL: My problem.
+
+
+344
+00:49:59.633 --> 00:50:05.822
+PAUL: Now the next part we will let's talk a little bit with respect to Rome.
+
+
+345
+00:50:16.983 --> 00:50:27.392
+PAUL: And remember, these two metrics are very specific for task-based. If you're changing the task, guys, then actually it doesn't make sense.
+
+
+346
+00:50:28.513 --> 00:50:34.382
+PAUL: Okay, so for example, if you are changing the task, like you cannot use Rome for machine translation.
+
+
+347
+00:50:35.423 --> 00:50:36.433
+PAUL: Okay.
+
+
+348
+00:50:36.753 --> 00:50:40.373
+PAUL: So now here R stands for recall.
+
+
+349
+00:50:40.843 --> 00:50:43.033
+PAUL: O stands for oriented.
+
+
+350
+00:50:44.833 --> 00:50:49.802
+PAUL: Okay, then your G's that you have again under study.
+
+
+351
+00:50:52.893 --> 00:50:58.513
+PAUL: forâ€¦ Guys, ting evaluation.
+
+
+352
+00:50:59.913 --> 00:51:08.113
+PAUL: All these metrics has come from classical NLP, and later on, they have been, adopted in deep learning NLP.
+
+
+353
+00:51:08.513 --> 00:51:15.102
+PAUL: Okay, the idea is using this, the same thing you try to do, okay? The idea is evaluation.
+
+
+354
+00:51:18.653 --> 00:51:27.593
+PAUL: And you will be evaluating what? The same thing that you have done? The machine-generated summary with the Human.
+
+
+355
+00:51:27.733 --> 00:51:33.583
+PAUL: Written summary, okay, so here also you will be evaluating the machine.
+
+
+356
+00:51:34.603 --> 00:51:36.103
+PAUL: generatedâ€¦
+
+
+357
+00:51:39.283 --> 00:51:40.463
+PAUL: Summary.
+
+
+358
+00:51:43.243 --> 00:51:44.693
+PAUL: With the.
+
+
+359
+00:51:45.843 --> 00:51:47.163
+PAUL: Human.
+
+
+360
+00:51:48.983 --> 00:51:54.563
+PAUL: Or basically the same thing with respect to the references, human retention.
+
+
+361
+00:51:58.783 --> 00:52:12.912
+PAUL: A very similar approach that you do also, yeah. So, word-by-word comparison. Now, in this particular X, really, taking a big score, if I really say with respect to big scores.
+
+
+362
+00:52:12.913 --> 00:52:20.283
+PAUL: In our case, let's stick with a small example. The idea is C. Here also word by word matching that happens.
+
+
+363
+00:52:20.463 --> 00:52:25.003
+PAUL: So rogue one, if I say, okay, now that is word by word match.
+
+
+364
+00:52:25.223 --> 00:52:38.463
+PAUL: Okay, and which word is not matching based on that? Now, let's little bit talk about the same example that we'll be doing. Dhiraj is asking, can you also tell a little bit aboutâ€¦
+
+
+365
+00:52:38.593 --> 00:52:42.833
+PAUL: Chain of thoughts, looking a little few minutes about turning on both.
+
+
+366
+00:52:43.323 --> 00:52:47.293
+PAUL: That is a differentâ€¦ right now, it's not related to theâ€¦ our discussion.
+
+
+367
+00:52:47.973 --> 00:53:05.232
+PAUL: COT or step-back prompting, that is not part of that. It is different. First of all, let's focus here. I will be taking the same example, the cat is sitting on the mat. Let's take it as a reference one, okay? And let's take the generated is, the cat is on the mat.
+
+
+368
+00:53:09.633 --> 00:53:10.583
+PAUL: B.
+
+
+369
+00:53:14.253 --> 00:53:18.882
+PAUL: only, soâ€¦ One is version, and then you have the machine one.
+
+
+370
+00:53:20.093 --> 00:53:30.963
+PAUL: This time, rather on the precision, as the name is the recall, the idea is to focus on recall much more. Okay, so in the original formula, recall will come. The cat is sittingâ€¦
+
+
+371
+00:53:36.793 --> 00:53:44.092
+PAUL: Okay, so this was the main reference that we had, and here, the machine one, let's take a shorter version.
+
+
+372
+00:53:48.613 --> 00:53:49.633
+PAUL: Okay.
+
+
+373
+00:53:50.003 --> 00:53:57.413
+PAUL: Now, practically meaning pretty much the same, so for sure I can say that this is a shorter version. So let's start with step one.
+
+
+374
+00:54:01.963 --> 00:54:06.022
+PAUL: Just like last time, here we have individual words.
+
+
+375
+00:54:06.183 --> 00:54:21.763
+PAUL: This is Rope 1. Here we talk or try to compare individual words or engrams if you really try to think. Okay, so individual word to word base comparison. Now if you try to look into what are the common words here.
+
+
+376
+00:54:25.223 --> 00:54:31.793
+PAUL: So, first of all, whenever you are doing the calculation, first of all, total number of words in the references.
+
+
+377
+00:54:32.003 --> 00:54:39.892
+PAUL: So here, 1, 2, 3, 4, 5, 6, 7. Automatically, 7 will come in the denominator. Total number ofâ€¦
+
+
+378
+00:54:40.483 --> 00:54:52.943
+PAUL: frequency words, I can say. Frequency, not. Reference words. And here's the total number of matches which is coming. So, sitting is gone, other than sitting. I can say 6 matches are there.
+
+
+379
+00:54:53.283 --> 00:54:58.953
+PAUL: 6 divided by 7, which is close to 0.857.
+
+
+380
+00:55:00.243 --> 00:55:08.193
+PAUL: rough estimated numbers here. So, total 6 matches are there, that's why I've written 6, and the total number of words in the references was 7.
+
+
+381
+00:55:10.163 --> 00:55:20.732
+PAUL: So, from here, what you can say? Can I say that 85%, 85% of the words were captured from the references or no?
+
+
+382
+00:55:23.503 --> 00:55:26.572
+PAUL: That is the actual interpretation of this.
+
+
+383
+00:55:27.853 --> 00:55:29.952
+PAUL: Please let me know, guys, in the chat.
+
+
+384
+00:55:30.493 --> 00:55:35.883
+PAUL: Can I say that? That 85% of the words from the references are being captured?
+
+
+385
+00:55:36.223 --> 00:55:37.563
+PAUL: Yes or no?
+
+
+386
+00:55:39.163 --> 00:55:45.573
+PAUL: Now, similarly, if you try to take now, the next part, let's start with two-word sequences this time.
+
+
+387
+00:56:06.443 --> 00:56:10.483
+PAUL: Now tell me what will be the value with respect to the matches that you have.
+
+
+388
+00:56:14.293 --> 00:56:17.913
+PAUL: Total number of matches dhaval is telling four. All right, four.
+
+
+389
+00:56:18.043 --> 00:56:24.283
+PAUL: Okay, and the total number there in the denominator for, the peers.
+
+
+390
+00:56:24.513 --> 00:56:27.123
+PAUL: How many pairs are there in total in reference?
+
+
+391
+00:56:28.503 --> 00:56:35.382
+PAUL: 1, 2â€¦ Okay, 1, then 2, then 3, then 4, then 5, then 6.
+
+
+392
+00:56:35.543 --> 00:56:37.352
+PAUL: 4 divided by 6.
+
+
+393
+00:56:37.513 --> 00:56:39.473
+PAUL: That number that you'll be getting?
+
+
+394
+00:56:39.733 --> 00:56:44.583
+PAUL: 66â€¦ 0.7%.
+
+
+395
+00:56:44.793 --> 00:56:50.453
+PAUL: Okay. Right now, I'm converting it into percent, but exactly that.
+
+
+396
+00:56:50.943 --> 00:56:54.893
+PAUL: idea you mightâ€¦ Thank you.
+
+
+397
+00:56:55.603 --> 00:56:57.323
+PAUL: theâ€¦
+
+
+398
+00:57:01.123 --> 00:57:06.042
+PAUL: The IDS is 0667, what I'm taking, the percentage.
+
+
+399
+00:57:06.353 --> 00:57:14.202
+PAUL: So here, what is the amount of matches that you are getting from the references words? Now, this value is getting down, yes or no?
+
+
+400
+00:57:14.433 --> 00:57:24.143
+PAUL: Now, see, guys, so generally when we are calling this particular term, we call it row One recall.
+
+
+401
+00:57:25.673 --> 00:57:29.172
+PAUL: Now, again, this term that we call it is rogue.
+
+
+402
+00:57:29.723 --> 00:57:31.933
+PAUL: to recall.
+
+
+403
+00:57:33.863 --> 00:57:51.902
+PAUL: Alright, so the term gets changed. Last time, we have been using the term, precision. So, always remember, blue is much more precision-focused, whereas, recall isâ€¦ sorry, rogue is much more recall-focused. Okay, so I'm just writing it so that you guys remember.
+
+
+404
+00:57:52.413 --> 00:57:53.903
+PAUL: Blue scores.
+
+
+405
+00:57:54.163 --> 00:57:57.012
+PAUL: This is much more focused towards your?
+
+
+406
+00:57:57.613 --> 00:57:58.803
+PAUL: Precision.
+
+
+407
+00:58:02.073 --> 00:58:06.302
+PAUL: And your, rope focuses on recall much more.
+
+
+408
+00:58:13.843 --> 00:58:21.373
+PAUL: So that's why. Because there you exactly take like how many matches the references in blue in rogue.
+
+
+409
+00:58:21.613 --> 00:58:27.512
+PAUL: It's not with respect to theâ€¦ Exact matches rather than.
+
+
+410
+00:58:27.763 --> 00:58:39.903
+PAUL: of what many references which it contains, how did the AI capture it? So the actual comparison, we try to do it with the references one.
+
+
+411
+00:58:40.043 --> 00:58:50.602
+PAUL: Okay? And there also we try to take, but there we try to compare both output with the references. But the rogue is directly dependent on the references part.
+
+
+412
+00:58:51.153 --> 00:58:56.043
+PAUL: Okay, and not on the output version. So, exactly, we try to look
+
+
+413
+00:58:56.293 --> 00:59:03.213
+PAUL: The words which are available in the references and then we try to make the compare. That's why we are calling that.
+
+
+414
+00:59:05.333 --> 00:59:12.912
+PAUL: Now Arunachalam Shri, can you explain rope to recall how it is 4 divided by 6 instead 4 divided by 7?
+
+
+415
+00:59:14.333 --> 00:59:18.032
+PAUL: Rope 2, recall how it is 4 divided by 6.
+
+
+416
+00:59:19.993 --> 00:59:35.132
+PAUL: How there because the total number of peers are six, because of that you are getting that, and there are four matches. Guys, please do confirm because only dhaval has told me based on that I have written the values, but others also please do it and then tell me, otherwise I have to do it.
+
+
+417
+00:59:39.183 --> 00:59:48.363
+PAUL: Please do the calculation by yourself. I think everybody, this is correct. Others confirming Raja Gopal has provided it's correct. What about others?
+
+
+418
+00:59:50.023 --> 00:59:56.223
+PAUL: Muna also confirmed it's 4x6 only. Arunachalam, please look into your calculations.
+
+
+419
+01:00:08.333 --> 01:00:21.612
+PAUL: Manas has also told, okay, so please do have a check. Now, as the question comes, like, similarly, you can have Rogue 1, similarly Rogue 2, okay? Now, there is something called as Rogue L.
+
+
+420
+01:00:22.053 --> 01:00:26.702
+PAUL: Okay, now this is the L stands for longest common subsequences.
+
+
+421
+01:00:27.233 --> 01:00:34.813
+PAUL: So longest common subsequences, very specifically when I say about that one.
+
+
+422
+01:00:35.383 --> 01:00:42.223
+PAUL: Now there can be multiple words. Okay, so let's take the example of that.
+
+
+423
+01:00:42.383 --> 01:00:45.182
+PAUL: This is Rogan, which is also widely used.
+
+
+424
+01:00:45.653 --> 01:00:47.892
+PAUL: Rogue L noun.
+
+
+425
+01:00:49.593 --> 01:00:53.872
+PAUL: There is no concept of blue L, very specifically with rogue L.
+
+
+426
+01:00:54.593 --> 01:01:01.503
+PAUL: Has that. And here is longestâ€¦ Kumarman.
+
+
+427
+01:01:03.633 --> 01:01:05.303
+PAUL: subsequences.
+
+
+428
+01:01:09.593 --> 01:01:22.512
+PAUL: L stands for that, longest common subsequences. The idea is, how many words we can find in both the sentences, while keeping their original order. It means that you have to follow the order also.
+
+
+429
+01:01:22.943 --> 01:01:28.502
+PAUL: So, in our case, for example, we have taken the reference and the CAD, okay? Soâ€¦
+
+
+430
+01:01:29.013 --> 01:01:34.722
+PAUL: The same example we are taking, the cat is sitting on the mat and the cat is on the mat.
+
+
+431
+01:01:41.023 --> 01:01:56.963
+PAUL: Now, if you try to compare word by word, now if I say now find the longest common subsequences. Now the question comes this one LCM, because every time I won't be using such a big term. So now if I ask you find LCM.
+
+
+432
+01:02:01.563 --> 01:02:07.752
+PAUL: And the example is exactly the same, the cat is sitting on the mat and the cat is on the mat, in that case.
+
+
+433
+01:02:07.973 --> 01:02:11.892
+PAUL: Can anybody tell me what is the longest one that we can get?
+
+
+434
+01:02:14.643 --> 01:02:20.193
+PAUL: If you try to do an word-by-word match, soâ€¦ Da.
+
+
+435
+01:02:20.533 --> 01:02:21.552
+PAUL: Cat.
+
+
+436
+01:02:22.293 --> 01:02:25.312
+PAUL: isâ€¦ Sitting is not there.
+
+
+437
+01:02:25.583 --> 01:02:27.333
+PAUL: So I will remove sitting.
+
+
+438
+01:02:27.672 --> 01:02:30.523
+PAUL: Then, onâ€¦ The.
+
+
+439
+01:02:30.893 --> 01:02:31.793
+PAUL: Matt.
+
+
+440
+01:02:33.123 --> 01:02:47.922
+PAUL: Now, by default, total number of matches that you have, if you remember word-to-word comparison, you got 6 matches. Okay, just like Rogue 1, if you try to compare it. So this time, the LCS becomes 6 words.
+
+
+441
+01:02:50.222 --> 01:02:52.903
+PAUL: So, the sub-sequence that you are having
+
+
+442
+01:02:53.762 --> 01:03:03.192
+PAUL: It is having total six words parallelly that you want to compare. So automatically the LCS becomes six, the longest common subsequence here.
+
+
+443
+01:03:03.653 --> 01:03:07.163
+PAUL: Now, if you try to compare the reference length.
+
+
+444
+01:03:07.353 --> 01:03:10.033
+PAUL: If I try to take my reference length.
+
+
+445
+01:03:11.033 --> 01:03:15.362
+PAUL: Reference length is equal to 7.
+
+
+446
+01:03:15.603 --> 01:03:18.732
+PAUL: Okay, now my LCS is 6.
+
+
+447
+01:03:19.853 --> 01:03:21.882
+PAUL: The final LCS that I have.
+
+
+448
+01:03:24.293 --> 01:03:30.753
+PAUL: Now, the idea is very similar. If you try to compare your row, L, recall.
+
+
+449
+01:03:32.373 --> 01:03:36.402
+PAUL: So simply the value Lcs divided by reference length.
+
+
+450
+01:03:40.063 --> 01:03:44.772
+PAUL: So 6 divided by 7, this value, whatever that you are getting.
+
+
+451
+01:03:45.722 --> 01:03:46.893
+PAUL: Great friends.
+
+
+452
+01:03:47.403 --> 01:03:52.013
+PAUL: If you really think about this is very, very close, just like your rogue one only.
+
+
+453
+01:03:54.643 --> 01:04:04.653
+PAUL: Because here, really, we can skip the term setting, because opposite, we only skipped only one term. Other than that, we actually looked into.
+
+
+454
+01:04:05.413 --> 01:04:09.673
+PAUL: The complete sequence. So we are just skipping the word setting.
+
+
+455
+01:04:10.183 --> 01:04:17.883
+PAUL: But remember, we cannot change the order. Order has to be fixed. So generally in Rogal, order is always fixed. Remember that.
+
+
+456
+01:04:19.053 --> 01:04:21.773
+PAUL: Order is fixed. This cannot be changed.
+
+
+457
+01:04:26.583 --> 01:04:32.683
+PAUL: Now, similarly, if I try to take another example, you guys do the calculation and tell me.
+
+
+458
+01:04:33.113 --> 01:04:38.312
+PAUL: So this time let's take an example with respect to like I love machine learning.
+
+
+459
+01:04:59.053 --> 01:05:03.433
+PAUL: All right, so here I have written, I love, now this is the main ref.
+
+
+460
+01:05:03.813 --> 01:05:06.863
+PAUL: Okay, and this is the main machine one.
+
+
+461
+01:05:08.443 --> 01:05:12.153
+PAUL: Now, simply tell me what is the LCS value?
+
+
+462
+01:05:12.463 --> 01:05:15.183
+PAUL: And finally, tell me what will be your rogue?
+
+
+463
+01:05:15.483 --> 01:05:17.783
+PAUL: L. Recall.
+
+
+464
+01:05:25.973 --> 01:05:27.213
+PAUL: Please tell me.
+
+
+465
+01:05:53.803 --> 01:05:56.962
+PAUL: People are telling 4 divided by 5.
+
+
+466
+01:06:01.303 --> 01:06:02.293
+PAUL: How?
+
+
+467
+01:06:02.843 --> 01:06:04.223
+PAUL: 5 came.
+
+
+468
+01:06:09.033 --> 01:06:11.423
+PAUL: Okay, raja bupal correct.
+
+
+469
+01:06:11.543 --> 01:06:17.703
+PAUL: See, guys, reference length that I have, here, in the reference, how many
+
+
+470
+01:06:18.083 --> 01:06:23.422
+PAUL: It is 4, total 4. By default, in the numerator, 4 will come.
+
+
+471
+01:06:24.263 --> 01:06:30.293
+PAUL: And then when you are trying to make the match, I love machine learning. This becomes your LCS.
+
+
+472
+01:06:30.553 --> 01:06:43.983
+PAUL: Okay, so really 4 terms, 4 divided by 4. So, 100%. That's why I've just changed a little bit. I hope you get that part. People who told 4 divided by 5 for everyone, or somebody told 5 divided by 4.
+
+
+473
+01:06:44.473 --> 01:06:47.012
+PAUL: Please do have a check on the reference length.
+
+
+474
+01:06:48.103 --> 01:06:53.733
+PAUL: Based on that, you always get it. So now, Rogel is also widely used a lot.
+
+
+475
+01:06:54.223 --> 01:07:04.452
+PAUL: Okay, now, sometimesâ€¦ Generally the term rogue is preferred much more from the recall perspective.
+
+
+476
+01:07:04.633 --> 01:07:07.863
+PAUL: Okay, so now, if I say rogue N,
+
+
+477
+01:07:08.093 --> 01:07:15.902
+PAUL: Okay, because I have told you about Rogue L, and finally, let's do with respect to our Rogue
+
+
+478
+01:07:16.633 --> 01:07:21.053
+PAUL: N. The idea is N grams that we'll be referring here.
+
+
+479
+01:07:22.413 --> 01:07:24.693
+PAUL: Always remember matching.
+
+
+480
+01:07:26.273 --> 01:07:27.633
+PAUL: N grams.
+
+
+481
+01:07:29.973 --> 01:07:33.842
+PAUL: Divided byâ€¦ With what you are comparing?
+
+
+482
+01:07:34.523 --> 01:07:37.052
+PAUL: That's why it is focused on recall.
+
+
+483
+01:07:37.553 --> 01:07:38.823
+PAUL: N grams.
+
+
+484
+01:07:41.853 --> 01:07:43.573
+PAUL: In references.
+
+
+485
+01:07:47.753 --> 01:08:01.673
+PAUL: Okay, now this is simply the one. Here I have taken only one version. That's why I'm telling not Rogue 1, Rogue 2, Rogue 3. The same thing that you'll be doing. So that's why only Rogue N that I am referring.
+
+
+486
+01:08:01.723 --> 01:08:10.223
+PAUL: As there are multiple versions of Rogue, you can use Rogue 1, Rogue 2, Rogue 3, Rogue 4, or Rogue LCS also. There is no restriction with that.
+
+
+487
+01:08:11.143 --> 01:08:19.192
+PAUL: Alright, I think we have discussed a lot with respect to the metrics. Now, let's start with respect to our practicals.
+
+
+488
+01:08:26.173 --> 01:08:28.433
+PAUL: So guys, you can switch to your notebooks.
+
+
+489
+01:08:34.133 --> 01:08:41.692
+PAUL: What is the time? This is 10.30 only. Probably after 15 minutes, we'll be going after theâ€¦ for the break.
+
+
+490
+01:08:47.433 --> 01:08:52.593
+PAUL: Here, are we not having, penalty? No, no, no, no, there is no penalty in row.
+
+
+491
+01:08:52.723 --> 01:08:55.443
+PAUL: Brevity penalty is only available in your group.
+
+
+492
+01:08:57.193 --> 01:09:06.303
+PAUL: And generally, the value of the brevity penalty also comes, like, it can be 1 or it can be to the power 1 minus.
+
+
+493
+01:09:06.893 --> 01:09:11.293
+PAUL: R by generally that comes varies generally smaller.
+
+
+494
+01:09:11.503 --> 01:09:12.503
+PAUL: But,
+
+
+495
+01:09:12.893 --> 01:09:21.953
+PAUL: That is the idea behind the penalty. I think I have not written that formula, but later on, let's start with that part, and later on I'll be talking about the brevity penalty.
+
+
+496
+01:09:22.413 --> 01:09:30.382
+PAUL: Because these formulas, for a very long time, we have been using, but in practice, directly, you can start working with that.
+
+
+497
+01:09:30.483 --> 01:09:34.152
+PAUL: Now let me start sharing my screen with the actual notebook.
+
+
+498
+01:09:34.553 --> 01:09:38.693
+PAUL: Thisâ€¦ This is the third version.
+
+
+499
+01:09:41.223 --> 01:09:42.802
+PAUL: And now let's get back.
+
+
+500
+01:09:44.813 --> 01:09:55.703
+PAUL: This is the T5. Now one thing that I will change. Last time I was using one A100. Let's start with an T4 GPU. Okay, high RAM is fine.
+
+
+501
+01:09:58.923 --> 01:10:09.792
+PAUL: Now, the first cell, just like last time, totally skip it, not required, so keep it commented, because as we are not working in local, so you really don't need to do the installation.
+
+
+502
+01:10:09.943 --> 01:10:14.863
+PAUL: Now, let me connect it with an instance, first of all, and then I will start with the execution.
+
+
+503
+01:10:17.683 --> 01:10:22.602
+PAUL: And then the library check component, just like the other two notebooks that we have discussed.
+
+
+504
+01:10:32.993 --> 01:10:48.682
+PAUL: Alright, so I think the connection is available. Let's start and let's look into the output here. What are the versions which are available and the versions which are not available? Then manually we'll be doing the installation of those libraries.
+
+
+505
+01:10:49.233 --> 01:10:54.723
+PAUL: Alright, it's telling one evaluator is missing, okay, and one rope score is missing.
+
+
+506
+01:10:55.003 --> 01:11:03.913
+PAUL: Okay, so simply like rope score and evaluate you need to install. So let's start or simply like in one shot only pass both.
+
+
+507
+01:11:04.133 --> 01:11:06.112
+PAUL: Nothing. No one feel it.
+
+
+508
+01:11:15.153 --> 01:11:22.972
+PAUL: Now, this is a summarization task, that's why the schools of group that we have taken, I think the installation is done.
+
+
+509
+01:11:24.183 --> 01:11:38.363
+PAUL: Now, I think in our case, CUDA is available in your case also. So, let's start with theâ€¦ this is the device configuration. Now, guys, see, if you really check in today's section, what are the things that we have added?
+
+
+510
+01:11:39.413 --> 01:11:55.023
+PAUL: Please check the libraries and try to compare. Can I say that everything is same? Only one new library that came, which is the Rogue School, and that is very specifically the metric which is used in text summarization. Other than that, nothing's changed, yes or no? Please tell me.
+
+
+511
+01:11:59.373 --> 01:12:01.812
+PAUL: Yes or no, guys?
+
+
+512
+01:12:08.783 --> 01:12:18.723
+PAUL: If you try to compare the libraries that we have been using, based on yesterday's, please try to do the comparison with the notebooks. Farther is telling, do we need T5?
+
+
+513
+01:12:18.873 --> 01:12:20.733
+PAUL: Do we need T5?
+
+
+514
+01:12:21.243 --> 01:12:33.022
+PAUL: Not necessary, you can work. There are so many sequence of sequence models, Partha. You can use Meta. From Meta, there is BART, that is also really good. From Google, the other one is Pegasus.
+
+
+515
+01:12:33.153 --> 01:12:40.013
+PAUL: Pegasus, works really good. Then, something other from sequence to sequence you can work with.
+
+
+516
+01:12:40.363 --> 01:12:50.892
+PAUL: Only the normal T. 5 version. Then you have Maria Mt. Okay, so so many models are there. It's not necessary that you need to use key 5 every day.
+
+
+517
+01:12:51.113 --> 01:12:53.473
+PAUL: It's totally up to you. Okay.
+
+
+518
+01:12:56.173 --> 01:13:04.363
+PAUL: It's pretty much the same library, it is only one that I have added here, so no, please try to relate with your previous stuff, otherwise it doesn't make sense.
+
+
+519
+01:13:06.923 --> 01:13:13.592
+PAUL: Now, let's proceed with the next one, as I have done the installation. Let's proceed ahead with our GPU check.
+
+
+520
+01:13:13.923 --> 01:13:28.053
+PAUL: Okay, so there's very similar configuration yesterday also that we have discussed, the same thing that we are discussing here. Now, coming to, the imports part. So, a few common imports. We import OS, NumPy, MathPlot, Pandas, Matplotlib, C1.
+
+
+521
+01:13:28.183 --> 01:13:42.442
+PAUL: And here, auto-tokenizer, auto-model for sequence-to-sequence LM. This is the actual main class through which we try to load sequence-to-sequence models. Okay, so sequence-to-sequence LM means it standsâ€¦ LM stands for language model here.
+
+
+522
+01:13:42.733 --> 01:13:55.762
+PAUL: Then, for our data creation, we use the data collator for sequence-to-sequence. It means that this is a very specific class which is used for sequence-to-sequence, dataset creation.
+
+
+523
+01:13:55.833 --> 01:14:06.673
+PAUL: So, data collator, it actually helps you to create different batches, just like data loaders in PyTorch, which helps you to do. A very similar strategy, the data collator.
+
+
+524
+01:14:07.073 --> 01:14:25.243
+PAUL: Then comes your training arguments, just like yesterday. These training arguments are for sequence-to-sequence, that's why the sequence-to-sequence training arguments class is available, and sequence-to-sequence trainer class. Last time, only trainer it was, and only training arguments. This time, everywhere we are adding.
+
+
+525
+01:14:25.273 --> 01:14:33.192
+PAUL: Sequence to sequence, sequence to sequence, sequence to sequence, that is the only change. Otherwise, pretty much same stuff, there is no change with that.
+
+
+526
+01:14:34.333 --> 01:14:43.783
+PAUL: All right, now, for sentence splitting, we'll be using from NLTS Send Tokenizer. So this is a sentence tokenizer, as we'll be working with sentences here.
+
+
+527
+01:14:43.933 --> 01:14:55.663
+PAUL: Because in our data, we input is also a sentence, in the output also, there willâ€¦ you will be getting sentences. The idea is to tokenize those sentences. Because of that, from NLTK, I'm using the sentence tokenize.
+
+
+528
+01:14:57.353 --> 01:14:59.032
+PAUL: Let me just load it up.
+
+
+529
+01:15:03.373 --> 01:15:06.562
+PAUL: Now, let's start with Flan T5 Large.
+
+
+530
+01:15:08.233 --> 01:15:10.733
+PAUL: Alright, now, if I open HFâ€¦
+
+
+531
+01:15:23.173 --> 01:15:33.812
+PAUL: Alright, so here it's written that this is an instruction fine-tuning model. So here it's written, the dataset format, please answer the following question, what is the boiling point of nitrogen?
+
+
+532
+01:15:34.143 --> 01:15:41.473
+PAUL: Chain of thought, fine-tuning, answer the following instructions step by step. So, in the dataset, they have very specific instructions.
+
+
+533
+01:15:41.573 --> 01:15:51.513
+PAUL: Okay, like, if you want to do a certain task with respect to summarization. So this is exactly the main model card. So FLAN is one of the most advanced models of
+
+
+534
+01:15:51.513 --> 01:16:01.672
+PAUL: sequence to sequence. Because lighter models are also there, I have not picked, but, simply, if I try to take a duplicate of this one, okay, and let's take Pegasus.
+
+
+535
+01:16:03.923 --> 01:16:12.612
+PAUL: Okay, so Pegasus, X sum is there. This is also a very good model, which is widely used forâ€¦ X sum is written, so sum stands for?
+
+
+536
+01:16:12.983 --> 01:16:13.783
+PAUL: What?
+
+
+537
+01:16:15.163 --> 01:16:18.842
+PAUL: From the name, I hope everybody understands. Some stands for what, guys?
+
+
+538
+01:16:22.923 --> 01:16:29.122
+PAUL: So simply if I try to take and something from Wikipedia, let's open Wiki.
+
+
+539
+01:16:29.283 --> 01:16:33.393
+PAUL: E D R Alright, soâ€¦
+
+
+540
+01:16:43.633 --> 01:16:45.963
+PAUL: I can just paste out the model card.
+
+
+541
+01:16:46.443 --> 01:16:47.143
+PAUL: What?
+
+
+542
+01:16:48.393 --> 01:17:08.232
+PAUL: Let's see right now, because the inferences providers are available, so simply you can test parallel. Now, these are big models, these are not small models, both the model sizes. Can you see here, Wikipedia is hosted by Wikipedia Foundation, a non-profit organization. So here, Wikipedia is the world's largest online encyclopedia.
+
+
+543
+01:17:08.453 --> 01:17:16.722
+PAUL: How many of you feel that this is correct and every information it has captured? This is correct. But I cannot say that everything has been captured, the entire context.
+
+
+544
+01:17:17.523 --> 01:17:20.293
+PAUL: But is it correct or not? Please tell me.
+
+
+545
+01:17:27.743 --> 01:17:42.223
+PAUL: All right, now if you really look into the Filesun version of Pegasus also. So here the Pytorch model dot beam size that you are looking into, this is 2.28 GB. So this is a big model guys.
+
+
+546
+01:17:42.423 --> 01:17:54.243
+PAUL: So I cannot really say this is a lightweight model. This is a bigger model as compared to yesterday's model that we have discussed. Yesterday, what was the model size of this tilt, but quickly tell me in the chat.
+
+
+547
+01:18:01.843 --> 01:18:05.583
+PAUL: Guys, I think you have done the practical, so I think you should know.
+
+
+548
+01:18:06.233 --> 01:18:08.762
+PAUL: Quickly tell me in the chat, guys, what was that?
+
+
+549
+01:18:12.873 --> 01:18:15.653
+PAUL: If you don't know, open the page, then tell me.
+
+
+550
+01:18:28.973 --> 01:18:38.162
+PAUL: Please open it from Hugging Face, and then at least tell me what is the size that we do have for distal part that we have used yesterday.
+
+
+551
+01:18:38.573 --> 01:18:42.473
+PAUL: Dhiraj is telling it's around 250 MB. All right, fine.
+
+
+552
+01:18:42.703 --> 01:18:44.933
+PAUL: Is joshi 128 wrong?
+
+
+553
+01:18:45.653 --> 01:18:50.323
+PAUL: It was not 128, if you remember, it was exactly 268 MB.
+
+
+554
+01:18:52.273 --> 01:19:01.603
+PAUL: Okay, Farooq, approximately 270 MB, yes, 268 was that exact number. Now tell me what was the size of Distil GPT-2?
+
+
+555
+01:19:01.813 --> 01:19:12.463
+PAUL: Please, guys, going forward, have a look into the size of the models. It plays a crucial role. Once you start looking into the size from there, you get a very good idea, like, the training time.
+
+
+556
+01:19:13.103 --> 01:19:16.283
+PAUL: If you don't know the size of the model, then pretty much blank.
+
+
+557
+01:19:17.523 --> 01:19:22.513
+PAUL: That's why, because remember, you can remember two things, the size of the model or the parameters.
+
+
+558
+01:19:23.753 --> 01:19:27.573
+PAUL: What was the size for Digital GPT-2 yesterday that we have used?
+
+
+559
+01:19:41.973 --> 01:19:47.083
+PAUL: Mona was telling 768 wrong. It was not 768.
+
+
+560
+01:19:47.533 --> 01:19:55.173
+PAUL: It was roughly around that 330 to 340 mark, if you remember. Parkar 328, yes, it can. It was roughly around that.
+
+
+561
+01:19:55.803 --> 01:19:58.273
+PAUL: Fine. Now, the flan T5 large.
+
+
+562
+01:19:58.643 --> 01:20:01.862
+PAUL: Now, here you can check the size. This is 3 GB of stuff.
+
+
+563
+01:20:02.443 --> 01:20:07.733
+PAUL: So model weights is really, really high as compared to Pegasus that you have.
+
+
+564
+01:20:08.193 --> 01:20:25.142
+PAUL: Then, from Facebook, you have Bert. Okay, the other one that I was tellingâ€¦ you know, if you look into the normal T5, guys, that will also be much lighter if you start working. Now, I'm not talking about the FLAN version. FLAN is one of the upgraded versions of T5, but if you look into T5, small.
+
+
+565
+01:20:25.663 --> 01:20:28.853
+PAUL: Here you will be getting small values, 242.
+
+
+566
+01:20:28.983 --> 01:20:32.763
+PAUL: Wondered, and theseâ€¦ this is a lighter weight model.
+
+
+567
+01:20:32.933 --> 01:20:38.323
+PAUL: Then you have T5 large also. So I think from the model card we can get it.
+
+
+568
+01:20:38.523 --> 01:20:40.563
+PAUL: What are the other different variants?
+
+
+569
+01:20:50.513 --> 01:20:53.423
+PAUL: Hmm, alright, let's check T5.
+
+
+570
+01:20:54.243 --> 01:20:55.533
+PAUL: Medium.
+
+
+571
+01:20:57.813 --> 01:21:08.103
+PAUL: You can see here T5 base medium. You'll be getting the base model also that is also available or T5 large is also there. But these are all sequence to sequence models.
+
+
+572
+01:21:08.283 --> 01:21:12.773
+PAUL: Okay, T5, generally this T5 family comes from Google.
+
+
+573
+01:21:13.263 --> 01:21:15.033
+PAUL: Yeah, please do remember that.
+
+
+574
+01:21:15.513 --> 01:21:20.453
+PAUL: Then, you have the other family, which is the Facebook.
+
+
+575
+01:21:24.393 --> 01:21:41.083
+PAUL: This is BART base, BART large. Now, this is also a sequence-to-sequence-based model. If you look here, denoising sequence-to-sequence pre-training for NLP translation. Okay, so this is also used. Very similarly, you can use this. This family comes from Facebook.
+
+
+576
+01:21:41.383 --> 01:21:44.653
+PAUL: But that's why so many options are there, you can use anything.
+
+
+577
+01:21:45.623 --> 01:22:02.973
+PAUL: Okay, so now I will get back, and now if you look into the size of the base, here also 550 MB. Okay, now I'm not using the large version every time, but in our practical, we have used that. So I wanted to give you a rough idea with respect to the model sizes, so that you remember that part.
+
+
+578
+01:22:15.033 --> 01:22:29.583
+PAUL: Alright, so here, the model cards are available. Simply, you can click on this, and you canâ€¦ these classes are available in Transformers, like T5 for conditional generation. Now, this class is very specific to sequence of sequence models only, guys.
+
+
+579
+01:22:30.273 --> 01:22:33.442
+PAUL: Otherwise, we can use the default sequence to sequence.
+
+
+580
+01:22:33.753 --> 01:22:40.192
+PAUL: LM class, in our case, which we are using. So, this one and this one, both are acceptable.
+
+
+581
+01:22:41.333 --> 01:22:47.372
+PAUL: Okay. Otherwise you can use normal Pytorch also. That's why normal Pytorch version.
+
+
+582
+01:22:47.973 --> 01:23:02.353
+PAUL: Okay, and then comes, if you want to change, different precisions, that is also available. So generally, like, working with, float point 16 is much more, like, computationally expensive task.
+
+
+583
+01:23:02.473 --> 01:23:05.003
+PAUL: As compared to working with intent.
+
+
+584
+01:23:05.503 --> 01:23:09.693
+PAUL: Because this time you will be actually changing the weights and biases.
+
+
+585
+01:23:09.813 --> 01:23:13.853
+PAUL: By default, it isâ€¦ FP16.
+
+
+586
+01:23:14.123 --> 01:23:24.632
+PAUL: FP16, whenever I'm talking, so FP16, like, after the decimal point, you have 16 values, whereas in int8, do you think that
+
+
+587
+01:23:24.923 --> 01:23:27.623
+PAUL: After decimals, there are any values yes or no?
+
+
+588
+01:23:28.323 --> 01:23:38.442
+PAUL: Because this is much related to quantization, which is not part, but just to tell you, if you want faster outputs, the idea is simply changing.
+
+
+589
+01:23:39.183 --> 01:23:55.592
+PAUL: Okay, so here, as you can see, intake, which has been very specifically mentioned, so intake or FP16, the idea is to change the data type, and that way you get more processing, or faster processing. But, remember, the performance drop will be there.
+
+
+590
+01:23:55.933 --> 01:24:10.523
+PAUL: Because you are telling that please do lesser computation, lesser computation, so somehow there will be an impact with respect to your final result. But the impact will be really, really, really small. Less than 1% change.
+
+
+591
+01:24:14.983 --> 01:24:18.582
+PAUL: Now, let's get back to our notebook of Flan T5.
+
+
+592
+01:24:19.063 --> 01:24:27.303
+PAUL: Okay, then you have the Daily Mail dataset. This is from ABC. So, let me just search this dataset also.
+
+
+593
+01:24:27.983 --> 01:24:29.933
+PAUL: 1T5 large.
+
+
+594
+01:24:35.923 --> 01:24:39.872
+PAUL: Okay? And from here you will get an idea. Exactly. Let me open the data studio.
+
+
+595
+01:24:47.863 --> 01:24:50.172
+PAUL: What is the total size of the dataset?
+
+
+596
+01:24:50.633 --> 01:24:52.043
+PAUL: Quickly tell me?
+
+
+597
+01:24:53.933 --> 01:24:57.473
+PAUL: What is the total size of the data set that you will see here?
+
+
+598
+01:25:01.763 --> 01:25:05.383
+PAUL: Guys, at least look into the screen and please do respond.
+
+
+599
+01:25:06.043 --> 01:25:25.542
+PAUL: Okay? 312K is the size. In training, you have 287. In validation, you have close to 13K samples. In test, you have 11â€¦ K samples. And there is another version, 2.00, where in the training that you have 287. So, two different versions are available. Now, let's look here.
+
+
+600
+01:25:26.003 --> 01:25:33.913
+PAUL: So, this is one, okay, and this is the transformed version. So, I hope everybody understands this is a text summarization dataset.
+
+
+601
+01:25:34.323 --> 01:25:35.693
+PAUL: Please tell me.
+
+
+602
+01:25:36.193 --> 01:25:42.832
+PAUL: This is the input, and this is the output based on that. So, highlights is basically the summarized version that we do have here.
+
+
+603
+01:25:43.613 --> 01:25:50.673
+PAUL: ID really doesn't matter, okay? Because these are very specific, unique news IDs, but again.
+
+
+604
+01:25:50.803 --> 01:25:56.322
+PAUL: This is the main part which you need. This is the actual input, and this is the desired output from the highlights.
+
+
+605
+01:26:02.073 --> 01:26:14.252
+PAUL: Now, this dataset, really has a lot of news, as you can see. BCP147 code for English as the generally spoken in United States is E1S.
+
+
+606
+01:26:14.283 --> 01:26:24.312
+PAUL: And BB, BCP47 code as English as generally spoken in, so, in GB. So, it is unknown if other varieties of English are represented in the data.
+
+
+607
+01:26:24.413 --> 01:26:39.982
+PAUL: So, really, the idea is that both level of English, whether with respect to US or UK data, I am telling, both are actually being covered. So, other than that, nothing. Now, this is about your highlights. So, from here, the average count that you are getting.
+
+
+608
+01:26:40.083 --> 01:26:44.582
+PAUL: So, roughly, how many tokens are there in the article?
+
+
+609
+01:26:45.653 --> 01:26:53.722
+PAUL: 781, and in the output, so can I say that the summarized version is somehow close to 10%, yes or no?
+
+
+610
+01:26:53.973 --> 01:26:58.222
+PAUL: Because 10% comesâ€¦ Lesser than 78?
+
+
+611
+01:26:58.353 --> 01:27:07.843
+PAUL: So somehow 56, 56, 78, and 18 gap is there, but the summarized versions are having, at least I can say.
+
+
+612
+01:27:07.953 --> 01:27:13.063
+PAUL: 10% lesser if you try to compare with the actual articles here.
+
+
+613
+01:27:14.793 --> 01:27:27.772
+PAUL: Okay, and now ID a string containing the hexadecimal format of where the story was retrieved from, fine. Leave this part, this is the train validation. The entire dataset information is available. You can have a look. Now let's get back here.
+
+
+614
+01:27:28.163 --> 01:27:44.862
+PAUL: Now, we will start with the configuration. So, very specifically, as there were multiple versions, I am using, the version 3, and we are using a subset. Okay, the fullâ€¦ it is having 280K, 7K samples.
+
+
+615
+01:27:44.863 --> 01:27:52.333
+PAUL: So generally it's very, very big to train and the training time will be higher. Even with 3000 it will take
+
+
+616
+01:27:52.583 --> 01:27:58.792
+PAUL: I can say close to one hour if you really look into the results. So I have taken a subset.
+
+
+617
+01:27:58.813 --> 01:28:18.593
+PAUL: Okay, only the train size, the valve size, the test size. Now, here, maximum source length that we have taken is 512. Now, see, guys, so in this particular case, we are doing the truncation, so articles are long. How we can decide the articles are long? From the mean-median values.
+
+
+618
+01:28:18.663 --> 01:28:23.723
+PAUL: So, in our case, Just read the Daily Mail.
+
+
+619
+01:28:25.533 --> 01:28:29.363
+PAUL: From here, I can understand that 781. Soâ€¦
+
+
+620
+01:28:30.373 --> 01:28:46.323
+PAUL: This is the average token count that you are getting, and based on that, here, I've taken 500. Now, this is the max source length, or basically the input one, or the summarized version. So here, we are onlyâ€¦ so we are cutting off that information.
+
+
+621
+01:28:46.523 --> 01:28:55.172
+PAUL: It mass, because, see, that is the average one, so close to 200 tokens that we are actually truncating.
+
+
+622
+01:28:56.173 --> 01:29:12.773
+PAUL: So, max source length. Otherwise, you can use a higher value of 1024. Okay, so in this case, we are missing the information, that is fine, but later on, you can play with the values. Prati, but does this miss? Yes, we are missing some information. But do you really think that every time
+
+
+623
+01:29:12.823 --> 01:29:16.972
+PAUL: In the lighter version, when we need only 10%,
+
+
+624
+01:29:17.043 --> 01:29:21.333
+PAUL: See, you have to do the calculations out of 100%.
+
+
+625
+01:29:21.703 --> 01:29:32.362
+PAUL: Here, let's take 750 as the number, and then I'm taking roughly 20% is gone due to truncation. But again, in the target length.
+
+
+626
+01:29:32.593 --> 01:29:37.833
+PAUL: Exactly how much according to the original data set? Can I say only 10%?
+
+
+627
+01:29:38.043 --> 01:29:39.322
+PAUL: Yes or no?
+
+
+628
+01:29:39.593 --> 01:29:43.302
+PAUL: So, the final result that I need, it is only 10%.
+
+
+629
+01:29:45.253 --> 01:29:49.542
+PAUL: So the impact with respect to your final, it'sâ€¦ will be very, very less.
+
+
+630
+01:29:49.903 --> 01:30:04.672
+PAUL: Otherwise, you can take complete 1024 sequence, but the computation will be much more, both times. So, think from that. We are removing 10%, but the expected, from the 100% perspective, really, that 10% is not creating. Because I know that
+
+
+631
+01:30:04.903 --> 01:30:09.212
+PAUL: From that 90% also, I can extract 10% of the information.
+
+
+632
+01:30:09.703 --> 01:30:12.393
+PAUL: Is it possible to extract yes or no?
+
+
+633
+01:30:17.683 --> 01:30:35.742
+PAUL: Dhiraj is telling if the mean is 500, I can try to add 3 standard deviations to get close to 99% of theâ€¦ if it's normally distributed, yes. The idea is not necessary, you are comparing it close to 99, fine, but the idea is, see, even if you are removing 5% of the data from your input.
+
+
+634
+01:30:35.933 --> 01:30:38.182
+PAUL: Theâ€¦ there won't be any major impact.
+
+
+635
+01:30:38.813 --> 01:30:45.063
+PAUL: Okay, otherwise, simply change the input max sequence length only.
+
+
+636
+01:30:46.223 --> 01:30:52.983
+PAUL: Then you have few, common parameters like learning rate, then you have the batch size, then you have gradient accumulation steps.
+
+
+637
+01:30:53.103 --> 01:30:56.702
+PAUL: What is the purpose of using gradient accumulation? Please tell me.
+
+
+638
+01:30:57.693 --> 01:30:59.393
+PAUL: Gradient accumulation.
+
+
+639
+01:31:03.103 --> 01:31:06.103
+PAUL: Please, guys, tell me, this is a very important concept.
+
+
+640
+01:31:06.453 --> 01:31:07.823
+PAUL: From deep learning.
+
+
+641
+01:31:11.733 --> 01:31:15.962
+PAUL: Please tell me, what is gradient accumulation?
+
+
+642
+01:31:18.773 --> 01:31:23.843
+PAUL: No, you were telling me, batch nom, no, no, no, batch nom is different, gradient accumulation is different.
+
+
+643
+01:31:24.253 --> 01:31:28.533
+PAUL: What is the main purpose of using gradient accumulation?
+
+
+644
+01:31:29.413 --> 01:31:32.372
+PAUL: Others, nobody knows about that, yes or no.
+
+
+645
+01:31:32.633 --> 01:31:35.922
+PAUL: Then I have to tell you in detail, that's why.
+
+
+646
+01:31:36.363 --> 01:31:40.583
+PAUL: Tawal is telling training technique, yes, correct, it's a training technique.
+
+
+647
+01:31:40.773 --> 01:31:45.473
+PAUL: When BAS site changes and increase the epoch, then for hyperparameter.
+
+
+648
+01:31:46.063 --> 01:31:49.162
+PAUL: Hyperparameter accuracy not correct.
+
+
+649
+01:31:50.383 --> 01:31:58.512
+PAUL: Partha is telling to reduce the loss. No, no, no. See the guys. The main idea behind gradient accumulation is to save memory.
+
+
+650
+01:31:59.973 --> 01:32:03.213
+PAUL: To deal with vanishing gradient, totally wrong.
+
+
+651
+01:32:03.543 --> 01:32:10.952
+PAUL: Simulate a larger batch size when GPU doesn't exactly correct. The idea is if you are having less amount of memory.
+
+
+652
+01:32:11.793 --> 01:32:15.992
+PAUL: Okay, the idea is because this is a memory saving technique.
+
+
+653
+01:32:16.833 --> 01:32:17.713
+PAUL: Okay.
+
+
+654
+01:32:18.663 --> 01:32:22.903
+PAUL: Because in PyTorch, we do use gradient accumulation a lot.
+
+
+655
+01:32:23.013 --> 01:32:29.643
+PAUL: So that's whyâ€¦ So here we are telling that after 8 steps, the gradient accumulation will be taking place.
+
+
+656
+01:32:30.013 --> 01:32:35.873
+PAUL: Now, gradient accumulation, it means that Incidentally, weight update doesn't happen.
+
+
+657
+01:32:35.983 --> 01:32:40.122
+PAUL: So, probably, if in one batch you have 4 samples.
+
+
+658
+01:32:40.413 --> 01:32:46.842
+PAUL: Okay? Now, for that particular batch, the weights are kept in the memory.
+
+
+659
+01:32:47.363 --> 01:32:54.992
+PAUL: Then batch 2. Again, 4 samples. Again, you calculate the gradients, then in the memory. Then batch 3.
+
+
+660
+01:32:55.043 --> 01:33:11.003
+PAUL: Again, you have 4 samples. Again, you calculate the gradients in theâ€¦ save it in the memory. Then batch 4, again, you save it in the memory. Then finally, after batch 4, I will tell, accumulate all the gradients. So, total 4 batches.
+
+
+661
+01:33:11.183 --> 01:33:13.962
+PAUL: And in every batch there are 4 samples.
+
+
+662
+01:33:14.153 --> 01:33:28.393
+PAUL: So, for every sample, there will be dedicated gradients, which we have calculated. So, all those gradients for all the four batches will be updated in one shot. So, first of all, we accumulate the gradients batch-wise, and then we make the update.
+
+
+663
+01:33:28.773 --> 01:33:36.953
+PAUL: So, a single weight update that takes place. Okay, that is the idea behind gradient accumulation. It is actually a really good technique to save memory.
+
+
+664
+01:33:37.893 --> 01:33:42.422
+PAUL: Alright, in our case, I have taken after 8 batches, that is the idea behind that.
+
+
+665
+01:33:42.663 --> 01:33:48.813
+PAUL: Number of epochs, too, because two epochs will only take close to one hour. Seed and rest of the values, let's keep it.
+
+
+666
+01:33:48.933 --> 01:33:49.713
+PAUL: Yes.
+
+
+667
+01:33:50.323 --> 01:34:01.943
+PAUL: Now, let's load the dataset. So, now, this is also in the older format of dataset package, so I'm using the refs on Parker format. Here, I have passed the name.
+
+
+668
+01:34:02.353 --> 01:34:07.162
+PAUL: Of the data sets. Now let's load it into the memory. It will take some time.
+
+
+669
+01:34:09.053 --> 01:34:15.513
+PAUL: because it's little bit bigger. So as you can see, 257 MB Parker files.
+
+
+670
+01:34:39.553 --> 01:34:53.573
+PAUL: All right, so probably the entire data is available, and right now you can look into the full data set structure, the number of rows, the number of rows in validation data set, test data set. So this data set is already available and broken into three splits.
+
+
+671
+01:34:53.713 --> 01:34:56.272
+PAUL: So, really, like last time.
+
+
+672
+01:34:56.443 --> 01:35:08.132
+PAUL: In the GPT notebook, manually we did the split, but this time not required. So something from here that we can easily take it and start using. So this is the benefit. Now let me just load up theâ€¦
+
+
+673
+01:35:08.413 --> 01:35:12.653
+PAUL: Raw data, and let's shuffle a few of the samples.
+
+
+674
+01:35:12.843 --> 01:35:30.173
+PAUL: The idea is not to pick up the samples sequentially, but rather than we are doing the shuffling, and after the shuffle, we are taking only 3,000 samples. For the training set, for the validation, 400 and 300. So, probably, it hasâ€¦ the validation has more than 10%, so I feel that this is aâ€¦
+
+
+675
+01:35:30.283 --> 01:35:32.593
+PAUL: Decent number to get started with.
+
+
+676
+01:35:33.063 --> 01:35:36.433
+PAUL: Now let's look into the data set and exactly how it looks like.
+
+
+677
+01:35:36.743 --> 01:35:51.222
+PAUL: So what count statistics? If you look here on the training set, the mean that you have 685, median 628, max is 1900. All right, fine. This is what count? What count means token count stats.
+
+
+678
+01:35:51.383 --> 01:36:03.183
+PAUL: Whereas in highlights, 5148 and 362. This is a max value. So, generally, what matters to us is mean. Mean plays a much more crucial role. So, 685â€¦
+
+
+679
+01:36:03.503 --> 01:36:13.612
+PAUL: And that particular number with respect to 512. So, yes, impact is there, but the amount of information that we are truncating, the impact will be much more less than.
+
+
+680
+01:36:17.693 --> 01:36:21.443
+PAUL: So that's why I've written article average 685 words.
+
+
+681
+01:36:21.783 --> 01:36:29.613
+PAUL: That's why we truncate the source to 500 and targets to 128 tools. Now, see, the target, really, this is the target part.
+
+
+682
+01:36:29.933 --> 01:36:45.372
+PAUL: In Target, you have 5148. Everything comes within the range, but in certain cases, there are outlines when you cross that 128, because this is one of the cases in probably one of the samples where you might have a 362 token count.
+
+
+683
+01:36:46.423 --> 01:37:06.273
+PAUL: Now, let's look into exactly how the dataset looks like. This is the sample article, and this is the reference highlight. Now, the idea is you don't look from here. Please try to visualize it from here. It makes better view, and you get more information. Whenever you feel, click on one sample, and from here, you'll be getting that information.
+
+
+684
+01:37:06.653 --> 01:37:10.573
+PAUL: So try to do it, it's a better experience.
+
+
+685
+01:37:14.183 --> 01:37:16.243
+PAUL: Alright, now I think,
+
+
+686
+01:37:16.493 --> 01:37:22.073
+PAUL: This is 1044. Let's go for a break, guys, and then we will talk about rest of the things.
+
+
+687
+01:37:22.923 --> 01:37:28.402
+PAUL: Yes, because the next part is to difference the tokenization part. So let's go for a break.
+
+
+688
+01:37:33.223 --> 01:37:36.273
+PAUL: So, let'sâ€¦ Roof.
+
+
+689
+01:37:43.553 --> 01:37:48.763
+PAUL: Because the notebook cells are exactly the same in 3, close to 60-70%.
+
+
+690
+01:37:49.283 --> 01:37:53.843
+PAUL: But in every notebook, there is a very, very slight change that you do have.
+
+
+691
+01:38:03.323 --> 01:38:05.643
+PAUL: So guys, please be back in 15.
+
+
+692
+01:53:18.823 --> 01:53:23.793
+PAUL: Yes, I hope everyone is back. Please let me know in the chats with the confirmation.
+
+
+693
+01:53:36.823 --> 01:53:47.253
+PAUL: All right, now let's get back to our discussion. We have been using the GPU, so your compute units will be probably used. So let's start with the execution.
+
+
+694
+01:53:52.013 --> 01:53:52.863
+PAUL: Perfect.
+
+
+695
+01:53:53.153 --> 01:54:02.173
+PAUL: Now we have looked into a few of the samples from the data set. Now let's start the tokenization phase.
+
+
+696
+01:54:02.363 --> 01:54:10.112
+PAUL: Okay, now let's try to do a recap. Exactly what are the things that we have discussed yesterday. So,
+
+
+697
+01:54:10.293 --> 01:54:24.463
+PAUL: Right now, the tokenization everywhere, the input-input, but in encoders, as in T5, it's a sequence-to-sequence model, you have your source and target, which both needs to be tokenized.
+
+
+698
+01:54:24.593 --> 01:54:39.272
+PAUL: Just like machine translation, they are also both the things that need to be tokenized. So here also, both. So inâ€¦ that's why in BERT and GPT, it's input only, whereas in encoded decoder models, it's the source target, as well as the
+
+
+699
+01:54:39.433 --> 01:54:47.593
+PAUL: Source and the target, source sequence as well as the target sequence. Both needs to be going through the tokenization phase.
+
+
+700
+01:54:47.873 --> 01:54:50.832
+PAUL: Now, internally, what happens?
+
+
+701
+01:54:51.123 --> 01:54:58.273
+PAUL: So, how targets are passed? A single class label ID. So, in BERT, we have gone through the classification-based example.
+
+
+702
+01:54:58.333 --> 01:55:12.773
+PAUL: In GPD, it's input IDs, which is generally shifted internally. Now, that particular task we have done, and you try to achieve it by using your left padding. The main input, you try to internally shift.
+
+
+703
+01:55:12.983 --> 01:55:22.422
+PAUL: To a different direction. Here, text underscore target is equal toâ€¦ now, whatever that text target, now you have to think that here there are no classes.
+
+
+704
+01:55:22.673 --> 01:55:30.733
+PAUL: Because whenever we are doing summarization, there are no classes. Automatically, the target text that you have, it acts like labels.
+
+
+705
+01:55:31.233 --> 01:55:42.702
+PAUL: But you cannot, treat it as that, okay, in the total dataset, there are 4 classes. That will be a wrong intuition. But we treat the target text that we have as your class labels.
+
+
+706
+01:55:43.753 --> 01:55:54.972
+PAUL: So that's why generally it's only referred as the labels part. Then token type IDs in BERT, yes, token type IDs are available in GPT. If you remember, this particular feature was missing.
+
+
+707
+01:55:54.973 --> 01:56:08.193
+PAUL: After tokenization in BUD, there were total 4 features. In GPT, there were 3 features. Similarly, here also, there is no token type ID. This feature will be missing. It is only used very specific for encoder-specific architecture.
+
+
+708
+01:56:08.263 --> 01:56:13.752
+PAUL: Now padding token. This is was built in in Bert. In the last class we have gone through that.
+
+
+709
+01:56:13.953 --> 01:56:17.502
+PAUL: In GPT there was no padding token.
+
+
+710
+01:56:17.623 --> 01:56:29.852
+PAUL: That's why what we did, we replaced the end of text token. We replaced the padding token with EOS token, or the end of text. How many of you remember that?
+
+
+711
+01:56:33.733 --> 01:56:39.073
+PAUL: Yes, please let me know. In the GPT yesterday, we discussed That part.
+
+
+712
+01:56:39.473 --> 01:56:50.112
+PAUL: Where we try to initialize leos.token, there was no values, so we simply told, please convert it into end of sentence or end of text.
+
+
+713
+01:56:50.753 --> 01:57:09.122
+PAUL: Then the padding strategy in BERT is right and left. In T5, this is an encoder-decoder architecture, so you already have the encoder within that. So, for sure, the native padding will be available by default. So, you don't have to change anything. If theâ€¦ some of the cases, if it is less, then only we'll perform a padding-based operation.
+
+
+714
+01:57:09.393 --> 01:57:16.963
+PAUL: Padding strategy, Bert always works in right, GPT works in left, and T5 works dynamic.
+
+
+715
+01:57:17.163 --> 01:57:25.492
+PAUL: So when I say dynamic, it means that both type of padding can be done, right padding as well as the left padding. So that's why dynamic. Via collator.
+
+
+716
+01:57:25.493 --> 01:57:37.343
+PAUL: Collator is basically the class through Transformers, the data collator class. Whenever we are using the data collator class, in there you have the parameter of changing the padding strategy.
+
+
+717
+01:57:37.993 --> 01:57:54.852
+PAUL: Then level masking, not applicable. Level masking, it is handled internally in GPT. Here, very specifically for level masking, we need to handle it through the collator pad. So, as I told you, collator handles the padding the same thing. Collator pad labels with minus
+
+
+718
+01:57:54.853 --> 01:58:01.663
+PAUL: 100. Now, generally, it means that all the labels that we keep it, we give it a number, minus 100.
+
+
+719
+01:58:02.133 --> 01:58:12.832
+PAUL: So, now, the idea is, whenever you use minus 100, simply we tell it, don't calculate the loss here. Or, that's why it's written here as ignored by loss.
+
+
+720
+01:58:13.103 --> 01:58:23.153
+PAUL: Now, this is done in the data collator stage, so for every level, we pass a minus 100 stuff, so that the loss function will simply ignore it.
+
+
+721
+01:58:23.513 --> 01:58:25.992
+PAUL: Okay, now this is one added step.
+
+
+722
+01:58:27.453 --> 01:58:35.923
+PAUL: And now this is internally being done by T5 and now this minus 100. So for example, if I say I like cats.
+
+
+723
+01:58:36.313 --> 01:58:39.952
+PAUL: And after that, I like dogs and then very much.
+
+
+724
+01:58:40.323 --> 01:58:42.653
+PAUL: Okay, so I love dogs.
+
+
+725
+01:58:43.183 --> 01:58:56.072
+PAUL: and after that, very much two new words added, probably for those two words, I can do the level masking that minus 100. So simply, those two words will be ignored by the loss function. That is the idea behind Collator Pad Libos.
+
+
+726
+01:58:58.363 --> 01:59:08.933
+PAUL: So each word, you have to tell it minus 100, minus 100. In that case, the loss functions know that for that particular token, really, you don't need to calculate the loss.
+
+
+727
+01:59:09.273 --> 01:59:16.912
+PAUL: Now let's load the tokenizer into the memory. So we are using the auto tokenizer from pre trained model which is the Google Flan T5 large.
+
+
+728
+01:59:17.233 --> 01:59:34.403
+PAUL: Okay, and based on that, the vocabulary size we are printing out, then the EOS token is available or not, then we are looking into the padding token is available or not. Okay, so built-in, it is available, so once we have done the loading of that, then simply we can understand.
+
+
+729
+01:59:35.093 --> 01:59:41.072
+PAUL: Now, simply you can see here the US token is also available with slash.
+
+
+730
+01:59:41.333 --> 01:59:50.333
+PAUL: Okay, so this is the US token definition. It's every sentence that will end with slashes.
+
+
+731
+01:59:50.663 --> 02:00:04.563
+PAUL: Then you have the padding token, so by default, the ID is 0 and 1. And what is the vocabulary size? So I can say this particular vocabulary size is very close to BERT only. In BERT also, it was close to 30K, here also you have close to 32K.
+
+
+732
+02:00:06.603 --> 02:00:14.973
+PAUL: Alright, now the US token padding tokens are available. Now let's talk about how, because flan models are instruction.
+
+
+733
+02:00:14.983 --> 02:00:29.323
+PAUL: tuned model, so we have to pass very specifically before starting that exactly what we want to do, and this is generally referred as the task preface. For example, you have the actual big article, and after that, you need the highlights.
+
+
+734
+02:00:29.373 --> 02:00:31.642
+PAUL: And so, in that case, what we do?
+
+
+735
+02:00:31.783 --> 02:00:41.613
+PAUL: So why people use Flantify when BERT and GPT are available? What is the use case? What is the use case? There is no use case. The architectures are different.
+
+
+736
+02:00:41.853 --> 02:00:43.523
+PAUL: Prashant. Okay.
+
+
+737
+02:00:45.533 --> 02:00:49.053
+PAUL: When you are totally 3 different architectures.
+
+
+738
+02:00:49.893 --> 02:00:53.352
+PAUL: The same use case can be done even with respect to GPT also.
+
+
+739
+02:00:54.773 --> 02:01:12.723
+PAUL: Alright. Now, here, as we are talking with respect to the summarize and article, now, this is the key word that we'll be passing in. Now, this is the instruction fine-tuned model, so generally in the dataset, we keep it as an instruction. So, before every article, we have to attach this particular prefix of summarize.
+
+
+740
+02:01:13.613 --> 02:01:22.493
+PAUL: Okay, so for summarization, now this is the convention through which we'll be updating all the samples in our dataset.
+
+
+741
+02:01:23.203 --> 02:01:36.913
+PAUL: So, you can see, without the prefix, Plant T5's quality drops noticeably. The model was trained in that way, because this is an instruction-tuned model. Because of that, the idea is, if you pass the instructions, it's always better. It performs.
+
+
+742
+02:01:37.023 --> 02:01:48.183
+PAUL: Now, here, I've taken a prefix, and then I have added a simple function, dev process. So, for every source and target, so based on that, the summarized keyword will be added. You can see here.
+
+
+743
+02:01:48.213 --> 02:01:58.212
+PAUL: this particular, if I say, this is what type of operation that I have done. Prefix plus doc for doc in examples, where you have the article. So, what change that I am doing?
+
+
+744
+02:01:59.843 --> 02:02:01.383
+PAUL: Please tell me, guys.
+
+
+745
+02:02:01.873 --> 02:02:05.742
+PAUL: This is a simple string concatenation operation that we have performed.
+
+
+746
+02:02:06.913 --> 02:02:08.313
+PAUL: Can I say that?
+
+
+747
+02:02:09.933 --> 02:02:17.992
+PAUL: With your existing, whatever that string that you have within your article, that long character one, you have just added one part.
+
+
+748
+02:02:18.553 --> 02:02:30.512
+PAUL: Okay? Adding, summarize, yes, exactly, that is the idea. And now, the model inputs to the tokenizer that we have simply passed the actual data, because for every sample, you need to perform the tokenization.
+
+
+749
+02:02:30.843 --> 02:02:48.192
+PAUL: And now, the text target tokenizer summaries, they become the decoder levels. Now, similarly, the tokenizer needs to be applied on the target also. Now, that's why we have selected the highlights column there, and the max target length. In both the cases, truncation is equal to true. So, in this case, by default.
+
+
+750
+02:02:48.193 --> 02:02:53.182
+PAUL: We have taken that 512 sequence length, and here I think we have taken 128.
+
+
+751
+02:02:53.203 --> 02:03:04.322
+PAUL: So the input labels is equal to the label input IDs and let's return the main function. So the tokenizer is defined and let's apply the tokenizer on top of the data set.
+
+
+752
+02:03:05.383 --> 02:03:20.142
+PAUL: So here, tokenized datasets is equal to dataset.map. We are passing the preprocess function that we have defined. Then batched is equal to true, yes, we need the data in the form of batches. Remove column dataset train to column names, okay.
+
+
+753
+02:03:20.143 --> 02:03:32.102
+PAUL: So, simply, like, right now, there was that training column that has been changed, because reallyâ€¦ and even, we are simply dropping that ID column also through this.
+
+
+754
+02:03:32.453 --> 02:03:41.202
+PAUL: Operation now set format. The idea is to finally change it to Pytorch tensors just like yesterday we have done. So let me just load it.
+
+
+755
+02:03:41.473 --> 02:03:44.283
+PAUL: Now this is a big data set, so quickly it will take.
+
+
+756
+02:03:44.513 --> 02:03:52.343
+PAUL: Now, Swamita is telling how it is decided whether to consider 512 GB. There is no GB, I was talking token.
+
+
+757
+02:03:52.523 --> 02:04:02.353
+PAUL: Those are length. 512 is the length. 128 is the length. 512 is for the input sequence. 120 is for the target sequence.
+
+
+758
+02:04:03.133 --> 02:04:05.692
+PAUL: Again, these numbers are hyperparameters.
+
+
+759
+02:04:06.393 --> 02:04:10.212
+PAUL: So don't say the term GV. GV is not relatable.
+
+
+760
+02:04:10.503 --> 02:04:14.662
+PAUL: Alright, now, if you look here, there is no token type IDs.
+
+
+761
+02:04:14.743 --> 02:04:30.663
+PAUL: As it was written in the table also, just like GPTs, you have the input IDs, attention mask, and the labels. So, no token type IDs, but style. So, generally, token type IDs are only available in importer-specific architectures, where you have BERT.
+
+
+762
+02:04:31.253 --> 02:04:36.163
+PAUL: Now let's verify the tokenization with few samples.
+
+
+763
+02:04:38.453 --> 02:04:45.452
+PAUL: All right, now, based on the input shape, finally, we can see that, yes, the label IDs with respect to numbers that we can see here.
+
+
+764
+02:04:45.933 --> 02:04:52.623
+PAUL: All right, and this numbers, I can say that, yes, this is correct information that we do have.
+
+
+765
+02:04:53.243 --> 02:04:57.973
+PAUL: Right. Now, for this one.
+
+
+766
+02:04:58.633 --> 02:05:15.213
+PAUL: Initially, I'm looking into the max source length, okay, and the max target length. So, input labels, source 512, here 128, this is the shape. Torch dossides, here we are having 512 tokens, but in the labels, how many tokens are there?
+
+
+767
+02:05:15.323 --> 02:05:28.742
+PAUL: 48, I can say yes or no. From here, simply we can understand the size that we do have. Now, this is a decoded source, summarized byâ€¦ now, this is exactly how your input sequence looks like.
+
+
+768
+02:05:29.143 --> 02:05:30.013
+PAUL: Okay.
+
+
+769
+02:05:30.263 --> 02:05:38.083
+PAUL: And based on that, the reference summary with respect to the highlights that you have, John and Audrey, this is the final highlights.
+
+
+770
+02:05:38.453 --> 02:05:46.323
+PAUL: Alright, I can see all these things are numbers, so I can say that, yes, the tokenization has been applied on both the columns.
+
+
+771
+02:05:47.503 --> 02:06:01.973
+PAUL: Now, BERT versus GPT versus T5 are very similar example. Now, here, encoder only, decoder only, this is an encoder plus decoder architecture. Attention, you have bi-directional in BERT, it can look in both directions.
+
+
+772
+02:06:01.973 --> 02:06:12.713
+PAUL: Digital GPT, it can only look into previous information, nothing in the future. This is bi-directional plus casual because you have both the components of encoder decoders.
+
+
+773
+02:06:12.713 --> 02:06:23.112
+PAUL: Pre-training objective, here you do masked language modeling, here you do casual language modeling, and here, finally, combination of both is referred to as span corruption.
+
+
+774
+02:06:23.173 --> 02:06:29.222
+PAUL: Okay, so when you do masked MLM as well as the casual LM, that refers as the spam column.
+
+
+775
+02:06:29.583 --> 02:06:48.833
+PAUL: Then token type IDs are only available in BERT. In Distil GPT, it is not available. Okay, in FLAN also, type token IDs are not available. Now, with respect to padding, padding token is available in BERT, but it is not available in GPT. Similarly, in FLAN T5, you have the padding token available.
+
+
+776
+02:06:49.333 --> 02:07:01.442
+PAUL: Task prefix is not required in either cases of encoder or decoder. But if you are working with encoder decoder then and very specifically guys remember this is only required for flat.
+
+
+777
+02:07:01.713 --> 02:07:06.922
+PAUL: If you'll be using a different model, then really this prefix is not required of someone.
+
+
+778
+02:07:07.173 --> 02:07:10.863
+PAUL: This is very specific as this is an instruction tuned model.
+
+
+779
+02:07:11.043 --> 02:07:14.573
+PAUL: Because of that, this is how the dataset has been structured.
+
+
+780
+02:07:15.713 --> 02:07:28.413
+PAUL: Fine-tuning head, a new classification head, and here, reuse score head on the last token, and here, none, because you don't have any specific head. The final output comes from the generator section of the decoder.
+
+
+781
+02:07:29.603 --> 02:07:32.632
+PAUL: All right, now let's try to load the model into the memory.
+
+
+782
+02:07:33.143 --> 02:07:36.292
+PAUL: Okay, now this is a bigger model.
+
+
+783
+02:07:37.153 --> 02:07:45.503
+PAUL: Okay, so 2 pointâ€¦ 8, 7 GB. Let's see the final safe tensors file which is getting downloaded.
+
+
+784
+02:07:47.163 --> 02:08:01.912
+PAUL: All right, a big file. Okay, the model is moved to device. Here we have mentioned auto model for sequence to sequence LM from pre trained. This is a pre trained model on top of that. And then finally I am moving the model to the device.
+
+
+785
+02:08:02.353 --> 02:08:07.892
+PAUL: Okay, so simply, can you see, once we have done the move to device.
+
+
+786
+02:08:08.053 --> 02:08:10.432
+PAUL: It is taking 3.2 GB.
+
+
+787
+02:08:11.623 --> 02:08:19.142
+PAUL: The model that we have downloaded, it was close to 3.12. So can we see a certain increase or spike that came here?
+
+
+788
+02:08:20.433 --> 02:08:32.162
+PAUL: Now, let's move to the next part. Now, let's talk about the total number of parameters in the T5 model. So, you can see here, it's 783 million.
+
+
+789
+02:08:32.243 --> 02:08:45.893
+PAUL: So, whatever the things that we have done yesterday, this is 10x more params. Yesterday, we worked with 66, 82, those were the rough estimated numbers. Now, here, 783. So, closely, I can say.
+
+
+790
+02:08:46.153 --> 02:09:01.412
+PAUL: Yes, 10x difference. 10x difference means more training time, more parameters, so every weighted token that needs to be weighted by itself, that needs to be updated. Okay, and this is exactly how the T5 looks like.
+
+
+791
+02:09:01.493 --> 02:09:20.082
+PAUL: Okay, so as you can see, this is the cross-attention part, then you have layer self-attention, module T5, then you have the feed-forward layer, cross-attention. So, multiple blocks are complex encoder-decoder-based architecture. If you want to doâ€¦ decode it at a later point, you can do it.
+
+
+792
+02:09:20.853 --> 02:09:37.222
+PAUL: Now, let's start with the data collator for SQL. Now, this is the part where we start creating the data and assigning that minus 100. So, this is a level pad toking operation, I told you. So, that padding operation, we do it in the data collator class.
+
+
+793
+02:09:37.223 --> 02:09:45.803
+PAUL: So there is a data collector class for sequence to sequence. Now it will do the padding dynamic dynamically for every batch of data.
+
+
+794
+02:09:46.253 --> 02:09:53.892
+PAUL: Okay, and during the padding, so very specifically, what is the padding token ID? It will be passing minus 100.
+
+
+795
+02:09:54.073 --> 02:09:58.352
+PAUL: So that the loss function will simply ignore those positions.
+
+
+796
+02:09:58.543 --> 02:10:08.782
+PAUL: So whenever you do the padding for the targets, positions, so itâ€¦ there is no contribute towards the loss function, because the loss function will simply ignore those.
+
+
+797
+02:10:09.053 --> 02:10:18.473
+PAUL: Now, this is a very specific step which is taken for FLAN T5 only. If you try to change the model again, this step is not being done.
+
+
+798
+02:10:20.653 --> 02:10:36.522
+PAUL: Alright, now let's try to take the data collator class. Here I'm passing the tokenizer. Okay, that we have custom-defined it, then you have the actual model, and here I'm passing what is the label ID for the petting token. So here, minus 100.
+
+
+799
+02:10:36.822 --> 02:10:41.992
+PAUL: Now, let me, sorry, I think I have done something.
+
+
+800
+02:10:42.923 --> 02:10:58.832
+PAUL: Now, we need some type of evaluation metric, so that's why, as we have discussed, Rogue. So I think we already installed Rogue at the top, so I don't think I need this cell anymore. Clear selected output, and I will just keep it as commented version.
+
+
+801
+02:10:59.463 --> 02:11:16.973
+PAUL: Okay, now, rogue is equal toâ€¦ so, first of all, you install the package, and then this particular metric, you try to load it in the evaluate package of the Hugging Face ecosystem. So, the same thing, evaluate.log, and then I am passing the rogue one.
+
+
+802
+02:11:17.383 --> 02:11:20.523
+PAUL: So here split sentences because you have this.
+
+
+803
+02:11:20.662 --> 02:11:34.562
+PAUL: NLP tokenizer, as I told you, which we'll be using for our input and the target split. First of all, you have to split, then only tokenize. So that's why the splitting operation, and then the next step is the tokenâ€¦
+
+
+804
+02:11:34.563 --> 02:11:41.313
+PAUL: tokenization operation. So first, you try to break the sentences into tokens, and then from tokens to
+
+
+805
+02:11:41.383 --> 02:11:46.513
+PAUL: The next IDs which you perform, you need to convert them into final numbers.
+
+
+806
+02:11:46.863 --> 02:12:05.323
+PAUL: That is the main purpose that we have done it. Now, compute matrix here will be calculating the rogue values. So, simply, the idea is to compare your prediction with respect to the labels, and based on that, we'll be getting the evaluation prediction. So here, we have defined two things. What are the predictions, and what are the labels?
+
+
+807
+02:12:05.703 --> 02:12:12.012
+PAUL: Okay, and very specifically, you can see that here we have kept a condition where prediction is not equal to 100.
+
+
+808
+02:12:12.252 --> 02:12:18.932
+PAUL: So, whenever it will be not equal to 100, there only it matters. If it is equal to 100,
+
+
+809
+02:12:20.453 --> 02:12:29.203
+PAUL: Then what is the condition? It means that it will be treated by the loss function. The loss function will look into that and there will be a contribution of the loss.
+
+
+810
+02:12:29.662 --> 02:12:38.503
+PAUL: Wherever we are looking into the logic of minus 100, see guys, minus 100 is the mean padding token, so we need to ignore them, yes or no.
+
+
+811
+02:12:38.783 --> 02:12:44.782
+PAUL: So simply I am telling, please don't look into those places where you have minus 100 in the predictions part.
+
+
+812
+02:12:45.002 --> 02:13:02.013
+PAUL: Then, we are looking into the actual predictions with the tokenizer padding token ID that we do have defined, which is minus 100. Then finally, we are looking into the labels. Labels are basically the highlights in our case, and then the same padding token operation that we have done.
+
+
+813
+02:13:03.523 --> 02:13:08.842
+PAUL: Now the next step, decode the token IDs. So, onceâ€¦
+
+
+814
+02:13:08.843 --> 02:13:29.832
+PAUL: The first step is the encoding part of your source length, which we have done it. Now, the next step, once we are getting the output, for every batch, we need to do the decoding also. And during the decoding, we'll be skipping special tokens, like padding token, this minus 100, your start of a sequence, SOS, those type of sequences simply will be ignored.
+
+
+815
+02:13:30.143 --> 02:13:37.653
+PAUL: And then once I have, like, one sample, one highlight, then we can start comparing your,
+
+
+816
+02:13:37.943 --> 02:13:44.062
+PAUL: Prediction one with your actual input. So basically your input with respect to your highlights.
+
+
+817
+02:13:44.293 --> 02:13:54.322
+PAUL: So that's why, from here, we will be calculating the rope. So here, rope.compute, we are calculating the predictions with the actual references, the decoded levels.
+
+
+818
+02:13:54.323 --> 02:14:09.432
+PAUL: And here, I'm telling you, stemmer is equal to true. It means that please always look for the base word. Now, this is a simple condition. I think everybody knows about stemming and lemmatization. Here, please let me know, because I have not taught them to you, but I think it was discussed.
+
+
+819
+02:14:09.553 --> 02:14:14.672
+PAUL: In your NLP sessions of MLS or no stemming and lemmatization.
+
+
+820
+02:14:16.653 --> 02:14:18.763
+PAUL: Yes, it was discussed fine.
+
+
+821
+02:14:19.213 --> 02:14:28.613
+PAUL: Now, finally, based on that, we'll be looking into the entire results, so that's why for K and V in result items, let's try to load up the metrics also.
+
+
+822
+02:14:29.073 --> 02:14:45.502
+PAUL: Now, the next step is the training configurations. In the training configurations, just like last time we have done, BF16 or FP16, based on the hardware availability, please do the selection of that. Then for optimizers, again, based on hardware, please select the optimizer. We have two options.
+
+
+823
+02:14:46.263 --> 02:14:52.943
+PAUL: Then everything, I'll be saving it in the final results here in the Flan T5 Summarizer folder.
+
+
+824
+02:14:53.253 --> 02:15:11.053
+PAUL: Then, the next step is the learning rate per device, training batch size, per device evaluation batch size. So, this is the one used for your actual training, one used for validation during your training. So, that's why the eval batch size and the training batch size that we have defined.
+
+
+825
+02:15:12.603 --> 02:15:19.213
+PAUL: The idea is to hide it so that the loss function doesn't take its contribution. That is the mean idea.
+
+
+826
+02:15:21.373 --> 02:15:40.752
+PAUL: Then the next step is the gradient accumulation. As we told, after every eight batches, please do the gradient updates because of that. We have passed it the gradient accumulation steps. Total number of epochs. Let's go with two epochs only because two epochs might take a very huge amount of time. Here, gradient checkpointing is equal to true.
+
+
+827
+02:15:41.133 --> 02:15:46.672
+PAUL: The keywords for gradient checkpointing use re-entra. It means that once
+
+
+828
+02:15:46.963 --> 02:15:57.403
+PAUL: After, re-entrant condition, I have kept it as false, it means that we are not using. But, the idea is if you use it, more amount of memory is being used.
+
+
+829
+02:15:57.493 --> 02:16:07.272
+PAUL: Like once the weight updates are being done, then also you are holding the details into the memory, which we don't want. So that's why use re-entrant right now. I've kept it as false.
+
+
+830
+02:16:07.433 --> 02:16:10.332
+PAUL: Then predict when generate is equal to true.
+
+
+831
+02:16:10.533 --> 02:16:17.663
+PAUL: And generate max length. Now, these are the very specific parameters only for sequence-to-sequence models only.
+
+
+832
+02:16:17.903 --> 02:16:34.912
+PAUL: these parameters are not used in encoders or in decoders, whereas rest of the other parameters are exactly the same. Like, evaluation strategy, keep it per epoch basis, same strategy. You can also keep it epoch. Right now, I have kept it no, but simply you can keep the epoch option here also.
+
+
+833
+02:16:35.233 --> 02:16:51.593
+PAUL: Mixed precision, so FP16 is able to use. Now, this particular condition will be triggered based on the hardware availability. Then the optimizer selection, logging steps. So, the idea is for one epoch, it will be broken into, like, 50 steps. So, start logging after every 50.
+
+
+834
+02:16:51.593 --> 02:16:58.193
+PAUL: Report is equal to none. Later on, you can use weights and biases to track the complete training.
+
+
+835
+02:16:58.273 --> 02:17:00.502
+PAUL: So these are the main arguments.
+
+
+836
+02:17:00.893 --> 02:17:11.652
+PAUL: Now, let's define our trainer class. So, in the trainer class, you need to pass the model, the training arguments, the train dataset, the evaluation dataset.
+
+
+837
+02:17:11.653 --> 02:17:21.632
+PAUL: Then, the data collator, where you have applied the padding on top of your input source sequences, and finally, the rogue score matrix.
+
+
+838
+02:17:22.483 --> 02:17:27.402
+PAUL: So, the main class has been defined, and then let's start with our training.
+
+
+839
+02:17:28.133 --> 02:17:38.573
+PAUL: As you can see, initially, the folder got created, and every information with respect to training will be saved inside this folder. But right now, let's wait for the training. This will take time.
+
+
+840
+02:17:38.903 --> 02:17:43.342
+PAUL: So if you look into here, can you see a sudden spike here?
+
+
+841
+02:17:43.463 --> 02:17:50.052
+PAUL: Previously, it wasâ€¦ 3GB, which was being used, but right now close to 8.1GB.
+
+
+842
+02:17:51.593 --> 02:17:56.833
+PAUL: And so, this training will take time. Guys, you have to really wait for the training to be completed.
+
+
+843
+02:18:21.043 --> 02:18:25.083
+PAUL: Till now it has not started also. Can you see the spike in GPU guys?
+
+
+844
+02:18:27.943 --> 02:18:33.523
+PAUL: Because slowly, slowly, more batches of data, and simply write here 14.1G.
+
+
+845
+02:18:55.913 --> 02:18:58.823
+PAUL: So that's why my runtime wasâ€¦
+
+
+846
+02:18:59.813 --> 02:19:09.453
+PAUL: a bit higher, probably an L4 GPU. So this time, T4 means pretty much close to 95-96% of the utilization.
+
+
+847
+02:19:09.833 --> 02:19:14.213
+PAUL: So, I think I can open, terminal also, just to check here.
+
+
+848
+02:19:26.433 --> 02:19:29.433
+PAUL: 14 GB out of this.
+
+
+849
+02:19:29.813 --> 02:19:35.213
+PAUL: Yes, it is being used. I think NVTOP is not available here.
+
+
+850
+02:19:35.793 --> 02:19:38.763
+PAUL: Yes, Nvidoc is not. I have to install Nvidoc.
+
+
+851
+02:19:40.023 --> 02:19:44.473
+PAUL: That is also, A good one, I can say.
+
+
+852
+02:19:44.813 --> 02:19:48.313
+PAUL: The good package to track your GP.
+
+
+853
+02:19:49.003 --> 02:19:57.112
+PAUL: And here, really, like, it has picked up, and you can look into the process which is actually usingâ€¦ this is the main Python process.
+
+
+854
+02:19:58.433 --> 02:20:05.613
+PAUL: And this is using the total usage is coming close to 14,416. Very huge.
+
+
+855
+02:20:06.633 --> 02:20:09.462
+PAUL: Let me close the terminal, making a great mind.
+
+
+856
+02:20:09.813 --> 02:20:12.433
+PAUL: So, yes, the training has started, soâ€¦
+
+
+857
+02:20:12.723 --> 02:20:16.563
+PAUL: It will take time. From here, you can get a rough estimated idea.
+
+
+858
+02:20:17.303 --> 02:20:19.103
+PAUL: Let's wait.
+
+
+859
+02:20:19.953 --> 02:20:34.722
+PAUL: In the meantime, let's cover the other cells, because already I have done the execution of that. So, the training loss curve, finally, after the results, you'll be getting something like this. So, initially, it started with a very huge loss, you can see 15, then slowly, slowly, it has reduced.
+
+
+860
+02:20:34.843 --> 02:20:53.892
+PAUL: Okay, and somehow, this has dropped to a certain point, close to 13, I can say. But we need to do more amount of training, because the idea is the loss should be somewhere close to zero. But here, bare minimum, only two epochs that I have done, based on that. Really, this is not good. The idea is that, please.
+
+
+861
+02:20:54.063 --> 02:20:55.953
+PAUL: We need to do more.
+
+
+862
+02:20:56.163 --> 02:21:09.342
+PAUL: Okay, and if you are doing it for more on a T4, it is not possible. It might take 3 hours in the free version of Google Colab, you cannot really do. So probably take some free GPUs from other providers.
+
+
+863
+02:21:11.363 --> 02:21:26.102
+PAUL: Have you used anyone free GPUs? Like even Kaggle, you can use it for three to four hours, no problem. But after three to four hours, there is a runtime issue. So try to look for a solution where you get free GPUs and so that you can use it.
+
+
+864
+02:21:26.533 --> 02:21:28.583
+PAUL: At least for your testing purpose.
+
+
+865
+02:21:29.633 --> 02:21:36.533
+PAUL: Rather than spending. There are a few options from where you get free GPU toâ€¦ but with limits, always.
+
+
+866
+02:21:38.713 --> 02:21:45.693
+PAUL: Now, once this is done, then this is the per epoch rogue table. Now, if you really look into the rogue scores of epoch one.
+
+
+867
+02:21:45.813 --> 02:21:49.102
+PAUL: Do you feel that these sports are really, really good?
+
+
+868
+02:21:50.703 --> 02:21:55.873
+PAUL: 0.420.420.91. Can you see that drop?
+
+
+869
+02:21:58.423 --> 02:21:59.992
+PAUL: With respect to?
+
+
+870
+02:22:00.203 --> 02:22:14.802
+PAUL: Rogue 1, Rogue 2, Rogue L, because 41, then Rogue 2 got to 19. Similarly, in this case, there is no Rogue 3. Directly, Rogue L is here, and another variant of, which is the L sum, the LCS sum operation. Okay, soâ€¦
+
+
+871
+02:22:14.893 --> 02:22:26.322
+PAUL: Rogue should improve each epoch, and we can see that, yes, some type of improvement, we can analyze it, but not a lot. The idea is very, very little, so probably we might need to train it for more number.
+
+
+872
+02:22:26.973 --> 02:22:37.163
+PAUL: And then finally, we'll be doing the evaluation on top of the test set. And in top of the test set, if you really look, the rope score, 0.42 and 0.194.
+
+
+873
+02:22:37.163 --> 02:22:52.773
+PAUL: So this is very, very close. So I can say 19.4, this is 19.8 and 0.4. So the results are score by. So I can say that yes, it has performed good. Then finally comparing your reference summaries with the actual machine or the model summaries.
+
+
+874
+02:22:53.223 --> 02:22:57.322
+PAUL: So you can really do the detailed comparison step by step.
+
+
+875
+02:22:57.633 --> 02:23:04.043
+PAUL: And if you try to really look into the references, the human, for sure it will be much better as compared to the model.
+
+
+876
+02:23:04.143 --> 02:23:05.723
+PAUL: So, simplyâ€¦
+
+
+877
+02:23:05.903 --> 02:23:18.772
+PAUL: Reference CNN. Doctor Sanjay Gupta says we should legalize medical marijuana. He says he knows how easy it is to do nothing because I did nothing for too long.
+
+
+878
+02:23:19.273 --> 02:23:28.593
+PAUL: Now model summary a majority 53% favor its legalization with 77 supporting it for medical purposes.
+
+
+879
+02:23:28.703 --> 02:23:35.332
+PAUL: Support for legalization has risen 11 points in the past few years alone. Okay.
+
+
+880
+02:23:35.853 --> 02:23:39.013
+PAUL: So somehow I can say that,
+
+
+881
+02:23:39.233 --> 02:23:41.942
+PAUL: The model summary which we are getting.
+
+
+882
+02:23:42.283 --> 02:23:52.313
+PAUL: Yes, this is somehow relatable. Probably the number of words that we have, as we have selected 128 sequences, it is on the longer end.
+
+
+883
+02:23:52.753 --> 02:24:05.203
+PAUL: And if you try to compare it with the actual text article one, so here we are just printing the starting 300 characters. So probably the main context who once preferred to play it safe with the exclusive issue.
+
+
+884
+02:24:05.343 --> 02:24:22.262
+PAUL: are now willing toâ€¦ okay, so I'mâ€¦ I've just printed the 300 characters, if you want. You can actually increase this 300 to 500, or even 600, because this is character, not tokens. So based on that, you can actually look into the answers, and you can decode it.
+
+
+885
+02:24:27.433 --> 02:24:31.993
+PAUL: Now Dhiraj is asking, can you tell me what first 3 GB was used?
+
+
+886
+02:24:32.143 --> 02:24:37.913
+PAUL: The first 3 GB was used to only move the model into the GP.
+
+
+887
+02:24:40.343 --> 02:24:41.553
+PAUL: Then.
+
+
+888
+02:24:41.673 --> 02:24:43.673
+PAUL: After the model has been moved.
+
+
+889
+02:24:43.873 --> 02:24:48.883
+PAUL: Updating the weights and biases, which is the training, that takes a separate amount of VEDA.
+
+
+890
+02:24:50.523 --> 02:24:51.753
+PAUL: Okay, Dhiraj.
+
+
+891
+02:24:52.053 --> 02:24:55.972
+PAUL: Similarly, in a single GPU, first of all, the model weights.
+
+
+892
+02:24:56.283 --> 02:25:04.522
+PAUL: Then comes your actual weights, which will be getting updated during training. Similarly, during inferencing, the concept of KV cash comes.
+
+
+893
+02:25:04.633 --> 02:25:07.873
+PAUL: The KV cash also sits on your GP.
+
+
+894
+02:25:08.083 --> 02:25:10.083
+PAUL: It also consumes you.
+
+
+895
+02:25:10.583 --> 02:25:12.872
+PAUL: I hope you get clarity on that.
+
+
+896
+02:25:17.603 --> 02:25:28.113
+PAUL: All right, similarly, few tests. Child has amassed thousands of Twitter followers with gang life photos. In one video, he points gun at a camera as results look as unfinished as tweets are counted.
+
+
+897
+02:25:28.423 --> 02:25:30.673
+PAUL: Welcome.
+
+
+898
+02:25:31.093 --> 02:25:35.383
+PAUL: 3,000 follower in many pictures is asking suspicious suspense.
+
+
+899
+02:25:35.533 --> 02:25:41.383
+PAUL: All right, so somehow I can say the summarized version looks good only. It's not somehow.
+
+
+900
+02:25:41.753 --> 02:25:46.702
+PAUL: If you try to compare with the reference version, they are somehow close.
+
+
+901
+02:25:47.073 --> 02:25:53.953
+PAUL: Not a huge difference, but yes, in your original test article. And T5 is really a good model, guys.
+
+
+902
+02:25:55.173 --> 02:25:58.132
+PAUL: For text summarization, FLANTIFY.
+
+
+903
+02:26:00.073 --> 02:26:04.933
+PAUL: There is another model which is used. I forgot the name of that model.
+
+
+904
+02:26:06.543 --> 02:26:13.043
+PAUL: That is also a very, very good model, an underdog, but I forgot that name. I have actually used it.
+
+
+905
+02:26:13.483 --> 02:26:23.443
+PAUL: In one of the places, soâ€¦ that is also a really good. So, the first base of T5, and then on top of that, we are loading the data and gettingâ€¦ yes, exactly correct.
+
+
+906
+02:26:24.113 --> 02:26:26.172
+PAUL: Exactly, that is correct.
+
+
+907
+02:26:27.113 --> 02:26:41.683
+PAUL: Now, there is an inferencing function, just like in PyTorch we have created. Okay, and if you remember, there are no direct pipelines for summarization, so manually, we have created this function in PyTorch to do theâ€¦
+
+
+908
+02:26:41.793 --> 02:26:55.263
+PAUL: inferencing, or basically to do the prediction, where we pass something like this. This is our input article, and based on that, we'll be getting the output. So here, this is the final model summary, which you can actually go through.
+
+
+909
+02:26:55.683 --> 02:27:13.123
+PAUL: Okay, now there is no pipelines. This has been actually removed. In the older version of Transformers, there was a direct pipeline. So, I cannot show you. Yesterday, we used pipeline. How many of you remember the pipeline part? With only 4 lines of code that you have done.
+
+
+910
+02:27:13.533 --> 02:27:16.963
+PAUL: But this part was removed in the newer version of Transformers.
+
+
+911
+02:27:18.333 --> 02:27:30.943
+PAUL: Okay, so that's why the idea was, there is no pipeline part here. So once the model is done, so simply the next part is you can push the model to Hugging Face, the things that we have already done it.
+
+
+912
+02:27:31.123 --> 02:27:39.093
+PAUL: But wait for the training to be completed, then you can proceed. So, rest of the tasks are exactly the same. So, there is no difference on that.
+
+
+913
+02:27:42.533 --> 02:27:48.322
+PAUL: Well, right now, the training will take time close to 30 minutes, I think, or close to 1 hour.
+
+
+914
+02:27:48.583 --> 02:27:54.992
+PAUL: Okay, so right now, so let's go into the training part here.
+
+
+915
+02:27:55.323 --> 02:27:58.043
+PAUL: Till now, one epoch has also not completed.
+
+
+916
+02:28:00.943 --> 02:28:05.133
+PAUL: So 36 out of 376 steps. Okay, really slow.
+
+
+917
+02:28:05.323 --> 02:28:20.332
+PAUL: Epoch 3.19 slash 2. Pradeep is telling, after we trained, if we push the hugging phase, then again, we can load the model from hugging phase directly. Does we need another training? No, no, no, you don't need another training. You can directly load the model.
+
+
+918
+02:28:20.943 --> 02:28:24.892
+PAUL: Because already you have trained on your top on top of your data.
+
+
+919
+02:28:35.703 --> 02:28:37.792
+PAUL: 1 hour 41 minutes.
+
+
+920
+02:28:38.323 --> 02:28:43.183
+PAUL: Alright. We can change the GPU, but again, if I am changing the GPU,
+
+
+921
+02:28:46.543 --> 02:28:57.153
+PAUL: Right now, gradient accumulation also that we are doing, you know, because of that, little bit it becomes slow, because yes, it helps you to save the memory, but the impact is there, little bit slower.
+
+
+922
+02:28:57.933 --> 02:29:08.383
+PAUL: So probably in this particular case, working with a better GPU can be a solution, but in your case, I don't think we'll be having that. So let's proceed ahead at D4 and let's wait.
+
+
+923
+02:29:08.613 --> 02:29:11.753
+PAUL: So in today's class, this will be the last part.
+
+
+924
+02:29:11.863 --> 02:29:23.952
+PAUL: And then probably on Wednesday, I think a little bit about PP, because next week we'll be talking with respect to Jenny, who will start with Langchain, Generative AI, RAG things.
+
+
+925
+02:29:24.073 --> 02:29:27.962
+PAUL: Components. Okay, so next week, we will start withâ€¦
+
+
+926
+02:29:28.383 --> 02:29:32.273
+PAUL: After that, we'll be having 4 classes, so probably the Langchen part.
+
+
+927
+02:29:32.383 --> 02:29:37.402
+PAUL: Will take a few classes at least yes there will be total.
+
+
+928
+02:29:40.623 --> 02:29:46.523
+PAUL: 7 to 8 notebooks, Jupyter notebooks, and everything will be pretty much local.
+
+
+929
+02:29:46.653 --> 02:29:50.243
+PAUL: And we start working with LLMs or direct APIs.
+
+
+930
+02:29:51.653 --> 02:29:59.683
+PAUL: Now, Pritham is asking, if I train on my own data, what is the difference between RAG and this model? In RAG, you consume an LLM.
+
+
+931
+02:29:59.923 --> 02:30:03.613
+PAUL: Preetam, here you are building a language model.
+
+
+932
+02:30:03.903 --> 02:30:05.993
+PAUL: Both the scenarios are totally different.
+
+
+933
+02:30:07.703 --> 02:30:14.763
+PAUL: Okay. Pradeep is asking, can you tell me when you use this in real life examples? Currently, I'm working in a startup.
+
+
+934
+02:30:14.993 --> 02:30:18.153
+PAUL: So, for example, if you have the data.
+
+
+935
+02:30:18.653 --> 02:30:21.972
+PAUL: Okay, so, for example, let's takeâ€¦
+
+
+936
+02:30:22.223 --> 02:30:27.292
+PAUL: First of all, you have to analyze the data, and based on that, you have to select what is the task that youâ€¦
+
+
+937
+02:30:27.793 --> 02:30:33.613
+PAUL: So generally, if it is a generation based task, I will prefer Gpt based models.
+
+
+938
+02:30:33.773 --> 02:30:38.492
+PAUL: If there is a task with respect to machine translation.
+
+
+939
+02:30:38.993 --> 02:30:47.732
+PAUL: or like the other one which you have discussed summarization, then I prefer sequence to sequence models.
+
+
+940
+02:30:48.163 --> 02:30:57.933
+PAUL: Then if you have a task like ADR, fill in the blanks, NSP, next sentence prediction, net worth prediction, in those cases I preferred birth much more.
+
+
+941
+02:30:58.073 --> 02:31:05.352
+PAUL: So, simply try to analyze the problem statement, because first, analyze the data, and based on that, the problem statement that you are defining.
+
+
+942
+02:31:06.213 --> 02:31:10.333
+PAUL: So then only it makes sense to implement these type of things.
+
+
+943
+02:31:10.503 --> 02:31:13.912
+PAUL: If you don't have any custom data, then you cannot do anything.
+
+
+944
+02:31:14.133 --> 02:31:16.893
+PAUL: Because rack-based solutions are very, very easy.
+
+
+945
+02:31:17.443 --> 02:31:22.843
+PAUL: There is very less amount of engineering, at least there is some amount of engineering.
+
+
+946
+02:31:31.393 --> 02:31:35.412
+PAUL: Only, one topic is left, which is the BP part.
+
+
+947
+02:31:35.663 --> 02:31:38.463
+PAUL: So on Wednesday, probably we'll be discussing that.
+
+
+948
+02:31:41.543 --> 02:31:52.552
+PAUL: All right, fine. So I think then Dhiraj is asking if I want to build a model which can tell my student how to write answer in exam.
+
+
+949
+02:31:53.253 --> 02:31:59.712
+PAUL: How to write answer in exam? Will this be type of a model help if you have the notes for a specific subject?
+
+
+950
+02:32:00.383 --> 02:32:08.823
+PAUL: Then probably I'll be going with generation, because the task that you are doing, it is based on generation, so probably GPT will be better in those cases.
+
+
+951
+02:32:11.973 --> 02:32:15.872
+PAUL: Because at the end of the day, you want to generate the final solutions.
+
+
+952
+02:32:16.033 --> 02:32:18.953
+PAUL: Based on the inputs, and you have the context.
+
+
+953
+02:32:19.833 --> 02:32:20.773
+PAUL: Would he?
+
+
+954
+02:32:21.033 --> 02:32:21.703
+PAUL: you
+
+
+955
+02:32:28.133 --> 02:32:35.033
+PAUL: All right, so probably the training will take time. Later on, you can do it or keep it running in your system.
+
+
+956
+02:32:35.683 --> 02:32:42.723
+PAUL: So I think I'll be concluding the session, because I was planning to teach BP, but let's do it
+
+
+957
+02:32:42.913 --> 02:33:00.782
+PAUL: On Wednesday, a short session only you need 30 minutes, so probably even 30 minutes I can discuss something else. That is the benefit. That's why I have taken that, but I thought BP is a very important algorithm from your interview perspective, though it was not part of the syllabus, but let's cover it.
+
+
+958
+02:33:01.343 --> 02:33:04.503
+PAUL: And we'll be working a little bit with respect to TikTok and also.
+
+
+959
+02:33:04.933 --> 02:33:08.872
+PAUL: Pradeep is asking, does we deploy these models in any server? Yes.
+
+
+960
+02:33:09.023 --> 02:33:15.162
+PAUL: For sure, no. You'll be having your own custom, like, self-hosting that we'll be doing in AWS.
+
+
+961
+02:33:16.043 --> 02:33:27.792
+PAUL: In GPUs. In GPU, you will be selecting a GPU, and in that particular GPU, you'll be running this type of models. So, pretty much self-hosting tasks. Right now, everything is local that we have done.
+
+
+962
+02:33:27.823 --> 02:33:44.863
+PAUL: But later on, you have to use a dedicated inferencing service, like VLLM, or you can use SGLAN. Those areâ€¦ those areâ€¦ or you can use TorchServe also. Okay, TFServe, those type of options are also there to serve the model in production.
+
+
+963
+02:33:46.153 --> 02:33:52.722
+PAUL: Now, does we develop this type ofâ€¦ yes, Dhiraj is asking, is this why A100s and A2â€¦ yes, exactly.
+
+
+964
+02:33:53.133 --> 02:34:00.252
+PAUL: That's why you have higher, because there I can pass a higher batch size, I can remove the complete gradient accumulation.
+
+
+965
+02:34:00.683 --> 02:34:04.053
+PAUL: Okay, so those type of things, that's why better GPUs are required.
+
+
+966
+02:34:04.493 --> 02:34:09.123
+PAUL: I have to build my own model, how to collect and prepare. How to collect, see?
+
+
+967
+02:34:09.573 --> 02:34:13.542
+PAUL: Himanshu, every time you get the data, nobody collects the data.
+
+
+968
+02:34:13.743 --> 02:34:18.243
+PAUL: Even with respect to our client, I always say to my client, you need to provide me this data.
+
+
+969
+02:34:18.823 --> 02:34:26.212
+PAUL: So data is always received that you will be getting. Probably you might get messy data, but at least you have to start from something.
+
+
+970
+02:34:28.243 --> 02:34:39.263
+PAUL: Evenâ€¦ there has to be. For example, in internal product-based organizations, from different types of products, they extract the logs, or some type of conversation between
+
+
+971
+02:34:39.313 --> 02:34:56.933
+PAUL: users, they try to extract it. So, for example, if I do, please provide the summarization of the conversation between this X guy and the other guy Y. So, simply, you need to dump all those chat history between those, and then we will perform the summarization.
+
+
+972
+02:34:57.043 --> 02:34:59.803
+PAUL: Samsung has those type of data sets.
+
+
+973
+02:34:59.913 --> 02:35:02.213
+PAUL: Similarly, WhatsApp has also released.
+
+
+974
+02:35:03.043 --> 02:35:13.512
+PAUL: Okay, now those are not real data, but simulated data which has come. So you will always getting the data, the MAMS. It's not like, you have to find the data.
+
+
+975
+02:35:13.693 --> 02:35:31.782
+PAUL: If you start finding the data, then now we will start working on the algorithm. Your expectation is, this is the format of the data that I need to work on. So probably you might not get the exact format nobody gets, because real-time data is always missing. You need to make it according to the algorithms that you are using.
+
+
+976
+02:35:32.273 --> 02:35:36.623
+PAUL: Are you guys selling, how to remember all of this practice?
+
+
+977
+02:35:36.943 --> 02:35:51.963
+PAUL: The simplest way, pick up 3 different BERT variants, pick up 3 different sequence-to-sequence models, pick up 3 different GPT variants, like Distance GPT, GPT-2, probably a NanoGPT, in that way.
+
+
+978
+02:35:52.283 --> 02:35:56.593
+PAUL: Try to do the same execution, change different type of datasets.
+
+
+979
+02:35:57.173 --> 02:36:05.073
+PAUL: Just like machine learning, you change the data set, you change the algorithms, you become much more familiar. A very similar operation that you need to do it here.
+
+
+980
+02:36:05.453 --> 02:36:09.912
+PAUL: But Till the time you are not practicing with other data sets, really.
+
+
+981
+02:36:10.243 --> 02:36:14.243
+PAUL: You will remember, but later on it becomes like.
+
+
+982
+02:36:15.223 --> 02:36:16.933
+PAUL: Problem. Alright.
+
+
+983
+02:36:17.543 --> 02:36:22.083
+PAUL: Now let's start, taking questions. I think somebody has raised hand.
+
+
+984
+02:36:22.363 --> 02:36:24.753
+PAUL: Meenakshi, alright.
+
+
+985
+02:36:25.863 --> 02:36:26.663
+PAUL: Dude.
+
+
+986
+02:36:27.333 --> 02:36:28.763
+PAUL: Here's Munakshi.
+
+
+987
+02:36:38.623 --> 02:36:44.753
+PAUL: There isâ€¦ No response from Meenakshi. Can we drop? Yes, class will do.
+
+
+988
+02:36:45.793 --> 02:36:49.532
+PAUL: Himanshu is asking, how do I decide the GPU requirements?
+
+
+989
+02:36:49.683 --> 02:36:53.223
+PAUL: See, generally, the ideas always start with a
+
+
+990
+02:36:54.023 --> 02:36:57.623
+PAUL: task where you have 24 GB to 48 GB opera.
+
+
+991
+02:36:57.993 --> 02:37:04.193
+PAUL: Now, let's look into the amount of data. It means that the amount of data that will be processing.
+
+
+992
+02:37:04.503 --> 02:37:17.153
+PAUL: So always try to understand that you can work with one GPU also. It might take 20 hours or you might use 20 GPU and it can be done in one hour. Now it's totally depend on.
+
+
+993
+02:37:17.403 --> 02:37:35.403
+PAUL: you, like, how you want to do the infra setup. It means that then, if you want to do a distributed parallel training setup, then simply, like, I do that setup much more. It means that I'll be taking 16 GPUs in one shot. I'll be keeping that, but first of all, before moving to 16,
+
+
+994
+02:37:35.493 --> 02:37:49.752
+PAUL: Start with one GPU always. One GPU, then move to two GPUs, because the idea is you need to do the distributed and parallel training setup of DSP. Once the DSP setup is done, then you can actually increase it.
+
+
+995
+02:37:49.913 --> 02:37:54.722
+PAUL: Because in a single GPU, you cannot do distributed training on a parallel, it is not possible.
+
+
+996
+02:37:54.843 --> 02:38:03.472
+PAUL: So my preference, I always start and then I look, okay, if I need faster. So one GPU, how many batch I can pass it.
+
+
+997
+02:38:04.253 --> 02:38:20.412
+PAUL: Okay, without any bottlenecks. Similarly, in the other one, the other batches. So, in that way, I plan it. So, in total, if I have 1,000 batches, and if I want some execution to be done within 1 hour, so probably every GPU is processing one batch in how many minutes?
+
+
+998
+02:38:20.533 --> 02:38:31.052
+PAUL: So based on that, I make those rough calculations, and then I know the average allocation per GPU per batch. So from that decision framework, I take the final.
+
+
+999
+02:38:31.193 --> 02:38:33.552
+PAUL: I hope Ivan Shu got a high level idea.
+
+
+1000
+02:38:34.083 --> 02:38:49.972
+PAUL: You always start with 1 GPU, then 2, and then start increasing. 10, 16. Because in OpenAI and other places, they use very high numbers, like 16,000 GPUs, 12,000 GPUs in parallel. Those are high-performance clusters.
+
+
+1001
+02:38:50.073 --> 02:38:55.902
+PAUL: So, simply, in your case, if you start working, at least with 2, and then slowly, slowly increase.
+
+
+1002
+02:38:57.903 --> 02:39:03.602
+PAUL: All right, now, can you share the notes? Yes, just wait, I'll be sharing the notes, I forgot, right?
+
+
+1003
+02:39:04.963 --> 02:39:19.242
+PAUL: Now, Samita, Preeti, you covered, please suggest if you refer to any starting materials from the SIM. There are so many, start looking into the research papers. There will be a lot of blogs in Medium that you can look into with respect to FLAN, T5, these type of operations.
+
+
+1004
+02:39:23.073 --> 02:39:28.382
+PAUL: The idea is if possible because these operations
+
+
+1005
+02:39:28.793 --> 02:39:36.832
+PAUL: The best book, already I told you, Hands-On Machine Learning, August Gurali, that book you can actually follow, that is really impressive.
+
+
+1006
+02:39:37.413 --> 02:39:44.873
+PAUL: Now, let me just shareâ€¦ Quick exportâ€¦ I'm sharing the notes in the chat, please do download it.
+
+
+1007
+02:39:45.593 --> 02:39:48.952
+PAUL: Yes, B sample we'll be discussing on Wednesday's term, it's correct.
+
+
+1008
+02:39:50.773 --> 02:39:59.213
+PAUL: Do we have any local setup for local LLM building and training? Local there is see in locals if you have the GPU or the hardware.
+
+
+1009
+02:39:59.583 --> 02:40:03.553
+PAUL: Because nobody does it locally. It means that
+
+
+1010
+02:40:03.743 --> 02:40:18.522
+PAUL: some type of cloud. Generally, if you have the GPUs, it means that if you have 8 GPUs in your home or in your office, then it makes sense. I've never done it locally, because the amount of hardware is really not always available.
+
+
+1011
+02:40:19.193 --> 02:40:34.162
+PAUL: even in big organizations also, okay, probably, I'm not talking with respect to Google and Meta, they have very huge infrastructure, not talking about organizations where you have dedicated data centers, but every organization is not buying it, because
+
+
+1012
+02:40:34.383 --> 02:40:37.642
+PAUL: It's a one-time task. After fine-tuning, what?
+
+
+1013
+02:40:38.263 --> 02:40:44.072
+PAUL: Because then, later on, the hardware is not required. So everybody is not purchasing local hardware for that.
+
+
+1014
+02:40:44.663 --> 02:40:54.362
+PAUL: And even the prices of GPU because of the war, in the past two years it has really, really increased.
+
+
+1015
+02:40:55.693 --> 02:40:57.033
+PAUL: We don't wantâ€¦
+
+
+1016
+02:40:57.213 --> 02:41:08.443
+PAUL: To purchase, rather than use pay-per-second. I prefer pay-per-second models better. Or sometimes I might rent a GPU if I am doing a lot of experiments.
+
+
+1017
+02:41:09.003 --> 02:41:10.633
+PAUL: It's better to rent.
+
+
+1018
+02:41:15.013 --> 02:41:20.573
+PAUL: Because GPUs, again, to maintain GPUs, you need to process a lot of other things that comes.
+
+
+1019
+02:41:21.033 --> 02:41:26.222
+PAUL: A very full setup, indeed. Full setup means GPUs.
+
+
+1020
+02:41:26.373 --> 02:41:36.512
+PAUL: in your, the actual CPU cabinet or the server where you are placing it, from there, a lot of heat generation comes. You need to spend a lot of money even on the cooling infrastructure.
+
+
+1021
+02:41:38.863 --> 02:41:39.773
+PAUL: Totally.
+
+
+1022
+02:41:41.293 --> 02:41:48.773
+PAUL: Previously, in back in 2019, I've used, like, 4 GTX1080 setups.
+
+
+1023
+02:41:49.303 --> 02:41:52.412
+PAUL: But right now, those type of setups are totally irrelevant.
+
+
+1024
+02:41:52.573 --> 02:41:57.802
+PAUL: Because H200s, B200s, the cost of those hardware is really short.
+
+
+1025
+02:41:58.063 --> 02:42:02.322
+PAUL: So now those are enterprise level GPUs. As a consumer, I cannot purchase.
+
+
+1026
+02:42:02.493 --> 02:42:05.993
+PAUL: If I go to NVDA and I tell them, then also they will not send me.
+
+
+1027
+02:42:06.363 --> 02:42:10.133
+PAUL: I have to go as an organization, they don't need to help me.
+
+
+1028
+02:42:10.463 --> 02:42:14.583
+PAUL: Consumer level GPUs are the generic one RTX 50, 60.
+
+
+1029
+02:42:14.703 --> 02:42:18.523
+PAUL: 40, 70, 30, 60, those are the consumer limits.
+
+
+1030
+02:42:20.173 --> 02:42:25.313
+PAUL: All right, so I have shared the notes in the chat, so simply, what you can do.
+
+
+1031
+02:42:25.663 --> 02:42:38.033
+PAUL: I can say that we'll be moving towards our next one. So next week, just remember, we'll be starting with the Gen AI, LangChain, those type of concepts, so just be sure it's completely new module.
+
+
+1032
+02:42:38.143 --> 02:42:40.323
+PAUL: And you don't miss out the classes.
+
+
+1033
+02:42:51.173 --> 02:42:54.493
+PAUL: The best idea is book, follow-up book, Somam.
+
+
+1034
+02:42:55.733 --> 02:43:02.183
+PAUL: There's 6 lakhs for 50-90 exactly. Previously, like, even I have purchased with 3 lakhs.
+
+
+1035
+02:43:02.473 --> 02:43:08.352
+PAUL: Lighter version, 3090, okay? But really, the prices of GPUs really shot.
+
+
+1036
+02:43:08.643 --> 02:43:13.543
+PAUL: Nothing you can do. So that's why people are moving from Nvidia to cheaper GPUs from Intel.
+
+
+1037
+02:43:14.033 --> 02:43:28.273
+PAUL: Intel Arc, Pro, VPro, those type of models. Because there also you have the VRAM, probably the efficiency will be a little bit lower, but the software is getting built around. It means that people have started working for the past one year or something.
+
+
+1038
+02:43:29.733 --> 02:43:33.713
+PAUL: All right, fine. Let's proceed ahead with Shahul. Shahul, raise your hand. Shahul. Yeah.
+
+
+1039
+02:43:33.713 --> 02:43:38.153
+Shahul Hameed: Hey, hi, Paul. Yeah. So am I audible?
+
+
+1040
+02:43:38.153 --> 02:43:38.953
+PAUL: Yes?
+
+
+1041
+02:43:38.953 --> 02:43:58.463
+Shahul Hameed: Yeah, yeah. So, Paul, so just a quick question I had. I mean, it's just a doubt, I want to take your opinion. So, basically, so I've been not attending the last 3-4 classes, because I have to take some break and all. So, I know you've been starting the next, module with Generative AI, you know. I just want toâ€¦ is there a difference between AI engineer and generative engineer? Andâ€¦
+
+
+1042
+02:43:58.463 --> 02:44:16.463
+Shahul Hameed: And I'll tell you why, because what I understood was AI engineers, all this traditional ML, all those things, what we've been studying, right, from machine learning and everything, and generative engineers focus on those, like, LangGraph and whatever, all those things. So, I just wanted toâ€¦
+
+
+1043
+02:44:16.463 --> 02:44:20.412
+Shahul Hameed: Is there a difference, or it's interchanged, these terms?
+
+
+1044
+02:44:20.413 --> 02:44:25.472
+PAUL: No, no. Tom, see AI engineer, if you simply say my expectation from you will be much more high.
+
+
+1045
+02:44:26.043 --> 02:44:40.233
+PAUL: Because the generative AI part, it comes under machine learning, but very specifically under deep learning. So my expectation in generative AI that youâ€¦ if you not know about ML, it's fine. If you don't know about a little bit of stat, that is acceptable.
+
+
+1046
+02:44:40.453 --> 02:44:44.753
+PAUL: But AI engineer means you have to know ML stats that entire time.
+
+
+1047
+02:44:45.103 --> 02:44:54.443
+PAUL: Gen AI guys, generally, like, you should have a very good deep learning, because the entire thing is built on top of deep learning stuff.
+
+
+1048
+02:44:54.443 --> 02:45:05.183
+PAUL: Now the question comes, there are two parts there, the RAG and the agent. There, really, you don't work with AI. It's much more framework-based task. It means that direct consumption of elements.
+
+
+1049
+02:45:06.163 --> 02:45:07.103
+Shahul Hameed: Okay.
+
+
+1050
+02:45:07.103 --> 02:45:12.933
+PAUL: So, less technical, I can say, because directly we'll be only making API calls.
+
+
+1051
+02:45:13.103 --> 02:45:15.632
+PAUL: And the frameworks are much easier to understand.
+
+
+1052
+02:45:16.433 --> 02:45:25.023
+Shahul Hameed: Okay. So when you say AI engineer, we should know deep understanding of deep learning. You mean to say from ANN, LSTM, GRU, encoder, decoder?
+
+
+1053
+02:45:25.023 --> 02:45:26.413
+PAUL: Physically, exactly, everything.
+
+
+1054
+02:45:26.413 --> 02:45:34.622
+Shahul Hameed: Long shirt, Rakrak. I mean, all these concepts, I mean, I do understand, but if you ask me to write a program on that or something, I may not be able to do so.
+
+
+1055
+02:45:34.623 --> 02:45:35.023
+PAUL: Nobody.
+
+
+1056
+02:45:35.023 --> 02:45:36.413
+Shahul Hameed: Then I am asking.
+
+
+1057
+02:45:36.413 --> 02:45:37.373
+PAUL: that way.
+
+
+1058
+02:45:37.593 --> 02:45:44.253
+PAUL: For example, the simplest intuition is, if I give you the network, they will ask you how to do the optimization of this.
+
+
+1059
+02:45:44.753 --> 02:45:45.203
+Shahul Hameed: Okay.
+
+
+1060
+02:45:45.203 --> 02:46:00.323
+PAUL: So, first of all, you have to analyze the network, you have to understand the components, and then simply you can say that probably I can add a regularization, probably I can add a rate decay, probably in your network, this activation can be upgraded to a better version. In that way, that is the intuition.
+
+
+1061
+02:46:00.893 --> 02:46:07.082
+Shahul Hameed: Okay, you mean to say I can use Softmax here, or in place of Softmax, some other activation, something, you know, we should be able.
+
+
+1062
+02:46:07.083 --> 02:46:07.443
+PAUL: now.
+
+
+1063
+02:46:07.443 --> 02:46:08.373
+Shahul Hameed: Okay.
+
+
+1064
+02:46:08.373 --> 02:46:14.873
+PAUL: In that is the idea where it means that you know about neural networks, that is the core component.
+
+
+1065
+02:46:15.053 --> 02:46:25.763
+PAUL: When I say with respect to the part with respect to deep learning very specifically, it means that you internally know stuff, and you can do changes at any point of time.
+
+
+1066
+02:46:26.223 --> 02:46:35.943
+PAUL: Where a simple rack guy cannot do that. Rack guy is totally different. He only knows that I have to call the LL, but he cannot modify any changes there.
+
+
+1067
+02:46:36.743 --> 02:46:53.453
+PAUL: So probably in the interview they might ask you a very common question. So generally what is the impact of temperature whenever you are working with LLMs? Generally in RAG agents everywhere you will be working with LLM. So the question comes what is the impact of temperature?
+
+
+1068
+02:46:54.173 --> 02:46:54.933
+Shahul Hameed: Okay.
+
+
+1069
+02:46:54.933 --> 02:46:57.403
+PAUL: in your final output layer of the model.
+
+
+1070
+02:46:57.863 --> 02:46:58.383
+Shahul Hameed: Now.
+
+
+1071
+02:46:58.383 --> 02:47:11.552
+PAUL: Now you have to tell that if I change the temperature, the logits will be changed. And because of the logits, the softmax values will be changed. So for sure, we'll be getting different words. So technically, you have to understand from the model perspective.
+
+
+1072
+02:47:11.933 --> 02:47:27.093
+Shahul Hameed: Okay, okay. Soâ€¦ so basically, generative AI engineers, the top layer of all these things, deep learning, whatever we are studying, right? So they would be interviewed mostly on, like, what are the questions used, whether you're using QLORA, all those things, right?
+
+
+1073
+02:47:27.163 --> 02:47:45.353
+Shahul Hameed: I'm just trying to understand. Okay, soâ€¦ so, related to that question, if someone like me, who's been in QA, Iâ€¦ this is where I need your opinion, because you've been working with the industry for a long time on this. Someone with me who's been working on Java, Automation, Playwright, JavaScript, and everything.
+
+
+1074
+02:47:45.383 --> 02:47:59.203
+Shahul Hameed: who's having about a decade or so of experience. I really don't want to go in the traditional ML also, because I knowâ€¦ it's just thatâ€¦ I mean, I don't have that level of experience, because if I go, I'll be competing with a person who would be doing better than me.
+
+
+1075
+02:47:59.203 --> 02:48:23.962
+Shahul Hameed: Like he'll be having five years of experience. He'll be having any model buildings from scratch or predicting models or recommendation systems, everything. He'll be doing it very well. But then I'm towards inclined towards this generative AI things, which I really want to have. You know, I'm from a coding background, but not like a developer coding background, but I just do a day out with Java and JavaScript. We build frameworks. Basically, I'm an SDET, okay, software developer.
+
+
+1076
+02:48:23.963 --> 02:48:39.723
+Shahul Hameed: engineering test. So, what would you suggest? I mean, I also was just looking at it, if I have to be the logical route after this course. I'm not going to take course after course, but then I just want to understand the logical next course would be, like, the generative AI bootcamp.
+
+
+1077
+02:48:39.743 --> 02:48:41.093
+Shahul Hameed: Like, you know, whatever theâ€¦
+
+
+1078
+02:48:41.093 --> 02:48:45.912
+PAUL: That is much more technical stuff, and really, if you want to avoid that.
+
+
+1079
+02:48:45.983 --> 02:48:50.743
+PAUL: Because, see, one is having technical knowledge, it means that developer rules.
+
+
+1080
+02:48:50.753 --> 02:49:07.532
+PAUL: For them, generally, I suggest Gen AI Page Bootcamp. In your case, try to look for MDE. That is much more from the business side also, and a little bit from the technical side also. It gives you the application, like how AI applications are shipped and packed.
+
+
+1081
+02:49:08.073 --> 02:49:15.643
+PAUL: in today's world, what are the different types of tools from security perspective? You can focus on those things much more.
+
+
+1082
+02:49:16.033 --> 02:49:21.782
+PAUL: Because if you try to do that developer stuff, then things becomes much more deeper and deeper.
+
+
+1083
+02:49:21.913 --> 02:49:26.262
+PAUL: For that, the advanced route is there. There, we discuss about that.
+
+
+1084
+02:49:26.263 --> 02:49:27.582
+Shahul Hameed: Yeah, urban sort of zoo.
+
+
+1085
+02:49:27.833 --> 02:49:43.522
+PAUL: That is much tougher because they're much more internal based algorithms that we do discuss about. But if you really want someone generally for senior anything having more than 15 years, 12 years, 15 years of experience, we generally suggest like FD is the new term.
+
+
+1086
+02:49:43.523 --> 02:49:59.872
+PAUL: But the idea is you need to understand the AI ecosystem, exactly howâ€¦ what happens in data engineering, what happens in the data science part, and finally the deployment. If you know these three things, because you have to think senior positions means architect or principal roles that you will be getting.
+
+
+1087
+02:49:59.873 --> 02:50:00.313
+Shahul Hameed: you.
+
+
+1088
+02:50:00.313 --> 02:50:10.193
+PAUL: Always the term won't be like FD, FD, FD, that term. The idea is some senior role. In senior role, the expectation is you know the entire ecosystem. So you have to understand the life cycle of them.
+
+
+1089
+02:50:10.553 --> 02:50:20.882
+PAUL: If youâ€¦ one of the best books to go through that is, like, a machine learning system designed by Chipwell, a very good book, which tells you about the entire ecosystem.
+
+
+1090
+02:50:21.363 --> 02:50:22.113
+Shahul Hameed: Okay.
+
+
+1091
+02:50:22.113 --> 02:50:25.952
+PAUL: Okay. And the next book written by her was AI Gini.
+
+
+1092
+02:50:26.393 --> 02:50:28.423
+PAUL: Cheap one, same author.
+
+
+1093
+02:50:28.423 --> 02:50:29.402
+Shahul Hameed: Those two books.
+
+
+1094
+02:50:29.403 --> 02:50:37.822
+PAUL: Really, like generally for senior engineers, I suggest you go through the book if you really haven't worked four years or five years in AIML, it gives you a rough idea.
+
+
+1095
+02:50:38.013 --> 02:50:41.483
+PAUL: So that technical interviews, it becomes really, really helpful.
+
+
+1096
+02:50:41.693 --> 02:50:45.162
+PAUL: The story building is really good with very good examples.
+
+
+1097
+02:50:45.493 --> 02:51:01.822
+Shahul Hameed: Okay. So the reason why I was inclined towards generative AI engineers, Paul, this is my understanding, because, if you ask, Dhiraj has been there for very long, right? From statistics, it's been there. But now, after the boom of ALLM and everything, all these new rules started coming, LLM engineer, and all those things.
+
+
+1098
+02:51:01.823 --> 02:51:14.773
+Shahul Hameed: So I thought, if I move towards that, no one is gonna, have experience ofâ€¦ 15 years of experience working on calling LLM APIs, or, Landsmith, or Landgraph, or be it even the crew AI and everything.
+
+
+1099
+02:51:14.773 --> 02:51:33.253
+Shahul Hameed: So I thought, because in that way, people would not see my experience, but they would see my technical skills and knowledge. So in that way, I would not be looked upon down, oh, this guy's got a decade years of experience, what would I do? I would hire another person who's, like, 5 years. So that was my whole idea, because if I go with the deep learning or traditional ML and everything.
+
+
+1100
+02:51:33.253 --> 02:51:36.763
+Shahul Hameed: That has been there for in system for a very long time actually.
+
+
+1101
+02:51:36.763 --> 02:51:42.602
+PAUL: cannot totally skip it. You can have those things in high level, but at least you should have the idea.
+
+
+1102
+02:51:42.933 --> 02:51:45.993
+Shahul Hameed: Yes, yes, obviously, right, right, right.
+
+
+1103
+02:51:45.993 --> 02:51:46.613
+PAUL: you.
+
+
+1104
+02:51:46.743 --> 02:51:47.443
+Shahul Hameed: Yeah.
+
+
+1105
+02:51:47.823 --> 02:51:50.952
+PAUL: Because you need to have the idea about that.
+
+
+1106
+02:51:51.343 --> 02:52:04.553
+PAUL: Otherwise, what happens? You cannot take decisions. That becomes a problem. I've met with people. Generally, they are not good in taking decisions. They will ask the team, do the research, then come, then only they can take the decision.
+
+
+1107
+02:52:04.673 --> 02:52:11.513
+PAUL: And people who have already worked, they can take decisions much faster because their instincts are better.
+
+
+1108
+02:52:11.613 --> 02:52:15.053
+PAUL: As compared to his not having experience. That is the only main problem.
+
+
+1109
+02:52:15.273 --> 02:52:29.942
+PAUL: In your case, your team might take 7 days, just to come, do the research, multiple experiments, whereas the other team, who is much more there, already working in AI, that team will be a little bit much more faster, because their intuitions
+
+
+1110
+02:52:30.003 --> 02:52:40.272
+PAUL: will be a little bit somehow better. So that's why, better instincts, better foundation. Better foundation, better decisions. Otherwise, you have to spend some time much more on research.
+
+
+1111
+02:52:41.003 --> 02:52:47.732
+Shahul Hameed: So, as per your opinion, the right role, if I'mâ€¦ I mean, it would be more going towards FDI roles, like, kind of things.
+
+
+1112
+02:52:47.733 --> 02:52:48.293
+PAUL: Obviously.
+
+
+1113
+02:52:48.293 --> 02:52:48.753
+Shahul Hameed: the.
+
+
+1114
+02:52:48.753 --> 02:52:50.032
+PAUL: If you are.
+
+
+1115
+02:52:50.033 --> 02:52:50.383
+Shahul Hameed: and.
+
+
+1116
+02:52:50.383 --> 02:53:07.263
+PAUL: Yes, because as you are looking into principal and senior level roles, little bit interaction with business teams, you have to understand their requirements. So, if you act something like that, then in that case, yes, rules like FD is a better fit for you, I can say.
+
+
+1117
+02:53:07.293 --> 02:53:25.973
+PAUL: Because in your case, it's not about the internals, rather than thinking from the product perspective. How to ship the product, how to implement all the things with respect to security, what are the things with respect to ethics, what are the different types of compliances. There are a lot of other things also, it's not only about the development. You have to understand.
+
+
+1118
+02:53:25.973 --> 02:53:38.423
+PAUL: Other than the development, really, like, we have to sit with the legal team, we have to fix this, all the compliances are met. Those things are also part of AI, but really, less people focus on that.
+
+
+1119
+02:53:38.473 --> 02:53:43.303
+PAUL: But generally, all those areâ€¦ generally, developers don't go in those meetings.
+
+
+1120
+02:53:43.693 --> 02:53:48.693
+PAUL: All the senior guys, more than 8 years of experience, they only go in those meetings.
+
+
+1121
+02:53:49.133 --> 02:53:58.523
+Shahul Hameed: Okay. Okay. If at all, if it was an option to miss, what would you suggest? If not AP, like the generative part or something like just trying to understand.
+
+
+1122
+02:53:58.523 --> 02:54:08.522
+PAUL: Technicality, if you would, in high level, if you want, because the Gen AI bootcamp, it is going to complete probably next year. Yes, yes. It'll be going to launch around January. Sunny will be taking that.
+
+
+1123
+02:54:08.523 --> 02:54:09.153
+Shahul Hameed: Yes.
+
+
+1124
+02:54:09.153 --> 02:54:12.743
+PAUL: That is something like the Gen AI technicality part.
+
+
+1125
+02:54:12.943 --> 02:54:17.683
+PAUL: Much more developer-focused. So they are fine-tuning and other things that you will be learning.
+
+
+1126
+02:54:17.943 --> 02:54:20.072
+PAUL: So that part I can suggest.
+
+
+1127
+02:54:20.233 --> 02:54:25.723
+PAUL: Because, what happened? Like, in advanced route also, many people came. Once they looked into the depth.
+
+
+1128
+02:54:26.483 --> 02:54:28.972
+PAUL: Really. So I know more thanâ€¦
+
+
+1129
+02:54:28.973 --> 02:54:29.913
+Shahul Hameed: No, Iâ€¦
+
+
+1130
+02:54:29.913 --> 02:54:31.732
+PAUL: We'll switch to empty.
+
+
+1131
+02:54:31.733 --> 02:54:33.093
+Shahul Hameed: So the better.
+
+
+1132
+02:54:33.093 --> 02:54:37.843
+PAUL: That's why I told that in class. Otherwise, nobodyâ€¦ it is allowed that you can change batches.
+
+
+1133
+02:54:37.963 --> 02:54:41.972
+PAUL: But I told him, just simply, new batch is coming, make the change.
+
+
+1134
+02:54:41.973 --> 02:54:43.212
+Shahul Hameed: Yeah, so I was.
+
+
+1135
+02:54:43.213 --> 02:54:44.552
+PAUL: 50 years of,
+
+
+1136
+02:54:44.553 --> 02:54:44.953
+Shahul Hameed: 14.
+
+
+1137
+02:54:44.953 --> 02:54:45.523
+PAUL: lot.
+
+
+1138
+02:54:45.523 --> 02:54:46.183
+Shahul Hameed: Idiot.
+
+
+1139
+02:54:46.563 --> 02:54:50.243
+PAUL: In your case, it's 14, but there were many others, like 20, 25.
+
+
+1140
+02:54:50.243 --> 02:54:51.662
+Shahul Hameed: Got it, got it.
+
+
+1141
+02:54:51.663 --> 02:55:02.222
+PAUL: Technically doing that because the same thing, the Transformers that are taught, if I start writing the code from scratch, not everybody can take it.
+
+
+1142
+02:55:02.633 --> 02:55:03.383
+Shahul Hameed: Okay.
+
+
+1143
+02:55:03.383 --> 02:55:05.033
+PAUL: You have to be good in Python.
+
+
+1144
+02:55:05.543 --> 02:55:06.213
+Shahul Hameed: And.
+
+
+1145
+02:55:06.213 --> 02:55:26.172
+PAUL: And at least one year of experience or two years of experience at that. Then you can write things from scratch. So it becomes a bit harder if somebody has not really worked in AI. If you have worked in AI, then only it makes sense. Otherwise, it really doesn't make sense to learn that stuff. Then you might say that everything I'll be doing in high level reference. Totally acceptable.
+
+
+1146
+02:55:26.393 --> 02:55:46.452
+Shahul Hameed: Yeah, so that wasâ€¦ one more thing, what I was thinking, FTE, I didn't even know about it. In fact, I know Advanced Root is not something for me, because I have to be strong on some foundations. The other thing why I thought FDU may not be okay with me, because it is someone of my experience. Obviously, if they've been working as a developer, be it a backend developer, or API developer, or they work in Spring Boot or anything, because
+
+
+1147
+02:55:47.023 --> 02:55:58.273
+Shahul Hameed: only those peopleâ€¦ and I'm coming from QA, where I'm not a manual tester or something, as I said, I also do coding, but with respect to frameworks building and everything, which you would prefer. Sell your name, playwright, and stuff.
+
+
+1148
+02:55:58.273 --> 02:56:21.862
+Shahul Hameed: So I thought it may not suit for me. It's notâ€¦ it may not suit for me, because I have to do a lot of homework again. I have to understand everything. I've never built any API and everything. So I thought it'sâ€¦ it's just not, right for me. So that is the reason I thought FD may not be the right one. But the other way I was also looking at it is, if I do generative engineer, like, I would get the hang of it. Now, with this course, I know what isâ€¦
+
+
+1149
+02:56:21.863 --> 02:56:27.493
+Shahul Hameed: You know, even pandas, statistics, all this linear regression is starting from machine learning to deep learning and everything.
+
+
+1150
+02:56:27.493 --> 02:56:31.693
+PAUL: One part, the other part is also, like, which is not covered in your questions, cloud part.
+
+
+1151
+02:56:31.853 --> 02:56:39.622
+PAUL: Because every service that you have learned in cloud, very specific to AWS or Azure, you have to be very good at it.
+
+
+1152
+02:56:39.823 --> 02:56:48.632
+Shahul Hameed: Yeah, I've not deployed any services, but with my experience, I've worked in both Azure and Azure is the main thing because I work for finance companies.
+
+
+1153
+02:56:48.633 --> 02:56:55.192
+PAUL: No, that's right. Any one cloud, you have to know at least the main 30-40 AI-related services.
+
+
+1154
+02:56:55.193 --> 02:56:57.183
+Shahul Hameed: Oh, okay, then that is a gapâ€¦
+
+
+1155
+02:56:57.183 --> 02:57:05.673
+PAUL: That is a compulsion one. It means that without that, you cannot make the switch over, because they will be talking with respect to the services in the internet.
+
+
+1156
+02:57:07.123 --> 02:57:19.162
+PAUL: They will be asking, as a senior, the idea is you have some experience, and based on that experience, they might ask you questions a little bit with respect to Data Factory. Now, probably with respect to Azure Document Intelligence.
+
+
+1157
+02:57:19.693 --> 02:57:22.593
+Shahul Hameed: Foundry and everything, right? That's what it is, Amazon Bedrock.
+
+
+1158
+02:57:22.593 --> 02:57:22.913
+PAUL: Yes.
+
+
+1159
+02:57:22.913 --> 02:57:24.003
+Shahul Hameed: That's why.
+
+
+1160
+02:57:24.003 --> 02:57:27.612
+PAUL: Those type of services are big, so you have to be good at those things also.
+
+
+1161
+02:57:27.613 --> 02:57:45.062
+Shahul Hameed: Yeah, so basically, Paul, I'm really confused, because this evolving subject, and people, you know, tryâ€¦ I mean, people don't look the same way in IT, at least across more than a decade years of experience. You face a different sort of challenge, but I'm always passionate about learning and, you know, doing stuff. So that's why Iâ€¦
+
+
+1162
+02:57:45.063 --> 02:57:52.283
+PAUL: Interviews, see, till the time you don't give interviews, you won't really understand what the market is really looking for.
+
+
+1163
+02:57:52.413 --> 02:57:58.413
+PAUL: Start giving interviews from there, at least you will get that, okay, now these are the things. Every year, the trend changes.
+
+
+1164
+02:57:58.593 --> 02:58:02.732
+PAUL: So, a little bit of training, understanding, that also you need toâ€¦
+
+
+1165
+02:58:02.913 --> 02:58:08.703
+PAUL: Analyze it. So if you give the interviews and that case, I can say that at least you'll be in a better shape.
+
+
+1166
+02:58:09.023 --> 02:58:15.973
+PAUL: So that you know that, okay, now these are the expectations and every year it changes. So I cannot say that a fixed trend is.
+
+
+1167
+02:58:16.253 --> 02:58:25.922
+Shahul Hameed: Yeah, one last question, Paul. How is the QA thing evolving with all this? You know, I know most of the testing has been done by the developers, like VT, Pel, Ragos, everything.
+
+
+1168
+02:58:25.953 --> 02:58:38.702
+Shahul Hameed: Is thereâ€¦ do you see in the future this is coming out as a separate QA-specific role on all this AI stuff? Because in the general software engineering, you have different QA engineers, which is, again, a deterministic testing, but unlike that.
+
+
+1169
+02:58:38.703 --> 02:58:46.672
+Shahul Hameed: you know very well, it's not a non-determinist. I don't see a separate branch opening up for QA on this AI-related field.
+
+
+1170
+02:58:46.753 --> 02:58:48.402
+Shahul Hameed: Do you, do you see anything?
+
+
+1171
+02:58:48.763 --> 02:58:59.942
+PAUL: Not really. I have less exposure on that side. My side is little bit. I work with QA guys. First of all, like once I write the code, their job is to test everything.
+
+
+1172
+02:59:00.083 --> 02:59:16.532
+PAUL: That's the only part. If they say if it breaks, then probably I might do the changes. That's the only interaction. And they use AI, because they don't write the use cases or anything. I know that. Theyâ€¦ probably few things, older style guys, they come, but right now, they heavily use AI.
+
+
+1173
+02:59:16.543 --> 02:59:22.853
+PAUL: For all the test case generation. And they tell me these five cases failed, they send it to me, raise the PR, I solve it down.
+
+
+1174
+02:59:22.853 --> 02:59:29.313
+Shahul Hameed: Okay, so basically in your company, they're testing the AI agents or whatever the tool, there are testers who are working on that, testing your product.
+
+
+1175
+02:59:29.313 --> 02:59:31.413
+PAUL: SKS generation, they are using EN.
+
+
+1176
+02:59:31.623 --> 02:59:32.173
+Shahul Hameed: that.
+
+
+1177
+02:59:32.173 --> 02:59:42.413
+PAUL: There is a Langrap application that we do have built, with, like, Terraform and everything else, so that that entire test infra gets deployed in one cloud.
+
+
+1178
+02:59:42.413 --> 02:59:55.003
+PAUL: And whatever the codebase that I share, based on that, automatically the test cases will be generated for each of the stories that I'm working with, and based on that, step by step. So that part that they have automated with the AI.
+
+
+1179
+02:59:55.503 --> 03:00:03.423
+Shahul Hameed: Okay. Do youâ€¦ do they use this PromptFlow, Deep Pile, all these golden sets, or, like, anything? Any idea on the testing part?
+
+
+1180
+03:00:04.083 --> 03:00:04.523
+PAUL: wrong.
+
+
+1181
+03:00:04.523 --> 03:00:09.602
+Shahul Hameed: Ragas, PromptFu, Ragas, Deep Pal Frameworks.
+
+
+1182
+03:00:09.603 --> 03:00:12.432
+PAUL: Yes, yes, these are general evaluation-based frameworks.
+
+
+1183
+03:00:12.433 --> 03:00:13.733
+Shahul Hameed: Eventually, they use.
+
+
+1184
+03:00:13.733 --> 03:00:29.942
+PAUL: Brown through means it's used for red teaming. So for sure for security based purpose, red teaming is common. You have to follow the NIST patterns. So NIST patterns, those are common things. Now that part lesser from testing side much more. The cyber security guys do that.
+
+
+1185
+03:00:30.113 --> 03:00:33.243
+PAUL: Red teaming and other thing comes from the cyber security.
+
+
+1186
+03:00:33.673 --> 03:00:39.263
+Shahul Hameed: Okay, okay. Yeah, that's all I had, Paul. Thanks. Thank you so much.
+
+
+1187
+03:00:39.413 --> 03:00:45.533
+PAUL: Oh, great. Alright, that's fine, then we'll be meeting on Wednesday, and we will continue our discussion. Any deal book recommendation?
+
+
+1188
+03:00:45.943 --> 03:00:52.963
+PAUL: I think the best one is that hands-on machine learning book by August Beren. There you have pretty much enough deep learning.
+
+
+1189
+03:00:53.813 --> 03:00:59.482
+PAUL: Stuff. Because that is a single book where you have the entire machine learning, entire deep learning.
+
+
+1190
+03:00:59.813 --> 03:01:04.673
+PAUL: And later on for AI engineering, I told you AI engineering by Chipworth, really good.
+
+
+1191
+03:01:04.793 --> 03:01:14.413
+PAUL: And for senior principal, as who have more experience than eight years or ten years, for them, machine learning system design pitching. So really a good.
+
+
+1192
+03:01:16.653 --> 03:01:20.153
+PAUL: 100, guys. So bye, bye, everyone. Thanks for joining. See you at the next one.
+
+
+1193
+03:01:25.273 --> 03:01:28.542
+PAUL: Harsh is asking, sir, if we want to move with Gen AI.
+
+
+1194
+03:01:28.683 --> 03:01:34.593
+PAUL: And all we don't have. But in Gen AI interviews, people might ask you questions about deep learning. That is the main problem.
+
+
+1195
+03:01:35.083 --> 03:01:37.703
+PAUL: So there you might get stuck if you don't know.
+
+
+1196
+03:01:38.213 --> 03:01:43.083
+PAUL: Because all the JVI major components are built on top of Digby.
+
+
+1197
+03:01:43.273 --> 03:01:47.393
+PAUL: So at least little bit of deep learning is expected.
+
+
+1198
+03:01:47.583 --> 03:01:55.443
+PAUL: Because in interviews, I might ask a simple question from what is attention, self-attention, so at least you should be able to respond.
+
+
+1199
+03:01:57.313 --> 03:02:02.863
+PAUL: No, no, no, you don't need to revise anything, Deepak. It's completelyâ€¦ Yeah, that means something.
+
+
+1200
+03:02:03.743 --> 03:02:06.052
+PAUL: Okay, so bye-bye, so see you guys.
+
+

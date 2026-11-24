@@ -1,0 +1,4677 @@
+WEBVTT
+
+1
+00:00:04.217 --> 00:00:09.186
+PAUL: Right now, as I can see, yes, particularly few people are yet remaining to join.
+
+
+2
+00:00:09.807 --> 00:00:28.686
+PAUL: Alright, so let's talk about today's agenda. So, I hope, in the last class that we have discussed, so a few things we'll be looking from the theory, from the decoder side, and few other components of the Transformers architecture, which are yet remaining. We'll be exploring those. So, let me startâ€¦
+
+
+3
+00:00:29.027 --> 00:00:32.827
+PAUL: Sharing my screen. First of all, let me get the paper.
+
+
+4
+00:01:03.837 --> 00:01:11.286
+PAUL: Alright, now, as we have been discussing from the encoder side, we have already explored. Now, a few thingsâ€¦
+
+
+5
+00:01:11.527 --> 00:01:19.876
+PAUL: I think in the last class already, I mentioned about exactly how the mask, but a little bit with respect to the practical implementation.
+
+
+6
+00:01:19.937 --> 00:01:25.346
+PAUL: Like, how the mask is getting created, and the impact of the mask.
+
+
+7
+00:01:25.397 --> 00:01:43.187
+PAUL: And then exactly how the cross-attention, which is between the importer and the decoder, and exactly how the fusion will be focusing on that. Because right now, the fusion between two information which is happening, one is the output of the importer.
+
+
+8
+00:01:43.217 --> 00:01:48.397
+PAUL: and the inputs of the decoder. That part we'll be looking into today.
+
+
+9
+00:01:48.667 --> 00:01:56.817
+PAUL: And thenâ€¦ Finally, we'll be looking into the other components, which is the
+
+
+10
+00:01:57.687 --> 00:02:05.427
+PAUL: Feed-forward, according to the paper, but very specifically that they have used. So, as you can see, position-wise, feed-forward networks.
+
+
+11
+00:02:06.737 --> 00:02:17.066
+PAUL: Then, coming to the encoding parts. Okay, so how they have introduced sine and gause equations, this part also we'll be looking into.
+
+
+12
+00:02:20.767 --> 00:02:22.727
+PAUL: Alright,
+
+
+13
+00:02:26.097 --> 00:02:40.377
+PAUL: Can you please summarize the Transformers? Tell me we have not covered the entire thing, only the encoder part that we have very specifically explored, but today we'll be covering the decoder side of that much more.
+
+
+14
+00:02:40.826 --> 00:02:44.767
+PAUL: Alright, so let's start with the easiest component right now.
+
+
+15
+00:02:47.747 --> 00:03:06.157
+PAUL: Okay, so what are the things already we have looked into in the last class? So, according to the architecture, the scale.product retention that we have already observed, and very specifically, the mask variant, today we'll be looking into how the mask actually gets created and the impact of the mask with respect to the soft masks.
+
+
+16
+00:03:06.777 --> 00:03:26.537
+PAUL: Then, coming to multi-year retention, so based on the architecture, so the decision of the head, or basically, how many heads that you want to use in multi-year retention, again, this is a hyperparameter which needs to be decided by you. So, in the original paper, the number is 8, but later on, you can actually change this.
+
+
+17
+00:03:26.597 --> 00:03:40.606
+PAUL: Now, once you have covered the scale dot product and the multi-year attention, then the main attention formula, so based on this, you have to always remember this is the actual formula with respect to attention K2V, sort max k.
+
+
+18
+00:03:40.607 --> 00:03:46.837
+PAUL: the QKT to the transpose, because both the vectors are of shame shape, so directly cannot perform.
+
+
+19
+00:03:46.857 --> 00:03:59.237
+PAUL: the product operation, so because of that, the transpose has been taken, and the impact with respect to the denominator part, which is root over TK. What was the main purpose of using it?
+
+
+20
+00:03:59.337 --> 00:04:01.507
+PAUL: To achieve stable training.
+
+
+21
+00:04:02.647 --> 00:04:19.436
+PAUL: So that's why they have used, this scaling factor after the scaling. So, simply, it is passed through swappedMax, and once anything that gets passed through swappedMax, you know the range has to be between 0 to 1, and the sum has to be equal to 1.
+
+
+22
+00:04:20.247 --> 00:04:29.836
+PAUL: Now, the other part, how many times the encoder block which is repeating the NX component here? So, in this paper, 6 times that they have repeated.
+
+
+23
+00:04:30.747 --> 00:04:35.367
+PAUL: Similarly, for the decoder size also, 6 times, which has been repeated here.
+
+
+24
+00:04:36.507 --> 00:04:43.756
+PAUL: Now, coming to the residual connections, how many residual connections are there in the importer block? Please let me know.
+
+
+25
+00:04:46.107 --> 00:04:55.336
+PAUL: In the importer block, how many residual connections are there? Two residual connections, and two layer normalization operations which are taking place.
+
+
+26
+00:04:58.117 --> 00:05:10.897
+PAUL: Now, once the informationâ€¦ so now, let's start looking into the information from decoder side. So, I will just stop sharing the screen, and let's get back to the notes, as we will continue with the masked variant.
+
+
+27
+00:05:22.927 --> 00:05:31.346
+PAUL: So, in the last class, I think already with respect to theâ€¦
+
+
+28
+00:05:31.897 --> 00:05:50.676
+PAUL: This is the encoder block, already the residual connections, we have looked, the layer normalization part that we have looked. Now, coming to the part with respect to the cross-attention. In this part, I want to focus, because a few equations are there. Based on theâ€¦ now, yesterday I told, what is the information that will be coming from the encoder side?
+
+
+29
+00:05:51.847 --> 00:05:57.126
+PAUL: to the decoder. How many of you remember that? What is the information which will be flowing?
+
+
+30
+00:06:03.167 --> 00:06:04.456
+PAUL: Please tell me.
+
+
+31
+00:06:05.057 --> 00:06:06.827
+PAUL: Yesterday's class, I told.
+
+
+32
+00:06:12.597 --> 00:06:17.167
+PAUL: the output of the sort max will be, Y1,
+
+
+33
+00:06:17.357 --> 00:06:22.586
+PAUL: No, no, not Y. The idea is 0 to 1. That will be the reach.
+
+
+34
+00:06:22.697 --> 00:06:26.026
+PAUL: Okay? Arunika telling KQ, close to that.
+
+
+35
+00:06:26.587 --> 00:06:30.246
+PAUL: All right, fine. Now, we'll be exploring that part, soâ€¦
+
+
+36
+00:06:30.407 --> 00:06:40.076
+PAUL: Don't worry if you have forget about that. As you can see, encoder to decoder, I think I have written Q or V, alright, fine.
+
+
+37
+00:06:41.167 --> 00:06:59.256
+PAUL: Now, the masked variant partâ€¦ okay, so exactly now, this is the upper triangular mask that we have simply created, and the idea is, from the decoder side, whenever you are working with the masked variant of the multi-year retention, in that case, the idea is to mask the future tokens.
+
+
+38
+00:06:59.257 --> 00:07:06.427
+PAUL: the idea is always to hide that information so that the learning happens. If you start showingâ€¦ because, you have to understand.
+
+
+39
+00:07:06.477 --> 00:07:09.516
+PAUL: In the decodersâ€¦ okay.
+
+
+40
+00:07:09.517 --> 00:07:28.356
+PAUL: So, it's pretty much unidirectional. It can only look into the current information or in the past. It cannot look anything into the future. That's why the idea is, whenever you are predicting anything, it cannot look into the future, so you need to create that mask through which you can perform the height-based operation.
+
+
+41
+00:07:28.447 --> 00:07:33.326
+PAUL: And this part, we'll be exploring it practically, exactly how it's created.
+
+
+42
+00:07:33.707 --> 00:07:42.387
+PAUL: All right, now this part, I think I have retained few, but the value should be with respect to V, okay? So I will change few things, right here.
+
+
+43
+00:07:42.597 --> 00:07:45.616
+PAUL: Because I think I made a small mistake at that part.
+
+
+44
+00:07:45.727 --> 00:07:55.897
+PAUL: Perfect. Now, let's start with the first part, the flow of information. Okay, so today, what are the things that we'll be exploring? So, the same notes that we'll be continuing.
+
+
+45
+00:08:01.637 --> 00:08:02.857
+PAUL: Nalwheat.
+
+
+46
+00:08:21.267 --> 00:08:23.236
+PAUL: the gross attention.
+
+
+47
+00:08:39.437 --> 00:08:41.867
+PAUL: than the mask variant.
+
+
+48
+00:09:33.297 --> 00:09:38.526
+PAUL: Alright, now, these are the few things that we'll be focusing on today's class.
+
+
+49
+00:09:39.947 --> 00:09:58.856
+PAUL: All right. So, first of all, I want to start with the, part, with respect to cross-attention. Okay. So, let's try to, takeâ€¦ what is the, fusion, first of all? Okay, because right now, as I have mentioned the fusion, I hope everybody understands, there are two types of information which are flowing.
+
+
+50
+00:10:01.107 --> 00:10:02.457
+PAUL: Gaurav attention.
+
+
+51
+00:10:03.647 --> 00:10:05.237
+PAUL: Now, exactly.
+
+
+52
+00:10:05.597 --> 00:10:10.827
+PAUL: the original attention formula. There has to be some type of change.
+
+
+53
+00:10:10.997 --> 00:10:21.427
+PAUL: Okay, so we'll be changing that particular equation based on the inputs that we do have. So, right now, in the initial phase, I can say that, majorly.
+
+
+54
+00:10:21.747 --> 00:10:24.876
+PAUL: The flow of information from the
+
+
+55
+00:10:25.337 --> 00:10:40.647
+PAUL: encoder site, the original attention formula till now that you have learned, it is applied. But again, once you apply cross-attention. So, remember till now, what are the types of attention that you have learned? Okay, the first one is the self-attention one.
+
+
+56
+00:10:43.607 --> 00:10:45.546
+PAUL: This is a very specific type.
+
+
+57
+00:10:46.257 --> 00:10:53.907
+PAUL: The second one will be the main version, which is the cross. Okay. I will also write multi-head attention, because
+
+
+58
+00:10:54.517 --> 00:10:56.757
+PAUL: This is also one type of attention.
+
+
+59
+00:10:57.027 --> 00:10:59.816
+PAUL: And the third one is basically the cross version.
+
+
+60
+00:11:01.857 --> 00:11:02.717
+PAUL: Bali?
+
+
+61
+00:11:02.977 --> 00:11:16.756
+PAUL: Now, let's focus only on the part with respect to the KQV, because this is the major flow of information which is happening, okay? So, right here, very specifically, the flow of
+
+
+62
+00:11:18.327 --> 00:11:22.687
+PAUL: K UV, because yesterday, I think I meet at
+
+
+63
+00:11:23.006 --> 00:11:36.196
+PAUL: One small mistake. Okay, so this part, I think I've very specifically told you about, that, queue part, okay? So I will replace this one thing.
+
+
+64
+00:11:37.327 --> 00:11:47.206
+PAUL: Because the key and the V comes from here, okay? And I think here, I'll be mentioning this part with respect to key.
+
+
+65
+00:11:47.647 --> 00:11:56.247
+PAUL: Because the queue information is actually the query that the decoder will make to the encoder. That's why I've made that small mistake. Alright.
+
+
+66
+00:11:56.597 --> 00:12:09.447
+PAUL: Now, from the importer side, let's look into the information which are, flowing, okay? The screen is getting stuff, alright? I will just stop sharing once, and then I will try to reshare. From my end, this is working fine.
+
+
+67
+00:12:10.187 --> 00:12:14.547
+PAUL: Okay, so please, let me know, can you guys see the screen right now?
+
+
+68
+00:12:15.457 --> 00:12:33.416
+PAUL: I have just made one change in the original one, because yesterday I told that the K and Q will flow, but actually that wasâ€¦ because K and V will only flow, and Q will come from the decoder side. Okay, so that's why I've updated this part in this same mode.
+
+
+69
+00:12:33.597 --> 00:12:37.586
+PAUL: Now, from the encoder side, let's look into the flow of information.
+
+
+70
+00:12:38.847 --> 00:12:46.786
+PAUL: encoder, whenever you are doing, it has its own K, Q, V, I can say matrix 1 now.
+
+
+71
+00:12:49.517 --> 00:12:50.337
+PAUL: Okay.
+
+
+72
+00:12:51.457 --> 00:12:53.967
+PAUL: Now, the rules, becauseâ€¦
+
+
+73
+00:12:54.137 --> 00:13:06.377
+PAUL: In cross-attention, theâ€¦ from the importer side, the rejected part will be the queue part, okay? So, queue is simply rejected, not taken into account.
+
+
+74
+00:13:06.727 --> 00:13:14.637
+PAUL: Okay? The flow of information that take place only K to V inside the decoder.
+
+
+75
+00:13:19.477 --> 00:13:37.106
+PAUL: All right? So, again, I'm repeating, because yesterday I told KQ, so probably because of that in your mind. So, the flow of information is only with respect to the K and B, which comes from the encoder, okay? So now this is from the encoder part. I will mention here very specifically.
+
+
+76
+00:13:37.107 --> 00:13:45.587
+PAUL: which goes here. Now, when you do this, In between this particular fusion, Here's your cross attention detail.
+
+
+77
+00:13:46.287 --> 00:13:54.696
+PAUL: And now, in this particular cross-attention, you have to understand the role now. Now the question comes from where you will be using the queue.
+
+
+78
+00:13:55.027 --> 00:13:57.606
+PAUL: The queue will be from the decoder side.
+
+
+79
+00:14:02.657 --> 00:14:10.077
+PAUL: Okay? The queue that will be used. So, right now, the final information, if I say, so, simply.
+
+
+80
+00:14:10.547 --> 00:14:28.326
+PAUL: For cross-attention, you have K, you have V, and you have Q. Now, the question comes, what happens to the K and V? We'll be talking about that in the decoder side. So, this is the encoder. The same thing here also, this is the encoder, but Q comes from decoder.
+
+
+81
+00:14:31.067 --> 00:14:38.747
+PAUL: Alright, now the question comes, whenever you have the encoder and the decoder part, okay? So, in the encoder.
+
+
+82
+00:14:40.237 --> 00:14:41.946
+PAUL: and the decoder.
+
+
+83
+00:14:42.867 --> 00:14:46.476
+PAUL: Always remember, each will always have its own KQU.
+
+
+84
+00:14:47.747 --> 00:14:50.486
+PAUL: Because for every language, you need to perform.
+
+
+85
+00:14:50.607 --> 00:15:02.007
+PAUL: But, what happens in the first architecture that we have looked? Have I taken the full image of Transformers yet? I have not taken. So let me just bring that image from the paper to here.
+
+
+86
+00:15:02.897 --> 00:15:05.907
+PAUL: I think, let me just copy that.
+
+
+87
+00:15:06.537 --> 00:15:07.607
+PAUL: MH.
+
+
+88
+00:15:31.877 --> 00:15:32.567
+PAUL: No.
+
+
+89
+00:15:33.417 --> 00:15:34.527
+PAUL: No alert.
+
+
+90
+00:15:35.787 --> 00:15:36.976
+PAUL: Yeah, I should.
+
+
+91
+00:15:40.557 --> 00:15:41.297
+PAUL: Total.
+
+
+92
+00:15:48.837 --> 00:15:56.197
+PAUL: Now, wheneverâ€¦ so, now the question comes where your KQV will be generated? Please let me know.
+
+
+93
+00:15:57.107 --> 00:16:07.927
+PAUL: In this particularâ€¦ right now, I'm talking only from the encoder side. Okay, so please tell me where this KQV, the generation that will take place inside the encoder block.
+
+
+94
+00:16:12.217 --> 00:16:14.577
+PAUL: In which block inside the importer?
+
+
+95
+00:16:15.307 --> 00:16:19.256
+PAUL: Please tell me, guys, I think yesterday already we have discussed this part.
+
+
+96
+00:16:21.477 --> 00:16:28.427
+PAUL: All right, fine. Now, as you were telling, so simply, it will be part with respect to that MH.
+
+
+97
+00:16:29.167 --> 00:16:32.257
+PAUL: Okay? The main generation of K cubed.
+
+
+98
+00:16:32.817 --> 00:16:34.057
+PAUL: And thisâ€¦
+
+
+99
+00:16:34.147 --> 00:16:45.886
+PAUL: particular information. We alreadyâ€¦ it means, like, just, like, a variable we save it, and later on, this information which needs to be passed into the cross-attention phase.
+
+
+100
+00:16:45.887 --> 00:17:02.136
+PAUL: So, when I say, into the cross-attention phase, it means that directly these are variables that act like a memory. So, if you really think about the output of the encoder, we treat it as a memory, because we need to save that information at a later stage, which will be used during cross-attention.
+
+
+101
+00:17:02.227 --> 00:17:13.177
+PAUL: Now, the question comes, here also if I am doing with respect to the output embedding, so here also the KQV will be generated, and here I'll be writing MMHA.
+
+
+102
+00:17:14.057 --> 00:17:23.077
+PAUL: Okay? Because you have the masked variant, as you can see here, masked multi-year retention, very specifically. So because of this masked variant.
+
+
+103
+00:17:23.447 --> 00:17:28.097
+PAUL: the KQV will be generated. Now, the question comes, what happens to the
+
+
+104
+00:17:28.167 --> 00:17:43.836
+PAUL: Because, as per our discussion, KV comes from the encoder and Q comes from the decoder. Now, the question is simply, like, we need to understand the grammar of any type of language. So, yes, KQV will be generated during the MMHA phase.
+
+
+105
+00:17:43.837 --> 00:17:56.347
+PAUL: And once we have completed the generation, so from here, the information which is flowing to the next phase, to the main cross-attention, there we don't take the K and V.
+
+
+106
+00:17:57.157 --> 00:18:03.607
+PAUL: Okay, you have to remember delta K and Vâ€¦ of the decoder.
+
+
+107
+00:18:05.627 --> 00:18:07.917
+PAUL: is not used.
+
+
+108
+00:18:10.247 --> 00:18:11.017
+PAUL: Okay.
+
+
+109
+00:18:11.597 --> 00:18:12.947
+PAUL: duty?
+
+
+110
+00:18:14.857 --> 00:18:18.096
+PAUL: Gaurav attention, I can mention about that?
+
+
+111
+00:18:20.437 --> 00:18:21.287
+PAUL: Thank you.
+
+
+112
+00:18:21.537 --> 00:18:28.526
+PAUL: Or once it reaches theâ€¦ MHN. Okay. So, simply, MHS it.
+
+
+113
+00:18:29.637 --> 00:18:40.947
+PAUL: Because your actual cross-attention always gets connected with the multi-attention. Now, let's look into, like, the mathematically, exactly how this will look like.
+
+
+114
+00:18:47.197 --> 00:18:57.267
+PAUL: So, till now, you have the main scores, so let's look into the updated formula. So, if I am talking with respect to the attention scores.
+
+
+115
+00:18:57.727 --> 00:19:03.756
+PAUL: what will be the impact to that? So, till now, the original version that you have learned
+
+
+116
+00:19:04.397 --> 00:19:08.497
+PAUL: How many of you remember the sameâ€¦ Okay.
+
+
+117
+00:19:09.157 --> 00:19:14.247
+PAUL: Can I say that this is the first initial process that we do to calculate the
+
+
+118
+00:19:14.937 --> 00:19:19.026
+PAUL: Attention scores in the encoder site, yes or no?
+
+
+119
+00:19:21.047 --> 00:19:32.337
+PAUL: Okay? Now, this variant will change. Attention scores, and I will mention it here very specifically, okay? So, here I'm talking with respect to the gross attention variant, okay?
+
+
+120
+00:19:33.617 --> 00:19:35.377
+PAUL: For cross-attentionally.
+
+
+121
+00:19:36.327 --> 00:19:41.657
+PAUL: Now, the first and the major change, I'll be writing now, Q, decoder.
+
+
+122
+00:19:42.257 --> 00:19:44.016
+PAUL: Just for clarity.
+
+
+123
+00:19:44.727 --> 00:19:46.806
+PAUL: And then comes your KT.
+
+
+124
+00:19:46.937 --> 00:19:49.087
+PAUL: Katie is coming from where, guys?
+
+
+125
+00:19:51.747 --> 00:20:03.246
+PAUL: Why this is happening to my screen freezing today, I don't know. It was exactly the same stat. Just, let me know. Are you guys able to see now exactly what I have done?
+
+
+126
+00:20:06.617 --> 00:20:07.847
+PAUL: Just check.
+
+
+127
+00:20:07.967 --> 00:20:09.487
+PAUL: Because when Iâ€¦
+
+
+128
+00:20:09.997 --> 00:20:20.586
+PAUL: Okay, all right. Because again, then, till which point? Okay, so now I was talking about this one. AQT, I think everybody remembers this particular formula, yes, onâ€¦
+
+
+129
+00:20:20.927 --> 00:20:39.416
+PAUL: Now, this was based on the original attention score calculation. At any point of time, the first thing that we do, this Q and KT transpose, okay? Now, this is the encoder side. Now, this is your normal attention. It means that there is no changes here, the normal version.
+
+
+130
+00:20:39.637 --> 00:20:55.077
+PAUL: Now, the question comes, if I'm working with the cross-attention scores, very specifically, or the fusion, if I want to calculate. So, there the score will change, because based on the intuition that we have taken, K, V, and Q, now, Q is coming from the decoder side.
+
+
+131
+00:20:55.077 --> 00:21:00.867
+PAUL: So, here I have written Q Decoder and KT. So, K is coming from where? Please tell me.
+
+
+132
+00:21:02.167 --> 00:21:03.847
+PAUL: Scales coming from where?
+
+
+133
+00:21:06.507 --> 00:21:18.937
+PAUL: the importer, so simply I will write here, encoder. Because the original formula remains the same, but fromâ€¦ exactly from where the information arrived, we have to always, decode that.
+
+
+134
+00:21:19.227 --> 00:21:37.676
+PAUL: Okay, so now, there is a small change, the KQT, but the decoder and the importer, the first, the fusion process which is happening. Now, because of this fusion, so after this, what do we generally do? I can say that, yes, scaling operation is there, and after the scaling operation, we apply.
+
+
+135
+00:21:38.007 --> 00:21:43.207
+PAUL: softmax, yes? So now, how the equation will change? Let's look into that.
+
+
+136
+00:21:43.317 --> 00:21:46.087
+PAUL: So, the attention waits.
+
+
+137
+00:21:55.157 --> 00:22:02.497
+PAUL: So, first of all, let's start with the outer unit, the softmax unit.
+
+
+138
+00:22:02.597 --> 00:22:07.007
+PAUL: Okay, and then comes your root over DK part.
+
+
+139
+00:22:07.807 --> 00:22:12.316
+PAUL: Okay? And here, Q, K, T,
+
+
+140
+00:22:12.787 --> 00:22:20.207
+PAUL: But here, below Q, I'll be very specific mention this is D for the decoder representation, and E.
+
+
+141
+00:22:22.007 --> 00:22:30.566
+PAUL: for the encoder representation. Through this, you can actually, remember. So, now, if you really look into this, formula actually remains the same.
+
+
+142
+00:22:30.707 --> 00:22:33.866
+PAUL: Okay, but the flow of information, that changes.
+
+
+143
+00:22:34.537 --> 00:22:36.427
+PAUL: I hope everybody gets this part.
+
+
+144
+00:22:37.097 --> 00:22:40.226
+PAUL: In cross-attention, exactly what is happening.
+
+
+145
+00:22:40.817 --> 00:22:55.517
+PAUL: Okay? Because as the information flow that comes, now you are actually using the QD of the decoder site, and the KDAT is coming from the encoder site, so your final attention waits.
+
+
+146
+00:22:55.517 --> 00:23:07.347
+PAUL: That will be calculated in a bit different way, as compared to the normal, and when I say a bit different, the formula exactly remains the same. What the values which are incoming from the encoder, that needs to be taken into account.
+
+
+147
+00:23:08.717 --> 00:23:27.176
+PAUL: By default, if you really think, in the decoder side, the first attention which will be calculated, it will be normal. There won't be any type of changes, but after that, this is through the cross-attention, and very specifically, again, I will mention here the term cross-attention. Every time, please remember that.
+
+
+148
+00:23:27.667 --> 00:23:31.626
+PAUL: If you don't mention this, then automatically it becomes invalid.
+
+
+149
+00:23:32.377 --> 00:23:48.387
+PAUL: Okay, now the final weighted sum. So, what is the reason of the elimination? Alright, now the question comes whenever you have to understand, output is coming from where? When you look into this architecture, output is coming from the decoder side. Now, the questionâ€¦
+
+
+150
+00:23:48.427 --> 00:24:00.297
+PAUL: at any point of time when I perform any type of operation. So, for example, I pass the original sequence in English, and based on that. Now, the idea is the query should come from the decoder side.
+
+
+151
+00:24:01.717 --> 00:24:05.586
+PAUL: Alright, the query will always come from the decoder site.
+
+
+152
+00:24:06.287 --> 00:24:14.397
+PAUL: So, we cannot use the query from the encoder side, because that actually holds only the information with respect to English language.
+
+
+153
+00:24:14.397 --> 00:24:32.826
+PAUL: But really, we need to make the query based on French language, because the final output that I will be having. Now, this is the complete generator part, and then this particular generator part, you need the query for the French side, okay? So because of that, you simply reject that queue of the encoder, because
+
+
+154
+00:24:32.957 --> 00:24:44.147
+PAUL: Using an English-based query, you cannot ask to do the translation to make it into French. That is not practically possible. Okay? So that's why, simply, the queue of the
+
+
+155
+00:24:44.927 --> 00:24:56.437
+PAUL: encoder side is rejected, and only. Now the question comes, what happens to the decoder's K and V? I think this will be common question. As I told, the KV decoder is not used during cross-attention.
+
+
+156
+00:24:56.687 --> 00:24:58.966
+PAUL: Yes? Now, what will happen to that?
+
+
+157
+00:25:03.147 --> 00:25:05.977
+PAUL: You have to understand, a seat.
+
+
+158
+00:25:06.467 --> 00:25:08.376
+PAUL: In the decoder side.
+
+
+159
+00:25:16.537 --> 00:25:20.487
+PAUL: Will there be a self-attention in the decoder site, yes or no?
+
+
+160
+00:25:24.447 --> 00:25:30.467
+PAUL: Okay? Nowâ€¦ Whenever you are doing the KQV,
+
+
+161
+00:25:30.647 --> 00:25:35.167
+PAUL: Okay? So, yes, in the self-attention part, it will be used.
+
+
+162
+00:25:38.357 --> 00:25:39.237
+PAUL: Nicky?
+
+
+163
+00:25:39.627 --> 00:25:43.676
+PAUL: And very specifically, in the first MMHA layer.
+
+
+164
+00:25:46.377 --> 00:26:00.367
+PAUL: So, when I say, let's get back to our image. So, at this point, the KQV of the decoder, which is only the self-attention, because till this point, only you have the self-attention. After this point, you have the cross-attention.
+
+
+165
+00:26:01.497 --> 00:26:02.357
+PAUL: Nick it?
+
+
+166
+00:26:05.197 --> 00:26:12.056
+PAUL: So, simply, I can say that it is used in the self-attention part, but after that, what happens? Only the information which flows
+
+
+167
+00:26:12.957 --> 00:26:17.787
+PAUL: Toâ€¦ K, V, this is not used.
+
+
+168
+00:26:19.837 --> 00:26:29.407
+PAUL: Because this information is flowing from the encoder. What we use, only we pass the queue. And where we pass it? To the next
+
+
+169
+00:26:29.657 --> 00:26:34.706
+PAUL: Attention field, which is the cross attention. So, the formula remains exactly the same.
+
+
+170
+00:26:34.907 --> 00:26:38.976
+PAUL: And this attention is part of the MHA in the decoders.
+
+
+171
+00:26:39.237 --> 00:26:58.357
+PAUL: Always remember this core component, okay? Because behind the scenes that happens. Now, the question comes, if I am doing this, you have the MMHA. Okay, now the question comes, MMHA, it means that there is a mask. Okay, it means that you need, whatever the original metrics that you had. So, for example.
+
+
+172
+00:26:59.497 --> 00:27:02.377
+PAUL: Let's take two metrics for now.
+
+
+173
+00:27:08.757 --> 00:27:11.927
+PAUL: I'm just drawing a basic 3 cross 3 right now.
+
+
+174
+00:27:16.587 --> 00:27:17.517
+PAUL: Alright.
+
+
+175
+00:27:18.437 --> 00:27:19.977
+PAUL: Another variant.
+
+
+176
+00:27:39.577 --> 00:27:43.676
+PAUL: Alright. Now, what I have done, now, this is your normal
+
+
+177
+00:27:52.277 --> 00:27:54.487
+PAUL: And this is your mask matrix.
+
+
+178
+00:27:58.877 --> 00:28:04.317
+PAUL: Okay, and let's just assume you have some values here. Now, generally in the mask, what I've told.
+
+
+179
+00:28:04.587 --> 00:28:12.476
+PAUL: this part, We'll be having, minus infinity. Okay, so actually, zero only you can treat it.
+
+
+180
+00:28:12.867 --> 00:28:19.926
+PAUL: And after that, Initially, I'm starting, so let's start withâ€¦ over here.
+
+
+181
+00:28:20.106 --> 00:28:24.397
+PAUL: I'm just trying to show it in a way based on our last class discussion.
+
+
+182
+00:28:24.566 --> 00:28:39.577
+PAUL: Okay? And finally, like, everything will be predicted. The idea is to hide all the future tokens. So if you are actually predicting anything, you will predict the first word. Okay, because you have zero idea, that's why the initial everything that I have taken as the minus infinity.
+
+
+183
+00:28:39.577 --> 00:28:52.737
+PAUL: Now, this matrix, if you try to multiply anything with minus infinity, if you try to perform any addition-based operation, can I say that the final result here also, this particular information? Okay, so the resultant.
+
+
+184
+00:28:53.626 --> 00:28:54.467
+PAUL: Bye.
+
+
+185
+00:28:55.057 --> 00:29:01.017
+PAUL: If you try to do the multiplication of this value with respect to this value, then what will happen?
+
+
+186
+00:29:01.297 --> 00:29:06.516
+PAUL: Can I say that the mask will be applied to the final matrix, yes, or no? Think, guys.
+
+
+187
+00:29:07.867 --> 00:29:11.627
+PAUL: And, right now, the main dominant part that you have?
+
+
+188
+00:29:17.157 --> 00:29:19.106
+PAUL: The same mask will remain?
+
+
+189
+00:29:20.717 --> 00:29:23.996
+PAUL: Because minus infinity is really a big, big value.
+
+
+190
+00:29:30.777 --> 00:29:47.246
+PAUL: In the final resulted marks also, if you try to multiply minus infinity with anything, if you try to do an addition, if you try to do even an, like, multiplication also, every time it will beâ€¦ so the final resulted will be having mass KS or no, please tell me, this part in the chart.
+
+
+191
+00:29:51.437 --> 00:30:05.966
+PAUL: Yes or no, the impact of minus infinity, because if you really takeâ€¦ because, see, this minus infinity, why I have taken, because the softmax, later on, once I have this particular mass, softmax of minus infinity, what is this?
+
+
+192
+00:30:09.587 --> 00:30:19.617
+PAUL: You can directly take it as 0 only, okay? Because 0.00000, 9 zeros are there, and then probably a small value.
+
+
+193
+00:30:19.617 --> 00:30:37.606
+PAUL: That will come, okay? So, really, now, based on this particular idea, we will try, because now, if I do this, automatically the mask will be applied. So, we have to think that, okay, first of all, I have to create this mask, because the normal values will be available, because this is the normal process.
+
+
+194
+00:30:37.877 --> 00:30:48.927
+PAUL: So, when I say normal matrix, it means that after the fusion, the matrix which is created. So, there will beâ€¦ you will be having some type of information. But this, we create it manually.
+
+
+195
+00:30:49.807 --> 00:31:01.267
+PAUL: Okay, so probably in the other values, if I take 1, 1, so simply I know the multiplication won't be creating any impact, and here the original information will be there. So, simply.
+
+
+196
+00:31:01.377 --> 00:31:04.857
+PAUL: In the final version, also here, you'll be having the 1 and 1.
+
+
+197
+00:31:05.017 --> 00:31:16.466
+PAUL: Okay, or see, it won't be 1 and 1, just to make the clarification. Whatever the value that you have in the original or the normal matrix version.
+
+
+198
+00:31:16.887 --> 00:31:22.386
+PAUL: Can I say that these values, whatever exactly, if you try to multiply by 1, it will be the same value, yes or no?
+
+
+199
+00:31:24.107 --> 00:31:29.037
+PAUL: So, in this way, you actually apply the mask. First, you create the mask.
+
+
+200
+00:31:29.187 --> 00:31:45.317
+PAUL: Once the mask is created, simply try to do the multiplication with the normal matrix that you have, so the masked matrix and the normal matrix, and once you have the values, then apply soft mask. So automatically, wherever you have that minus infinity, it becomes E.
+
+
+201
+00:31:45.537 --> 00:31:49.577
+PAUL: Alright, now let's try to look practically exactly how this happens.
+
+
+202
+00:31:50.257 --> 00:32:05.397
+PAUL: Now, a few questions. I think, Harish is asking, there is no input arrow, there is no input error in the decoder. Then how Q is passed? There is no input arrow, nobody talks about that internally, okay? But practically it happens.
+
+
+203
+00:32:08.477 --> 00:32:15.497
+PAUL: All right. Now, another question, Raj Bhaval is telling, this attention calculation happened in March
+
+
+204
+00:32:15.647 --> 00:32:24.337
+PAUL: MHA or in MHA. Now, this calculation that I have shown in the first part, now, this takes place in the MMHA, this mask part.
+
+
+205
+00:32:24.497 --> 00:32:42.247
+PAUL: Okay? But this particularâ€¦ this happens in the normal MH of the decoder. So this is stage 1, and this is stage 2, the cross-attention wage that I have defined. Raja Gautam. Dhirajal is asking, sorry toâ€¦ have you explained why encoder and decoder is needed?
+
+
+206
+00:32:42.307 --> 00:32:51.606
+PAUL: If you have missed the class, nothing. Why encoder isâ€¦ it's the architecture, Dhiraj. You cannot tell, because that is why we are discussing Transformers.
+
+
+207
+00:32:51.677 --> 00:33:00.136
+PAUL: Because for sequence-to-sequence modeling, starting from 2014, in the initial class only app tool, you will be always having two components.
+
+
+208
+00:33:00.137 --> 00:33:18.187
+PAUL: Later on, starting from 2019, we have been splitting the components, like encoder-specific and decoder-specific. Before that, there has always been encoders and decoders. That's why we are talking with respect to sequence-to-sequence modeling right here. Does the metric hide the future information? Yes, exactly.
+
+
+209
+00:33:18.187 --> 00:33:28.206
+PAUL: Once you apply, I hope everybody can understand the normal matrix with the mask matrix. Automatically, if you perform the multiplication, this information becomes hidden in your final version.
+
+
+210
+00:33:28.797 --> 00:33:34.186
+PAUL: The final matrix that you will be using later on, because after this, you will be calculating the softmats.
+
+
+211
+00:33:34.377 --> 00:33:39.906
+PAUL: So because of that, every future information will be hidden. And now this is how we apply it.
+
+
+212
+00:33:40.057 --> 00:33:46.257
+PAUL: Now, let's try to look into a few examples of exactly, practically, how this happens.
+
+
+213
+00:33:48.317 --> 00:33:52.586
+PAUL: Okay, so I think I can take a few examples with respect to drill and others.
+
+
+214
+00:33:54.247 --> 00:34:04.037
+PAUL: Justâ€¦ Because this is much more the fundamentally how things happen. In the paper, directly, they don't mention it.
+
+
+215
+00:34:21.977 --> 00:34:23.757
+PAUL: Let it load a little bit.
+
+
+216
+00:34:24.677 --> 00:34:34.146
+PAUL: Alright, now, generally in PyTorch and in other places, you do have the option directly, so I will directly take the first and the easiest example.
+
+
+217
+00:34:35.217 --> 00:34:40.527
+PAUL: coming with respect to the mask creation, okay? So, let's take the right view.
+
+
+218
+00:34:41.277 --> 00:34:58.266
+PAUL: So, what I have done, so in COCH, import COUCH data, I have taken, maximum sequence length, because I need to decide what should be the size of the matrix. Okay, so in this case, 5 plus 5, all right, here I am telling trill. Okay, now this is triangular lower.
+
+
+219
+00:34:58.507 --> 00:35:10.236
+PAUL: And there I have passed torch.once. When I say torch.ones, I think in NumPy we have learned, wherever you define once, automatically everything becomes in those matrix, it will become 11111.
+
+
+220
+00:35:10.407 --> 00:35:20.047
+PAUL: Now, in this particular case, what I have taken, so torch dot ones, and then finally, I have decided what will be the dimension. Now, based on this, can you look into this particular mask?
+
+
+221
+00:35:20.197 --> 00:35:24.857
+PAUL: And, simply just try to understand, so exactly what is happening here.
+
+
+222
+00:35:25.177 --> 00:35:35.167
+PAUL: So here, see, right now, I've not defined it as minus infinity, but in the next stage, I will do it. But I hope, initially, everybody understands exactly how we are building the mass.
+
+
+223
+00:35:35.367 --> 00:35:48.406
+PAUL: Because this option is directly available, and from here, automatically, you can see, in the lower triangle zone, as we have kept it, so initially 00000, okay? Now.
+
+
+224
+00:35:48.677 --> 00:35:50.156
+PAUL: If you try to.
+
+
+225
+00:35:50.467 --> 00:36:04.257
+PAUL: reverse this, because I'm using tray. Similarly, you can use tray also. T-R-I-U. Okay, that is the other option of changing the torch, if you want to change the triangle from lower to upper at any point of time.
+
+
+226
+00:36:05.727 --> 00:36:08.426
+PAUL: Okay? The first 4 words are masked.
+
+
+227
+00:36:08.437 --> 00:36:14.037
+PAUL: Yes, see, the idea is, the first word you have predicted.
+
+
+228
+00:36:14.037 --> 00:36:30.616
+PAUL: Okay, then automatically the future information is hidden. The idea is, then you have predicted the next one, then automatically the future information is hidden. You have predicted the next one, then future. So, whenever you are doing the prediction, the idea is, if you are predicting at this point, you have to hide the information.
+
+
+229
+00:36:30.717 --> 00:36:34.986
+PAUL: In the future, in the previous timestamp. That is the core idea behind it.
+
+
+230
+00:36:35.857 --> 00:36:40.367
+PAUL: Now, how to fill it? Minus infinity, just simply change the sequence.
+
+
+231
+00:36:40.487 --> 00:36:43.166
+PAUL: Now, let me just define the mask.
+
+
+232
+00:36:43.557 --> 00:36:46.606
+PAUL: With respect toâ€¦ let me take the mask right here.
+
+
+233
+00:36:46.767 --> 00:36:50.017
+PAUL: I'm taking mass physical to mask, Period.
+
+
+234
+00:36:50.757 --> 00:36:52.707
+PAUL: Ralation.
+
+
+235
+00:36:53.587 --> 00:37:02.926
+PAUL: Alright, now I have simply added the Boolean version here. Now, simply, I'm taking false, true, true, true. Whenever the true, it means that the mask is available.
+
+
+236
+00:37:03.177 --> 00:37:12.766
+PAUL: And whenever you look into false, it means that the word has been successfully predicted, or there is some type of value initially, which has not been assigned to minus infinity.
+
+
+237
+00:37:13.897 --> 00:37:32.577
+PAUL: Now, we are moving to the minus infinity part, soâ€¦ let's take now the same thing. I will change the only thing with respect to toss.ones, and I am replacing this mask 0 with this one, okay? Minus infinity representation.
+
+
+238
+00:37:34.077 --> 00:37:52.796
+PAUL: Alright? Now, simply, that I have taken, because I know that this is the minus infinity representation guy. Minus .000000, and finally, that I have added that. So, this is a very, very small value. And if you take the softmax of this one, automatically, what will happen?
+
+
+239
+00:37:54.237 --> 00:37:56.186
+PAUL: Soft max of this one.
+
+
+240
+00:37:59.857 --> 00:38:16.017
+PAUL: it will become 0IO, okay? In the other places, wherever you have some values, that is fine, I'm not really impacted with that. But this is the final impact, because later on, I know that softmax will be applied, and automatically, softmax, so simply, directly, it will become Z.
+
+
+241
+00:38:16.757 --> 00:38:22.477
+PAUL: All right, now I hope that, this part is clear. Now,
+
+
+242
+00:38:22.687 --> 00:38:25.847
+PAUL: Let me just try to take a final example.
+
+
+243
+00:38:27.407 --> 00:38:31.047
+PAUL: Because when you try to do, actually, manually, you have to create everything.
+
+
+244
+00:38:32.047 --> 00:38:36.167
+PAUL: The same thing, I will just try to rewrite it in a little bit better way.
+
+
+245
+00:38:36.657 --> 00:38:50.086
+PAUL: All right. Now, what I've done, a very similar strategy. I've simply created a function of the mask, which I've given a subsequent mask right now. And here, attention, because I need to define the shape of the matrix.
+
+
+246
+00:38:50.427 --> 00:38:57.457
+PAUL: Now, once I have defined, initially, I'm just creating the matrix with once, so that's why. Torch.once, and then I'mâ€¦
+
+
+247
+00:38:57.587 --> 00:39:00.927
+PAUL: Pending, what will be the matrix shape in this particular field.
+
+
+248
+00:39:01.217 --> 00:39:13.566
+PAUL: Now, I have used different, because previously I've been using L, that's why I want to show you the other version also. This time, I have used U. This is the upper triangle. Previously, the one that I have taken, that is for the lower triangle.
+
+
+249
+00:39:14.467 --> 00:39:33.357
+PAUL: Alright, now here, convert to Boolean, just like last time I have done. So, wherever, that particular value will be available, let's try to convert into a Boolean, and once the Boolean definition is done, then let's look into the resultant mask. So here, the invert operation. So, basically, for all the zeros that I'll be changing.
+
+
+250
+00:39:35.957 --> 00:39:51.096
+PAUL: Alright, now I have not written here minus infinity, but I hope everybody understands, later on, you can fill the mask with this particular condition, as simple as that. Now, the idea was to show you the reverse version of this one. Now, really, now this is your final mask.
+
+
+251
+00:39:51.367 --> 00:40:05.127
+PAUL: As I've taken the U version, so for that, I need the inverted one. So that's why the final mask, I perform an invert-based operation. So, in whichever way, just remember that whichever operation in PyTorse, you can take it, but the final result
+
+
+252
+00:40:05.127 --> 00:40:12.777
+PAUL: should be according to our needs. So, this is the final step, because I cannot directly start working, so I've taken a simple invert-based operation in our case.
+
+
+253
+00:40:14.207 --> 00:40:26.526
+PAUL: Now the question comes the impact with respect to softmax, because whenever the values with respect to the final mask, wherever the false is there, we will replace that value with the minus infinity representation.
+
+
+254
+00:40:26.527 --> 00:40:37.586
+PAUL: And finally, the sort max of minus infinity will be 0, okay? So that's why I want to show this, the practical part to you, just to explore the idea how this mask is created.
+
+
+255
+00:40:38.827 --> 00:40:45.776
+PAUL: All right, now I think we can get back to the next part.
+
+
+256
+00:40:46.897 --> 00:40:49.126
+PAUL: We'll stop sharing screen.
+
+
+257
+00:41:00.397 --> 00:41:07.427
+PAUL: I'm doing the inverting because this time I have taken the different strategy. No, last time I've taken 12, then I have taken 3.
+
+
+258
+00:41:07.907 --> 00:41:11.496
+PAUL: So, you need to do the inversion. I hope you get that, Shivaram.
+
+
+259
+00:41:17.877 --> 00:41:21.996
+PAUL: The reverse value, like, after masking.
+
+
+260
+00:41:22.297 --> 00:41:31.307
+PAUL: See, generally, after masking, it is not possible to get the value, because already the operation will be applied, and that value after sort max, it will become 0.
+
+
+261
+00:41:31.517 --> 00:41:41.917
+PAUL: Okay, so probably you can get back, if you can save that information in a VRM, as simple as that, practically, if I'm talking about. If you want to get the original values at any point of time.
+
+
+262
+00:41:46.337 --> 00:41:49.777
+PAUL: You can just, keep it in some place stood.
+
+
+263
+00:41:49.907 --> 00:41:53.417
+PAUL: So, simply, you can save that information.
+
+
+264
+00:41:53.687 --> 00:41:58.036
+PAUL: Now, I hope everybody understood this part, exactly what is happening.
+
+
+265
+00:41:58.177 --> 00:42:00.587
+PAUL: Practically behind the scenes, please let me know.
+
+
+266
+00:42:01.917 --> 00:42:10.636
+PAUL: Please let me know, guys, how many of you understand exactly what happens when I'm talking about multi-year detention. Okay, so in multi-year retention.
+
+
+267
+00:42:11.167 --> 00:42:20.636
+PAUL: In the masked variant of multi-at retention, very specifically, you create a separate masked matrix, and whatever the original matrix, with that, please do the multiple.
+
+
+268
+00:42:20.767 --> 00:42:34.037
+PAUL: Okay, so because of that, the minus infinity introductions, through that idea, we hide the information, because you will be hiding all the future tokens. It can only look into itself and into the past.
+
+
+269
+00:42:34.217 --> 00:42:36.817
+PAUL: That is the main criteria here.
+
+
+270
+00:42:38.007 --> 00:42:48.127
+PAUL: All right. Now, moving towards that. So, Dhiraj, do we decide what should be the shape of the matrix? It's generally based on the dimension.
+
+
+271
+00:42:48.267 --> 00:42:53.077
+PAUL: Whenever you are working with the dimension, so based on that, we decide.
+
+
+272
+00:42:55.447 --> 00:42:58.327
+PAUL: Alright, now let's move to the next part.
+
+
+273
+00:43:07.357 --> 00:43:25.607
+PAUL: Now, you have to understand, because as we are moving, how many of you have heard about this term? Because this is where KV cashâ€¦ because we are not going to discuss KV cash, but this is very, very important whenever you are doing inferencing. How many of you heard about this term, KVCash?
+
+
+274
+00:43:26.377 --> 00:43:29.196
+PAUL: Okay, it's froze again, just beta boost option.
+
+
+275
+00:43:29.717 --> 00:43:32.426
+PAUL: Should I restart the iPad?
+
+
+276
+00:43:34.677 --> 00:43:42.577
+PAUL: Yes, I think now it should go to the middle, okay? Now, this KV cash, how many of you have heard this particular term?
+
+
+277
+00:43:43.137 --> 00:43:50.147
+PAUL: I think this is very, very common. Whenever you are working with any type of LLMs, we actually save this information.
+
+
+278
+00:43:51.007 --> 00:43:51.837
+PAUL: Okay.
+
+
+279
+00:43:52.087 --> 00:43:53.207
+PAUL: Yes or no?
+
+
+280
+00:43:54.357 --> 00:43:57.086
+PAUL: And this is used in inferencing.
+
+
+281
+00:44:01.687 --> 00:44:05.826
+PAUL: Okay, now the question comes when I'm talking about this KV cache.
+
+
+282
+00:44:09.007 --> 00:44:13.056
+PAUL: Now, this information is coming from where? The encoder?
+
+
+283
+00:44:19.617 --> 00:44:29.427
+PAUL: Alright? Now, this information, generally, we save it. Now, what happens whenever you are doing any inferencing, at every point of time, you need to calculate the KN.
+
+
+284
+00:44:29.527 --> 00:44:47.037
+PAUL: So, for example, if I say that in machine translation, you are passing one English sentence. The idea is that whenever you are passing that particular sentence, you need to always calculate the KN. Now, the question comes during inferencing, probably if there are 1,000 users, if I say.
+
+
+285
+00:44:47.197 --> 00:44:55.627
+PAUL: probably out of that 1,000 users, I can say there can be 5 to 10 cases where few users might pass the same query, yes or no.
+
+
+286
+00:44:56.417 --> 00:45:13.786
+PAUL: the condition can be there, that's why I've taken just only 5 out of 1,000, only 5 possible cases, okay, where they are passing the same query. Now, when you think in terms of scalability, so probably it works, because now this particular information of the encoder, you actually save it.
+
+
+287
+00:45:15.567 --> 00:45:19.297
+PAUL: The idea is, save it, don't recompute.
+
+
+288
+00:45:26.907 --> 00:45:33.267
+PAUL: Okay? Don't recompit, because this is actually one task which is being done again and again.
+
+
+289
+00:45:33.267 --> 00:45:47.327
+PAUL: And because of this, that's why the concept of kvCash comes here. Because kvCache always do the calculation once and then save it, because going forward, this is only part of inferencing again. That's why we're specifically mentioning about that.
+
+
+290
+00:45:48.317 --> 00:45:49.347
+PAUL: No?
+
+
+291
+00:45:49.787 --> 00:45:59.027
+PAUL: Because of this particular benefit, if you already saved this particular information, only the Q part that needs to be computed from the decoder side.
+
+
+292
+00:45:59.707 --> 00:46:06.216
+PAUL: Okay, this needs to be computed, always remember. You cannot say, because the query for sure, it will keep on changing.
+
+
+293
+00:46:06.497 --> 00:46:09.446
+PAUL: Now, somebody is asking, what is inference in prediction?
+
+
+294
+00:46:09.847 --> 00:46:12.806
+PAUL: Inferencing means prediction, as simple as that.
+
+
+295
+00:46:13.427 --> 00:46:20.437
+PAUL: Okay, so now when I say with respect to the decoder part, so now this will be computed.
+
+
+296
+00:46:22.667 --> 00:46:39.727
+PAUL: So that's why I'm telling you, when the KV information is flowing, you need to save this in one place, and this one, again, every time you need to do the re-computation of this. But any time, from the memory, you can always bring back KV cache. And that way, you can actually make system faster for prediction.
+
+
+297
+00:46:39.767 --> 00:46:50.157
+PAUL: So that if any repeated value that comes, if already that K and V is calculated, and it will be directly fetched from the memory, which is a much faster processors directly looking into this.
+
+
+298
+00:46:52.317 --> 00:47:03.517
+PAUL: Now Harish is telling KV catcher, nothing but, weights. Yes, if you really think about KV are the actual information for the query that you have passed.
+
+
+299
+00:47:03.537 --> 00:47:13.477
+PAUL: Because for every query, there will be K and V. The first time, if you have already calculated. So, if you have already done the calculation of K and V, you can save it into the memory.
+
+
+300
+00:47:13.867 --> 00:47:27.337
+PAUL: And sometimes it totally depends upon what type of logic, so probably if you feel that this query is coming more than 2 to 3 times, then save it. If it's very much unique, then it really doesn't make sense, because for the memory also, you will be paying.
+
+
+301
+00:47:27.437 --> 00:47:30.517
+PAUL: to some type of infrastructure. That's why.
+
+
+302
+00:47:32.067 --> 00:47:40.517
+PAUL: Okay, now partha is telling, which part you didn't get it, partha? You were telling, enjoy, not enjoying? Enjoying with respect to what?
+
+
+303
+00:47:43.917 --> 00:48:00.557
+PAUL: All right. Now, Pradeep is asking, why did not K and V from the decoder, whyâ€¦ we have calculated that. Could not follow. Now, this is when things become tougher, simply, like, because now these are the internal working, not mentioned in paper. That's why.
+
+
+304
+00:48:01.347 --> 00:48:04.256
+PAUL: Now, moving towardsâ€¦ okay, nowâ€¦
+
+
+305
+00:48:04.537 --> 00:48:15.257
+PAUL: Pradeep, as you were asking, what happens to the K and Q, K and V, from decoder? Alright, now let's look into this one.
+
+
+306
+00:48:15.377 --> 00:48:19.016
+PAUL: Already, I've told you. Now, what happens to this?
+
+
+307
+00:48:20.187 --> 00:48:29.226
+PAUL: What happens to this part? So, yes, it is used. So, Pradeav, the K and the V is only used till the MMHA section.
+
+
+308
+00:48:29.967 --> 00:48:33.656
+PAUL: Okay? Now, after that, it moves towards the normal.
+
+
+309
+00:48:34.087 --> 00:48:39.856
+PAUL: then only queue is sent, because here, even you have the queue. But for the cross-attention.
+
+
+310
+00:48:44.557 --> 00:48:47.676
+PAUL: Only the information which is sent is the Q part.
+
+
+311
+00:48:48.177 --> 00:48:55.356
+PAUL: This is from the decoder side, that's why I've written MMHN. So in the first block, yes, it is getting used, after that, it doesn't get used.
+
+
+312
+00:48:57.627 --> 00:48:59.966
+PAUL: Okay? Is this part clear, Pradeep?
+
+
+313
+00:49:00.827 --> 00:49:18.656
+PAUL: So, simply, that information is there, but for future changes, it is not being used. That's why I want to clarify. So, in the cross-attention, only Q goes. K and V, this information is calculated. So, later on, K and V, the idea is you need K and B. Why you need K and B? In this particular phase, this is a compulsion.
+
+
+314
+00:49:18.837 --> 00:49:23.316
+PAUL: Because otherwise, the main fundamental idea that we have learned
+
+
+315
+00:49:23.427 --> 00:49:26.327
+PAUL: Self-attention won't be applied. That's why.
+
+
+316
+00:49:27.057 --> 00:49:36.056
+PAUL: For the actual self-attention in the decoder side, you need this. Otherwise, how it will learn the pattern relationship, all those things that we have discussed.
+
+
+317
+00:49:36.447 --> 00:49:39.757
+PAUL: Okay, so for that learning, you needâ€¦
+
+
+318
+00:49:39.877 --> 00:49:58.297
+PAUL: But later on, in the next stage, where you have the normal multi-detention of the cross, there actually you don't take this one. We don't use that in the future, okay? There is no use of K and V of the decoder after the self-attention phase, there is no use. Only the key is reused.
+
+
+319
+00:49:58.587 --> 00:50:09.846
+PAUL: Is this part clear? Now, generally, by design, so if you look into, there are two terms which is widely used. First of all, the most common term is the source sequence.
+
+
+320
+00:50:15.387 --> 00:50:17.886
+PAUL: And then you have the target sequence.
+
+
+321
+00:50:21.427 --> 00:50:27.206
+PAUL: Now, whenever I'm talking with respect to the source sequence, so simply, this is the encoders.
+
+
+322
+00:50:28.587 --> 00:50:30.097
+PAUL: K and V.
+
+
+323
+00:50:30.567 --> 00:50:39.507
+PAUL: Always, remember this part. So, whenever I'm talking with respect to the source sequence, it means that the key entry information which is flowing right now.
+
+
+324
+00:50:43.227 --> 00:50:53.967
+PAUL: And target sequence, store sequence means I'm talking with respect to the encoder, guys. As simple as that. Okay, so this is the K and V encoder representation.
+
+
+325
+00:50:54.077 --> 00:50:57.286
+PAUL: That is referred as the source sequence.
+
+
+326
+00:50:57.537 --> 00:51:09.237
+PAUL: Okay, so generally, in simple terms, if I say, whenever the input to the English sentence.
+
+
+327
+00:51:11.927 --> 00:51:17.506
+PAUL: Rather than input, no, rather. So, input will be based on the English sentence.
+
+
+328
+00:51:17.937 --> 00:51:27.026
+PAUL: then this K and V needs to be calculated always. Then comes the target sequence. In the target sequence, the decoder's Q.
+
+
+329
+00:51:27.557 --> 00:51:31.606
+PAUL: Okay, so the queue, this is from the decoder.
+
+
+330
+00:51:33.677 --> 00:51:35.526
+PAUL: This needs to be calculated.
+
+
+331
+00:51:35.677 --> 00:51:41.757
+PAUL: And what is the target sequence? So, simply, in this particular case, whatever that French sentence will come.
+
+
+332
+00:51:43.557 --> 00:51:47.797
+PAUL: Pleaseâ€¦ look into this part, okay?
+
+
+333
+00:51:49.407 --> 00:52:03.886
+PAUL: So, in simple terms, the final part again, in the decoders, K and V are irrelevant in cross-attention. Always remember that only K is you sent. Only the Q part which is being sent. Other than that, totally.
+
+
+334
+00:52:04.507 --> 00:52:05.407
+PAUL: All right.
+
+
+335
+00:52:05.547 --> 00:52:10.016
+PAUL: Now, any type of questions, if you want to ask me, please ask me right here.
+
+
+336
+00:52:10.067 --> 00:52:22.166
+PAUL: Because I feel that this has its own depth, and actually, if you try to go, and this part is hard, you have to really understand the entire flow, then only you can understand. If you forget yesterday's discussion, then you cannot actually read it.
+
+
+337
+00:52:22.167 --> 00:52:32.437
+PAUL: Now, from encoder decoder, so Deepak is telling, will K and B from the encoder change for each query exactly? At every point of time, it will change.
+
+
+338
+00:52:32.587 --> 00:52:47.876
+PAUL: But if you ask the same query again and again, then it doesn't, because it's the same computation, Deepak. I hope that that's why you have the KV cache concept. One is telling, so KV is not calculated in the decoder. It is calculated, no, in the self-attention phase.
+
+
+339
+00:52:48.297 --> 00:52:59.716
+PAUL: Again, I told you, it is calculated, but it is not used. You have to use the K, V, and Q for self-attention. Otherwise, how we will perform the self-attention?
+
+
+340
+00:53:00.217 --> 00:53:13.926
+PAUL: I hope you get it, but it is not used in cross-attention. It means that the MMHA variant uses it in the decoder, but later on the MHA, which is the next stage, there it is not being used. Got it?
+
+
+341
+00:53:15.067 --> 00:53:16.007
+PAUL: Alright.
+
+
+342
+00:53:17.117 --> 00:53:25.956
+PAUL: Now, Pradeep is telling how Q is calculated. Now, the question comes, how K is calculated, how V is calculated? Please tell me that part.
+
+
+343
+00:53:26.437 --> 00:53:29.136
+PAUL: Because that is exactly the same way.
+
+
+344
+00:53:29.477 --> 00:53:33.187
+PAUL: So whenever I'm talking about these matrixes, how they are being initialized.
+
+
+345
+00:53:34.427 --> 00:53:38.946
+PAUL: Using wet initialization, I hope, Pradeep will get this part.
+
+
+346
+00:53:39.267 --> 00:53:45.116
+PAUL: All the metrics that comes, K, Q, V, everything, follows the weight initialization tool.
+
+
+347
+00:53:45.317 --> 00:53:46.257
+PAUL: Okay.
+
+
+348
+00:53:47.157 --> 00:53:50.506
+PAUL: So, we don't create, we initialize it.
+
+
+349
+00:53:51.167 --> 00:53:57.607
+PAUL: Okay? That's why. Now, the next part, that I got from the self-attention.
+
+
+350
+00:54:00.367 --> 00:54:07.946
+PAUL: That I got from the self-attention in the decoder or the encoder are you talking about? Now, Mohan is asking multiplication with the weighted matrix.
+
+
+351
+00:54:08.437 --> 00:54:13.237
+PAUL: Multiplication, whenever you are talking, right now, multiplication with what?
+
+
+352
+00:54:13.247 --> 00:54:29.837
+PAUL: the actual, sorry, information with the mask are you talking about? Then you are correct, Mohammad. But now, Q making confusion. Why Q is making confusion? Already, I've written the formula here. Very specifically, I've told you, this is the normal self-attention part.
+
+
+353
+00:54:29.867 --> 00:54:38.306
+PAUL: And in the cross-attention, only the queue information is going ahead. Whatever the queue is calculated in the MMHFA.
+
+
+354
+00:54:40.677 --> 00:54:47.837
+PAUL: Okay, it means that whatever the matrix initialization, that flow of information is moving towards the next step. That is the main flow.
+
+
+355
+00:54:47.967 --> 00:54:49.417
+PAUL: Don't get confused.
+
+
+356
+00:54:50.617 --> 00:54:51.447
+PAUL: Okay.
+
+
+357
+00:54:51.897 --> 00:54:59.057
+PAUL: Because everywhere, remember, in both the places, KQV will be calculated in the encoder as well as in the decoder.
+
+
+358
+00:54:59.177 --> 00:55:15.997
+PAUL: Now, the question comes, which are the information you are actually using it in cross-attention? So, from the encoder, only two things, the KV is flowing, okay? And from the decoder, only K. Other information is there, but we are actually not using it. It's relevant in the next phase.
+
+
+359
+00:55:17.857 --> 00:55:21.706
+PAUL: In this formula, V is missing? Yes, V is not required.
+
+
+360
+00:55:22.377 --> 00:55:24.617
+PAUL: This is only the cross-attention part.
+
+
+361
+00:55:24.827 --> 00:55:30.077
+PAUL: That's why this is cross-attention. No requirement of V that you have.
+
+
+362
+00:55:34.267 --> 00:55:38.337
+PAUL: And very specifically, when I'm talking about si guides.
+
+
+363
+00:55:39.337 --> 00:55:53.287
+PAUL: I have written this one. Now, after this, tell me if I want to break the equation, and let's take values also, okay? So, now what will happen? Now, once you have done the cross-attention weight, so simply I can take the crossâ€¦
+
+
+364
+00:55:53.677 --> 00:55:56.317
+PAUL: Attention waits.
+
+
+365
+00:55:56.927 --> 00:55:58.527
+PAUL: that I have taken.
+
+
+366
+00:55:59.527 --> 00:56:02.617
+PAUL: Now, this to be multiplied with which V?
+
+
+367
+00:56:04.277 --> 00:56:06.917
+PAUL: To get your final output, which we will come.
+
+
+368
+00:56:08.517 --> 00:56:19.356
+PAUL: V from your encoder. This equation I've not written, but that's why I've written, so that you guys get the clarity. The same thing, I can add it after sortmax also with a dot VE.
+
+
+369
+00:56:19.537 --> 00:56:28.127
+PAUL: For your clarity. So, the value is not from the decoder, but from the encoder. Is this part clear? Where you actually calculate the mean weighted sum.
+
+
+370
+00:56:29.427 --> 00:56:30.357
+PAUL: Yes?
+
+
+371
+00:56:30.497 --> 00:56:31.677
+PAUL: Everybody?
+
+
+372
+00:56:33.087 --> 00:56:39.186
+PAUL: Alright, sorry, the encoder, alright, fine. But you said V also being used in the decoder site?
+
+
+373
+00:56:39.507 --> 00:56:42.066
+PAUL: Vâ€¦ yes, V is getting used, no?
+
+
+374
+00:56:42.427 --> 00:56:44.277
+PAUL: Wheels getting used.
+
+
+375
+00:56:44.507 --> 00:56:51.677
+PAUL: But this particular V, You have to understand, see, guys, when I'm telling V, let's take.
+
+
+376
+00:56:52.087 --> 00:56:53.866
+PAUL: There are two Vs right now.
+
+
+377
+00:56:55.097 --> 00:57:04.097
+PAUL: Okay, one is VE, one is VD. Okay? Now, this is used where? In the cross, Attention.
+
+
+378
+00:57:07.447 --> 00:57:10.346
+PAUL: And this is used where? In the cell potential.
+
+
+379
+00:57:11.987 --> 00:57:13.696
+PAUL: So don't get confused.
+
+
+380
+00:57:13.907 --> 00:57:15.726
+PAUL: These are getting used.
+
+
+381
+00:57:16.057 --> 00:57:19.677
+PAUL: But exactly where? I hope you get that part. Pritam.
+
+
+382
+00:57:20.467 --> 00:57:30.096
+PAUL: So, Raja Gobal is telling you, so cross-attention is another MHA layer, right? Yes, actually, because according to the original architecture.
+
+
+383
+00:57:30.417 --> 00:57:33.317
+PAUL: Okay, now this is where your cross-attention happens.
+
+
+384
+00:57:33.857 --> 00:57:40.537
+PAUL: From here, the flow of information, and it is going inside a multi-head MHA. Because of this.
+
+
+385
+00:57:40.747 --> 00:57:42.967
+PAUL: The cross-attention is taking place.
+
+
+386
+00:57:45.107 --> 00:57:48.016
+PAUL: Alright, now Pradeep is killing the first is MHA.
+
+
+387
+00:57:49.147 --> 00:57:51.556
+PAUL: The first is MMHA.
+
+
+388
+00:57:52.767 --> 00:57:54.787
+PAUL: The second is MHA.
+
+
+389
+00:57:55.617 --> 00:57:59.097
+PAUL: So, when I'm talking here, First of all.
+
+
+390
+00:57:59.237 --> 00:58:03.207
+PAUL: This part, now, this is with respect to your normal MHA version.
+
+
+391
+00:58:06.487 --> 00:58:08.577
+PAUL: And this is the MMH.
+
+
+392
+00:58:11.187 --> 00:58:19.907
+PAUL: And both are from the decoder side, so that's why I will write the term decoder. I'm only talking with respect to decoder, I'm not talking with respect to the encoder.
+
+
+393
+00:58:20.897 --> 00:58:21.837
+PAUL: Death?
+
+
+394
+00:58:23.037 --> 00:58:24.566
+PAUL: Is this part clear?
+
+
+395
+00:58:30.497 --> 00:58:33.437
+PAUL: So, I'm telling V used. What is V used?
+
+
+396
+00:58:37.157 --> 00:58:38.947
+PAUL: we usedâ€¦
+
+
+397
+00:58:39.247 --> 00:58:54.896
+PAUL: Really, because if you have any questions, if you feel, please raise your hand. Because this topic is important from interview perspective, so really, in your mind, every question should be clear. If you don't get at any point of time, please let me know. So simply, raise your hand, I will try to clarify that part.
+
+
+398
+00:58:55.837 --> 00:58:56.957
+PAUL: Anybody.
+
+
+399
+00:58:57.117 --> 00:58:58.937
+PAUL: Any question that you feel.
+
+
+400
+00:59:00.257 --> 00:59:02.997
+PAUL: Based on the current discussion that we have done.
+
+
+401
+00:59:06.767 --> 00:59:09.777
+PAUL: How it can be that there is not a single cushion?
+
+
+402
+00:59:11.597 --> 00:59:18.586
+PAUL: How many of you, get the mean internals? Because you have to really understand the internals, otherwise it becomes much more tougher.
+
+
+403
+00:59:19.217 --> 00:59:36.506
+PAUL: Can you explain the target sequence? This is a main target sequence, which is Q, because I'mâ€¦ whenever I'm talking with respect to the target sequence, I'm only referring to the query of the decoder, which is sent to the MHFA, or due for the cross-attention.
+
+
+404
+00:59:37.607 --> 00:59:40.427
+PAUL: Yes, I think, Rajagopal, you can proceed with your question.
+
+
+405
+00:59:40.427 --> 00:59:46.636
+Rajagopal Somasundaram: Yes, Paul. So, my question is, this cross-attention is, another amateur layer, right, as you mentioned.
+
+
+406
+00:59:46.867 --> 00:59:49.826
+Rajagopal Somasundaram: So, then this amit cell layerâ€¦ C.
+
+
+407
+00:59:49.827 --> 00:59:53.996
+PAUL: ZCC. You have to understand, when I'm talking about this, it'sâ€¦
+
+
+408
+00:59:54.347 --> 01:00:10.826
+PAUL: connected with the image. It means that whenever I'm talking about the cross-attention, this is the fusion between the encoder and the decoder. So now this exact line, this is the representation of cross attention, because the flow of information went here.
+
+
+409
+01:00:10.847 --> 01:00:15.746
+PAUL: And now this flow, because from here also, the information is coming.
+
+
+410
+01:00:15.777 --> 01:00:32.437
+PAUL: to information this multi-attention is receiving. Now, you need to solve that fusion. So, because of that, so if you really think about it, it's the MHA component, which is taking two different types of information flow, from the encoder as well as from the decoder.
+
+
+411
+01:00:32.627 --> 01:00:49.497
+Rajagopal Somasundaram: Okay, so then it won't be doing a similar competition. Say, in a similar amateur, you'll be having a KV as well, right? Soâ€¦ so in this case, it won't be doing the similar KVQ calculation. It'll be using the formula, whichever you have mentioned.
+
+
+412
+01:00:49.967 --> 01:00:51.427
+PAUL: The formula is exactly the same.
+
+
+413
+01:00:51.427 --> 01:00:52.577
+Rajagopal Somasundaram: key decoder.
+
+
+414
+01:00:52.757 --> 01:00:59.076
+PAUL: CCC. Exactly. If you remember, this was the original one in the decoder site yesterday that we uploaded, yes, on.
+
+
+415
+01:01:00.357 --> 01:01:00.897
+Rajagopal Somasundaram: Yeah.
+
+
+416
+01:01:00.897 --> 01:01:02.787
+PAUL: This was the original formula.
+
+
+417
+01:01:03.307 --> 01:01:05.446
+PAUL: Of your normal self-attention.
+
+
+418
+01:01:05.757 --> 01:01:08.617
+PAUL: Okay? Now, in this formula, what I have changed?
+
+
+419
+01:01:08.737 --> 01:01:18.396
+PAUL: Because now the flow of information is from the different side. So this time, what I've taken, I have just changed those values. So, simply where I've written. Here, I have written this one.
+
+
+420
+01:01:18.707 --> 01:01:19.297
+Rajagopal Somasundaram: Yes.
+
+
+421
+01:01:19.757 --> 01:01:35.567
+PAUL: If you look into theâ€¦ it's exactly the same formula, only the information flow, that has changed. So here, the Q comes from the decoder data I have taken, the K comes from the encoder data I have taken, and the value comes from the encoder data I have taken.
+
+
+422
+01:01:36.417 --> 01:01:46.517
+PAUL: Other than that, there is no change, I hope. The formula is same, but in that formula, the Q and the K from where it is coming, only that part changed.
+
+
+423
+01:01:47.547 --> 01:01:49.847
+Rajagopal Somasundaram: Got it. Thanks, thanks, bro.
+
+
+424
+01:01:50.397 --> 01:01:58.636
+PAUL: Okay, alright. Yes, just raise your hand if it becomes, because if you write in chat 10 times, even I don't get it. Pradeep, please ask the question.
+
+
+425
+01:01:58.637 --> 01:02:00.267
+Pradyut: Good morning, sir, Paul, sir.
+
+
+426
+01:02:00.267 --> 01:02:00.987
+PAUL: Yes.
+
+
+427
+01:02:00.987 --> 01:02:17.707
+Pradyut: So, I'm just trying to understand, based on that self-attention. So, see, yesterday we have discussed the, all the derivation, AC21, V1, Ace 2, V2, right? And Y1, Y2, Y3, Y4 was the output of the self-attention.
+
+
+428
+01:02:17.887 --> 01:02:25.946
+Pradyut: Right? So there, the ultimate section that we have multiplied is the value vector, that is V1MV, right?
+
+
+429
+01:02:26.297 --> 01:02:41.686
+Pradyut: And here in cross, cross attention, we are, subtracting that part, right? The value vector part, we are notâ€¦ we are excluding that part, and instead of that, we are taking the S31, S32, right?
+
+
+430
+01:02:43.357 --> 01:02:47.896
+PAUL: 3. Whatever the thing that you have told, it's a complete wrong interpretation.
+
+
+431
+01:02:48.607 --> 01:02:52.916
+PAUL: Sorry, I'm talking with respect to multi-head attention.
+
+
+432
+01:02:53.107 --> 01:03:03.786
+PAUL: Cell potential is a small unit of that multi-year attention, okay? Now, during the cell potential, I told you 3 things that will be getting generated.
+
+
+433
+01:03:03.787 --> 01:03:04.207
+Pradyut: Yeah.
+
+
+434
+01:03:04.207 --> 01:03:18.366
+PAUL: AQV, if you remember. Okay? Now, here, now tell me from that point, because you told subtracting. We are not doing any type of subtracting. That's why I want to get that point, from where you got that idea of subtraction.
+
+
+435
+01:03:19.346 --> 01:03:30.096
+Pradyut: No, it means we are, ultimately, we are, multiplying with the, value vector. I think here the value vector multiplication, we are not doing, is it?
+
+
+436
+01:03:31.777 --> 01:03:38.397
+PAUL: Okay, hereâ€¦ here I am done with this operation. Right now, in the formula in pink color.
+
+
+437
+01:03:41.417 --> 01:03:44.436
+PAUL: This is where I mentioned it very specifically.
+
+
+438
+01:03:49.806 --> 01:03:57.866
+Pradyut: How we are excluding the value part means KQ2 we are getting from there, after normalization.
+
+
+439
+01:03:59.567 --> 01:04:04.877
+PAUL: After normalization, you have K, Q, V. All the three information is there.
+
+
+440
+01:04:05.737 --> 01:04:06.667
+Pradyut: Yes.
+
+
+441
+01:04:07.247 --> 01:04:08.187
+Pradyut: Okay.
+
+
+442
+01:04:09.167 --> 01:04:10.677
+PAUL: Alright, after that, 10.
+
+
+443
+01:04:11.517 --> 01:04:16.816
+Pradyut: After that, we are multiplying with a value vector, where we.
+
+
+444
+01:04:16.817 --> 01:04:20.686
+PAUL: Value vector done. CCC. Value vector done.
+
+
+445
+01:04:20.807 --> 01:04:27.577
+PAUL: When you are talking, let's start with this diagram. Initially, you areâ€¦ your entire thing is dependent on this.
+
+
+446
+01:04:27.757 --> 01:04:31.887
+PAUL: Because the thing, the interpretation that you have taken, so here.
+
+
+447
+01:04:31.887 --> 01:04:32.207
+Pradyut: Yes.
+
+
+448
+01:04:32.207 --> 01:04:46.747
+PAUL: scale from there. Now, this is just the part of the multi-head attention. So, nothing that you really need to worry about exactly what is happening. From here, the final output that I have is the KQV, which will proceed to the next part.
+
+
+449
+01:04:47.417 --> 01:04:53.036
+Pradyut: Okay, the Y1, Y2, we already got, that part is under scale.product analytics.
+
+
+450
+01:04:53.037 --> 01:05:05.436
+PAUL: Yes, yes, yes, yes, that comes. All your whys which are done, the mean self-attention part, everything which is being calculated, it remains the same, as well as for the encoder, as well as for the decoder. There is no change when done.
+
+
+451
+01:05:05.907 --> 01:05:11.576
+Pradyut: Now then, how we are excluding the V from the KQV, from the importer site?
+
+
+452
+01:05:12.577 --> 01:05:14.737
+Pradyut: Because KQB already there.
+
+
+453
+01:05:15.247 --> 01:05:19.597
+PAUL: Alright, simply don't take that value, no? When you are asking about
+
+
+454
+01:05:19.697 --> 01:05:30.197
+PAUL: Now, programmatically, simply K, V, and Q, let's take. Now, each have its own matrix, so during, whenever you are saving it, don't pass this value, as simple as that.
+
+
+455
+01:05:31.007 --> 01:05:31.787
+Pradyut: Okay.
+
+
+456
+01:05:32.737 --> 01:05:42.637
+PAUL: Whenever I say it means that this is a variable. Inside a variable, if you have saved this information, later on, say, index it, and don't pass the KUM information, as simple as that.
+
+
+457
+01:05:43.067 --> 01:05:44.587
+Pradyut: Okay, got it, got it.
+
+
+458
+01:05:45.217 --> 01:05:45.707
+Pradyut: Yeah.
+
+
+459
+01:05:46.047 --> 01:05:51.547
+Pradyut: We are getting the combination of all. Yeah, we are getting the combination of all, just to exclude. Yes.
+
+
+460
+01:05:51.547 --> 01:06:05.106
+PAUL: We have the entire thing. From that entire thing, I am telling only take these two things. The third part, don't send it. Evenâ€¦ see, generally what happens, even if you are sending it, when you are doing the calculation, you can reject that part. Both the things happen.
+
+
+461
+01:06:05.107 --> 01:06:06.726
+Pradyut: That will be unused, becauseâ€¦
+
+
+462
+01:06:06.727 --> 01:06:09.157
+PAUL: Yes, that will be our news, that is the main part.
+
+
+463
+01:06:10.107 --> 01:06:11.177
+PAUL: Barik? Gotta.
+
+
+464
+01:06:11.177 --> 01:06:12.776
+Pradyut: Got it, yeah. Thank you.
+
+
+465
+01:06:12.777 --> 01:06:13.837
+PAUL: All right.
+
+
+466
+01:06:14.217 --> 01:06:24.867
+PAUL: That's why make things clear in your mind, guys. This part is really that you need to understand and not written. You need to spend some time. So I think, saifulla, you have the next question.
+
+
+467
+01:06:26.957 --> 01:06:32.706
+saifulla soudagar: Yes, sir. Yesterday it was completely clear for me. Today, I just got confused with this.
+
+
+468
+01:06:32.707 --> 01:06:35.467
+PAUL: Wherever you got confused, please raise your hand, that's why I do it.
+
+
+469
+01:06:35.467 --> 01:06:35.967
+saifulla soudagar: to do.
+
+
+470
+01:06:35.967 --> 01:06:38.827
+PAUL: Because it should be very clear in your mind, that's why.
+
+
+471
+01:06:38.827 --> 01:06:48.856
+saifulla soudagar: So, like yesterday in notes, if you see in cross-attention, right, from encoder to decoder, K and Q will be passed only, not V.
+
+
+472
+01:06:48.857 --> 01:06:58.306
+PAUL: No, no, no, no, see, that part I have changed today, no. This part I updated. K and V will be passing. Q will be rejected from the importer side. I updated that part.
+
+
+473
+01:06:59.127 --> 01:07:01.566
+saifulla soudagar: Okay, okay, so can Iâ€¦ what is that? Can you come again?
+
+
+474
+01:07:02.707 --> 01:07:04.297
+PAUL: Are you looking into the notes?
+
+
+475
+01:07:05.117 --> 01:07:05.767
+saifulla soudagar: Yeah.
+
+
+476
+01:07:05.877 --> 01:07:07.727
+saifulla soudagar: Okay, okay, KVâ€¦
+
+
+477
+01:07:08.247 --> 01:07:13.056
+PAUL: It will be passed, and the queue will be rejected. That part I have updated. That is the first thing I told in today's session.
+
+
+478
+01:07:13.787 --> 01:07:15.157
+saifulla soudagar: Oh, okay.
+
+
+479
+01:07:15.157 --> 01:07:17.827
+PAUL: Okay, now after that, what is your next question?
+
+
+480
+01:07:18.487 --> 01:07:23.017
+saifulla soudagar: In thatâ€¦ that is the onlyâ€¦ because today you mentioned again, right? So, thatâ€¦ that is what I.
+
+
+481
+01:07:23.017 --> 01:07:27.847
+PAUL: Okay, I hope that part got clarified. I have updated that in the notes also, okay?
+
+
+482
+01:07:28.917 --> 01:07:29.737
+saifulla soudagar: Okay.
+
+
+483
+01:07:30.967 --> 01:07:37.256
+PAUL: only two information K and B, will flow into the decoder, and not the key. Q will be used from the decoder end.
+
+
+484
+01:07:38.017 --> 01:07:41.867
+PAUL: Any other questions that you have, based on today's position.
+
+
+485
+01:07:42.357 --> 01:07:43.387
+saifulla soudagar: Understood, understood.
+
+
+486
+01:07:43.877 --> 01:07:45.577
+PAUL: Understood? All right, fine.
+
+
+487
+01:07:46.187 --> 01:07:52.787
+PAUL: Let's proceed with partha, okay? Partha, yes. Now you can proceed, then I will come to Amol and Krita.
+
+
+488
+01:08:00.177 --> 01:08:02.807
+PAUL: I think you can unmute yourself.
+
+
+489
+01:08:03.107 --> 01:08:05.977
+PAUL: Or let's go with Amol in the meantime.
+
+
+490
+01:08:08.907 --> 01:08:09.887
+Amol: Hello, sir.
+
+
+491
+01:08:10.247 --> 01:08:10.687
+PAUL: Yes.
+
+
+492
+01:08:10.687 --> 01:08:29.687
+Amol: So, I mean, I'm trying to understand the concepts, but, you know, truly speaking, I lost the track since yesterday. I was not entirely following. Maybe, you know, because, you know, we did the RNN, LSTM, and GRU,
+
+
+493
+01:08:29.687 --> 01:08:52.426
+Amol: But, there's something called an encoder-decoder architecture and attention mechanism. So what I did was, I was doing a research. I skipped your, you know, second half of your session, and I started doing a research, and I have reached to one point of attention mechanism. I'm not yet done with whatever you covered yesterday, especially, the second part.
+
+
+494
+01:08:52.427 --> 01:08:59.706
+Amol: But somehow, it's really getting difficult to connect the dots. I'm not sure if it's just me, orâ€¦
+
+
+495
+01:08:59.707 --> 01:09:08.796
+PAUL: This is difficult. This is not easy, because, see, in the paper, also the internal working, none of the places it will be mentioned.
+
+
+496
+01:09:08.967 --> 01:09:19.906
+PAUL: Because when I teach, because I have done it practically, I'm talking from the practical perspective. Because practically only you will be doing it. Because theoretically, in the paper, nobody mentions exactly the flow of information.
+
+
+497
+01:09:20.417 --> 01:09:30.247
+Amol: I agree, and since the things are getting, you know, complex, it is not that straightforward to understand this. Maybe,
+
+
+498
+01:09:30.247 --> 01:09:43.917
+Amol: I feel like if we do a theory and an immediate practical, maybe that might help. Or what I did, I did, you know, check for a couple of other videos from the Krisha Academy itself, and
+
+
+499
+01:09:43.917 --> 01:09:47.457
+Amol: those were really helpful to understand, but again, as saidâ€¦
+
+
+500
+01:09:47.457 --> 01:09:57.057
+PAUL: say, in theâ€¦ in none of the videos, they go into detailed level of flow of information. Everywhere it will be pretty much high, becauseâ€¦
+
+
+501
+01:09:57.057 --> 01:10:00.667
+Amol: Yeah, I understand, because the topic itself is so vast, right? Soâ€¦
+
+
+502
+01:10:00.667 --> 01:10:09.576
+PAUL: No, no, see, the topic is easy only, it's not hard. The idea is the same thing, because in advanced route, I taught it in much more detail.
+
+
+503
+01:10:09.777 --> 01:10:20.126
+PAUL: It means that only I spent more than 6 to 8 classes only on this part. But it was the advanced one. In advanced one, also, students failed. But the main problem is you have to revise this.
+
+
+504
+01:10:20.127 --> 01:10:35.446
+PAUL: At least 3 to 4 times then, because you have to understand internally what is the flow of information. Till the time, you don't think directly spoon-fitting has become much more harder. It means that you have to read it at least twice to understand the entire thing.
+
+
+505
+01:10:35.507 --> 01:10:38.396
+PAUL: Then it becomes a bit easier for you to relate.
+
+
+506
+01:10:38.467 --> 01:10:41.876
+PAUL: Because right now, I'm talking from the internal perspective.
+
+
+507
+01:10:41.907 --> 01:10:55.856
+PAUL: And nobody actually talks about the internet. In high level, I can directly say this and this, but exactly and internally how it happens, because practically, when you try to do it, that's a complete different scenario. Because the practical is much more tougher, very well.
+
+
+508
+01:10:55.857 --> 01:11:06.667
+PAUL: tough, because really, like, you needâ€¦ if you have hands-on in PyTorch of Motel 2 to 3 years, then only it makes sense to do it. Otherwise, like, it takes time.
+
+
+509
+01:11:06.667 --> 01:11:11.176
+PAUL: That's why I'm asking you, like, which part you did not get, tell me that part.
+
+
+510
+01:11:12.577 --> 01:11:30.067
+PAUL: Because something you will get to know, that what is that something that you want. Because I'm ready to repeat it again twice if required, or Wednesday class also, again, entire Transformers starting from, I can repeat that part. But again, you have to understand where you are stuck, at which point.
+
+
+511
+01:11:30.287 --> 01:11:33.486
+PAUL: So that it becomes clarified. I hope you get myâ€¦
+
+
+512
+01:11:33.917 --> 01:11:47.696
+Amol: Right, so, for now, and let me, let me, you know, do some self-study on this. I would say I have understood whatever was covered till Baner's Day, but since yesterday, I have lost.
+
+
+513
+01:11:47.697 --> 01:11:51.346
+PAUL: See, till Wednesday, it's just theâ€¦ from yesterday, only the.
+
+
+514
+01:11:51.347 --> 01:11:51.687
+Amol: I don'.
+
+
+515
+01:11:51.687 --> 01:11:52.996
+PAUL: things that takeâ€¦
+
+
+516
+01:11:53.367 --> 01:12:15.996
+Amol: No, no, that's what I said, that the first half, I attended, and I didn't get it entirely, so I thought it's better I go offline and, you know, check a couple of other, areas. And I have reached still, attention mechanism, which is, you know, before Transformers architecture, right? So I understood, and why Transformers are required is also pretty
+
+
+517
+01:12:15.997 --> 01:12:29.357
+Amol: clear. Now I'll, start with the self-attention part. Maybe today and tomorrow I should have more clarity, but somehow it's getting difficult to connect the dots, and I'm not sure if justâ€¦ it's just me.
+
+
+518
+01:12:29.357 --> 01:12:33.256
+PAUL: It happens if you are doing it for the first time, even when the first timeâ€¦
+
+
+519
+01:12:33.257 --> 01:12:33.606
+Amol: Of course.
+
+
+520
+01:12:33.607 --> 01:12:34.067
+PAUL: backing
+
+
+521
+01:12:34.397 --> 01:12:50.057
+PAUL: 2019, the same thing, but once you do it, that's why I told minimum 3 to 4 times, the same thing, you have to revise it. Then you have to understand the flow, because see, first time when you learn it, you'll be having lesser questions. Second time when you learn it, more questions. Third time, more questions.
+
+
+522
+01:12:50.137 --> 01:12:58.586
+PAUL: Fourth time, you will feel that now, why? So, in that way, the number of questions increases. Once it increases, automatically the clarity becomes much more clear.
+
+
+523
+01:12:59.597 --> 01:13:02.686
+PAUL: So, that's why that part, and then let youâ€¦
+
+
+524
+01:13:02.687 --> 01:13:03.307
+Amol: Chuck.
+
+
+525
+01:13:03.497 --> 01:13:04.696
+Amol: Sure, yeah, thanks.
+
+
+526
+01:13:04.697 --> 01:13:17.157
+PAUL: this is hard, simply. Even in detail, I think first time, in the last UDS batch also, I didn't win. In high level, I covered it. But I thought already I taught in advanced route, so let's go a little bit in detail. That was the idea.
+
+
+527
+01:13:17.667 --> 01:13:21.027
+Amol: The advanced route that you're saying, is that a differentâ€¦
+
+
+528
+01:13:21.027 --> 01:13:23.687
+PAUL: Yes, yes It's a different one. It's a different one.
+
+
+529
+01:13:23.687 --> 01:13:25.146
+Amol: Okay, okay, got it.
+
+
+530
+01:13:25.147 --> 01:13:26.477
+PAUL: Everything went wild stuff.
+
+
+531
+01:13:28.697 --> 01:13:46.456
+PAUL: Alright, now, let's look into, I think, partha as the rest, partha, you are back. So, whatever, because, see, the same topic I can repeat on Wednesday again, starting from everything that we can do it. And if I feel that most of you are, then let's do the revision also, because it's not a one shot, you will get everything.
+
+
+532
+01:13:46.457 --> 01:13:50.217
+PAUL: When you try to look into the internal parts. Yes, partha, please proceed.
+
+
+533
+01:13:50.217 --> 01:13:56.597
+partha: Okay, okay, soâ€¦ Let'sâ€¦ I'll cut it into a few pieces here.
+
+
+534
+01:13:56.767 --> 01:14:01.286
+partha: Totally. First of all, I think you are doing your best.
+
+
+535
+01:14:01.477 --> 01:14:08.057
+partha: And weâ€¦ and weâ€¦ students, we're probably having different,
+
+
+536
+01:14:08.887 --> 01:14:17.146
+partha: there are different, different, thinking around it, so maybe that's the reason we are all finding it tough.
+
+
+537
+01:14:17.147 --> 01:14:20.796
+PAUL: If, whenever somebody feels stuck, there has to be a certain point that this.
+
+
+538
+01:14:20.797 --> 01:14:22.756
+partha: Okay, so, I'm coming then, I'm coming.
+
+
+539
+01:14:22.937 --> 01:14:23.447
+PAUL: Yes.
+
+
+540
+01:14:23.447 --> 01:14:27.967
+partha: I'm coming there. I think, I think whatâ€¦
+
+
+541
+01:14:28.297 --> 01:14:33.966
+partha: I am seeking is, number one, I think, if you can, start over again.
+
+
+542
+01:14:34.287 --> 01:14:39.497
+partha: Just go up it slowly. I thinkâ€¦ I think,
+
+
+543
+01:14:39.777 --> 01:14:54.257
+partha: Thereâ€¦ youâ€¦ you are flip-flopping and kind of jumping from one point to another. I think that's the connectivity where I wasâ€¦ I was not able to relate. Secondly, I was trying toâ€¦ I was trying to follow your, whatever you are writing, usually.
+
+
+544
+01:14:54.257 --> 01:15:07.256
+partha: make notes of it as you teach, so that I can pictureize as to what is going on, and because the screens were getting frozen, so that's why I wasâ€¦ I was not able toâ€¦ toâ€¦ to do what I wasâ€¦
+
+
+545
+01:15:07.467 --> 01:15:11.016
+partha: trying to do in order to learn. So, I thinkâ€¦
+
+
+546
+01:15:11.137 --> 01:15:26.336
+partha: I would say you complete whatever you're doing, okay? And you share the notes, then we'llâ€¦ and I think we'll take aâ€¦ we'll review it, and then I think maybe the next time, if you can take the,
+
+
+547
+01:15:26.617 --> 01:15:29.286
+partha: Sometime before the game.
+
+
+548
+01:15:29.287 --> 01:15:37.286
+PAUL: ESSC. First of all, you have to understand, EST things, whatever I have discussed, it has to be completely clear.
+
+
+549
+01:15:37.387 --> 01:15:51.827
+PAUL: Then only you can proceed to this part. That's why if the encoder is only not clear in your mind, it becomes a bit harder to visualize, because in decoder, there are much more changes. Encoder is easy only. The decoder part is,
+
+
+550
+01:15:51.977 --> 01:15:54.956
+partha: I think yesterday's part, whatever we did.
+
+
+551
+01:15:55.477 --> 01:15:57.926
+partha: Kind of understood it as to how it.
+
+
+552
+01:15:57.927 --> 01:16:01.866
+PAUL: It has to be very, very clear, see? Yeah. That's why I'm getting your time.
+
+
+553
+01:16:01.867 --> 01:16:11.406
+partha: I did not revise yesterday, but from where I ended yesterday, it was understandable to a certain degree. But I think this morning.
+
+
+554
+01:16:11.567 --> 01:16:13.466
+partha: It became a little too much.
+
+
+555
+01:16:13.467 --> 01:16:18.397
+PAUL: Exactly, if you tell me, Paul, I could not understand this part, this part, in that way.
+
+
+556
+01:16:18.397 --> 01:16:40.597
+PAUL: Again, I can't repeat that. But again, see, when Wednesday again, I can start from this entire self-attention, starting from everything, redo it completely. But where you are getting started, you have to understand. So simply, right at some point of time, like, why this is happening, that I will ask it, then come back. Because, see, multipleâ€¦ because even for me, like, first time.
+
+
+557
+01:16:40.597 --> 01:16:52.167
+PAUL: fewer questions, next time more questions, and thatâ€¦ that's why I told you, it's like 3 to 4 times you have to at least do it, then only it will become clear in your mind, the entire clarity, exactly what is happening, going inside.
+
+
+558
+01:16:53.017 --> 01:16:58.656
+partha: And one more thing, ifâ€¦ is it possible for you toâ€¦
+
+
+559
+01:16:58.847 --> 01:17:01.986
+partha: kind of, in addition to these notes.
+
+
+560
+01:17:02.107 --> 01:17:08.626
+partha: In simple matrix form, the manipulations that is happening, you can explain through that? Is it possible?
+
+
+561
+01:17:09.027 --> 01:17:09.427
+PAUL: Bitcoin.
+
+
+562
+01:17:09.427 --> 01:17:16.847
+partha: And you don't have to takeâ€¦ don't take a very complicated matrix, but even by symbols as to what is going on, it'll be much easier.
+
+
+563
+01:17:17.947 --> 01:17:33.427
+PAUL: I can take the matrix form, but only one one in that way I can take. Because generally, the idea is dot product, when I say, it's pretty much simple at any point of time. But you want me to do the matrix calculation.
+
+
+564
+01:17:34.847 --> 01:17:36.316
+PAUL: Yeah, something, likeâ€¦
+
+
+565
+01:17:36.317 --> 01:17:41.926
+partha: Like, with sympathology, wherever it is necessary to understand that, we kind ofâ€¦
+
+
+566
+01:17:41.927 --> 01:17:51.326
+PAUL: If it is aâ€¦ I got your point, because if it's a dot product, then it's the same thing I will also do. It's a dot product, simple calculation, based on whatever the numbers that I take.
+
+
+567
+01:17:51.427 --> 01:18:00.726
+PAUL: But, we can take that approach also, I think, because just for simbers, because I actually have to work with much more numbers here. Yeah.
+
+
+568
+01:18:00.727 --> 01:18:05.757
+partha: I, I, I think probably you will have to prepare the notes before,
+
+
+569
+01:18:05.797 --> 01:18:06.717
+PAUL: I have to take some mail.
+
+
+570
+01:18:06.717 --> 01:18:07.087
+partha: Exactly.
+
+
+571
+01:18:07.797 --> 01:18:08.267
+partha: Yeah.
+
+
+572
+01:18:08.267 --> 01:18:19.127
+PAUL: in the next class, I will do that, okay? I will take some matrix, because, see, internally, the same things, but with the matrix, if you understand why the value is getting changed, that will become much more clear.
+
+
+573
+01:18:19.647 --> 01:18:23.097
+partha: Yeah, somethingâ€¦ then we can visualize to what is going on.
+
+
+574
+01:18:24.367 --> 01:18:37.176
+PAUL: So, right now, see, the visualization part, generally, we look at the end, because I do have the visualizer also. In the visualizer, you can directly look into, and you can actually see what are the changes, what are happening.
+
+
+575
+01:18:37.917 --> 01:18:38.807
+PAUL: Okay.
+
+
+576
+01:18:39.077 --> 01:18:43.476
+PAUL: Till now, I've not showed that, but today I was going to show you the visualization part.
+
+
+577
+01:18:44.017 --> 01:18:46.307
+PAUL: As a complete architecture.
+
+
+578
+01:18:46.537 --> 01:18:54.446
+PAUL: But, at, the starting point, if you ask me, yes, I can take, simple. But, those will be simple matrix operations only.
+
+
+579
+01:18:54.547 --> 01:18:55.357
+PAUL: That's right.
+
+
+580
+01:18:56.217 --> 01:19:03.677
+PAUL: Okay, so probably I will create that for the next class, and then I will, probably discuss.
+
+
+581
+01:19:04.197 --> 01:19:07.036
+PAUL: That's your point. Okay. Okay. The idea isâ€¦
+
+
+582
+01:19:07.037 --> 01:19:07.856
+partha: No, carry on, I thinkâ€¦
+
+
+583
+01:19:08.417 --> 01:19:16.707
+partha: You do whatever is necessary and do whatâ€¦ as whatever you have already prepared to take in the lecture.
+
+
+584
+01:19:17.177 --> 01:19:28.527
+PAUL: Alright, fine, that part. Because, see, the idea is that relation, if you're not getting the relation, it means that where you are not getting, that is. Because you told the visualization, it means that
+
+
+585
+01:19:28.597 --> 01:19:38.497
+PAUL: you are not familiar with matrix operations, that can be one reason that you cannot visualize. You have to understand that part, because teaching matrix operation is not.
+
+
+586
+01:19:38.497 --> 01:19:47.656
+partha: No, I understand matrix. I think I'm more of a mathematical mind, so then I'm able to relate things as to what is going on.
+
+
+587
+01:19:47.837 --> 01:19:50.956
+PAUL: Because at which point you felt that, yes, I'm not.
+
+
+588
+01:19:50.957 --> 01:19:51.597
+partha: Ohâ€¦
+
+
+589
+01:19:51.597 --> 01:19:53.127
+PAUL: If you're telling me that pointed.
+
+
+590
+01:19:53.127 --> 01:19:56.616
+partha: Okay, from the notes, from the notes.
+
+
+591
+01:19:57.037 --> 01:20:03.097
+partha: that I have, I've been able to follow Very well until the point
+
+
+592
+01:20:03.277 --> 01:20:09.826
+partha: Regarding the self-attention and, trainable self-attention, the context part.
+
+
+593
+01:20:10.187 --> 01:20:16.376
+partha: And, multi-head attention, CONCAT, and dense. I was able toâ€¦ Perfect. Yes.
+
+
+594
+01:20:17.007 --> 01:20:18.567
+PAUL: After that, where you areâ€¦
+
+
+595
+01:20:18.567 --> 01:20:21.477
+partha: After that, after that, I was trying to follow andâ€¦
+
+
+596
+01:20:21.767 --> 01:20:24.037
+partha: Kind of got lost here, because then youâ€¦
+
+
+597
+01:20:24.037 --> 01:20:27.527
+PAUL: Right now, I'm sharing the screen, no, so tell me at which point you got lost.
+
+
+598
+01:20:27.527 --> 01:20:30.986
+partha: Yeah, I think, I think, go one, go one page up.
+
+
+599
+01:20:31.977 --> 01:20:33.297
+partha: Yeah, this is the time I get.
+
+
+600
+01:20:33.297 --> 01:20:33.747
+PAUL: attention.
+
+
+601
+01:20:33.747 --> 01:20:36.176
+partha: Yeah, until this, I followed everything.
+
+
+602
+01:20:36.637 --> 01:20:37.567
+PAUL: Alright.
+
+
+603
+01:20:40.497 --> 01:20:55.016
+PAUL: Now, these are the formulas that I have written. This is the factorization example. Now, after that, this is the residual connection example. Now, residual connections, simple. This part, clear, not clear.
+
+
+604
+01:20:55.847 --> 01:21:04.067
+partha: there are many moving parts here inâ€¦ from here on, so that's where the confusion is lying. And, if you can break it downâ€¦
+
+
+605
+01:21:04.067 --> 01:21:07.917
+PAUL: that you feel that moving. When you say moving, just be much moreâ€¦
+
+
+606
+01:21:08.437 --> 01:21:08.997
+partha: here? Okay.
+
+
+607
+01:21:08.997 --> 01:21:09.757
+PAUL: That's a good point.
+
+
+608
+01:21:09.757 --> 01:21:12.507
+partha: Oh, go, okay, please go oneâ€¦ one page up.
+
+
+609
+01:21:14.567 --> 01:21:20.267
+partha: From here on, if you can take the trouble ofâ€¦ of explainingâ€¦
+
+
+610
+01:21:21.477 --> 01:21:24.446
+PAUL: Like, from multi-aid attention, because.
+
+
+611
+01:21:24.447 --> 01:21:28.907
+partha: Yeah, I think multiâ€¦ I think multi-head is the culprit here.
+
+
+612
+01:21:30.127 --> 01:21:33.686
+PAUL: Okay, you cannot understand what is happening in multi-end attention.
+
+
+613
+01:21:33.687 --> 01:21:35.516
+partha: Multi-held attention, yes.
+
+
+614
+01:21:35.887 --> 01:21:40.907
+partha: And so, if I don't understand multi-head, yes, I will have a problem understanding the cross.
+
+
+615
+01:21:40.907 --> 01:21:41.877
+PAUL: the masked multi.
+
+
+616
+01:21:41.877 --> 01:21:43.826
+partha: The, the, the man, yeah.
+
+
+617
+01:21:44.157 --> 01:21:45.367
+partha: The mast, yeah.
+
+
+618
+01:21:45.367 --> 01:21:52.136
+PAUL: Alright, fine. Then, probably what I will do, then I will take that matrix formally, because, see, generally.
+
+
+619
+01:21:52.537 --> 01:21:57.976
+PAUL: For multi-year retention, the idea is to factorize it. So, probably I can show you that part.
+
+
+620
+01:21:57.997 --> 01:22:14.856
+PAUL: By taking a simple example, it is totally possible, fine. How many of you feel that starting from multi-ed? Because then, from the Nexus directly, I will start from that point. Please let me know. That should I start from the self-attention, or should I start from theâ€¦ then in that way, I can plan it for the next.
+
+
+621
+01:22:15.097 --> 01:22:22.507
+PAUL: On Wednesday's class, please let me know. So, everybody from multi-attention, should I repeat it, or from self-attention?
+
+
+622
+01:22:24.977 --> 01:22:34.466
+partha: I think for the interest, if you start from self-attention itself, it's okay. But I think you can speed it up, speed it up a bit in the beginning, and thenâ€¦
+
+
+623
+01:22:34.467 --> 01:22:35.227
+PAUL: With that.
+
+
+624
+01:22:35.227 --> 01:22:37.116
+partha: Where the hard part comes, slow it down.
+
+
+625
+01:22:37.117 --> 01:22:44.396
+PAUL: Because I have to rewrite everything, that's why I'm telling this part. Probably, I will be only doing for one Y.
+
+
+626
+01:22:44.537 --> 01:23:01.507
+PAUL: like, similarly, as I've done for everybody, I will do a simple calculation, but again, I will then start from the multi-ed, but I think that makes much more sense. Okay? I think in that way, you guys will get much more. So, the entire thing, starting from self-attention, I will repeat, then coming to multi-ed. Because, see.
+
+
+627
+01:23:01.507 --> 01:23:04.807
+PAUL: It really doesn't make senseâ€¦ okay.
+
+
+628
+01:23:04.807 --> 01:23:21.017
+PAUL: to teach also this part, because if you cannot connect the dots with respect to the encoder, then decoder automatically becomes tougher. So everything shouldâ€¦ it should be clear with respect to the encoding side, okay? So that is fine, because I feel that even in the first class, it'sâ€¦
+
+
+629
+01:23:21.017 --> 01:23:26.906
+PAUL: Pretty much hard, but the idea is you do the revision 3 to 4 times, then only it gets much more clearer.
+
+
+630
+01:23:27.117 --> 01:23:28.187
+partha: Yeah. Nope.
+
+
+631
+01:23:28.387 --> 01:23:36.777
+PAUL: If you are not doing the revision automatically, because this part, spoon feeding, it becomes much more tougher directly. That's why I'm telling it for everybody.
+
+
+632
+01:23:37.237 --> 01:23:54.016
+PAUL: Alright, I got this point, so probably in the next class, I will start from there only. Okay? Now, others. So, for example, I will repeat. So, majorly after telling, start from self-attention, I will start from the first self-attention part, okay? Reputation will be a good revision for you guys also.
+
+
+633
+01:23:54.657 --> 01:24:04.357
+PAUL: All right, then moving, okay? Now, today's part, whatever the things that I have told, how many of you got some idea? Because you have to understand
+
+
+634
+01:24:04.497 --> 01:24:19.786
+PAUL: Because the same idea if I repeat it, so that's why. Please let me know that. Anything today that I have discussed, cross-attention, because it's the same version only of the self-attention, but only the flow of information is different. Please let me know that.
+
+
+635
+01:24:19.967 --> 01:24:29.157
+PAUL: Some idea, because fine, I hope at least you guys got some idea. Because internally, neither in the paper written, but actually when you do it, you have to make those changes.
+
+
+636
+01:24:29.417 --> 01:24:39.327
+PAUL: Alright, so matrix-based operations, so probably with respect to the self-attention data, we'll take one, and then comes the, cross-attention part.
+
+
+637
+01:24:40.067 --> 01:24:43.227
+partha: Yeah, I think the cross-attention was the tricky one.
+
+
+638
+01:24:44.307 --> 01:25:02.777
+PAUL: It's actually not tricky. If youâ€¦ if the normal attention is clear in your mind, the same thing happens. Only the incoming values changes from where it conceives. Alright, fine, this part, I think we will repeat it, okay? So, leave this part completely justâ€¦
+
+
+639
+01:25:02.827 --> 01:25:07.727
+PAUL: Forget, then probably from self-attention, we will restart.
+
+
+640
+01:25:09.057 --> 01:25:11.136
+PAUL: Alright, I think that will be better.
+
+
+641
+01:25:11.637 --> 01:25:13.917
+PAUL: Because Iâ€¦
+
+
+642
+01:25:14.207 --> 01:25:23.206
+PAUL: correlate with the previous class. Yes, everything you have to correlate. That's why, because yesterday test class, if it's not clear, automatically in previous class, nobody can tell you. That's why.
+
+
+643
+01:25:23.457 --> 01:25:29.427
+PAUL: And probably you might have lesser time also to do the revision, as just yesterday only I've discussed it.
+
+
+644
+01:25:29.627 --> 01:25:38.276
+PAUL: Fine, now, the things that I want you to go through, okay, let's keep it. Because, next class that I'll be taking the approach.
+
+
+645
+01:25:39.097 --> 01:25:44.226
+PAUL: Okay. Because, onceâ€¦ From today's note.
+
+
+646
+01:25:44.557 --> 01:25:49.707
+PAUL: the self-attention part that I have discussed in the starting, Take that one.
+
+
+647
+01:25:49.837 --> 01:25:55.427
+PAUL: Okay, and multi-tension, butâ€¦ Focus on only these two components.
+
+
+648
+01:25:55.667 --> 01:26:01.207
+PAUL: Okay? And these two components when I'm talking about, this is only with respect to the encoder.
+
+
+649
+01:26:01.327 --> 01:26:07.397
+PAUL: The idea is, everything should clear in your mind from the encoder block.
+
+
+650
+01:26:07.677 --> 01:26:09.317
+PAUL: Exactly what has happened.
+
+
+651
+01:26:12.267 --> 01:26:28.017
+PAUL: Thisâ€¦ just try to do the revision, okay? Then it will become faster, as I will start with the self-attention part. Then again, I will come to the multi-year detention. And then comes your main connections. Those two connections based on your layer normalization, so twoâ€¦
+
+
+652
+01:26:28.117 --> 01:26:37.247
+PAUL: received well connections, RCs are there, and two, LNs are there. Okay, so layer normalization, that simple, have done.
+
+
+653
+01:26:37.437 --> 01:26:47.577
+PAUL: Till this point, just do the revision before Wednesday starts class. That is my humble request, because again, I will teach it, but at least the idea is, see, you should come with more questions.
+
+
+654
+01:26:47.987 --> 01:26:52.206
+PAUL: Okay? From the encoder, And exactly from me.
+
+
+655
+01:26:52.347 --> 01:27:02.396
+PAUL: The idea is more and questions, try to ask more, okay? Alright, now, I think Ankit has also raised. Ankit and Pritam's, also, let me just look.
+
+
+656
+01:27:03.227 --> 01:27:05.177
+Ankit Bhargav: Hello, I'm also Ankit if I'm portable.
+
+
+657
+01:27:05.697 --> 01:27:07.657
+PAUL: Yes, yes, you are a part of the audience.
+
+
+658
+01:27:07.657 --> 01:27:12.646
+Ankit Bhargav: Paul, can I have the, architecture on my screen?
+
+
+659
+01:27:13.017 --> 01:27:15.946
+PAUL: Onâ€¦ are you talking about the Transformers.
+
+
+660
+01:27:15.947 --> 01:27:30.767
+Ankit Bhargav: Transformer architecture. I have got the idea, I just need to confirm whether my understanding is correct or not. So, we have this KQV, where we apply the multi-add attention and do the adding and normalization.
+
+
+661
+01:27:30.937 --> 01:27:37.397
+Ankit Bhargav: And then we pass the K and V to theâ€¦ from encoder to decoder.
+
+
+662
+01:27:37.517 --> 01:27:54.136
+Ankit Bhargav: That will be passed to, again, the multi-head attention side, which is the cross-attention part of the decoder, right? And then, we have a completely new KQV in the decoder part.
+
+
+663
+01:27:54.147 --> 01:28:03.477
+Ankit Bhargav: In the masked multi-head attention, and then there we will do again the, addition, addition and normalization, and thenâ€¦
+
+
+664
+01:28:03.667 --> 01:28:11.617
+Ankit Bhargav: only the Q part will be passed on to the multi-head attention, and then we will have an, Kâ€¦
+
+
+665
+01:28:11.617 --> 01:28:28.437
+Ankit Bhargav: and V from, encoder, and then Q from the decoder. Then, again, we apply the adaptation and normalization, and then we'll just move forward with the feed-for button, then, going with then linear, and then softmax. Is my understanding clear?
+
+
+666
+01:28:28.807 --> 01:28:29.847
+PAUL: Exactly, Kate.
+
+
+667
+01:28:29.847 --> 01:28:32.967
+Ankit Bhargav: Yeah, now I have just small doubt.
+
+
+668
+01:28:33.207 --> 01:28:43.676
+Ankit Bhargav: how we have this output shifted right? What does it exactly mean? In the decoder part, how we have the outputs? Instead ofâ€¦ it should be inputs, right?
+
+
+669
+01:28:45.767 --> 01:28:50.887
+PAUL: it should be inputs, like, yes, it has the inputs, like the French sentences.
+
+
+670
+01:28:51.047 --> 01:28:57.217
+PAUL: going inside, the encoder site, the English sentence is going, if I take the example, English to French.
+
+
+671
+01:28:57.567 --> 01:29:04.606
+Ankit Bhargav: Yeah, but how come this, outputs is written here? Like, I'm not getting this output part.
+
+
+672
+01:29:05.487 --> 01:29:08.406
+PAUL: Okay, now, this output probabilities which are written.
+
+
+673
+01:29:09.757 --> 01:29:17.796
+Ankit Bhargav: No, no, not at the, end. I'm, talking about the part before this positional encoding output embedding.
+
+
+674
+01:29:17.797 --> 01:29:21.816
+PAUL: So here, outputs are written, shifted right. This part are you talking about?
+
+
+675
+01:29:21.817 --> 01:29:22.817
+Ankit Bhargav: Yes.
+
+
+676
+01:29:23.587 --> 01:29:24.887
+PAUL: What's it.
+
+
+677
+01:29:25.547 --> 01:29:28.306
+Ankit Bhargav: What this is, and how exactly it is coming.
+
+
+678
+01:29:29.257 --> 01:29:43.596
+PAUL: How it is not coming? This is from your dataset. In your dataset, you have both the examples that this is a supervised learning technique. You have the input as well. Now, during training, you need to pass the French sentences yes or no.
+
+
+679
+01:29:43.817 --> 01:29:44.717
+Ankit Bhargav: Yes, okay.
+
+
+680
+01:29:44.717 --> 01:29:47.157
+PAUL: But during prediction, you won't be passing it.
+
+
+681
+01:29:47.157 --> 01:29:47.757
+Ankit Bhargav: Got it.
+
+
+682
+01:29:48.287 --> 01:29:52.826
+PAUL: Okay, now this isâ€¦ during the training phase, you will be sending this particular information.
+
+
+683
+01:29:53.057 --> 01:30:12.766
+PAUL: Later on, because once you have done the training, you will be saving the model. So the perfect weight for KQV that you have from this particular point, like, let's talk about the inferencing part. Because this is only from training perspective right now, as we are talking about. So let me just copy this image and bring it down.
+
+
+684
+01:30:12.867 --> 01:30:15.246
+PAUL: Okay, so I think I can make upâ€¦
+
+
+685
+01:30:15.247 --> 01:30:22.907
+Ankit Bhargav: The English part will come from the encoder, and the French part, just for the training, will come from the decoder, is it?
+
+
+686
+01:30:22.907 --> 01:30:24.257
+PAUL: Exactly correct.
+
+
+687
+01:30:24.257 --> 01:30:24.907
+Ankit Bhargav: Okay?
+
+
+688
+01:30:26.297 --> 01:30:27.247
+PAUL: Perfect.
+
+
+689
+01:30:48.857 --> 01:30:52.976
+Ankit Bhargav: Hope just a high-level overview of my, understanding is correct.
+
+
+690
+01:30:53.527 --> 01:31:05.966
+PAUL: High level is entirely correct. Now, as you were talking about, in the inputs, whenever you are talking, okay, so always remember, in the encoder site, whatever the input, these are basically the English sequences that you want.
+
+
+691
+01:31:05.997 --> 01:31:17.547
+PAUL: Alright, now the same thing, oppositely, inside the decoder. This actually is an input during training, you have to understand, because otherwise there is how we will send the friend sentences for learn.
+
+
+692
+01:31:17.647 --> 01:31:22.797
+PAUL: Okay, so now this output, which is written here very specifically, now this one.
+
+
+693
+01:31:23.047 --> 01:31:26.696
+PAUL: So this is actually your representation with respect to
+
+
+694
+01:31:26.917 --> 01:31:33.467
+PAUL: Let me take this one, please. So, this representation is your friend sequences.
+
+
+695
+01:31:34.297 --> 01:31:37.517
+PAUL: Based on the example that we have taken English to French.
+
+
+696
+01:31:38.817 --> 01:31:43.877
+PAUL: Okay? And here that you have, this becomes your English sequences.
+
+
+697
+01:31:45.787 --> 01:31:50.297
+PAUL: Now, it's written at output because the decoder will be producing the output.
+
+
+698
+01:31:50.447 --> 01:31:56.357
+PAUL: And your output is expected in which format? In French. So that's why it's mentioned here.
+
+
+699
+01:31:56.547 --> 01:31:58.587
+PAUL: In the outputs, it's written.
+
+
+700
+01:31:58.997 --> 01:32:04.287
+PAUL: But if you really think about now, there are two things. During training, what happens?
+
+
+701
+01:32:04.647 --> 01:32:06.896
+PAUL: And during inferencing, what happens?
+
+
+702
+01:32:07.067 --> 01:32:11.867
+PAUL: Inferencing or prediction, same thing, I can write it. You guys have used the lesser term.
+
+
+703
+01:32:16.527 --> 01:32:29.076
+PAUL: Now, during training, always the KQV, the normal calculations which will happen in the encoder side, as well as the decoder side. Okay? So, KQV, both I will write it.
+
+
+704
+01:32:31.337 --> 01:32:36.767
+PAUL: in both the side is take place. But during prediction, what are the things that you need?
+
+
+705
+01:32:37.677 --> 01:32:38.327
+PAUL: Okay?
+
+
+706
+01:32:38.327 --> 01:32:38.937
+Ankit Bhargav: Okay, andâ€¦
+
+
+707
+01:32:39.857 --> 01:32:40.527
+PAUL: Okay.
+
+
+708
+01:32:40.527 --> 01:32:41.267
+Ankit Bhargav: will come from.
+
+
+709
+01:32:41.267 --> 01:32:46.376
+PAUL: The K and the V will come from the importer side.
+
+
+710
+01:32:46.617 --> 01:32:50.367
+PAUL: And this queue, you need to calculate it from the decoder set.
+
+
+711
+01:32:51.737 --> 01:33:05.987
+PAUL: You have to understand this part. This is only with respect to the prediction. In training, everything will be calculated the KQB, but once you have done the training, it means that you have already had the model, and in that model, the KQ values are already saved.
+
+
+712
+01:33:06.137 --> 01:33:24.156
+PAUL: Now, the question comes, during prediction, for sure, the query won't be exactly the same every time. So, what you need to do, the K and V will be calculated in the encoder, and then the information will be sent to the decoder, and from the decoder's side, again, your KQV will
+
+
+713
+01:33:24.447 --> 01:33:31.646
+PAUL: will be calculated, but only the information which will be flowing to the cross-attention branch, it will be only the key.
+
+
+714
+01:33:32.277 --> 01:33:44.167
+PAUL: Okay, so it means that the calculations are there, but actually only use the data which is required for our final cross-attention calculation. So, based on that formula only, I'm talking about.
+
+
+715
+01:33:45.827 --> 01:33:50.496
+Ankit Bhargav: Okay, and what, is shifted right means here?
+
+
+716
+01:33:51.507 --> 01:33:56.766
+PAUL: shifted right, it is basically with respect to the data, that particular. Now, it's aâ€¦
+
+
+717
+01:33:56.827 --> 01:34:16.636
+PAUL: Generally, in decoder, whenever you are working, all the inputs, it means whatever the decoder is receiving the output, you shift it. So, generally, through an offset-based mapping, we try to do that change. It's just like one-line change. Whenever, if I'm adding any type of sequences, you have to understand there are some type of special tokens which comes. So, for example, like SOS.
+
+
+718
+01:34:16.727 --> 01:34:26.356
+PAUL: So generally, we can refer them as start of a sentence. In that case, you have to shift the sequence. I will say that this sentence has started, and at the end, I will say that this is EOS.
+
+
+719
+01:34:26.597 --> 01:34:34.246
+PAUL: So you need to perform a shift-west operation. A very similar operation even happens with respect to, your input as also.
+
+
+720
+01:34:34.627 --> 01:34:41.497
+PAUL: Later on, we will come to the special token parts when we talk about tokenization, very specifically BP-based ones.
+
+
+721
+01:34:41.677 --> 01:34:53.027
+PAUL: It means that you have to understand, by default, if I have a sequence, like, my name is Bert. But directly, when I'll be passing it to the decoder, I'll be adding a very specific, special token. Because of that, that shifting will happen.
+
+
+722
+01:34:54.047 --> 01:34:55.217
+PAUL: I hope you get that.
+
+
+723
+01:34:55.217 --> 01:35:09.217
+Ankit Bhargav: Yeah, and just a small doubt. So, from encoder, we pass the K and V. Now, where exactly it is stored? Like, we do KV caching, right? So, is it in memory? Like, can we say it isâ€¦
+
+
+724
+01:35:09.597 --> 01:35:21.726
+PAUL: Yes, yes, yes, just think about whenever I am doing, it's part of your memory. So, generally, what we do, once the KQV is calculated in the memory, you have both the information, KQV matrix.
+
+
+725
+01:35:22.357 --> 01:35:32.827
+PAUL: Now, out of that, simply index it out. Simple indexing operation, take only the K and Q, and reject the V from there. Okay, so in our case, I think I have written the Q part.
+
+
+726
+01:35:32.827 --> 01:35:34.307
+Ankit Bhargav: A and V, right?
+
+
+727
+01:35:34.537 --> 01:35:35.447
+PAUL: Yes, scanned.
+
+
+728
+01:35:35.447 --> 01:35:36.616
+Ankit Bhargav: We reject the queue.
+
+
+729
+01:35:37.107 --> 01:35:37.717
+PAUL: Yes.
+
+
+730
+01:35:37.957 --> 01:35:40.397
+PAUL: Reject, when I say simply, don't intend.
+
+
+731
+01:35:40.397 --> 01:35:41.476
+Ankit Bhargav: Card? Yeah, yeah.
+
+
+732
+01:35:41.477 --> 01:35:42.996
+PAUL: Discard the value, as simple as that.
+
+
+733
+01:35:44.527 --> 01:35:46.196
+Ankit Bhargav: Yeah, got it, thank you.
+
+
+734
+01:35:47.657 --> 01:35:48.787
+PAUL: Alright, Ankit.
+
+
+735
+01:35:50.657 --> 01:35:53.526
+PAUL: Now let's ask Pritam.
+
+
+736
+01:35:53.767 --> 01:35:58.386
+PAUL: Pritam, your doubt, let me know, based on our discussion.
+
+
+737
+01:36:00.117 --> 01:36:04.226
+PAUL: Prince or Pritam. Anybody can pursue, whoever has raised their eyes.
+
+
+738
+01:36:04.447 --> 01:36:05.816
+Pritam: Paul, sir? Yes, sure.
+
+
+739
+01:36:05.817 --> 01:36:06.947
+PAUL: Hmm.
+
+
+740
+01:36:07.607 --> 01:36:08.927
+PAUL: Anybody can proceed.
+
+
+741
+01:36:08.927 --> 01:36:22.427
+Pritam: Yeah, yeah, Pritam aside. So, just, I wanted to revisit the calculation formula part, where you have written Q transâ€¦ K transpose, and all. How we derive it, like, the intuition behind,
+
+
+742
+01:36:22.807 --> 01:36:26.197
+Pritam: The formula is something I'm not able to recollect.
+
+
+743
+01:36:27.147 --> 01:36:29.606
+PAUL: Intuition behind the formula.
+
+
+744
+01:36:29.607 --> 01:36:34.576
+Pritam: like, how it's only Q and K transpose multiplied by, how.
+
+
+745
+01:36:34.577 --> 01:36:35.137
+PAUL: Alright.
+
+
+746
+01:36:35.137 --> 01:36:36.347
+Pritam: There are a lot ofâ€¦
+
+
+747
+01:36:36.347 --> 01:36:39.276
+PAUL: first formula. So, how this formula came?
+
+
+748
+01:36:39.277 --> 01:36:40.087
+Pritam: Game, yes.
+
+
+749
+01:36:41.197 --> 01:36:45.657
+PAUL: how this formulaâ€¦ because when I told you, we will be introducing the matrix.
+
+
+750
+01:36:46.787 --> 01:36:53.196
+PAUL: Yes or no. After the self-attention, when there was no bits, I told you, the matrix will come into the system.
+
+
+751
+01:36:55.167 --> 01:36:58.537
+PAUL: After that, now this is a simple matrix operation.
+
+
+752
+01:37:00.637 --> 01:37:07.986
+PAUL: That part, I want to make it much more clear. Whenever I'm talking with respect, now, youâ€¦ what is your main portion behind this?
+
+
+753
+01:37:09.007 --> 01:37:15.996
+PAUL: Like, you were telling you are not getting the intuition. It means that, do you not understand what is Q? Do you don't understand what is K?
+
+
+754
+01:37:16.817 --> 01:37:18.026
+PAUL: Is this the part?
+
+
+755
+01:37:18.027 --> 01:37:18.997
+Pritam: Yes.
+
+
+756
+01:37:20.347 --> 01:37:26.167
+PAUL: Alright, you don't understand, like, whatâ€¦ thenâ€¦ alright, today, you should have to ask the question.
+
+
+757
+01:37:26.397 --> 01:37:32.986
+PAUL: Yes, Jatin only. Because in our case, I have taken the example with respect to the matrix. Everything is a matrix here.
+
+
+758
+01:37:33.507 --> 01:37:44.787
+PAUL: And if it is a board shape, you cannot do a direct multiplication, you have to take the transpose. Mathematically, not possible. Because of that, we have taken. I got the idea, the same thing I think Partha told, but that idea.
+
+
+759
+01:37:44.787 --> 01:37:45.167
+Pritam: But,
+
+
+760
+01:37:45.167 --> 01:37:45.626
+PAUL: I wasâ€¦
+
+
+761
+01:37:45.627 --> 01:37:58.867
+Pritam: DKI is having the same matrix, si- shape, let's say, some K cross K, but then again, why the transpose is required here, and, Dâ€¦ in the denominator, we are dividing by the DK, soâ€¦
+
+
+762
+01:37:59.117 --> 01:37:59.887
+Pritam: I know this gameâ€¦
+
+
+763
+01:37:59.887 --> 01:38:06.956
+PAUL: I told you need the scaling factor. Without that, the training will be unstable. It's written in the paper also, I read the paper also.
+
+
+764
+01:38:06.957 --> 01:38:07.487
+Pritam: Yep.
+
+
+765
+01:38:07.657 --> 01:38:13.507
+PAUL: And while transpose is written, if both the shapes are same, mathematically, how it is possible?
+
+
+766
+01:38:16.917 --> 01:38:22.477
+PAUL: When you ask the questions, it means that your metrics for fundamentals not clear.
+
+
+767
+01:38:23.587 --> 01:38:26.517
+PAUL: Both shapes, can you do it, mathematically?
+
+
+768
+01:38:26.517 --> 01:38:32.477
+Pritam: Now, suppose if Iâ€¦ Q is having 3 cross 3, and K is also having 3 cross 3. Yes, it is possible without two transports.
+
+
+769
+01:38:32.737 --> 01:38:40.007
+PAUL: See, once I have written this, okay, because both the shapes, whenever you are taking that particular output.
+
+
+770
+01:38:40.207 --> 01:38:48.006
+PAUL: Right now, let's talk, because in the initial example I have taken with respect to the vectors example, in the vector form, you cannot take it, actually.
+
+
+771
+01:38:48.367 --> 01:38:53.457
+PAUL: Because of that, the transfer that comes. In our initial, we have taken the dot product, if you remember.
+
+
+772
+01:38:54.647 --> 01:39:01.607
+PAUL: think from, first of all, the vector, then bring the matrix into the system. When you think from the vector perspective, it is not possible.
+
+
+773
+01:39:05.257 --> 01:39:17.197
+PAUL: Okay, that's why I want to bring both the scenarios into the picture. First of all, think from the vector perspective, then come to the matrix perspective. Then only you can understand, because mathematically, it is not possible.
+
+
+774
+01:39:19.207 --> 01:39:23.017
+PAUL: Now, if you ask me why it is not possible, simple. Rules are there.
+
+
+775
+01:39:23.017 --> 01:39:23.587
+Pritam: Hit it.
+
+
+776
+01:39:23.897 --> 01:39:25.107
+Pritam: Mark?
+
+
+777
+01:39:25.537 --> 01:39:27.956
+PAUL: That's why, don't think from one perspective.
+
+
+778
+01:39:28.127 --> 01:39:32.157
+PAUL: look into both the prospects. We start with a vector, then it becomes a meter.
+
+
+779
+01:39:32.537 --> 01:39:52.417
+PAUL: So, you have to look into both the conditions. Fine, I think, because I think this will be much more clear once you see visually, what happens to the matrix. Okay, I think partha's, part, let's do the visualization. Because, see, you have to understand the math behind it. If it is not clear in your mind, then simply, like, these type of questions will come.
+
+
+780
+01:39:53.477 --> 01:40:06.566
+PAUL: The idea is you have that clarity, because starting from back propagation, matrixes, everything, okay? So fine, I think probably in the next class, if I take that example, it will become much more key, okay?
+
+
+781
+01:40:07.147 --> 01:40:11.977
+PAUL: Alright, I got Pritam's idea. Now, coming to next, who is there?
+
+
+782
+01:40:12.287 --> 01:40:14.826
+PAUL: Hi. Prince? Yes, Prince. You're fine.
+
+
+783
+01:40:14.827 --> 01:40:21.386
+Priince: Since you're taking doubts, and from Wednesday, you'll be starting a revision session from self-adension, right?
+
+
+784
+01:40:21.387 --> 01:40:36.207
+PAUL: I have not completed that part, the final, exactly, because positional and putting feedback, what those components are also happening. But I will start from scratch, so probably Wednesday or Saturday, the same content we will be going through, because in 90-minute session, it is not possible to complete that.
+
+
+785
+01:40:36.207 --> 01:40:41.037
+Priince: Of course, of course. And, means you are ending the session, or means you are continuing, soâ€¦
+
+
+786
+01:40:41.037 --> 01:40:47.397
+PAUL: No, Pradeep, yeah, I'll be ending it. Then it doesn't make sense to teach other things if you don't get your studies continue.
+
+
+787
+01:40:47.897 --> 01:40:50.087
+PAUL: Okay. I hope. Excellent.
+
+
+788
+01:40:50.417 --> 01:40:51.647
+Priince: Okay, thank you.
+
+
+789
+01:40:52.037 --> 01:41:03.667
+PAUL: Alright, because I feel that it's better than if we start from scratch only, because most of the things you have got it, but I feel that somehow the visualization in your mind
+
+
+790
+01:41:03.667 --> 01:41:15.317
+PAUL: It somehow is on the lesser side, but totally acceptable. But, before that, let's look into, because I will be closing the session only, little bit with respect to the explainer part, let me look into that part.
+
+
+791
+01:41:15.317 --> 01:41:21.026
+PAUL: Okay, because the idea is a little bit with respect to visualization. First of all, let's look into our visualizer.
+
+
+792
+01:41:21.167 --> 01:41:23.037
+PAUL: And then I think we can proceed.
+
+
+793
+01:41:23.317 --> 01:41:28.397
+PAUL: Okay, with the break. So, probably in the next class, I will directly start with the
+
+
+794
+01:41:28.807 --> 01:41:34.137
+PAUL: Main form. So, little bit of visualization, till now we have looked into lesser visualization.
+
+
+795
+01:41:34.257 --> 01:41:48.567
+PAUL: So, let's tape the form. I will start sharing the screen, okay? And again, and probably next Saturday also, I'll be talking about this. This architecture should be very, very clear in here.
+
+
+796
+01:41:49.947 --> 01:42:02.447
+PAUL: All right. Now, the first part. I have taken the explainer, and I'm sharing the link. This is the Transformers explainer part, and the main visualization, with respect to all the operations.
+
+
+797
+01:42:03.977 --> 01:42:06.687
+PAUL: Okay, so probably I've takenâ€¦ yeah.
+
+
+798
+01:42:07.447 --> 01:42:08.237
+PAUL: Love it.
+
+
+799
+01:42:08.237 --> 01:42:28.767
+PAUL: Now, this is the complete whole block, you have to think. So, for example, at any point of time, what is the input vector dimension? So, in this particular example, they have taken 768. Anybody can take any dimensions, because totally vectors, 512 is also acceptable, 1024, any type of embedding. But just try to click at any point, and just try to
+
+
+800
+01:42:28.767 --> 01:42:33.077
+PAUL: See, so first of all, let's try to look into the KQV calculation.
+
+
+801
+01:42:34.027 --> 01:42:49.027
+PAUL: Now, please have a look intoâ€¦ this is the main query, key value calculation step-by-step, which has been shown in, from the neural network perspective. Because whenever I say a neural network, it means weights and biases will come into the system.
+
+
+802
+01:42:49.997 --> 01:43:00.467
+PAUL: So, based on that, so that's why please have a look into the visualization part for every word, first of all, whenever I'm doing this, so now this is the embedding representation.
+
+
+803
+01:43:00.847 --> 01:43:09.816
+PAUL: Alright, then you have the KQV matrix. So once you do the multiplication now, this is the final KQV form, exactly how it looks like.
+
+
+804
+01:43:10.077 --> 01:43:12.956
+PAUL: And from where we are getting this 2304,
+
+
+805
+01:43:16.717 --> 01:43:18.737
+PAUL: Here, I think everybodyâ€¦
+
+
+806
+01:43:18.897 --> 01:43:28.166
+PAUL: can see. Now, this is a linear combination, and in this particular layer, we have that linear, L layer, basically.
+
+
+807
+01:43:28.397 --> 01:43:43.327
+PAUL: Okay, so now, see, whenever you think about the matrix, please have a look at least from here. In that way, also, you will get the idea. Okay, whoever wants that visualizer part. Because this is much more clearer, I can only take the example with one matrix to one matrix only.
+
+
+808
+01:43:43.387 --> 01:43:52.646
+PAUL: Okay, but if you want a detail-level explainer here, this is the best form I can say. Now, again, here, nobody will tell you the internal working. Again.
+
+
+809
+01:43:52.817 --> 01:44:09.066
+PAUL: This is only with respect to the query part, but how the information actually flows, that part only mentioned. So that's why if you want to use this, please use this, because this is one of the best explainers, I can say, with visualization tools. Other than that, there are
+
+
+810
+01:44:09.117 --> 01:44:20.306
+PAUL: no other tool directly where you can do the visualization. So here, at any point of time, if you want to look into any node, please just be sure you are clicking there. Based on that, all the entries will be shown.
+
+
+811
+01:44:20.927 --> 01:44:23.527
+PAUL: Is this part clear? I have shared the link.
+
+
+812
+01:44:23.817 --> 01:44:34.686
+PAUL: If you want to do the visualization exactly for the KQV, how this is getting generated, and finally the attention block is coming. Same thing that we have repeated, the KQT.
+
+
+813
+01:44:35.237 --> 01:44:37.077
+PAUL: the same transaction.
+
+
+814
+01:44:38.577 --> 01:44:46.327
+PAUL: Now, how many of you feel that this is a better version, at least to visualize? Because this is actually happening behind the scenes.
+
+
+815
+01:44:46.847 --> 01:44:54.616
+PAUL: First, you take the dot product. After dot product, you have the scaling and the mask operation. After the scaling and mask, you have the soft lines.
+
+
+816
+01:44:55.257 --> 01:45:04.007
+PAUL: Please let me know in the chat. Somehow, this gives you a better idea with respect to the visualization. Yes or no, whoever is there.
+
+
+817
+01:45:06.107 --> 01:45:13.227
+PAUL: Because generally, we show this part at the last, once you have understood the concept, then it becomes much more clear.
+
+
+818
+01:45:13.597 --> 01:45:21.777
+PAUL: But, in the meantime, if you want to look into, please have a look, because of very similar operations that are taking place. So right now, probably the highest value.
+
+
+819
+01:45:21.947 --> 01:45:34.456
+PAUL: the complete range between 0 to 1, 0, the same things that I have told. Now, there are 12 bits. In this example, you have to understand you cannot directly relate to the paper. It's somehow a different version, not exactly the paper version.
+
+
+820
+01:45:34.457 --> 01:45:48.196
+PAUL: But simply, you can look into the multiple heads exactly, where each of the heads are focusing. As I told you, multiple heads, they will be focusing on different type of patterns, feature, and relationship. You can always get that wherever that highest value that you have.
+
+
+821
+01:45:48.927 --> 01:45:49.757
+PAUL: Nothing?
+
+
+822
+01:45:50.407 --> 01:46:01.807
+PAUL: Now, this is the main block, because after this, there won't be other blocks, and then finally comes. So, lesser visualization, and now this is the generator part. I think we haveâ€¦ I have not taught it.
+
+
+823
+01:46:01.807 --> 01:46:15.686
+PAUL: Till now, this was today's part, but, fine. I think we can discuss first. So please use this one, at least to do the visualization in your mind at any point of time when you feel that you are not clear exactly what is happening.
+
+
+824
+01:46:15.767 --> 01:46:29.447
+PAUL: Okay, now, starting from, you have the data, you create the token embeddings, you add the positional embeddings, as you can see, 0, 1, 2, 3, 4, which is being added. Once this part is done, now this is where your importer block starts.
+
+
+825
+01:46:29.647 --> 01:46:35.317
+PAUL: So, once you see the encoder block getting started, your KQV, the multi-retentions comes into the system.
+
+
+826
+01:46:35.587 --> 01:46:53.256
+PAUL: Okay, now, in this particular case, like, 3 separate matrix forms that I have, the key, the query, and the matrix. And then, based on that, the final attention that we have broken. Now, this is the same formula, KQT. After that, you need to apply the scaling, which is root over DK,
+
+
+827
+01:46:53.427 --> 01:46:56.596
+PAUL: Okay, and then finally, you have the final statements.
+
+
+828
+01:46:57.147 --> 01:47:09.756
+PAUL: Now, fine. I think we will then completely revise this part, starting from scratch. But this is the main one, so please use this at least for your revision of self-attention, and for the revision of
+
+
+829
+01:47:09.997 --> 01:47:28.656
+PAUL: multi-tension. These two concepts, just try to do the revision, and try to come up with more and more questions for Windows Test Class, okay? Is this part clear? Then probably I'll be concluding the session for today only, okay, till this point, because it doesn't make sense to continue if you don't get the initial part of it.
+
+
+830
+01:47:29.987 --> 01:47:31.247
+PAUL: Alright, guys?
+
+
+831
+01:47:33.207 --> 01:47:35.447
+PAUL: Please let me know. Yes?
+
+
+832
+01:47:36.037 --> 01:47:53.046
+PAUL: Okay, so we will do the complete revision. See, Wednesday, 90 minutes, so probably only the encoder side, only we can look at, but next Saturday, from the decoder side. An encoder, just be sure at least one side is clear. If the encoder is not clear, automatically the decoder becomes a problem, too.
+
+
+833
+01:47:53.167 --> 01:48:05.417
+PAUL: Okay, and I'll be taking a few raw matrix examples, just to show you, mathematically, what are the things possible according to the rules, and what are the things not possible. And that way, it will become much more clear in yourâ€¦
+
+
+834
+01:48:06.437 --> 01:48:15.817
+PAUL: All right, guys, so I think, let's keep it till this point for today's discussion, and then, finally, in the next class, let's start with the
+
+
+835
+01:48:16.397 --> 01:48:27.337
+PAUL: tax. Scratch stuff. So the idea is I won't be writing every equation, the idea is every time I'll be doing only one equation. Because automatically, it's the revision part, so somehow, to pick up the piece.
+
+
+836
+01:48:27.457 --> 01:48:29.397
+PAUL: But we'll be covering all the minimum.
+
+
+837
+01:48:30.987 --> 01:48:42.136
+PAUL: Alright, so, just do a small revision. Okay, and use this explainer at any point of time. So, Wednesday, let's start from the, self-attention part ones.
+
+
+838
+01:48:42.677 --> 01:48:43.607
+PAUL: All right.
+
+
+839
+01:48:43.737 --> 01:48:50.616
+PAUL: find us. So, I think I can conclude. Any other questions, if you have, please let me know in the chat, so simply I can take it.
+
+
+840
+01:48:50.717 --> 01:48:56.526
+PAUL: I'm unable to unmute. If you have raised your hand, simply others can also ask the question.
+
+
+841
+01:48:57.397 --> 01:48:59.376
+PAUL: Can you add that.
+
+
+842
+01:48:59.377 --> 01:49:01.756
+Priince: PDF, means Notes PDF.
+
+
+843
+01:49:02.017 --> 01:49:04.387
+PAUL: Yes, yes, he was ancient.
+
+
+844
+01:49:10.687 --> 01:49:11.497
+PAUL: Shouldn't.
+
+
+845
+01:49:14.507 --> 01:49:24.927
+PAUL: the same PDF that I've been using it. But one small change, please look into the change, because in the last class, the main change that I have done, the same root 8,
+
+
+846
+01:49:27.157 --> 01:49:28.596
+PAUL: I have shared it.
+
+
+847
+01:49:28.697 --> 01:49:47.037
+PAUL: And right now, don't focus on the decoder side, again, I will repeat it, but just be sure, if you are not clear with the mathematical transformations, or the matrix transformations which are happening in the encoder, the same thing that happens in the decoder. So, at least from the encoder side, it should be pretty much clear.
+
+
+848
+01:49:48.647 --> 01:50:05.097
+PAUL: All right, so fine. Wednesday, we will start with the self-attention, complete revision, then multi-year retention, and then finally we will look into the cross-attention. So, if possible, spend some time on cross-attention also, but leave it. But just be sure at least you know every operation from the importer side.
+
+
+849
+01:50:05.317 --> 01:50:08.147
+PAUL: Okay, and so that you can come up with more questions.
+
+
+850
+01:50:08.457 --> 01:50:12.726
+PAUL: Like, after I do the revision of the entire encoder code.
+
+
+851
+01:50:13.057 --> 01:50:26.566
+PAUL: Okay, guys? The idea is come up with more questions. Tell the time questions are not clear. Okay, and just be sure you are asking more questions whenever you are thinking in your mind. In that way, the clarity will be much more better.
+
+
+852
+01:50:27.757 --> 01:50:35.307
+PAUL: All right, fine. Now, I've shared that. Gopiredi, please raise your hand, then only I can unmute you.
+
+
+853
+01:50:35.637 --> 01:50:39.127
+PAUL: Okay, our notes shared here, already I've shared the notes, no?
+
+
+854
+01:50:40.367 --> 01:50:48.526
+PAUL: I think everybody got the notes, I have shared it. The note aid, the same PDF that we have been continuing. Yes or no? Please let me know in the chat at least, guys.
+
+
+855
+01:50:49.957 --> 01:50:54.326
+PAUL: Okay? Fine. All right. Now, I think D has raised his hand.
+
+
+856
+01:50:56.927 --> 01:50:58.497
+PAUL: D?
+
+
+857
+01:50:59.337 --> 01:51:04.197
+PAUL: whoever is Are you there?
+
+
+858
+01:51:04.907 --> 01:51:14.197
+PAUL: or anybody any questions, please let me know, because I have time. Otherwise, who want to talk? They can talk. If you don't have any questions, directly come to Wednesday. We'll start from the self-attention.
+
+
+859
+01:51:15.027 --> 01:51:20.226
+PAUL: Yes, please let me know, D. Mario, I'm not getting Jatin. Alright. Jatin?
+
+
+860
+01:51:20.637 --> 01:51:22.836
+PAUL: I think you can proceed in the meantime.
+
+
+861
+01:51:23.677 --> 01:51:24.647
+D: Hello?
+
+
+862
+01:51:25.797 --> 01:51:26.727
+PAUL: Yes?
+
+
+863
+01:51:26.727 --> 01:51:28.276
+D: Alyssa, am I audible?
+
+
+864
+01:51:28.657 --> 01:51:30.067
+PAUL: Yes, you are audible.
+
+
+865
+01:51:31.957 --> 01:51:39.086
+D: Okay, isn't nothing much, I, I joined this class, like, today, one hour late, sorry.
+
+
+866
+01:51:39.277 --> 01:51:49.737
+D: I mean, I'm just asking, is there any particular paper relating to encoder and decoder that has been shared?
+
+
+867
+01:51:50.527 --> 01:51:53.227
+PAUL: Yes, the sequence-to-sequence learning paper.
+
+
+868
+01:51:55.807 --> 01:52:02.336
+D: No, not the, like, attention paper, like, the Transformer paper.
+
+
+869
+01:52:03.187 --> 01:52:05.886
+D: Relating to encoder and decoder, particularly.
+
+
+870
+01:52:05.887 --> 01:52:08.976
+PAUL: Yes, sequence to sequence paper, and when does I show you, no?
+
+
+871
+01:52:08.977 --> 01:52:10.057
+D: Perfect, buddy.
+
+
+872
+01:52:11.627 --> 01:52:13.097
+D: Okay, alright.
+
+
+873
+01:52:14.027 --> 01:52:14.687
+PAUL: Alright.
+
+
+874
+01:52:15.177 --> 01:52:15.877
+PAUL: Right.
+
+
+875
+01:52:16.577 --> 01:52:17.616
+Jatin Gautam: Yeah, hello, sir.
+
+
+876
+01:52:17.937 --> 01:52:20.236
+PAUL: Yes, I think. Jatin, please proceed.
+
+
+877
+01:52:20.237 --> 01:52:39.207
+Jatin Gautam: Yeah, I'm getting everything what you have told till now, so I just want to confirm that, have you, in that deep learning part, is there any topic which you have missed, right? Like, you were saying CNN is missed, so till the next week, I'd like to cover up all the missing sessions.
+
+
+878
+01:52:39.407 --> 01:52:48.686
+PAUL: In CNS, if you have time, just look into the ResNet part. It is not taught here. You have to do the cell part, because in this bag, there is no vision component.
+
+
+879
+01:52:48.997 --> 01:52:49.507
+PAUL: Nope.
+
+
+880
+01:52:49.507 --> 01:52:50.737
+Jatin Gautam: Okay, okay, I see.
+
+
+881
+01:52:50.737 --> 01:52:55.657
+PAUL: If you have time, go through, because the residual connections idea comes from there only.
+
+
+882
+01:52:55.837 --> 01:53:08.027
+PAUL: And similarly, little bit about the batch norm, because again, the idea is to connect it with the layer normalization. These two things, if you can refer, because these are the external components. Okay, the internal components already I have told you.
+
+
+883
+01:53:08.737 --> 01:53:09.557
+Jatin Gautam: Okay, sir.
+
+
+884
+01:53:10.037 --> 01:53:11.746
+PAUL: Okay, horrible point.
+
+
+885
+01:53:12.267 --> 01:53:17.646
+PAUL: Alright, so Chitu Mala is asking, no link which has Transformers and no link.
+
+
+886
+01:53:17.897 --> 01:53:23.406
+PAUL: What is the meaning? No only link? I could not get this, but which is Transformers information.
+
+
+887
+01:53:24.207 --> 01:53:26.497
+PAUL: Known lily links, what is the meaning of that?
+
+
+888
+01:53:28.167 --> 01:53:34.407
+PAUL: Arpitha, please let me move that part. Otherwise, simply raise your hand and give me clarity.
+
+
+889
+01:53:34.587 --> 01:53:37.307
+PAUL: Set PDF share. Okay.
+
+
+890
+01:53:37.437 --> 01:53:39.727
+PAUL: Yes, I think I have shared the PDF, no?
+
+
+891
+01:53:40.047 --> 01:53:45.967
+PAUL: Yes. I hope everybody got the PDF, please let me know, I've shared it in the chat with everyone.
+
+
+892
+01:53:46.147 --> 01:53:51.076
+PAUL: Please let me know with, yes, yes, something like in the chat. Like, shared, shared, share.
+
+
+893
+01:53:52.067 --> 01:53:55.827
+PAUL: Prince told yes. Alright, fine. Thanks, Prince, for the confirmation.
+
+
+894
+01:53:56.387 --> 01:53:58.126
+PAUL: Okay, alright, got it, fine.
+
+
+895
+01:53:59.347 --> 01:54:14.097
+PAUL: All right, guys, so let's conclude it, okay? So, next session, the idea is, but before that, at least do the revision, because this is tough, initially, I can say the architecture, but the idea is a little bit revision, because in 3 to 4 times when you do the revision, everything gets much more clear.
+
+
+896
+01:54:14.097 --> 01:54:21.497
+PAUL: So at least spend a few minutes, because today you have time, probably after this session, spend at least one hour decoding stuff.
+
+
+897
+01:54:21.807 --> 01:54:28.417
+PAUL: Okay? All of it. And try to ask questions also. Why this is not possible, and how this is going.
+
+
+898
+01:54:28.577 --> 01:54:34.736
+PAUL: In that way. In the next class, I'll be taking examples with respect to raw matrices, just to show you the transform initiatives.
+
+
+899
+01:54:35.307 --> 01:54:40.976
+PAUL: Alrighty, guys, so I'll beâ€¦ Arpitha, okay, you have raised your hand, Arpitha, so I thinkâ€¦
+
+
+900
+01:54:41.317 --> 01:54:43.856
+PAUL: Questions, please let me know.
+
+
+901
+01:54:48.557 --> 01:54:55.407
+PAUL: Alright, I've asked you to unmute, butâ€¦ No questions from your end.
+
+
+902
+01:54:55.407 --> 01:54:56.846
+Chittumalla, Arpitha: Okay. Hello?
+
+
+903
+01:54:57.577 --> 01:54:58.577
+PAUL: Okay, yes.
+
+
+904
+01:54:58.897 --> 01:55:08.927
+Chittumalla, Arpitha: Yeah, so is it Transform Expiration what is the same PDF, or different? Because I got only Transformers related link.
+
+
+905
+01:55:09.917 --> 01:55:13.546
+PAUL: link. I have not shared any link, I've just shared a PDF.
+
+
+906
+01:55:14.067 --> 01:55:20.177
+Chittumalla, Arpitha: No, no, this poor club GitHub Transform Explainer is there, that link only I received.
+
+
+907
+01:55:20.407 --> 01:55:21.806
+Chittumalla, Arpitha: In the chat, shall we?
+
+
+908
+01:55:21.807 --> 01:55:22.407
+PAUL: P.
+
+
+909
+01:55:22.707 --> 01:55:23.137
+Chittumalla, Arpitha: Should weâ€¦
+
+
+910
+01:55:23.137 --> 01:55:24.257
+PAUL: RTM also.
+
+
+911
+01:55:24.257 --> 01:55:26.936
+Chittumalla, Arpitha: Where you shared in the chart, or it is in theâ€¦
+
+
+912
+01:55:26.937 --> 01:55:28.566
+PAUL: Yeah, in the chat, in the chat.
+
+
+913
+01:55:28.567 --> 01:55:30.366
+Chittumalla, Arpitha: I haven't received anything.
+
+
+914
+01:55:30.747 --> 01:55:31.887
+Chittumalla, Arpitha: Can you please share a little bit?
+
+
+915
+01:55:31.887 --> 01:55:36.017
+PAUL: Because, see, whenever I share, there is only one option with me, everyone.
+
+
+916
+01:55:36.117 --> 01:55:39.427
+PAUL: And I have pulled, and others are telling they have received it in the chat.
+
+
+917
+01:55:39.857 --> 01:55:40.647
+PAUL: If possible.
+
+
+918
+01:55:40.647 --> 01:55:42.887
+Chittumalla, Arpitha: Appreciate it, appreciate it again.
+
+
+919
+01:55:46.137 --> 01:55:48.477
+PAUL: Okay, let me just finish it.
+
+
+920
+01:55:48.937 --> 01:55:51.797
+PAUL: Because everyone I have shared and others has also been home.
+
+
+921
+01:55:51.797 --> 01:55:55.247
+Priince: Let me doâ€¦ I'll, share in the community.
+
+
+922
+01:55:55.857 --> 01:55:59.747
+PAUL: Leave it, I have uploaded right now. Don't do it in the community.
+
+
+923
+01:56:01.217 --> 01:56:03.697
+PAUL: Alright, I have shared it up with her again.
+
+
+924
+01:56:07.037 --> 01:56:08.127
+PAUL: Perfect.
+
+
+925
+01:56:08.267 --> 01:56:15.866
+PAUL: Now, the next part, because I will add it, probably, the ops team will add it in the Notion also, and even I will do it. Later on, it can dig it from Notion.
+
+
+926
+01:56:16.647 --> 01:56:18.207
+PAUL: Not too long time.
+
+
+927
+01:56:18.397 --> 01:56:33.197
+PAUL: All right, so please do the revision before Wednesday's session. Today, also, you have time, spend at least 1 hour or two hours on that, and try to go through the paper, at least read it, okay? That is my humble request to everybody. So, next class, again, let's start from scratch.
+
+
+928
+01:56:33.817 --> 01:56:53.287
+PAUL: Alright guys, so I'll be concluding the session. Looks like no more questions are there. Okay, I got the major problem that you faced, so probably we will try to resolve it. And I feel that if you try to spend some time by yourself, on top of that, based on the visualization and that idea, we take it, I think most of the things will be clear in your mind.
+
+
+929
+01:56:53.407 --> 01:57:04.366
+PAUL: But remember, the encoder side should be clear. If it is not clear, automatically the decoder becomes a problem. Okay? So, just look into the encoder and just be sure everything you get
+
+
+930
+01:57:04.957 --> 01:57:12.446
+PAUL: Alright guys, so let me just conclude the session, and let's meet on Wednesday, and then we will continue, okay? Soâ€¦
+
+
+931
+01:57:13.097 --> 01:57:23.267
+PAUL: Alright, Shahul is telling I've missed 4-5 classes, go through the classes. Probably the attention part I will revise, so from Wednesday, you can attend that show. Okay, that will be the main part.
+
+
+932
+01:57:23.987 --> 01:57:30.906
+PAUL: only, starting from yesterday's class was more important. Witness test class was not so much.
+
+
+933
+01:57:31.037 --> 01:57:34.817
+PAUL: Okay? But again, as I will be doing the repetition, so it's not really required.
+
+
+934
+01:57:35.127 --> 01:57:43.106
+PAUL: Alright guys, so bye-bye, everyone, thanks for joining. Okay, so let's meet on Wednesday and do, again, the redoing of Transformers elements.
+
+
+935
+01:57:43.407 --> 01:57:46.146
+PAUL: Alright, so guys, bye-bye, move on, thanks for tuning.
+
+
